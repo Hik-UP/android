@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hik_up/pages/LoginPage.dart';
 
-void main() {
-  runApp(const HikUp());
-}
-
-class HikUp extends StatelessWidget {
-  const HikUp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const MaterialApp(
+      title: 'Hik\'Up',
+      home: LoginPage(),
+    );
   }
+}
+
+void main() {
+  runApp(const MyApp());
 }
