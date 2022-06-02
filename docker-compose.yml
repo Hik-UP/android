@@ -1,0 +1,11 @@
+version: "3"
+services:
+  android:
+    container_name: hikup_android
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: hikup/android
+    volumes:
+      - ./apk/:/usr/src/app/build/app/outputs/flutter-apk/
+    stdin_open: true
