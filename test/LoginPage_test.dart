@@ -70,5 +70,10 @@ void main() {
     await tester.enterText(find.byKey(const Key('passwordKey')), 'Hello World !');
     await tester.tap(find.byType(ElevatedButton));
     await tester.pump();
+
+    // Test navigation to RegisterPage
+    await tester.tap(find.byType(TextButton));
+    await tester.pumpAndSettle();
+    expect(find.text("Register"), findsWidgets);
   });
 }

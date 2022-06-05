@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:hik_up/pages/RegisterPage.dart';
+import 'package:hik_up/pages/LoginPage.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
   @override
-  LoginPageState createState() => LoginPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+    final usernameController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+
+    usernameValidator(String username) {
+      return (RegExp(r"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$").hasMatch(username));
+    }
 
     emailValidator(String email) {
       return (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email));
@@ -31,10 +36,10 @@ class LoginPageState extends State<LoginPage> {
       	child: Column(
           children: <Widget>[
             Container(
-              height: 400,
+              height: 335,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/LoginPage/images/background.png'),
+                  image: AssetImage('assets/RegisterPage/images/background.png'),
                   fit: BoxFit.fill
                 )
               ),
@@ -42,9 +47,9 @@ class LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   Positioned(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 50),
+                      margin: const EdgeInsets.only(top: 115),
                       child: const Center(
-                        child: Text("Login", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
+                        child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
                       ),
                     ),
                   )
@@ -72,6 +77,27 @@ class LoginPageState extends State<LoginPage> {
                       key: loginFormKey,
                       child: Column(
                         children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: const BoxDecoration(
+                              border: Border(bottom: BorderSide(color: Color.fromRGBO(245, 245, 245, 1)))
+                            ),
+                            child: TextFormField(
+                              key: const Key('usernameKey'),
+                              controller: usernameController,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Username",
+                                hintStyle: TextStyle(color: Colors.grey[400])
+                              ),
+                              validator: (String? username) {
+                                if (username != null) {
+                                  return (!usernameValidator(username) ? "This is not a valid username.": null);
+                                }
+                                return (null);
+                              },
+                            ),
+                          ),
                           Container(
                             padding: const EdgeInsets.all(8.0),
                             decoration: const BoxDecoration(
@@ -131,6 +157,7 @@ class LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (loginFormKey.currentState!.validate()) {
+                          print('username: ' + usernameController.text);
                           print('email: ' + emailController.text);
                           print('password: ' + passwordController.text);
                         }
@@ -144,7 +171,7 @@ class LoginPageState extends State<LoginPage> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
                       child: const Center(
-                        child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                        child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                       )
                     ),
                   ),
@@ -156,10 +183,10 @@ class LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const RegisterPage()),
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
                       );
                     },
-                    child: const Text("No account? Create one!"),
+                    child: const Text("Already have an account? Sign in!"),
                   ),
                 ],
               ),
