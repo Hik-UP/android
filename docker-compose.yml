@@ -10,6 +10,16 @@ services:
       - ./apk/:/usr/src/app/build/app/outputs/flutter-apk/
     stdin_open: true
 
+  test:
+    container_name: hikup_android_tst
+    build:
+      context: ./
+      dockerfile: test.dok
+    image: hikup/android/test
+    volumes:
+      - ./:/usr/src/app/
+    stdin_open: true
+
   dev:
     container_name: hikup_android_dev
     build:
