@@ -16,7 +16,9 @@ class LoginPageState extends State<LoginPage> {
     final passwordController = TextEditingController();
 
     emailValidator(String email) {
-      return (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email));
+      return (RegExp(
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+          .hasMatch(email));
     }
 
     passwordValidator(String password) {
@@ -29,67 +31,68 @@ class LoginPageState extends State<LoginPage> {
     return Scaffold(
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          gradient: const LinearGradient(
-            colors: [
+            borderRadius: BorderRadius.circular(10),
+            gradient: const LinearGradient(colors: [
               Color.fromRGBO(143, 148, 251, 1),
               Color.fromRGBO(143, 148, 251, .6),
-            ]
-          )
-        ),
-        margin: EdgeInsets.all(10),
+            ])),
+        margin: const EdgeInsets.all(10),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
           child: GNav(
-            backgroundColor: Colors.transparent,
-            color: Colors.white,
-            activeColor: Colors.white,
-            tabBackgroundColor: Colors.grey.shade800,
-            padding: EdgeInsets.all(16),
-            gap: 8,
-            tabs: [
-              GButton(
-                icon: Icons.home,
-                text: 'Home',
-              ),
-              GButton(
-                icon: Icons.favorite_border,
-                text: 'Likes',
-              ),
-              GButton(
-                icon: Icons.search,
-                text: 'Search',
-              ),
-              GButton(
-                icon: Icons.settings,
-                text: 'Profile',
-              )
-            ],
-            onTabChange: (index) {
-              print(index);
-            }
-          ),
+              backgroundColor: Colors.transparent,
+              color: Colors.white,
+              activeColor: Colors.white,
+              tabBackgroundColor: Colors.grey.shade800,
+              padding: const EdgeInsets.all(16),
+              gap: 8,
+              tabs: const [
+                GButton(
+                  icon: Icons.home,
+                  text: 'Home',
+                ),
+                GButton(
+                  icon: Icons.favorite_border,
+                  text: 'Likes',
+                ),
+                GButton(
+                  icon: Icons.search,
+                  text: 'Search',
+                ),
+                GButton(
+                  icon: Icons.settings,
+                  text: 'Profile',
+                )
+              ],
+              onTabChange: (index) {
+                print(index);
+              }),
         ),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-      	child: Column(
+        child: Column(
           children: <Widget>[
             Container(
               height: 400,
               decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/LoginPage/images/background.png'),
-                  fit: BoxFit.fill
-                )
-              ),
+                  image: DecorationImage(
+                      image:
+                          AssetImage('assets/LoginPage/images/background.png'),
+                      fit: BoxFit.fill)),
               child: Stack(
                 children: <Widget>[
                   Positioned(
                     child: Container(
                       margin: const EdgeInsets.only(top: 50),
                       child: const Center(
-                        child: Text("Login", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   )
@@ -101,107 +104,116 @@ class LoginPageState extends State<LoginPage> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color.fromRGBO(143, 148, 251, .2),
-                          blurRadius: 20.0,
-                          offset: Offset(0, 10)
-                        )
-                      ]
-                    ),
-                    child: Form(
-                      key: loginFormKey,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: const BoxDecoration(
-                              border: Border(bottom: BorderSide(color: Color.fromRGBO(245, 245, 245, 1)))
-                            ),
-                            child: TextFormField(
-                              key: const Key('emailKey'),
-                              controller: emailController,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Email",
-                                hintStyle: TextStyle(color: Colors.grey[400])
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Color.fromRGBO(143, 148, 251, .2),
+                                blurRadius: 20.0,
+                                offset: Offset(0, 10))
+                          ]),
+                      child: Form(
+                        key: loginFormKey,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: Color.fromRGBO(
+                                              245, 245, 245, 1)))),
+                              child: TextFormField(
+                                key: const Key('emailKey'),
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Email",
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[400])),
+                                validator: (String? email) {
+                                  if (email != null) {
+                                    return (!emailValidator(email)
+                                        ? "This is not a valid email address."
+                                        : null);
+                                  }
+                                  return (null);
+                                },
                               ),
-                              validator: (String? email) {
-                                if (email != null) {
-                                  return (!emailValidator(email) ? "This is not a valid email address.": null);
-                                }
-                                return (null);
-                              },
                             ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              key: const Key('passwordKey'),
-                              controller: passwordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.grey[400])
+                            Container(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                key: const Key('passwordKey'),
+                                controller: passwordController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Password",
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[400])),
+                                validator: (String? password) {
+                                  if (password != null) {
+                                    return (!passwordValidator(password)
+                                        ? "Password must be at least 8 characters in length."
+                                        : null);
+                                  }
+                                  return (null);
+                                },
                               ),
-                              validator: (String? password) {
-                                if (password != null) {
-                                  return (!passwordValidator(password) ? "Password must be at least 8 characters in length.": null);
-                                }
-                                return (null);
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    )
+                            )
+                          ],
+                        ),
+                      )),
+                  const SizedBox(
+                    height: 30,
                   ),
-                  const SizedBox(height: 30,),
                   Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: const LinearGradient(
-                        colors: [
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: const LinearGradient(colors: [
                           Color.fromRGBO(143, 148, 251, 1),
                           Color.fromRGBO(143, 148, 251, .6),
-                        ]
-                      )
-                    ),
+                        ])),
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (loginFormKey.currentState!.validate()) {
-                          print('email: ' + emailController.text);
-                          print('password: ' + passwordController.text);
-                        }
-                        else {
-                          print("invalid input detected !");
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      ),
-                      child: const Center(
-                        child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                      )
-                    ),
+                        onPressed: () {
+                          if (loginFormKey.currentState!.validate()) {
+                            print('email: ' + emailController.text);
+                            print('password: ' + passwordController.text);
+                          } else {
+                            print("invalid input detected !");
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )),
                   ),
-                  const SizedBox(height: 70,),
+                  const SizedBox(
+                    height: 70,
+                  ),
                   TextButton(
                     style: TextButton.styleFrom(
-                      primary:const Color.fromRGBO(143, 148, 251, 1),
+                      primary: const Color.fromRGBO(143, 148, 251, 1),
                     ),
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const RegisterPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterPage()),
                       );
                     },
                     child: const Text("No account? Create one!"),
