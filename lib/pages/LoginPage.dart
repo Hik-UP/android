@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hik_up/pages/HomePage.dart';
 import 'package:hik_up/pages/RegisterPage.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -29,46 +29,6 @@ class LoginPageState extends State<LoginPage> {
     }
 
     return Scaffold(
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            gradient: const LinearGradient(colors: [
-              Color.fromRGBO(143, 148, 251, 1),
-              Color.fromRGBO(143, 148, 251, .6),
-            ])),
-        margin: const EdgeInsets.all(10),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: GNav(
-              backgroundColor: Colors.transparent,
-              color: Colors.white,
-              activeColor: Colors.white,
-              tabBackgroundColor: Colors.grey.shade800,
-              padding: const EdgeInsets.all(16),
-              gap: 8,
-              tabs: const [
-                GButton(
-                  icon: Icons.home,
-                  text: 'Home',
-                ),
-                GButton(
-                  icon: Icons.favorite_border,
-                  text: 'Likes',
-                ),
-                GButton(
-                  icon: Icons.search,
-                  text: 'Search',
-                ),
-                GButton(
-                  icon: Icons.settings,
-                  text: 'Profile',
-                )
-              ],
-              onTabChange: (index) {
-                print(index);
-              }),
-        ),
-      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -183,6 +143,11 @@ class LoginPageState extends State<LoginPage> {
                           if (loginFormKey.currentState!.validate()) {
                             print('email: ' + emailController.text);
                             print('password: ' + passwordController.text);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomePage()),
+                            );
                           } else {
                             print("invalid input detected !");
                           }
