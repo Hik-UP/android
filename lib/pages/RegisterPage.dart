@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hik_up/api/api.dart';
 import 'package:hik_up/pages/LoginPage.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -99,6 +100,8 @@ class RegisterPageState extends State<RegisterPage> {
                                     hintText: "Username",
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
+                                cursorColor:
+                                    const Color.fromRGBO(143, 148, 251, 1),
                                 validator: (String? username) {
                                   if (username != null) {
                                     return (!usernameValidator(username)
@@ -124,6 +127,8 @@ class RegisterPageState extends State<RegisterPage> {
                                     hintText: "Email",
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
+                                cursorColor:
+                                    const Color.fromRGBO(143, 148, 251, 1),
                                 validator: (String? email) {
                                   if (email != null) {
                                     return (!emailValidator(email)
@@ -145,6 +150,8 @@ class RegisterPageState extends State<RegisterPage> {
                                     hintText: "Password",
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
+                                cursorColor:
+                                    const Color.fromRGBO(143, 148, 251, 1),
                                 validator: (String? password) {
                                   if (password != null) {
                                     return (!passwordValidator(password)
@@ -172,15 +179,25 @@ class RegisterPageState extends State<RegisterPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           if (loginFormKey.currentState!.validate()) {
-                            print('username: ' + usernameController.text);
-                            print('email: ' + emailController.text);
-                            print('password: ' + passwordController.text);
+                            API()
+                                .register(
+                                    usernameController.text,
+                                    emailController.text,
+                                    passwordController.text)
+                                .then((response) => () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginPage()),
+                                      );
+                                    });
                           } else {
                             print("invalid input detected !");
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
+                          backgroundColor: Colors.transparent,
                           shadowColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
@@ -199,7 +216,7 @@ class RegisterPageState extends State<RegisterPage> {
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
-                      primary: const Color.fromRGBO(143, 148, 251, 1),
+                      foregroundColor: const Color.fromRGBO(143, 148, 251, 1),
                     ),
                     onPressed: () {
                       Navigator.push(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hik_up/pages/HomePage.dart';
+import 'package:hik_up/api/api.dart';
+import 'package:hik_up/pages/MapPage.dart';
 import 'package:hik_up/pages/RegisterPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -93,6 +94,8 @@ class LoginPageState extends State<LoginPage> {
                                     hintText: "Email",
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
+                                cursorColor:
+                                    const Color.fromRGBO(143, 148, 251, 1),
                                 validator: (String? email) {
                                   if (email != null) {
                                     return (!emailValidator(email)
@@ -114,6 +117,8 @@ class LoginPageState extends State<LoginPage> {
                                     hintText: "Password",
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
+                                cursorColor:
+                                    const Color.fromRGBO(143, 148, 251, 1),
                                 validator: (String? password) {
                                   if (password != null) {
                                     return (!passwordValidator(password)
@@ -141,19 +146,23 @@ class LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           if (loginFormKey.currentState!.validate()) {
-                            print('email: ' + emailController.text);
-                            print('password: ' + passwordController.text);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomePage()),
-                            );
+                            API()
+                                .login(emailController.text,
+                                    passwordController.text)
+                                .then((response) => () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MapPage()),
+                                      );
+                                    });
                           } else {
                             print("invalid input detected !");
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
+                          backgroundColor: Colors.transparent,
                           shadowColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
@@ -172,7 +181,7 @@ class LoginPageState extends State<LoginPage> {
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
-                      primary: const Color.fromRGBO(143, 148, 251, 1),
+                      foregroundColor: const Color.fromRGBO(143, 148, 251, 1),
                     ),
                     onPressed: () {
                       Navigator.push(
