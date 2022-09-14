@@ -48,15 +48,14 @@ class BodyControllerState extends State<BodyController> {
       }
     }
 
-    getToken().then((token) => {
-          if (token == null)
-            {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              )
-            }
-        });
+    getToken().then((token) {
+      if (token == null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      }
+    });
 
     return Scaffold(
       bottomNavigationBar: Container(

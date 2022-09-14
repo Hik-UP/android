@@ -149,14 +149,13 @@ class LoginPageState extends State<LoginPage> {
                             API()
                                 .login(emailController.text,
                                     passwordController.text)
-                                .then((response) => () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const MapPage()),
-                                      );
-                                    });
+                                .then((response) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MapPage()),
+                              );
+                            });
                           } else {
                             print("invalid input detected !");
                           }

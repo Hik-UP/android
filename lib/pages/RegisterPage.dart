@@ -184,14 +184,13 @@ class RegisterPageState extends State<RegisterPage> {
                                     usernameController.text,
                                     emailController.text,
                                     passwordController.text)
-                                .then((response) => () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginPage()),
-                                      );
-                                    });
+                                .then((response) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()),
+                              );
+                            });
                           } else {
                             print("invalid input detected !");
                           }

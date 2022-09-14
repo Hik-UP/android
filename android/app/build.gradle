@@ -43,8 +43,8 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.hik_up.app"
-        minSdkVersion 16
+        applicationId "com.hik_usp.app"
+        minSdkVersion 18
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
