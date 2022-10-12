@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hik_up/api/api.dart';
-import 'package:hik_up/pages/MapPage.dart';
+import 'package:hik_up/main.dart';
 import 'package:hik_up/pages/RegisterPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,12 +10,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  bool loginButtonError = false;
+  String loginButtonText = "Login";
+  dynamic loginButtonColor = const LinearGradient(colors: [
+    Color.fromRGBO(143, 148, 251, 1),
+    Color.fromRGBO(143, 148, 251, .6),
+  ]);
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-
     emailValidator(String email) {
       return (RegExp(
               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -27,6 +33,24 @@ class LoginPageState extends State<LoginPage> {
         return (false);
       }
       return (true);
+    }
+
+    resetLoginButton() {
+      loginButtonError = false;
+      loginButtonText = "Login";
+      loginButtonColor = const LinearGradient(colors: [
+        Color.fromRGBO(143, 148, 251, 1),
+        Color.fromRGBO(143, 148, 251, .6),
+      ]);
+    }
+
+    setLoginButtonError(String message) {
+      loginButtonError = true;
+      loginButtonText = message;
+      loginButtonColor = const LinearGradient(colors: [
+        Color.fromRGBO(255, 51, 51, 1),
+        Color.fromRGBO(255, 51, 51, .6),
+      ]);
     }
 
     return Scaffold(
@@ -89,6 +113,13 @@ class LoginPageState extends State<LoginPage> {
                               child: TextFormField(
                                 key: const Key('emailKey'),
                                 controller: emailController,
+                                onTap: loginButtonError
+                                    ? () {
+                                        setState(() {
+                                          resetLoginButton();
+                                        });
+                                      }
+                                    : null,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Email",
@@ -111,6 +142,13 @@ class LoginPageState extends State<LoginPage> {
                               child: TextFormField(
                                 key: const Key('passwordKey'),
                                 controller: passwordController,
+                                onTap: loginButtonError
+                                    ? () {
+                                        setState(() {
+                                          resetLoginButton();
+                                        });
+                                      }
+                                    : null,
                                 obscureText: true,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -139,10 +177,7 @@ class LoginPageState extends State<LoginPage> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        gradient: const LinearGradient(colors: [
-                          Color.fromRGBO(143, 148, 251, 1),
-                          Color.fromRGBO(143, 148, 251, .6),
-                        ])),
+                        gradient: loginButtonColor),
                     child: ElevatedButton(
                         onPressed: () {
                           if (loginFormKey.currentState!.validate()) {
@@ -150,14 +185,24 @@ class LoginPageState extends State<LoginPage> {
                                 .login(emailController.text,
                                     passwordController.text)
                                 .then((response) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MapPage()),
-                              );
+                              if (response != null &&
+                                  response.statusCode == 200) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MyApp()),
+                                );
+                              } else if (response != null) {
+                                setState(() {
+                                  setLoginButtonError("Error: Email/Password");
+                                });
+                              } else {
+                                setState(() {
+                                  setLoginButtonError(
+                                      "Error: Server unavailable");
+                                });
+                              }
                             });
-                          } else {
-                            print("invalid input detected !");
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -166,10 +211,10 @@ class LoginPageState extends State<LoginPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Text(
-                            "Login",
-                            style: TextStyle(
+                            loginButtonText,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),

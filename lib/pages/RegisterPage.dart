@@ -9,13 +9,19 @@ class RegisterPage extends StatefulWidget {
 }
 
 class RegisterPageState extends State<RegisterPage> {
+  bool registerButtonError = false;
+  String registerButtonText = "Register";
+  dynamic registerButtonColor = const LinearGradient(colors: [
+    Color.fromRGBO(143, 148, 251, 1),
+    Color.fromRGBO(143, 148, 251, .6),
+  ]);
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-    final usernameController = TextEditingController();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-
     usernameValidator(String username) {
       return (RegExp(
               r"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")
@@ -33,6 +39,24 @@ class RegisterPageState extends State<RegisterPage> {
         return (false);
       }
       return (true);
+    }
+
+    resetRegisterButton() {
+      registerButtonError = false;
+      registerButtonText = "Login";
+      registerButtonColor = const LinearGradient(colors: [
+        Color.fromRGBO(143, 148, 251, 1),
+        Color.fromRGBO(143, 148, 251, .6),
+      ]);
+    }
+
+    setRegisterButtonError(String message) {
+      registerButtonError = true;
+      registerButtonText = message;
+      registerButtonColor = const LinearGradient(colors: [
+        Color.fromRGBO(255, 51, 51, 1),
+        Color.fromRGBO(255, 51, 51, .6),
+      ]);
     }
 
     return Scaffold(
@@ -95,6 +119,13 @@ class RegisterPageState extends State<RegisterPage> {
                               child: TextFormField(
                                 key: const Key('usernameKey'),
                                 controller: usernameController,
+                                onTap: registerButtonError
+                                    ? () {
+                                        setState(() {
+                                          resetRegisterButton();
+                                        });
+                                      }
+                                    : null,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Username",
@@ -122,6 +153,13 @@ class RegisterPageState extends State<RegisterPage> {
                               child: TextFormField(
                                 key: const Key('emailKey'),
                                 controller: emailController,
+                                onTap: registerButtonError
+                                    ? () {
+                                        setState(() {
+                                          resetRegisterButton();
+                                        });
+                                      }
+                                    : null,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Email",
@@ -172,10 +210,7 @@ class RegisterPageState extends State<RegisterPage> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        gradient: const LinearGradient(colors: [
-                          Color.fromRGBO(143, 148, 251, 1),
-                          Color.fromRGBO(143, 148, 251, .6),
-                        ])),
+                        gradient: registerButtonColor),
                     child: ElevatedButton(
                         onPressed: () {
                           if (loginFormKey.currentState!.validate()) {
@@ -185,14 +220,25 @@ class RegisterPageState extends State<RegisterPage> {
                                     emailController.text,
                                     passwordController.text)
                                 .then((response) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginPage()),
-                              );
+                              if (response != null &&
+                                  response.statusCode == 200) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const LoginPage()),
+                                );
+                              } else if (response != null) {
+                                setState(() {
+                                  setRegisterButtonError(
+                                      "Error: Username/Email");
+                                });
+                              } else {
+                                setState(() {
+                                  setRegisterButtonError(
+                                      "Error: Server unavailable");
+                                });
+                              }
                             });
-                          } else {
-                            print("invalid input detected !");
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -201,10 +247,10 @@ class RegisterPageState extends State<RegisterPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Text(
-                            "Register",
-                            style: TextStyle(
+                            registerButtonText,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
