@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.0.15
   geolocator: ^9.0.1
   pedometer: ^3.0.0
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - assets/LoginPage/images/
     - assets/RegisterPage/images/
 

@@ -1,11 +1,16 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-const serverUrl = 'http://dev-hikup.westeurope.cloudapp.azure.com:8080';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class API {
+  Future<String> getServerUrl() async {
+    await dotenv.load(fileName: ".env");
+
+    return dotenv.get('SERVER_URL');
+  }
+
   Future<dynamic> login(String email, String password) async {
+    String serverUrl = await getServerUrl();
     var dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
@@ -30,6 +35,7 @@ class API {
 
   Future<dynamic> register(
       String username, String email, String password) async {
+    String serverUrl = await getServerUrl();
     var dio = Dio();
     try {
       final response = await dio.post(serverUrl + '/api/v2/register',

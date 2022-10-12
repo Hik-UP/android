@@ -11,6 +11,7 @@ apk
 .buildlog/
 .history
 .svn/
+.env
 
 # IntelliJ related
 *.iml
