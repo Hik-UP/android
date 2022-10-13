@@ -79,14 +79,17 @@ class BodyControllerState extends State<BodyController> {
               GButton(
                 icon: Icons.people,
                 text: 'Social',
+                key: Key('socialKey'),
               ),
               GButton(
                 icon: Icons.map,
                 text: 'Map',
+                key: Key('mapKey'),
               ),
               GButton(
                 icon: Icons.account_circle,
                 text: 'Profile',
+                key: Key('profileKey'),
               )
             ],
             selectedIndex: _navbarIndex,
