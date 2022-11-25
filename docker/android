@@ -1,0 +1,10 @@
+FROM cirrusci/flutter:stable
+
+WORKDIR /usr/app
+
+COPY ./app /usr/app
+
+RUN flutter pub upgrade
+RUN flutter pub get
+
+ENTRYPOINT [ "/usr/app/docker-entrypoint.sh" ]

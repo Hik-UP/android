@@ -1,34 +1,37 @@
-version: "3"
+version: "3.8"
+
 services:
-  build:
-    container_name: hikup_android_apk
+  android:
+    container_name: android
     build:
-      context: ./
-      dockerfile: build.dok
-    image: hikup/android/apk
+      context: .
+      dockerfile: ./docker/android
+    image: hikup/android
+    command: [ "${ANDROID_CMD}" ]
     volumes:
-      - ./apk/:/usr/src/app/build/app/outputs/flutter-apk/
-    stdin_open: true
+      - ./app/lib:/usr/app/lib:ro
+      - ./app/config:/usr/app/config:ro
+      - ./app/assets:/usr/app/assets:ro
+      - ./app/test:/usr/app/test:ro
 
-  test:
-    container_name: hikup_android_tst
-    build:
-      context: ./
-      dockerfile: test.dok
-    image: hikup/android/test
-    volumes:
-      - ./:/usr/src/app/
-    stdin_open: true
+      - ./app/apk:/usr/app/apk:rw
+      - ./app/coverage:/usr/app/coverage:rw
 
-  dev:
-    container_name: hikup_android_dev
-    build:
-      context: ./
-      dockerfile: dev.dok
-    image: hikup/android/dev
+      - ./app/pubspec.yaml:/usr/app/pubspec.yaml:rw
+      - ./app/pubspec.lock:/usr/app/pubspec.lock:rw
     ports:
-      - "8080:8080"
-    volumes:
-      - ./:/usr/src/app/
+      - "127.0.0.1:8080:8080"
+    networks:
+      network:
+        ipv4_address: 172.20.0.2
     stdin_open: true
     tty: true
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.20.0.0/16"
+          gateway: "172.20.0.1"

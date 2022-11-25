@@ -1,24 +1,27 @@
-name: build_apk
-
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    branches:
+      - master
+
+name: ci
 
 jobs:
-  unit_test:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v3
 
-      - name: Compose
-        uses: KengoTODA/actions-setup-docker-compose@main
-        with:
-          version: '1.29.2'
-
-      - name: Build
+      - name: install app
         shell: bash
-        run: docker-compose up build
+        run: ./app.sh docker install
+
+      - name: requirements
+        shell: bash
+        run: |
+          touch ./app/config/.env
+
+      - name: test app
+        shell: bash
+        run: ./app.sh docker test
