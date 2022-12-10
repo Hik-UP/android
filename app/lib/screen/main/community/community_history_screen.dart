@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/community/history_screen.dart';
 import 'package:hikup/screen/main/community/order_screen.dart';
 import 'package:hikup/screen/main/community/event.dart';
+import 'package:hikup/screen/main/community/pages/Journals/home.dart';
 import 'package:hikup/theme.dart';
 
 class CommunityHistoryScreen extends StatefulWidget {
@@ -56,7 +57,8 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
         controller: _tabController,
         children: [
           OrderScreen(),
-          HistoryScreen(),
+          ComePage(),
+          //HistoryScreen(),
           //EventScreen(),
         ],
       ),

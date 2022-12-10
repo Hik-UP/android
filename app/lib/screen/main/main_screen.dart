@@ -58,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
             "assets/icons/settings_outlined.png",
             "assets/icons/compass-2.png"
           ],
-          label: const ["Accueil", "Communauté", "Réglages", "Navigation"],
+          label: const ["Accueil", "Commun", "Réglages", "Navigat"],
           onChange: (val) {
             setState(() {
               _currentIndex = val;

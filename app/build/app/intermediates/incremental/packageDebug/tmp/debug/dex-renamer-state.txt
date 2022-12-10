@@ -1,4 +1,4 @@
-#Thu Dec 01 15:03:22 EET 2022
-base.0=/Users/mickael/Desktop/2/1/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+#Sat Dec 10 13:42:00 EET 2022
+base.0=/Users/mickael/Desktop/2/2/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
