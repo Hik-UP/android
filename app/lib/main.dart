@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/screen/main/home/notification.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
         canvasColor: colorWhite,
       ),
       home: skipOnBoarding ? MainScreen(currentScreen: 0) : OnboardingScreen(),
+      routes: {
+        NotificationView.routeName: (_) => const NotificationView(),
+      },
     );
   }
 }

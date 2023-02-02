@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:hikup/screen/main/home/notification.dart';
 import 'package:hikup/screen/search_screen.dart';
 import 'package:hikup/theme.dart';
 
@@ -60,33 +61,38 @@ class Header extends StatelessWidget {
             ),
             Row(
               children: [
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    const Icon(
-                      FontAwesomeIcons.bell,
-                      size: 23,
-                    ),
-                    Positioned(
-                      right: 0,
-                      top: -5,
-                      child: Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: const BoxDecoration(
-                          color: primaryColor500,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Text(
-                          "3",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 8.0,
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pushNamed(
+                    NotificationView.routeName,
+                  ),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      const Icon(
+                        FontAwesomeIcons.bell,
+                        size: 23,
+                      ),
+                      Positioned(
+                        right: 0,
+                        top: -5,
+                        child: Container(
+                          padding: const EdgeInsets.all(3.0),
+                          decoration: const BoxDecoration(
+                            color: primaryColor500,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Text(
+                            "3",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 8.0,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const Gap(16.0),
                 Container(

@@ -4,13 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:hikup/model/rando_field.dart';
 import 'package:hikup/screen/detail/checkout_screen.dart';
 import 'package:hikup/theme.dart';
+import 'package:hikup/widget/back_icon.dart';
 import 'package:hikup/widget/facility_card.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatelessWidget {
-  RandoField field;
+  final RandoField field;
 
-  DetailScreen({required this.field});
+  const DetailScreen({required this.field, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +150,6 @@ class DetailScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(
                   height: 16,
                 ),
@@ -244,24 +244,7 @@ class DetailScreen extends StatelessWidget {
         ),
         collapseMode: CollapseMode.parallax,
       ),
-      leading: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: colorWhite,
-            shape: BoxShape.circle,
-          ),
-          child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              iconSize: 26,
-              icon: const Icon(
-                Icons.arrow_back,
-                color: darkBlue500,
-              )),
-        ),
-      ),
+      leading: const BackIcon(),
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -289,25 +272,25 @@ class DetailScreen extends StatelessWidget {
                 PopupMenuItem(
                     //onTap: () => launch(field.authorUrl),
                     child: ListTile(
-                      horizontalTitleGap: 0,
-                      contentPadding: EdgeInsets.zero,
-                      leading: const Icon(Icons.account_circle_outlined),
-                      title: Text(
-                        "",
-                        style: normalTextStyle,
-                      ),
-                    )),
+                  horizontalTitleGap: 0,
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.account_circle_outlined),
+                  title: Text(
+                    "",
+                    style: normalTextStyle,
+                  ),
+                )),
                 PopupMenuItem(
                     //onTap: () => launch(field.imageUrl),
                     child: ListTile(
-                      horizontalTitleGap: 0,
-                      contentPadding: EdgeInsets.zero,
-                      //leading: const Icon(Icons.image_outlined),
-                      title: Text(
-                        "",
-                        style: normalTextStyle,
-                      ),
-                    )),
+                  horizontalTitleGap: 0,
+                  contentPadding: EdgeInsets.zero,
+                  //leading: const Icon(Icons.image_outlined),
+                  title: Text(
+                    "",
+                    style: normalTextStyle,
+                  ),
+                )),
               ],
             ),
           ),
