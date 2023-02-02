@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/service/custom_navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hikup/screen/main/main_screen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Hikup',
       debugShowCheckedModeBanner: false,
+      navigatorKey: locator<CustomNavigationService>().navigatorKey,
       theme: ThemeData(
           primarySwatch: createMaterialColor(primaryColor500),
           canvasColor: colorWhite),
