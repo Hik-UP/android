@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hikup/locator.dart';
+import 'package:hikup/providers/app_state.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hikup/screen/main/main_screen.dart';
 import 'package:hikup/screen/onboarding_screen.dart';
@@ -10,7 +12,19 @@ Future<void> main() async {
   setupLocator();
   final prefs = await SharedPreferences.getInstance();
   final skipOnBoarding = prefs.getBool("skipOnBoarding") ?? false;
-  runApp(MyApp(skipOnBoarding: skipOnBoarding));
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AppState(),
+        )
+      ],
+      child: MyApp(
+        skipOnBoarding: skipOnBoarding,
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
