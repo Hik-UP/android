@@ -1,4 +1,0 @@
-#Thu Feb 02 16:29:47 CET 2023
-base.0=/Users/imdadadelabou/Downloads/hikup/android/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
