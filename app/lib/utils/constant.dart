@@ -1,0 +1,1 @@
+const baseUrl = ""; //La base_url de l'api
