@@ -40,8 +40,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: locator<CustomNavigationService>().navigatorKey,
       theme: ThemeData(
-          primarySwatch: createMaterialColor(primaryColor500),
-          canvasColor: colorWhite),
+        primarySwatch: createMaterialColor(primaryColor500),
+        canvasColor: colorWhite,
+      ),
       home: skipOnBoarding ? MainScreen(currentScreen: 0) : OnboardingScreen(),
     );
   }

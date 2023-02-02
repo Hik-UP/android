@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/mickael/Desktop/2/2/app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/Users/imdadadelabou/Downloads/hikup/android/app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/mickael/Desktop/2/2/app/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/Users/imdadadelabou/Downloads/hikup/android/app/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

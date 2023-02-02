@@ -45,6 +45,8 @@ dependencies:
   provider:
   get_it:
   dio:
+  font_awesome_flutter:
+  gap:
 
 
 dev_dependencies:
