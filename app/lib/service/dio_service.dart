@@ -15,4 +15,15 @@ class DioService {
       return e.response!;
     }
   }
+
+  Future<Response> get({required String routeName}) async {
+    try {
+      var result = await _dio.get("$baseUrl$routeName");
+
+      return result;
+    } on DioError catch (e) {
+      print(e);
+      return e.response!;
+    }
+  }
 }
