@@ -5,39 +5,42 @@ import '../screen/detail/detail_screen.dart';
 import '../theme.dart';
 
 class RandoFieldCard extends StatelessWidget {
-  RandoField field;
+  final RandoField field;
 
-  RandoFieldCard({required this.field});
+  const RandoFieldCard({required this.field, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-          right: 16, left: 16, top: 4.0, bottom: 16.0),
+      padding:
+          const EdgeInsets.only(right: 16, left: 16, top: 4.0, bottom: 16.0),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return DetailScreen(field: field,);
+            return DetailScreen(
+              field: field,
+            );
           }));
         },
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0), color: colorWhite,
-              boxShadow: [BoxShadow(
-                  color: primaryColor500.withOpacity(0.1), blurRadius: 20,)]
-          ),
+              borderRadius: BorderRadius.circular(16.0),
+              color: colorWhite,
+              boxShadow: [
+                BoxShadow(
+                  color: primaryColor500.withOpacity(0.1),
+                  blurRadius: 20,
+                )
+              ]),
           child: Column(
             children: [
               ClipRRect(
-                borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(borderRadiusSize)),
+                borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(borderRadiusSize)),
                 child: Image.asset(field.imageAsset,
                     height: 200,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     fit: BoxFit.cover),
               ),
               Container(

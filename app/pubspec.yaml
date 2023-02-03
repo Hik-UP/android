@@ -42,6 +42,11 @@ dependencies:
   auto_size_text: ^3.0.0
   pinput: ^2.2.11 
   fluttertoast: ^8.0.9
+  provider:
+  get_it:
+  dio:
+  font_awesome_flutter:
+  gap:
 
 
 dev_dependencies:
