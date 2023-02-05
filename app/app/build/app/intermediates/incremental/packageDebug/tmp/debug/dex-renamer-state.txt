@@ -1,0 +1,4 @@
+#Sun Feb 05 21:20:14 EET 2023
+base.0=/Users/mickael/Desktop/android-homepage/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
