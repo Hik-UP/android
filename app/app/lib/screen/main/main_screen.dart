@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hikup/screen/main/home/home_screen.dart';
-import 'package:hikup/screen/main/setting/settings_screen.dart';
-import 'package:hikup/screen/main/community/community_history_screen.dart';
-import 'package:hikup/screen/main/navigation/main.dart';
 import 'package:hikup/theme.dart';
 
-class MainScreen extends StatefulWidget {
-  int currentScreen = 0;
+import '../../utils/constant.dart';
 
-  MainScreen({required this.currentScreen});
+class MainScreen extends StatefulWidget {
+  static String routeName = "/main-screen";
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -17,17 +14,10 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
-  final screens = [
-    HomeScreen(),
-    CommunityHistoryScreen(),
-    SettingsScreen(),
-    MyHomePage(),
-  ];
 
   @override
   void initState() {
     super.initState();
-    _currentIndex = widget.currentScreen;
   }
 
   @override
@@ -103,7 +93,9 @@ class CustomBottomNavBar extends StatefulWidget {
       required this.selectedItemIcon,
       required this.unselectedItemIcon,
       required this.label,
-      required this.onChange});
+      required this.onChange,
+      Key? key})
+      : super(key: key);
 
   @override
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();

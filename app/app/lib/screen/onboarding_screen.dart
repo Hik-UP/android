@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hikup/screen/main/main_screen.dart';
+import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/theme.dart';
 
 class OnboardingScreen extends StatelessWidget {
   static String routeName = "/onBoarding";
-  const OnboardingScreen({Key? key}):super(key: key);
-
+  const OnboardingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +23,11 @@ class OnboardingScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            minimumSize: const Size(100, 50),
-            shape: RoundedRectangleBorder(
-              borderRadius:
-              BorderRadius.circular(borderRadiusSize))
-          ),
+              minimumSize: const Size(100, 50),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadiusSize))),
           onPressed: () async {
-            final prefs = await SharedPreferences.getInstance();
-            await prefs.setBool("skipOnBoarding", true);
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-              return MainScreen(
-                currentScreen: 0,
-              );
-            }));
+            Navigator.of(context).pushNamed(LoginPage.routeName);
           },
           child: Text(
             "Explorer",
@@ -60,8 +50,7 @@ class OnboardingScreen extends StatelessWidget {
               ),
             ],
             title: const Text(""),
-            content: const Text(
-                ''),
+            content: const Text(''),
           );
         });
   }

@@ -1,5 +1,10 @@
 import 'package:flutter/widgets.dart';
 
+import '../screen/main/community/community_history_screen.dart';
+import '../screen/main/home/home_screen.dart';
+import '../screen/main/navigation/main.dart';
+import '../screen/main/setting/settings_screen.dart';
+
 enum ViewState { idle, busy, retrieved }
 
 const baseUrl = ""; //La base_url de l'api
@@ -11,6 +16,15 @@ const msg =
 const baseApiUrl = "https://pro-hikup.westeurope.cloudapp.azure.com/api";
 
 dynamic loginButtonColor = const LinearGradient(colors: [
-    Color.fromARGB(255, 143, 251, 208),
-    Color.fromARGB(153, 21, 174, 123),
-  ]);
+  Color.fromARGB(255, 143, 251, 208),
+  Color.fromARGB(153, 21, 174, 123),
+]);
+
+final screens = [
+  const HomeScreen(),
+  const CommunityHistoryScreen(),
+  const SettingsScreen(),
+  const MyHomePage(),
+];
+
+enum TypeInput { text, password }

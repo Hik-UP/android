@@ -1,13 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:hikup/model/field_facility.dart';
 
 import '../theme.dart';
 
-class FacilityCardList extends StatelessWidget{
-  List<FieldFacility> facilities;
+class FacilityCardList extends StatelessWidget {
+  final List<FieldFacility> facilities;
 
-  FacilityCardList({required this.facilities});
+  const FacilityCardList({
+    required this.facilities,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +22,22 @@ class FacilityCardList extends StatelessWidget{
       childAspectRatio: (1 / 1),
       shrinkWrap: true,
       children: facilities.map((facility) {
-        return FacilityCard(name: facility.name, imageIcon: facility.imageAsset);
+        return FacilityCard(
+            name: facility.name, imageIcon: facility.imageAsset);
       }).toList(),
     );
   }
-
 }
 
 class FacilityCard extends StatefulWidget {
-  String imageIcon;
-  String name;
+  final String imageIcon;
+  final String name;
 
-  FacilityCard({required this.imageIcon, required this.name});
+  const FacilityCard({
+    required this.imageIcon,
+    required this.name,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<FacilityCard> createState() => _FacilityCardState();
@@ -59,16 +65,16 @@ class _FacilityCardState extends State<FacilityCard> {
             child: Center(
               child: !showName
                   ? Image.asset(
-                widget.imageIcon,
-                width: 30,
-                height: 30,
-                color: primaryColor500,
-              )
+                      widget.imageIcon,
+                      width: 30,
+                      height: 30,
+                      color: primaryColor500,
+                    )
                   : Text(
-                widget.name,
-                style: facilityTextStyle,
-                textAlign: TextAlign.center,
-              ),
+                      widget.name,
+                      style: facilityTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
             ),
           ),
         ),

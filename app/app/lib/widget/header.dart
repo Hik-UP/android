@@ -103,7 +103,7 @@ class Header extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return SearchScreen(
+                        return const SearchScreen(
                           selectedDropdownItem: "",
                         );
                       }));

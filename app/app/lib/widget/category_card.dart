@@ -5,6 +5,8 @@ import '../theme.dart';
 import '../utils/dummy_data.dart';
 
 class CategoryListView extends StatelessWidget {
+  const CategoryListView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     List<Widget> categoryList = [];
@@ -26,10 +28,14 @@ class CategoryListView extends StatelessWidget {
 }
 
 class CategoryCard extends StatelessWidget {
-  String title;
-  String imageAsset;
+  final String title;
+  final String imageAsset;
 
-  CategoryCard({required this.title, required this.imageAsset});
+  const CategoryCard({
+    required this.title,
+    required this.imageAsset,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +52,9 @@ class CategoryCard extends StatelessWidget {
           splashColor: primaryColor500.withOpacity(0.5),
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return SearchScreen(selectedDropdownItem: title,);
+              return SearchScreen(
+                selectedDropdownItem: title,
+              );
             }));
           },
           child: Container(
