@@ -8,4 +8,5 @@ class AppMessages {
   static String atLeastHeightChar =
       "Password required at least height (08) characters";
   static String registerButtonText = "Register";
+  static String usernameHintText = "Username";
 }

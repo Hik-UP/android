@@ -9,8 +9,6 @@ import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 
-import '../../utils/validation.dart';
-
 class LoginPage extends StatefulWidget {
   static String routeName = "/login";
   const LoginPage({Key? key}) : super(key: key);
@@ -119,9 +117,16 @@ class _LoginPageState extends State<LoginPage> {
                                   const Gap(40),
                                   CustomBtn(
                                     content: AppMessages.login,
+                                    isLoading: model.getState == ViewState.busy,
                                     onPress: () {
                                       if (model.loginFormKey.currentState!
-                                          .validate()) {}
+                                          .validate()) {
+                                        model.login(
+                                          email: model.emailController.text,
+                                          password:
+                                              model.passwordController.text,
+                                        );
+                                      }
                                     },
                                     gradient: loginButtonColor,
                                   ),

@@ -4,11 +4,13 @@ class CustomBtn extends StatelessWidget {
   final String content;
   final Function()? onPress;
   final Gradient? gradient;
+  final bool isLoading;
   const CustomBtn({
     Key? key,
     required this.content,
     required this.onPress,
     this.gradient,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class CustomBtn extends StatelessWidget {
         gradient: gradient,
       ),
       child: ElevatedButton(
-        onPressed: onPress,
+        onPressed: isLoading ? null : onPress,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
@@ -29,13 +31,19 @@ class CustomBtn extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Text(
-            content,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: isLoading
+              ? const SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  child: CircularProgressIndicator(),
+                )
+              : Text(
+                  content,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         ),
       ),
     );
