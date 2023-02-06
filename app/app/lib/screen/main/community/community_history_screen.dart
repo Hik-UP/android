@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hikup/screen/main/community/history_screen.dart';
 import 'package:hikup/screen/main/community/order_screen.dart';
-import 'package:hikup/screen/main/community/event.dart';
 import 'package:hikup/screen/main/community/pages/Journals/home.dart';
 import 'package:hikup/theme.dart';
+import 'package:hikup/utils/dummy_data.dart';
 
 class CommunityHistoryScreen extends StatefulWidget {
+  const CommunityHistoryScreen({Key? key}) : super(key: key);
+
   @override
-  State<CommunityHistoryScreen> createState() =>
-      _CommunityHistoryScreenState();
+  State<CommunityHistoryScreen> createState() => _CommunityHistoryScreenState();
 }
 
 class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
@@ -48,7 +48,7 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
               text: "en groupe",
             ),
             //Tab(
-              //text: "événement",
+            //text: "événement",
             //),
           ],
         ),
@@ -56,8 +56,10 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
-          OrderScreen(),
-          ComePage(),
+          OrderScreen(
+            fieldOrderList: dummyUserOrderList,
+          ),
+          const ComePage(),
           //HistoryScreen(),
           //EventScreen(),
         ],

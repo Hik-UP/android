@@ -1,4 +1,4 @@
-#Sun Feb 05 21:20:14 EET 2023
-base.0=/Users/mickael/Desktop/android-homepage/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+#Mon Feb 06 03:27:58 CET 2023
+base.0=/Users/imdadadelabou/Downloads/hikup/android/app/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

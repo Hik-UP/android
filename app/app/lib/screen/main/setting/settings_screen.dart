@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/utils/dummy_data.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import '../../../theme.dart';
 
 class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
                   height: 8,
                 ),
                 InkWell(
-                  onTap: (){},
+                  onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -46,7 +48,8 @@ class SettingsScreen extends StatelessWidget {
                             color: Colors.white,
                             image: DecorationImage(
                               fit: BoxFit.fill,
-                              image: AssetImage("assets/images/user_profile_example.png"),
+                              image: AssetImage(
+                                  "assets/images/user_profile_example.png"),
                             ),
                           ),
                         ),
@@ -262,7 +265,7 @@ class SettingsScreen extends StatelessWidget {
                                 height: 8,
                               ),
                               Text(
-                              "Version 1.0.0",
+                                "Version 1.0.0",
                                 style: descTextStyle,
                               ),
                             ],
@@ -272,9 +275,8 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 InkWell(
-                  onTap: () => launch(""),
+                  onTap: () => {},
                   splashColor: primaryColor100,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),

@@ -3,11 +3,10 @@ import 'package:hikup/model/rando_field.dart';
 import 'package:hikup/screen/detail/detail_screen.dart';
 import 'package:hikup/theme.dart';
 
-
 class RandoFieldList extends StatelessWidget {
-  RandoField field;
+  final RandoField field;
 
-  RandoFieldList({required this.field});
+  const RandoFieldList({required this.field, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +14,11 @@ class RandoFieldList extends StatelessWidget {
       padding: const EdgeInsets.only(right: 16, left: 16, bottom: 16.0),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context){
-            return DetailScreen(field: field,);
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return DetailScreen(
+              field: field,
+            );
           }));
         },
         child: Container(
@@ -30,14 +31,13 @@ class RandoFieldList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ClipRRect(
-                borderRadius:
-                BorderRadius.circular(borderRadiusSize),
+                borderRadius: BorderRadius.circular(borderRadiusSize),
                 child: Image.asset(field.imageAsset,
-                    height: 65,
-                    width: 100,
-                    fit: BoxFit.cover),
+                    height: 65, width: 100, fit: BoxFit.cover),
               ),
-              const SizedBox(width: 8,),
+              const SizedBox(
+                width: 8,
+              ),
               Flexible(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -49,7 +49,9 @@ class RandoFieldList extends StatelessWidget {
                       style: subTitleTextStyle,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 8,),
+                    const SizedBox(
+                      height: 8,
+                    ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

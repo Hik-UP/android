@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:journaling_app/pages/Authentication/authentication.dart';
 import 'package:hikup/screen/main/community/pages/Journals/home.dart';
-import 'package:hikup/screen/main/community/pages/Navigation/navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       //home: AuthenticationPage(),
-      home: ComePage(),
+      home: const ComePage(),
     );
   }
 }

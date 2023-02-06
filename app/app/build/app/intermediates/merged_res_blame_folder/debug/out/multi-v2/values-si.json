@@ -4,24 +4,7 @@
             "outputFile": "com.example.app-mergeDebugResources-12:/values-si/values-si.xml",
             "map": [
                 {
-                    "source": "/Users/mickael/.gradle/caches/transforms-3/9cdeea47fa06d5152e97983ca1e9e9ad/transformed/jetified-play-services-basement-18.0.0/res/values-si/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "134",
-                        "endOffsets": "329"
-                    },
-                    "to": {
-                        "startLines": "10",
-                        "startColumns": "4",
-                        "startOffsets": "1034",
-                        "endColumns": "138",
-                        "endOffsets": "1168"
-                    }
-                },
-                {
-                    "source": "/Users/mickael/.gradle/caches/transforms-3/3d943b8a8d6718874a3fad89ac634056/transformed/core-1.6.0/res/values-si/values-si.xml",
+                    "source": "/Users/imdadadelabou/.gradle/caches/transforms-3/3d943b8a8d6718874a3fad89ac634056/transformed/core-1.6.0/res/values-si/values-si.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -38,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/mickael/.gradle/caches/transforms-3/c153d000c2733d6b70e4895acf6c57c9/transformed/jetified-play-services-base-18.0.1/res/values-si/values.xml",
+                    "source": "/Users/imdadadelabou/.gradle/caches/transforms-3/c153d000c2733d6b70e4895acf6c57c9/transformed/jetified-play-services-base-18.0.1/res/values-si/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -52,6 +35,23 @@
                         "startOffsets": "55,163,317,441,554,696,820,936,1173,1324,1439,1595,1726,1870,2031,2104,2165",
                         "endColumns": "107,153,123,112,141,123,115,97,150,114,155,130,143,160,72,60,79",
                         "endOffsets": "158,312,436,549,691,815,931,1029,1319,1434,1590,1721,1865,2026,2099,2160,2240"
+                    }
+                },
+                {
+                    "source": "/Users/imdadadelabou/.gradle/caches/transforms-3/9cdeea47fa06d5152e97983ca1e9e9ad/transformed/jetified-play-services-basement-18.0.0/res/values-si/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "134",
+                        "endOffsets": "329"
+                    },
+                    "to": {
+                        "startLines": "10",
+                        "startColumns": "4",
+                        "startOffsets": "1034",
+                        "endColumns": "138",
+                        "endOffsets": "1168"
                     }
                 }
             ]

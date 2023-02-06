@@ -5,7 +5,6 @@ import 'package:hikup/utils/constant.dart';
 import '../../service/api.dart';
 //import 'package:hik_up/api/api.dart';
 
-
 class RegisterPage extends StatefulWidget {
   static String routeName = "/register";
   const RegisterPage({Key? key}) : super(key: key);
@@ -51,8 +50,8 @@ class _RegisterPageState extends State<RegisterPage> {
       registerButtonError = false;
       registerButtonText = "Login";
       registerButtonColor = const LinearGradient(colors: [
-       // Color.fromRGBO(143, 148, 251, 1),
-       // Color.fromRGBO(143, 148, 251, .6),
+        // Color.fromRGBO(143, 148, 251, 1),
+        // Color.fromRGBO(143, 148, 251, .6),
       ]);
     }
 
@@ -73,10 +72,9 @@ class _RegisterPageState extends State<RegisterPage> {
             Container(
               height: 300,
               decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                          logoBlackNoBg),
-                      fit: BoxFit.fill),),
+                image: DecorationImage(
+                    image: AssetImage(logoBlackNoBg), fit: BoxFit.fill),
+              ),
               child: Stack(
                 children: <Widget>[
                   Positioned(
@@ -138,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
                                 cursorColor:
-                                    Color.fromARGB(255, 0, 189, 41),
+                                    const Color.fromARGB(255, 0, 189, 41),
                                 validator: (String? username) {
                                   if (username != null) {
                                     return (!usernameValidator(username)
@@ -172,7 +170,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
                                 cursorColor:
-                                    Color.fromARGB(255, 0, 189, 41),
+                                    const Color.fromARGB(255, 0, 189, 41),
                                 validator: (String? email) {
                                   if (email != null) {
                                     return (!emailValidator(email)
@@ -195,7 +193,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
                                 cursorColor:
-                                    Color.fromARGB(255, 0, 189, 41),
+                                    const Color.fromARGB(255, 0, 189, 41),
                                 validator: (String? password) {
                                   if (password != null) {
                                     return (!passwordValidator(password)
@@ -228,9 +226,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 .then((response) {
                               if (response != null &&
                                   response.statusCode == 200) {
-
-                                Navigator.of(context).pushNamed(LoginPage.routeName);
-                               
+                                Navigator.of(context)
+                                    .pushNamed(LoginPage.routeName);
                               } else if (response != null) {
                                 setState(() {
                                   setRegisterButtonError(
@@ -265,7 +262,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
-                      foregroundColor: Color.fromARGB(255, 0, 179, 60),
+                      foregroundColor: const Color.fromARGB(255, 0, 179, 60),
                     ),
                     onPressed: () {
                       Navigator.push(

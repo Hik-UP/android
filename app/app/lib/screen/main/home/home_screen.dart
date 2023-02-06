@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                     style: greetingTextStyle,
                   ),
                 ),
-                CategoryListView(),
+                const CategoryListView(),
                 Padding(
                   padding:
                       const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return SearchScreen(
+                              return const SearchScreen(
                                 selectedDropdownItem: "Toutes",
                               );
                             }));

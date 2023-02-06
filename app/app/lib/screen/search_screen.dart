@@ -8,10 +8,12 @@ import '../utils/dummy_data.dart';
 import '../widget/rando_field_list.dart';
 
 class SearchScreen extends StatefulWidget {
-  String selectedDropdownItem;
-  List<RandoField> fieldList = sportFieldList;
+  final String selectedDropdownItem;
 
-  SearchScreen({required this.selectedDropdownItem});
+  const SearchScreen({
+    required this.selectedDropdownItem,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -28,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     _query = widget.selectedDropdownItem;
-    _fieldList = widget.fieldList;
+    _fieldList = sportFieldList;
 
     if (_query != "") {
       _selectedDropdownItem = widget.selectedDropdownItem;
@@ -74,11 +76,12 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           Container(
-              decoration: const BoxDecoration(
-                  color: primaryColor500,
-                  borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(borderRadiusSize))),
-              child: searchBar()),
+            decoration: const BoxDecoration(
+                color: primaryColor500,
+                borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(borderRadiusSize))),
+            child: searchBar(),
+          ),
           Expanded(
             child: ListView(
               children: [
@@ -140,12 +143,7 @@ class _SearchScreenState extends State<SearchScreen> {
         isExpanded: false,
         underline: const SizedBox(),
         alignment: Alignment.centerRight,
-        items: <String>[
-          "All",
-          "Foret",
-          "Montagne",
-          "Parc"
-        ]
+        items: <String>["All", "Foret", "Montagne", "Parc"]
             .map<DropdownMenuItem<String>>((value) => DropdownMenuItem(
                   child: Text(value),
                   value: value,
@@ -194,8 +192,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       ],
                       title: const Text("Hello there :)"),
-                      content: const Text(
-                          ''),
+                      content: const Text(''),
                     );
                   });
             },

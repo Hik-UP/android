@@ -128,14 +128,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 _lat = double.parse(latCon.text);
                 _lon = double.parse(lonCon.text);
                 _goTodefined(_lat, _lon);
-              } else {
-                print("Uno dei due campi è vuoto");
-                // TODO gestire meglio, magari con un popup
-              }
+              } else {}
             })
           },
           child: const Icon(Icons.line_axis_rounded),
-          backgroundColor: Color.fromARGB(255, 0, 144, 255),
+          backgroundColor: const Color.fromARGB(255, 0, 144, 255),
         ),
         FloatingActionButton(
           // add defined position
@@ -145,14 +142,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 _lat = double.parse(latCon.text);
                 _lon = double.parse(lonCon.text);
                 _addDefined(_lat, _lon);
-              } else {
-                print("Uno dei due campi è vuoto");
-                // TODO gestire meglio, magari con un popup
-              }
+              } else {}
             })
           },
           child: const Icon(Icons.lightbulb_circle),
-          backgroundColor: Color.fromARGB(255, 0, 255, 0),
+          backgroundColor: const Color.fromARGB(255, 0, 255, 0),
         ),
         FloatingActionButton(
           // go to my position

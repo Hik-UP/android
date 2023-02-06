@@ -4,7 +4,7 @@
             "outputFile": "com.example.app-mergeDebugResources-12:/values-en-rCA/values-en-rCA.xml",
             "map": [
                 {
-                    "source": "/Users/mickael/.gradle/caches/transforms-3/3d943b8a8d6718874a3fad89ac634056/transformed/core-1.6.0/res/values-en-rCA/values-en-rCA.xml",
+                    "source": "/Users/imdadadelabou/.gradle/caches/transforms-3/3d943b8a8d6718874a3fad89ac634056/transformed/core-1.6.0/res/values-en-rCA/values-en-rCA.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

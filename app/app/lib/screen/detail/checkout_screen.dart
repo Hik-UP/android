@@ -9,9 +9,9 @@ import 'package:hikup/theme.dart';
 import 'package:hikup/utils/dummy_data.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  RandoField field;
+  final RandoField field;
 
-  CheckoutScreen({required this.field});
+  const CheckoutScreen({required this.field, Key? key}) : super(key: key);
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -39,7 +39,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     for (var time in timeList) {
       if (time == widget.field.openTime) {
         currentTime = time;
-        print("$currentTime and $time");
       }
     }
 
@@ -140,9 +139,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             width: 8,
                           ),
                           Text(
-                            _dateTime == null
-                                ? "date not selected.."
-                                : dateFormat.format(_dateTime).toString(),
+                            dateFormat.format(_dateTime).toString(),
                             style: normalTextStyle,
                           ),
                         ],
@@ -196,39 +193,36 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
             Expanded(
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(100, 45),
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(borderRadiusSize))),
-                  onPressed: !_enableCreateOrderBtn
-                      ? null
-                      : () {
-                          List<String> selectedTime = [];
-                          for (int i = 0; i < availableBookTime.length; i++) {
-                            if (availableBookTime[i].value) {
-                              selectedTime.add(availableBookTime[i].title);
-                            }
+                style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(100, 45),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(borderRadiusSize))),
+                onPressed: !_enableCreateOrderBtn
+                    ? null
+                    : () {
+                        List<String> selectedTime = [];
+                        for (int i = 0; i < availableBookTime.length; i++) {
+                          if (availableBookTime[i].value) {
+                            selectedTime.add(availableBookTime[i].title);
                           }
-                          dummyUserOrderList.add(FieldOrder(
-                              field: widget.field,
-                              user: sampleUser,
-                              selectedDate:
-                                  dateFormat.format(_dateTime).toString(),
-                              selectedTime: selectedTime));
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      MainScreen(currentScreen: 1)),
-                              (route) => false);
-                          _showSnackBar(
-                              context, "Réservation de la randonnée");
-                        },
-                  child: Text(
-                    "Réserver",
-                    style: buttonTextStyle,
-                  )),
+                        }
+                        dummyUserOrderList.add(FieldOrder(
+                            field: widget.field,
+                            user: sampleUser,
+                            selectedDate:
+                                dateFormat.format(_dateTime).toString(),
+                            selectedTime: selectedTime));
+
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            MainScreen.routeName, (route) => false);
+
+                        _showSnackBar(context, "Réservation de la randonnée");
+                      },
+                child: Text(
+                  "Réserver",
+                  style: buttonTextStyle,
+                ),
+              ),
             ),
           ],
         ),
@@ -257,7 +251,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             context: context,
             initialDate: DateTime.now(),
             firstDate: DateTime.now(),
-            lastDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 6))
+            lastDate: DateTime(DateTime.now().year, DateTime.now().month,
+                DateTime.now().day + 6))
         .then((value) {
       setState(() {
         _dateTime = value!;
