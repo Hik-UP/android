@@ -9,7 +9,9 @@ var sampleUser = User(
     name: "User",
     email: "sample@mail.com",
     accountType: "",
-    imageProfile: "assets/images/user_profile_example.png");
+    imageProfile: "assets/images/user_profile_example.png",
+    roles: [],
+    token: "");
 
 var _foret = RandoCategory(
   name: "Foret",
@@ -106,9 +108,6 @@ RandoField foretKali = RandoField(
     closeTime: "16.00",
     imageAsset: "assets/images/forest.jpg");
 
-
-
-
 RandoField montagneJaya = RandoField(
     id: "09",
     name: "montagne",
@@ -124,8 +123,6 @@ RandoField montagneJaya = RandoField(
     openTime: "08.00",
     closeTime: "16.00",
     imageAsset: "assets/images/montagnes.jpg");
-
-
 
 List<RandoField> sportFieldList = [
   montagneRionov,

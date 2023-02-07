@@ -5,20 +5,22 @@ class DioService {
   final _dio = Dio();
 
   Future<Response> post({
-    required String routeName,
+    required String path,
     required Map<String, dynamic> body,
+    String token = "",
   }) async {
     try {
-      print("$baseApiUrl$routeName");
       var result = await _dio.post(
-        "$baseApiUrl$routeName",
-        options: Options(headers: {
-          'Content-Type': 'application/json',
-        }),
+        "$baseUrl$path",
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+            // "Authorization": token,
+          },
+        ),
         data: body,
       );
-
-      print(result);
 
       return result;
     } on DioError catch (e) {
@@ -26,13 +28,12 @@ class DioService {
     }
   }
 
-  Future<Response> get({required String routeName}) async {
+  Future<Response> get({required String path}) async {
     try {
-      var result = await _dio.get("$baseApiUrl$routeName");
+      var result = await _dio.get("$baseUrl$path");
 
       return result;
     } on DioError catch (e) {
-      print(e);
       return e.response!;
     }
   }

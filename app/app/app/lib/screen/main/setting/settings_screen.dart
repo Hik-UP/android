@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hikup/utils/dummy_data.dart';
 
+import 'package:provider/provider.dart';
+
+import '../../../providers/app_state.dart';
 import '../../../theme.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -9,6 +11,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppState _appState = context.read<AppState>();
+
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
@@ -60,23 +64,24 @@ class SettingsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              sampleUser.name,
+                              "${_appState.username[0].toUpperCase()}${_appState.username.substring(1)}",
                               style: subTitleTextStyle,
                             ),
                             const SizedBox(
                               height: 8,
                             ),
                             Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                    color: primaryColor100.withOpacity(0.5),
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(color: primaryColor500)),
-                                child: Text(
-                                  sampleUser.accountType,
-                                  style: descTextStyle.copyWith(
-                                      color: primaryColor500),
-                                ))
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                  color: primaryColor100.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: primaryColor500)),
+                              child: Text(
+                                _appState.email,
+                                style: descTextStyle.copyWith(
+                                    color: primaryColor500),
+                              ),
+                            )
                           ],
                         ),
                       ],

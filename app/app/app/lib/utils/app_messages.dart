@@ -9,4 +9,6 @@ class AppMessages {
       "Password required at least height (08) characters";
   static String registerButtonText = "Register";
   static String usernameHintText = "Username";
+  static String loginError = "Incorrect email or password";
+  static String anErrorOcur = "An error occur please, try again";
 }

@@ -7,8 +7,6 @@ import 'package:hikup/viewmodel/register_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 
-import '../../service/api.dart';
-import '../../utils/validation.dart';
 import '../../widget/custom_btn.dart';
 //import 'package:hik_up/api/api.dart';
 

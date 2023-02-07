@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/theme.dart';
+import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatelessWidget {
   static String routeName = "/onBoarding";
@@ -9,6 +11,7 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppState appState = context.read<AppState>();
     //Future.delayed(Duration.zero, () => showWelcomeDialog(context));
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -27,6 +30,7 @@ class OnboardingScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadiusSize))),
           onPressed: () async {
+            appState.setIsFirstDownload(value: false);
             Navigator.of(context).pushNamed(LoginPage.routeName);
           },
           child: Text(
