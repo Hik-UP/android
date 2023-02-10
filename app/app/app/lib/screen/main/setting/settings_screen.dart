@@ -79,7 +79,8 @@ class SettingsScreen extends StatelessWidget {
                               child: Text(
                                 _appState.email,
                                 style: descTextStyle.copyWith(
-                                    color: primaryColor500),
+                                  color: primaryColor500,
+                                ),
                               ),
                             )
                           ],
