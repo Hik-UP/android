@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "952779681389",
+    "project_id": "hikup-app",
+    "storage_bucket": "hikup-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952779681389:android:85dcea808a4ea446a55964",
+        "android_client_info": {
+          "package_name": "hickup.moon.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952779681389-sjemq6emgi3a3t9vuloq22eutl71cmms.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAO1bFn8K4uRB10jjKdd2-0mQvK0bGgwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952779681389-sjemq6emgi3a3t9vuloq22eutl71cmms.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

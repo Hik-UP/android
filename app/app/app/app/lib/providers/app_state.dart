@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/other_data.dart';
@@ -16,6 +17,7 @@ class AppState extends ChangeNotifier {
   String id = "";
   String email = "";
   String picture = "";
+  String fcmUserToken = "";
   List<dynamic> roles = [];
 
   void setIsFirstDownload({required bool value}) async {
@@ -59,6 +61,13 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setFcmToken({required String value}) {
+    fcmUserToken = value;
+    print("Key");
+    print(value);
+    notifyListeners();
+  }
+
   storeInHive({required User user}) async {
     await _hiveService.addOnBoxViaKey<User>(_boxUser, "user", user);
     updateAllState(user: user);
@@ -79,5 +88,11 @@ class AppState extends ChangeNotifier {
 
     setIsFirstDownload(value: otherData.isFirstDownload);
     updateAllState(user: user);
+  }
+
+  void getUserFcmToken() async {
+    FirebaseMessaging.instance.getToken().then((value) => setFcmToken(
+          value: value ?? "",
+        ));
   }
 }

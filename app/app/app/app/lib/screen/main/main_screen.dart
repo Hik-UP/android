@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/service/local_notification.dart';
 import 'package:hikup/theme.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/constant.dart';
 
@@ -18,6 +21,11 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<AppState>().getUserFcmToken();
+
+    LocalNotification.foregroundNotif();
+    LocalNotification.onMessageApp();
+    LocalNotification.getInitialMessage();
   }
 
   @override
