@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/setting/update_profile.dart';
+import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/widget/custom_btn.dart';
 
@@ -9,6 +11,44 @@ import 'package:provider/provider.dart';
 
 import '../../../providers/app_state.dart';
 import '../../../theme.dart';
+
+class LoadPictureProfil extends StatelessWidget {
+  final AppState appState;
+  const LoadPictureProfil({
+    Key? key,
+    required this.appState,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: appState.picture,
+      progressIndicatorBuilder: (context, url, progress) => Container(
+        width: 75,
+        height: 75,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+        ),
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+      imageBuilder: (context, imageProvider) => Container(
+        width: 75,
+        height: 75,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: imageProvider,
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -46,55 +86,71 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 75,
-                          height: 75,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage(
-                                  "assets/images/user_profile_example.png"),
-                            ),
+                    child: Consumer<AppState>(builder: (context, state, child) {
+                      return Row(
+                        children: [
+                          state.picture.isEmpty
+                              ? Container(
+                                  width: 75,
+                                  height: 75,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: AssetImage(
+                                        "assets/images/user_profile_example.png",
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : LoadPictureProfil(
+                                  appState: state,
+                                ),
+                          const SizedBox(
+                            width: 16,
                           ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _appState.username.isNotEmpty ? "${_appState.username[0].toUpperCase()}${_appState.username.substring(1)}" : "",
-                              style: subTitleTextStyle,
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              decoration: BoxDecoration(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _appState.username.isNotEmpty
+                                    ? "${_appState.username[0].toUpperCase()}${_appState.username.substring(1)}"
+                                    : "",
+                                style: subTitleTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
                                   color: primaryColor100.withOpacity(0.5),
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: primaryColor500)),
-                              child: Text(
-                                _appState.email,
-                                style: descTextStyle.copyWith(
-                                  color: primaryColor500,
+                                  border: Border.all(color: primaryColor500),
+                                ),
+                                child: Text(
+                                  _appState.email,
+                                  style: descTextStyle.copyWith(
+                                    color: primaryColor500,
+                                  ),
                                 ),
                               ),
-                            ),
-                           const Gap(6.0),
-                            CustomBtn(content: "Modifier mon profil", onPress: () {
-                              Navigator.of(context).pushNamed(UpdateProfile.routeName);
-                            }, gradient: loginButtonColor,),
-                          ],
-                        ),
-                      ],
-                    ),
+                              const Gap(6.0),
+                              CustomBtn(
+                                content: AppMessages.updateProfil,
+                                onPress: () {
+                                  Navigator.of(context).pushNamed(
+                                    UpdateProfile.routeName,
+                                  );
+                                },
+                                gradient: loginButtonColor,
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    }),
                   ),
                 ),
                 const SizedBox(

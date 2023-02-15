@@ -12,4 +12,7 @@ class AppMessages {
   static String loginError = "Incorrect email or password";
   static String anErrorOcur = "An error occur please, try again";
   static String usernameinvalid = "The username is incorrect";
+  static String updateProfil = "Update profil";
+  static String updateTxt = "Update";
+  static String needAPicture = "Please, select an image";
 }

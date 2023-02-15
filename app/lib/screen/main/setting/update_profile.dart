@@ -3,11 +3,16 @@ import 'dart:io';
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:hikup/locator.dart';
+import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/update_profil_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/upload_picture.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/constant.dart';
 
@@ -66,8 +71,20 @@ class UpdateProfile extends StatelessWidget {
               ),
               const Spacer(),
               CustomBtn(
-                content: "Modifier",
-                onPress: () {},
+                content: AppMessages.updateTxt,
+                isLoading: model.getState == ViewState.busy,
+                onPress: () {
+                  if (model.userImage != null) {
+                    model.updateProfile(
+                      appState: context.read<AppState>(),
+                    );
+                    return;
+                  }
+                  locator<CustomNavigationService>().showSnackBack(
+                    content: AppMessages.needAPicture,
+                    isError: true,
+                  );
+                },
                 gradient: loginButtonColor,
               ),
               const Gap(20.0),

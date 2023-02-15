@@ -9,7 +9,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
-  final Box<User> _boxUser = Hive.box("userBox");
+  final Box<User> boxUser = Hive.box("userBox");
   final _hiveService = locator<HiveService>();
   bool isFirstDownload = true;
   String token = "";
@@ -63,13 +63,11 @@ class AppState extends ChangeNotifier {
 
   void setFcmToken({required String value}) {
     fcmUserToken = value;
-    print("Key");
-    print(value);
     notifyListeners();
   }
 
   storeInHive({required User user}) async {
-    await _hiveService.addOnBoxViaKey<User>(_boxUser, "user", user);
+    await _hiveService.addOnBoxViaKey<User>(boxUser, "user", user);
     updateAllState(user: user);
   }
 
@@ -84,7 +82,7 @@ class AppState extends ChangeNotifier {
 
   initialState() {
     var otherData = _boxOtherData.get("otherData") ?? OtherData();
-    var user = _boxUser.get("user") ?? emptyUser;
+    var user = boxUser.get("user") ?? emptyUser;
 
     setIsFirstDownload(value: otherData.isFirstDownload);
     updateAllState(user: user);

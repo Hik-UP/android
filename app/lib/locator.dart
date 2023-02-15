@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
+import 'package:hikup/service/firebase_storage.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/viewmodel/notification_viewmodel.dart';
 import 'package:hikup/viewmodel/register_page_viewmodel.dart';
@@ -15,6 +16,7 @@ void setupLocator() {
   locator
       .registerLazySingleton(() => DioService()); //Pour enregistrer un service
   locator.registerLazySingleton(() => CustomNavigationService());
+  locator.registerFactory(() => FirebaseStorageService());
 
   //  locator.registerFactory(() => null) //Pour enregistrer un ViewModel
   locator.registerFactory(() => NotificationViewModel());
