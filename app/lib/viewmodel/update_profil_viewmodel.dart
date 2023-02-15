@@ -10,7 +10,6 @@ import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/base_model.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UpdateProfilModel extends BaseModel {
@@ -18,7 +17,6 @@ class UpdateProfilModel extends BaseModel {
   final _firebaseStorage = locator<FirebaseStorageService>();
   final _dioService = locator<DioService>();
   final _navigationService = locator<CustomNavigationService>();
-  final _hiveService = locator<HiveService>();
 
   setUserImage({XFile? value}) {
     userImage = value;
@@ -38,15 +36,15 @@ class UpdateProfilModel extends BaseModel {
       setState(ViewState.retrieved);
       return;
     }
-    var result = await _dioService.post(
+    var result = await _dioService.put(
       path: updateProfilePath,
       token: "Bearer ${appState.token}",
       body: {
         "user": {
           "id": appState.id,
           "roles": appState.roles,
+          "picture": urlImage
         },
-        "picture": urlImage
       },
     );
     setState(ViewState.retrieved);

@@ -74,6 +74,7 @@ class UpdateProfile extends StatelessWidget {
                 content: AppMessages.updateTxt,
                 isLoading: model.getState == ViewState.busy,
                 onPress: () {
+                  print(context.read<AppState>().token);
                   if (model.userImage != null) {
                     model.updateProfile(
                       appState: context.read<AppState>(),
