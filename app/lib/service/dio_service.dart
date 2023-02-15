@@ -34,7 +34,7 @@ class DioService {
     String token = "",
   }) async {
     try {
-      var result = await _dio.post(
+      var result = await _dio.put(
         "$baseUrl$path",
         options: Options(
           headers: {

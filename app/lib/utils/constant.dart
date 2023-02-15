@@ -21,7 +21,7 @@ const baseProdApiUrl = "https://pro-hikup.westeurope.cloudapp.azure.com/api";
 const baseDevApiUrl = "https://dev-hikup.westeurope.cloudapp.azure.com/api";
 const loginPath = "/auth/login";
 const getProfilePath = "/user/profile";
-const updateProfilePath = "/user/profile/picture/update";
+const updateProfilePath = "/user/profile/update";
 
 User emptyUser = User(
   id: "",
