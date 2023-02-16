@@ -34,7 +34,7 @@ class _UplaodPictureState extends State<UplaodPicture> {
               setState(() {
                 result = image;
               });
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(image);
             }),
         ListTile(
           leading: const Icon(FontAwesomeIcons.folder),
