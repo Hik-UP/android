@@ -49,65 +49,70 @@ class LoginPageViewModel extends BaseModel {
     required password,
     required AppState appState,
   }) async {
-    setState(ViewState.busy);
-    var result = await _dioService.post(
-      path: loginPath,
-      body: {
-        "user": {
-          "email": email,
-          "password": password,
-        }
-      },
-    );
-    setState(ViewState.retrieved);
-    Map<String, dynamic> data = result.data as Map<String, dynamic>;
-
-    if (result.statusCode == 401 &&
-        data.keys.contains("error") &&
-        data["error"] == "Unauthorized") {
-      _navigationService.showSnackBack(
-        content: AppMessages.loginError,
-        isError: true,
+    try {
+      setState(ViewState.busy);
+      var result = await _dioService.post(
+        path: loginPath,
+        body: {
+          "user": {
+            "email": email,
+            "password": password,
+          }
+        },
       );
-      return;
-    }
-    if (result.statusCode == 200 || result.statusCode == 201) {
-      //Passer de user JSON à user model
-      User user = User.fromMap(data: data["user"]);
+      setState(ViewState.retrieved);
+      Map<String, dynamic> data = result.data as Map<String, dynamic>;
 
-      var response = await WrapperApi().getProfile(
-        id: user.id,
-        roles: user.roles,
-        token: user.token,
-      );
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var data = response.data as Map<String, dynamic>;
-
-        appState.setToken(value: user.token);
-        User newUser = User(
-          id: user.id,
-          name: data["user"]["username"],
-          email: data["user"]["email"],
-          accountType: "",
-          imageProfile: data["user"]["picture"] ?? "",
-          roles: user.roles,
-          token: user.token,
-        );
-        await appState.storeInHive(user: newUser);
-
-        _navigationService.navigateTo(MainScreen.routeName);
-        return;
-      } else {
+      if (result.statusCode == 401 &&
+          data.keys.contains("error") &&
+          data["error"] == "Unauthorized") {
         _navigationService.showSnackBack(
-          content: AppMessages.anErrorOcur,
+          content: AppMessages.loginError,
           isError: true,
         );
         return;
       }
-      //Stocker l'utilisateur dans le local storage d'une téléphone et ensuite dans le state de l'application
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        //Passer de user JSON à user model
+        User user = User.fromMap(data: data["user"]);
 
+        var response = await WrapperApi().getProfile(
+          id: user.id,
+          roles: user.roles,
+          token: user.token,
+        );
+
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          var data = response.data as Map<String, dynamic>;
+
+          appState.setToken(value: user.token);
+          User newUser = User(
+            id: user.id,
+            name: data["user"]["username"],
+            email: data["user"]["email"],
+            accountType: "",
+            imageProfile: data["user"]["picture"] ?? "",
+            roles: user.roles,
+            token: user.token,
+          );
+          await appState.storeInHive(user: newUser);
+
+          _navigationService.navigateTo(MainScreen.routeName);
+          return;
+        } else {
+          _navigationService.showSnackBack(
+            content: AppMessages.anErrorOcur,
+            isError: true,
+          );
+          return;
+        }
+
+        //Stocker l'utilisateur dans le local storage d'une téléphone et ensuite dans le state de l'application
+      }
+    } catch (e) {
+      setState(ViewState.retrieved);
     }
-    // print(result);
   }
+  // print(result);
+
 }

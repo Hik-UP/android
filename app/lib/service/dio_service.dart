@@ -1,8 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:hikup/locator.dart';
+import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 
 class DioService {
   final _dio = Dio();
+  final _navigator = locator<CustomNavigationService>();
 
   Future<Response> post({
     required String path,
@@ -24,6 +28,12 @@ class DioService {
 
       return result;
     } on DioError catch (e) {
+      if (e.response == null) {
+        _navigator.showSnackBack(
+          content: AppMessages.anErrorOcur,
+          isError: true,
+        );
+      }
       return e.response!;
     }
   }

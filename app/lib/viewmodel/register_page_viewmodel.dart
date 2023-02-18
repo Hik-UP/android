@@ -13,7 +13,6 @@ import 'package:hikup/utils/wrapper_api.dart';
 import 'base_model.dart';
 
 class RegisterPageViewModel extends BaseModel {
-
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
@@ -22,100 +21,108 @@ class RegisterPageViewModel extends BaseModel {
   final _dioService = locator<DioService>();
 
   String? validateUsername(String? username) {
-    if(username == null) {
+    if (username == null) {
       return AppMessages.requiredField;
     }
     // if(!Validation.usernameValidator(username)) {
     //   return AppMessages.usernameinvalid;
     // }
 
-  return null;
+    return null;
   }
 
   String? validateEmail(String? email) {
-    if(email == null) {
+    if (email == null) {
       return AppMessages.requiredField;
     }
-    if(!Validation.emailValidator(email)) {
+    if (!Validation.emailValidator(email)) {
       return AppMessages.wrongEmail;
     }
     return null;
   }
 
   String? validatePassword(String? password) {
-    if(password == null) {
+    if (password == null) {
       return AppMessages.requiredField;
     }
-    if(!Validation.passwordValidator(password)) {
+    if (!Validation.passwordValidator(password)) {
       return AppMessages.atLeastHeightChar;
     }
     return null;
   }
 
-  void register({required String username, required String email, required String password, required AppState appState}) async {
-    setState(ViewState.busy);
-    var response = await _dioService.post(path: '/auth/signup', body: {
-      "user":{
-        "username":username,
-        "email": email,
-        "password": password,
-      }
-    });
-   
-
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      var responseLogin = await _dioService.post(path: '/auth/login', body: {
-        "user":{
+  void register(
+      {required String username,
+      required String email,
+      required String password,
+      required AppState appState}) async {
+    try {
+      setState(ViewState.busy);
+      var response = await _dioService.post(path: '/auth/signup', body: {
+        "user": {
+          "username": username,
           "email": email,
           "password": password,
         }
       });
-      if (responseLogin.statusCode == 200 || responseLogin.statusCode == 201) {
-        var dataLogin = responseLogin.data as Map<String, dynamic>;
 
-        User user = User.fromMap(data: dataLogin["user"]);
-        print(User.printUser(user: user));
-        var responseGetProfile = await WrapperApi().getProfile(
-        id: user.id,
-        roles: user.roles,
-        token: user.token,
-      );
-      if (responseGetProfile.statusCode == 200 || responseGetProfile.statusCode == 201) {
-        var responseDataProfile = responseGetProfile.data as Map<String, dynamic> ;
-        appState.setToken(value: user.token);
-         User newUser = User(
-          id: user.id,
-          name: responseDataProfile["user"]["username"],
-          email: responseDataProfile["user"]["email"],
-          accountType: "",
-          imageProfile: responseDataProfile["user"]["picture"] ?? "",
-          roles: user.roles,
-          token: user.token,
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseLogin = await _dioService.post(path: '/auth/login', body: {
+          "user": {
+            "email": email,
+            "password": password,
+          }
+        });
+        if (responseLogin.statusCode == 200 ||
+            responseLogin.statusCode == 201) {
+          var dataLogin = responseLogin.data as Map<String, dynamic>;
+
+          User user = User.fromMap(data: dataLogin["user"]);
+          print(User.printUser(user: user));
+          var responseGetProfile = await WrapperApi().getProfile(
+            id: user.id,
+            roles: user.roles,
+            token: user.token,
+          );
+          if (responseGetProfile.statusCode == 200 ||
+              responseGetProfile.statusCode == 201) {
+            var responseDataProfile =
+                responseGetProfile.data as Map<String, dynamic>;
+            appState.setToken(value: user.token);
+            User newUser = User(
+              id: user.id,
+              name: responseDataProfile["user"]["username"],
+              email: responseDataProfile["user"]["email"],
+              accountType: "",
+              imageProfile: responseDataProfile["user"]["picture"] ?? "",
+              roles: user.roles,
+              token: user.token,
+            );
+
+            await appState.storeInHive(user: newUser);
+            setState(ViewState.retrieved);
+
+            _customNavigationService.navigateTo(MainScreen.routeName);
+          } else {
+            _customNavigationService.showSnackBack(
+                content: AppMessages.anErrorOcur, isError: true);
+          }
+        } else {
+          _customNavigationService.showSnackBack(
+            content: AppMessages.anErrorOcur,
+            isError: true,
+          );
+        }
+      } else {
+        _customNavigationService.showSnackBack(
+          content: AppMessages.anErrorOcur,
+          isError: true,
         );
-
-         await appState.storeInHive(user: newUser);
-          setState(ViewState.retrieved);
-
-         _customNavigationService.navigateTo(MainScreen.routeName);
-      } else {
-         _customNavigationService.showSnackBack(content: AppMessages.anErrorOcur,
-      isError: true);
       }
-      } else {
-        _customNavigationService.showSnackBack(content: AppMessages.anErrorOcur,
-      isError: true,);
-      }
-
-    } else {
-      _customNavigationService.showSnackBack(content: AppMessages.anErrorOcur,
-      isError: true,
-      );
-   
-    
+      setState(ViewState.retrieved);
+    } catch (e) {
+      print(e);
+      setState(ViewState.retrieved);
+    }
   }
-   setState(ViewState.retrieved);
-
 }
-}
-
-
