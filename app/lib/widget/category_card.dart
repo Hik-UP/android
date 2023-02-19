@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../screen/search_screen.dart';
 import '../theme.dart';
 import '../utils/dummy_data.dart';
 
@@ -51,11 +50,7 @@ class CategoryCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           splashColor: primaryColor500.withOpacity(0.5),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return SearchScreen(
-                selectedDropdownItem: title,
-              );
-            }));
+            print('Foo');
           },
           child: Container(
             padding: const EdgeInsets.all(16.0),

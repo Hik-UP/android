@@ -6,7 +6,7 @@ import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
-import 'package:hikup/screen/main/home/notification.dart';
+import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/screen/main/main_screen.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/local_notification.dart';
@@ -16,6 +16,7 @@ import 'package:hikup/screen/onboarding_screen.dart';
 import 'package:hikup/theme.dart';
 import 'firebase_options.dart';
 import 'screen/main/setting/update_profile.dart';
+import 'screen/main/setting/settings_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,7 +75,8 @@ class MyApp extends StatelessWidget {
         RegisterPage.routeName: (_) => const RegisterPage(),
         OnboardingScreen.routeName: (_) => const OnboardingScreen(),
         MainScreen.routeName: (_) => const MainScreen(),
-        UpdateProfile.routeName: (_) => const UpdateProfile()
+        UpdateProfile.routeName: (_) => const UpdateProfile(),
+        SettingsScreen.routeName: (_) => const SettingsScreen()
       },
     );
   }

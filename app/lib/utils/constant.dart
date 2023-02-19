@@ -2,13 +2,13 @@ import 'package:flutter/widgets.dart';
 
 import '../model/user.dart';
 import '../screen/main/community/community_history_screen.dart';
-import '../screen/main/home/home_screen.dart';
-import '../screen/main/navigation/main.dart';
+import '../screen/main/search/search_screen.dart';
+import '../screen/main/mapbox/mapbox_screen.dart';
 import '../screen/main/setting/settings_screen.dart';
 
 enum ViewState { idle, busy, retrieved }
 
-const env = "DEV";
+const env = "PROD";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
@@ -39,10 +39,8 @@ dynamic loginButtonColor = const LinearGradient(colors: [
 ]);
 
 final screens = [
-  const HomeScreen(),
-  const CommunityHistoryScreen(),
-  const SettingsScreen(),
-  const MyHomePage(),
+  const MapBoxScreen(),
+  const SearchScreen()
 ];
 
 enum TypeInput { text, password }

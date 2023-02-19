@@ -63,6 +63,7 @@ class LoadPictureProfil extends StatelessWidget {
 }
 
 class SettingsScreen extends StatelessWidget {
+  static String routeName = "/settings";
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override

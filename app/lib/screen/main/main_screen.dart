@@ -46,17 +46,13 @@ class _MainScreenState extends State<MainScreen> {
           defaultSelectedIndex: _currentIndex,
           selectedItemIcon: const [
             "assets/icons/home_fill.png",
-            "assets/icons/receipt_fill.png",
-            "assets/icons/settings_fill.png",
-            "assets/icons/compass.png"
+            "assets/icons/receipt_fill.png"
           ],
           unselectedItemIcon: const [
             "assets/icons/home_outlined.png",
-            "assets/icons/receipt_outlined.png",
-            "assets/icons/settings_outlined.png",
-            "assets/icons/compass-2.png"
+            "assets/icons/receipt_outlined.png"
           ],
-          label: const ["Accueil", "Commun", "Réglages", "Navigat"],
+          label: const ["Home", "Search"],
           onChange: (val) {
             setState(() {
               _currentIndex = val;
@@ -128,7 +124,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   Widget build(BuildContext context) {
     List<Widget> _navBarItems = [];
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 2; i++) {
       _navBarItems.add(bottomNavBarItem(
           _selectedItemIcon[i], _unselectedItemIcon[i], _label[i], i));
     }

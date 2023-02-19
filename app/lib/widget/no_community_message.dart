@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../screen/search_screen.dart';
 import '../theme.dart';
 
 class NoCommunityMessage extends StatelessWidget {
@@ -48,11 +47,7 @@ class NoCommunityMessage extends StatelessWidget {
             ),
             TextButton.icon(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const SearchScreen(
-                    selectedDropdownItem: "",
-                  );
-                }));
+                print('Foo');
               },
               icon: const Icon(Icons.search),
               label: Text(

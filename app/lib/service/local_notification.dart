@@ -1,7 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hikup/locator.dart';
-import 'package:hikup/screen/main/home/notification.dart';
+import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/service/custom_navigation.dart';
 
 class LocalNotification {

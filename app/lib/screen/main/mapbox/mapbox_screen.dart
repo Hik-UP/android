@@ -1,32 +1,18 @@
 import 'package:flutter/material.dart';
 import 'Components/map.dart';
 import '../../../service/geolocation.dart';
+import 'package:hikup/widget/header.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'HikUp Alpha',
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
+class MapBoxScreen extends StatefulWidget {
+  const MapBoxScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MapBoxScreen> createState() => _MapBoxScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MapBoxScreenState extends State<MapBoxScreen> {
   Map<String, double> geolocation = {'x': 45.94, 'y': 9.128}; // Argegno
 
   late MapBox _map;
@@ -95,9 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
     final latCon = TextEditingController();
     final lonCon = TextEditingController();
     return Scaffold(
-      appBar: AppBar(),
-      body: _map,
-      persistentFooterButtons: [
+      extendBodyBehindAppBar: true,
+      appBar: Header(),
+      body: _map
+      /*persistentFooterButtons: [
         SizedBox(
           width: 100.0,
           child: TextField(
@@ -154,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: const Icon(Icons.navigation),
           backgroundColor: Colors.red,
         ),
-      ],
+      ],*/
     );
   }
 }
