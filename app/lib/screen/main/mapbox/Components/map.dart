@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latlng;
+import 'package:hikup/providers/app_state.dart';
+import 'package:provider/provider.dart';
+import 'package:hikup/utils/wrapper_api.dart';
+import 'dart:convert';
 
 class MapBox extends StatefulWidget {
   MapBox({Key? key, required this.geolocation}) : super(key: key);
@@ -23,16 +27,18 @@ class _MapState extends State<MapBox> {
   late latlng.LatLng _geolocation;
   late latlng.LatLng _center;
   late MapController _mapController;
-  final double _zoom = 18.0;
+  final double _zoom = 5.5;
   final double _markerWidth = 64.0;
   final double _markerHeight = 64.0;
   final List<Marker> _markers = [];
+  final List<Polyline> _polylines = [];
+  bool loading = true;
 
   @override
   void initState() {
     _geolocation =
         latlng.LatLng(widget.geolocation['x']!, widget.geolocation['y']!);
-    _center = _geolocation;
+    _center = latlng.LatLng(46.227638, 2.213749);
     _mapController = MapController();
     super.initState();
   }
@@ -89,6 +95,66 @@ class _MapState extends State<MapBox> {
 
   @override
   Widget build(BuildContext context) {
+    AppState _appState = context.read<AppState>();
+
+    trails() async {
+      var trailList = await WrapperApi().getTrail(
+        id: _appState.id,
+        roles: _appState.roles,
+        token: _appState.token
+      );
+ 
+      if (trailList.statusCode == 200 || trailList.statusCode == 201) {
+        trailList.data["trails"].forEach((entry) {
+          late latlng.LatLng trailLatLng = latlng.LatLng(entry["latitude"], entry["longitude"]);
+          var geoJSON = json.decode(entry["geoJSON"]);
+
+          _markers.add(
+            Marker(
+              width: 50.0,
+              height: 50.0,
+              point: trailLatLng,
+              builder: (ctx) => GestureDetector(
+                onTap: () {
+                  final List<latlng.LatLng> _points = [];
+
+                  geoJSON["features"][0]["geometry"]["coordinates"].forEach((entry) {
+                    _points.add(latlng.LatLng(entry[1], entry[0]));
+                  });
+
+                  _mapController.move(trailLatLng, 18.0);
+                  _polylines.add(
+                    Polyline(
+                      points: _points,
+                      // isDotted: true,
+                      color: Colors.red,
+                      strokeWidth: 3.0,
+                      borderColor: Color(0xFF1967D2),
+                      borderStrokeWidth: 0.1,
+                    )
+                  );
+                  setState(() {});
+                },
+                child: Icon(
+                  Icons.fiber_manual_record_rounded,
+                  color: Colors.blue,
+                  size: 24.0
+                )
+              )
+            )
+          );
+        });
+        setState(() {
+          loading = false;
+        });
+      }
+    }
+
+    if (loading) {
+      trails();
+    }
+    print("2");
+
     return FlutterMap(
       mapController: _mapController,
       options: MapOptions(
@@ -96,24 +162,18 @@ class _MapState extends State<MapBox> {
         center: _center,
         zoom: _zoom,
       ),
-      layers: [
-        TileLayerOptions(
+      children: [
+        TileLayer(
           urlTemplate:
-              "https://api.mapbox.com/styles/v1/sosobi93/ckw3j5g09bruf14plx1jdnu2d/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic29zb2JpOTMiLCJhIjoiY2t0anJlNGxzMWVrbjJ6cW5nd2RzNGQ5YyJ9.uHmz0NhV5QjGdD3zOOVVhg",
+              "https://api.mapbox.com/styles/v1/hikupapp/cle0lx80a00j701qqki8kcxqd/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w",
           additionalOptions: {
             'accessToken':
-                'pk.eyJ1Ijoic29zb2JpOTMiLCJhIjoiY2t0anJlNGxzMWVrbjJ6cW5nd2RzNGQ5YyJ9.uHmz0NhV5QjGdD3zOOVVhg',
+                'pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w',
             'id': 'mapbox.mapbox-streets-v8'
-          },
-          attributionBuilder: (_) {
-            return const Text(
-              '© Mapbox ',
-              style:
-                  TextStyle(color: Colors.black, fontStyle: FontStyle.italic),
-            );
-          },
+          }
         ),
-        MarkerLayerOptions(markers: getMarkers()),
+        MarkerLayer(markers: loading ? [] : _markers),
+        PolylineLayer(polylines: _polylines.length == 0 ? [] : _polylines)
       ],
     );
   }

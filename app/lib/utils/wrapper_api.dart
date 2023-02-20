@@ -19,4 +19,18 @@ class WrapperApi {
       },
     );
   }
+
+  Future<Response<dynamic>> getTrail({
+    required String id,
+    required List<dynamic> roles,
+    required String token,
+  }) async {
+    return await _dioService.post(
+      path: getTrailsPath,
+      token: "Bearer $token",
+      body: {
+        "user": {"id": id, "roles": roles},
+      },
+    );
+  }
 }

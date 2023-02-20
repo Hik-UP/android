@@ -80,6 +80,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
   Widget build(BuildContext context) {
     final latCon = TextEditingController();
     final lonCon = TextEditingController();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: Header(),

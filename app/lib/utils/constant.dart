@@ -20,6 +20,7 @@ const msg =
 const baseProdApiUrl = "https://pro-hikup.westeurope.cloudapp.azure.com/api";
 const baseDevApiUrl = "https://dev-hikup.westeurope.cloudapp.azure.com/api";
 const loginPath = "/auth/login";
+const getTrailsPath = "/trail/retrieve";
 const getProfilePath = "/user/profile";
 const updateProfilePath = "/user/profile/update";
 
