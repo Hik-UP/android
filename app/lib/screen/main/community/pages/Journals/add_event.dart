@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hikup/locator.dart';
 import 'package:hikup/screen/main/community/shared_preferences.dart';
+import 'package:hikup/service/custom_navigation.dart';
 import '../../utils/enums.dart';
 import '../Notifications/ftoast_style.dart';
 
@@ -25,7 +27,7 @@ class _AddPageState extends State<AddPage> {
     "date": null,
     "image": ""
   };
-  late FToast fToast;
+  FToast fToast = FToast();
   bool isLoading = false;
   String icon = "128218";
   String emoticon = "129489";
@@ -37,13 +39,13 @@ class _AddPageState extends State<AddPage> {
   String currentCategory = "General";
   List categories = ["General"];
   List<dynamic> journals = [];
+  final _navigator = locator<CustomNavigationService>();
 
   @override
   void initState() {
     super.initState();
     getCategories();
     //setProfileIcons(emoticon);
-    fToast = FToast();
   }
 
   getCategories() async {
@@ -60,6 +62,10 @@ class _AddPageState extends State<AddPage> {
     }
   }
 
+  void show() {
+    fToast.init(context);
+  }
+
   submitCategory() async {
     String? allCategories =
         await sharedPreferences.getFromSharedPref('all-categories');
@@ -68,7 +74,7 @@ class _AddPageState extends State<AddPage> {
           'all-categories', jsonEncode(categories));
       setState(() {});
     } else if (addCategoryController.text.isEmpty) {
-      fToast.init(context);
+      show();
       showToast(fToast, "Category cannot be empty", NotificationStatus.failure);
     } else {
       categories.add(addCategoryController.text);
@@ -101,7 +107,7 @@ class _AddPageState extends State<AddPage> {
         journals.add(journal);
         await sharedPreferences.saveToSharedPref(
             'user-journals', jsonEncode(journals));
-        fToast.init(context);
+        show();
         showToast(
             fToast,
             "Notetest created successfully. Please refresh to view your newly created note",
@@ -109,16 +115,16 @@ class _AddPageState extends State<AddPage> {
         setState(() {
           isLoading = false;
         });
-        Navigator.of(context).pop();
+        _navigator.goBack();
       } else {
         List decoded = jsonDecode(allJournals);
         decoded.add(journal);
         await sharedPreferences.saveToSharedPref(
             'user-journals', jsonEncode(decoded));
-        fToast.init(context);
+        show();
         showToast(
             fToast, "L'invitation a été envoyé.", NotificationStatus.success);
-        Navigator.of(context).pop();
+        _navigator.goBack();
       }
     }
   }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/local_notification.dart';
 import 'package:hikup/theme.dart';
+import 'package:hikup/widget/custom_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constant.dart';
@@ -44,15 +45,9 @@ class _MainScreenState extends State<MainScreen> {
         body: screens[_currentIndex],
         bottomNavigationBar: CustomBottomNavBar(
           defaultSelectedIndex: _currentIndex,
-          selectedItemIcon: const [
-            "assets/icons/home_fill.png",
-            "assets/icons/receipt_fill.png"
-          ],
-          unselectedItemIcon: const [
-            "assets/icons/home_outlined.png",
-            "assets/icons/receipt_outlined.png"
-          ],
-          label: const ["Home", "Search"],
+          selectedItemIcon: filledIconNavBar,
+          unselectedItemIcon: unFilledIconNavBar,
+          label: labelNavBar,
           onChange: (val) {
             setState(() {
               _currentIndex = val;
@@ -82,115 +77,5 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ) ??
         false;
-  }
-}
-
-class CustomBottomNavBar extends StatefulWidget {
-  final int defaultSelectedIndex;
-  final List<String> selectedItemIcon;
-  final List<String> unselectedItemIcon;
-  final List<String> label;
-  final Function(int) onChange;
-
-  const CustomBottomNavBar(
-      {this.defaultSelectedIndex = 0,
-      required this.selectedItemIcon,
-      required this.unselectedItemIcon,
-      required this.label,
-      required this.onChange,
-      Key? key})
-      : super(key: key);
-
-  @override
-  State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
-}
-
-class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  int _selectedIndex = 0;
-  List<String> _selectedItemIcon = [];
-  List<String> _unselectedItemIcon = [];
-  List<String> _label = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedIndex = widget.defaultSelectedIndex;
-    _selectedItemIcon = widget.selectedItemIcon;
-    _unselectedItemIcon = widget.unselectedItemIcon;
-    _label = widget.label;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> _navBarItems = [];
-
-    for (int i = 0; i < 2; i++) {
-      _navBarItems.add(bottomNavBarItem(
-          _selectedItemIcon[i], _unselectedItemIcon[i], _label[i], i));
-    }
-    return Container(
-      decoration: const BoxDecoration(
-          color: colorWhite,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(18))),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: _navBarItems,
-      ),
-    );
-  }
-
-  Widget bottomNavBarItem(activeIcon, inactiveIcon, label, index) {
-    return GestureDetector(
-      onTap: () {
-        widget.onChange(index);
-        setState(() {
-          _selectedIndex = index;
-        });
-      },
-      child: Container(
-        height: kBottomNavigationBarHeight,
-        width: MediaQuery.of(context).size.width / _selectedItemIcon.length,
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius:
-                BorderRadius.vertical(top: Radius.circular(borderRadiusSize))),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: _selectedIndex == index
-              ? Container(
-                  decoration: BoxDecoration(
-                      color: primaryColor100,
-                      borderRadius: BorderRadius.circular(borderRadiusSize)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Image.asset(
-                        activeIcon,
-                        width: 22,
-                        height: 22,
-                        color: primaryColor500,
-                      ),
-                      Text(
-                        label,
-                        style: bottomNavTextStyle,
-                      )
-                    ],
-                  ),
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      inactiveIcon,
-                      width: 22,
-                      height: 22,
-                      color: primaryColor300,
-                    ),
-                  ],
-                ),
-        ),
-      ),
-    );
   }
 }

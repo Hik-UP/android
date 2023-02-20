@@ -20,7 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: Header(),
+      appBar: const Header(),
       body: Column(
         children: [
           Expanded(

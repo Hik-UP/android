@@ -92,6 +92,10 @@ class _HomePageState extends State<ComePage> {
     }
   }
 
+  void show() {
+    fToast.init(context);
+  }
+
   taskUpdation(int index) async {
     String? allChecklists =
         await sharedPreferences.getFromSharedPref('all-checklist');
@@ -101,7 +105,7 @@ class _HomePageState extends State<ComePage> {
       reversedList.removeAt(index);
       await sharedPreferences.saveToSharedPref(
           'all-checklist', jsonEncode(reversedList));
-      fToast.init(context);
+      show();
       showToast(fToast, "Task1 added to the task list successfully ",
           NotificationStatus.success);
     }
@@ -120,7 +124,7 @@ class _HomePageState extends State<ComePage> {
         decodedChecklists.add(addChecklistController.text);
         await sharedPreferences.saveToSharedPref(
             'all-checklist', jsonEncode(decodedChecklists));
-        fToast.init(context);
+        show();
         showToast(fToast, "L'événement a été crée", NotificationStatus.success);
         setState(() {});
       } else {
@@ -128,7 +132,7 @@ class _HomePageState extends State<ComePage> {
         checklist.add(addChecklistController.text);
         await sharedPreferences.saveToSharedPref(
             'all-checklist', jsonEncode(checklist));
-        fToast.init(context);
+        show();
         showToast(fToast, "Task3 added to the task list successfully ",
             NotificationStatus.success);
         setState(() {});

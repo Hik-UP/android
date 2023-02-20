@@ -14,7 +14,7 @@ class API {
     var dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
-      final response = await dio.post(serverUrl + '/api/v2/authenticate',
+      final response = await dio.post("$serverUrl/api/v2/authenticate",
           options: Options(headers: {
             "authToken": '',
             'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ class API {
     String serverUrl = await getServerUrl();
     var dio = Dio();
     try {
-      final response = await dio.post(serverUrl + '/api/v2/register',
+      final response = await dio.post("$serverUrl/api/v2/register",
           options: Options(headers: {
             "authToken": '',
             'Content-Type': 'application/json',

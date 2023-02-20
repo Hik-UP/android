@@ -55,13 +55,17 @@ class _FolderPageState extends State<FolderPage> {
     }
   }
 
+  void show() {
+    fToast.init(context);
+  }
+
   submitCategory() async {
     String? allCategories =
         await sharedPreferences.getFromSharedPref('all-categories');
     if (allCategories == null) {
       await sharedPreferences.saveToSharedPref(
           'all-categories', jsonEncode(categories));
-      fToast.init(context);
+      show();
       showToast(
           fToast, "Category created successfully ", NotificationStatus.success);
       setState(() {});
@@ -70,7 +74,7 @@ class _FolderPageState extends State<FolderPage> {
       categories.add(addCategoryController.text);
       await sharedPreferences.saveToSharedPref(
           'all-categories', jsonEncode(categories));
-      fToast.init(context);
+      show();
       showToast(
           fToast, "Category created successfully ", NotificationStatus.success);
       setState(() {});
@@ -147,7 +151,7 @@ class _FolderPageState extends State<FolderPage> {
         decodedList.removeAt(index);
         await sharedPreferences.saveToSharedPref(
             'all-categories', jsonEncode(decodedList));
-        fToast.init(context);
+        show();
         showToast(fToast, "Category successfully deleted",
             NotificationStatus.success);
       }

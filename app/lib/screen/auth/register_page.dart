@@ -25,8 +25,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    AppState _appState = context.read<AppState>();
-    
+    AppState appState = context.read<AppState>();
+
     return BaseView<RegisterPageViewModel>(
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
@@ -102,10 +102,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                   isLoading: model.getState == ViewState.busy,
                                   content: AppMessages.registerButtonText,
                                   onPress: () {
-                                     if (model.loginFormKey.currentState!.validate()){
-                                      model.register(username: model.usernameController.text, email: model.emailController.text, 
-                                      password: model.passwordController.text, appState: _appState);
-                                     }
+                                    if (model.loginFormKey.currentState!
+                                        .validate()) {
+                                      model.register(
+                                        username: model.usernameController.text,
+                                        email: model.emailController.text,
+                                        password: model.passwordController.text,
+                                        appState: appState,
+                                      );
+                                    }
                                   },
                                   gradient: loginButtonColor,
                                 ),
@@ -118,7 +123,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                           const Color.fromARGB(255, 0, 179, 60),
                                     ),
                                     onPressed: () {
-                                    Navigator.of(context).pushNamed(LoginPage.routeName);
+                                      Navigator.of(context)
+                                          .pushNamed(LoginPage.routeName);
                                     },
                                     child: const Text(
                                       "Already have an account? Sign in!",

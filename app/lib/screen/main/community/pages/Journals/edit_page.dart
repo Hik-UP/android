@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hikup/locator.dart';
 import 'package:hikup/screen/main/community/shared_preferences.dart';
+import 'package:hikup/service/custom_navigation.dart';
 import '../../utils/enums.dart';
 import '../Notifications/ftoast_style.dart';
 
@@ -26,6 +28,7 @@ class _EditPageState extends State<EditPage> {
   SharedPreferencesService sharedPreferences = SharedPreferencesService();
   TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
+  final _navigator = locator<CustomNavigationService>();
 
   Map<String, dynamic> journal = {
     "title": "",
@@ -77,6 +80,10 @@ class _EditPageState extends State<EditPage> {
     }
   }
 
+  void show() {
+    fToast.init(context);
+  }
+
   handleSubmit() async {
     if (titleController.text.isEmpty) {
       fToast.init(context);
@@ -98,10 +105,10 @@ class _EditPageState extends State<EditPage> {
         reversedList[index]["tags"] = currentCategory;
         await sharedPreferences.saveToSharedPref(
             'user-journals', jsonEncode(decodedJournals));
-        fToast.init(context);
+        show();
         showToast(
             fToast, "l'invitation a été éditer", NotificationStatus.success);
-        Navigator.of(context).pop();
+        _navigator.goBack();
       }
     }
   }

@@ -14,13 +14,13 @@ class MapBoxScreen extends StatefulWidget {
 class _MapBoxScreenState extends State<MapBoxScreen> {
   @override
   Widget build(BuildContext context) {
-    final latCon = TextEditingController();
-    final lonCon = TextEditingController();
+    // final latCon = TextEditingController();
+    // final lonCon = TextEditingController();
 
-    return Scaffold(
+    return const Scaffold(
       extendBodyBehindAppBar: true,
       appBar: Header(),
-      body: MapBox()
+      body: MapBox(),
     );
   }
 }

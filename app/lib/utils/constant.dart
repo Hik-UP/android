@@ -12,6 +12,11 @@ const env = "PROD";
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
 
+const urlTemplateMapBox =
+    "https://api.mapbox.com/styles/v1/hikupapp/cle0lx80a00j701qqki8kcxqd/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w";
+const accessTokenMapBox =
+    'pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w';
+const idMapBox = 'mapbox.mapbox-streets-v8';
 const logoBlackNoBg = "assets/images/logoBlackNoBg.png";
 const msg =
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
@@ -22,6 +27,16 @@ const loginPath = "/auth/login";
 const getTrailsPath = "/trail/retrieve";
 const getProfilePath = "/user/profile";
 const updateProfilePath = "/user/profile/update";
+
+const filledIconNavBar = [
+  "assets/icons/home_fill.png",
+  "assets/icons/receipt_fill.png"
+];
+const unFilledIconNavBar = [
+  "assets/icons/home_outlined.png",
+  "assets/icons/receipt_outlined.png"
+];
+const labelNavBar = ["Home", "Search"];
 
 User emptyUser = User(
   id: "",

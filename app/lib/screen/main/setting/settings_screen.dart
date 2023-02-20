@@ -68,7 +68,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppState _appState = context.read<AppState>();
+    AppState appState = context.read<AppState>();
 
     return Scaffold(
         backgroundColor: backgroundColor,
@@ -127,8 +127,8 @@ class SettingsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                _appState.username.isNotEmpty
-                                    ? "${_appState.username[0].toUpperCase()}${_appState.username.substring(1)}"
+                                appState.username.isNotEmpty
+                                    ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
                                     : "",
                                 style: subTitleTextStyle,
                               ),
@@ -143,7 +143,7 @@ class SettingsScreen extends StatelessWidget {
                                   border: Border.all(color: primaryColor500),
                                 ),
                                 child: Text(
-                                  _appState.email,
+                                  appState.email,
                                   style: descTextStyle.copyWith(
                                     color: primaryColor500,
                                   ),
