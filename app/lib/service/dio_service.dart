@@ -28,6 +28,8 @@ class DioService {
 
       return result;
     } on DioError catch (e) {
+      print(baseProdApiUrl);
+      print(e.response!.data);
       if (e.response == null) {
         _navigator.showSnackBack(
           content: AppMessages.anErrorOcur,

@@ -110,6 +110,7 @@ class LoginPageViewModel extends BaseModel {
         //Stocker l'utilisateur dans le local storage d'une téléphone et ensuite dans le state de l'application
       }
     } catch (e) {
+      print(e);
       setState(ViewState.retrieved);
     }
   }
