@@ -26,7 +26,12 @@ class _MapBoxState extends State<MapBox> {
     return BaseView<MapViewModel>(
       builder: (context, model, child) {
         if (model.loading) {
-          model.trails(appState: context.read<AppState>());
+          model.trails(
+            appState: context.read<AppState>(),
+            updateScreen: () => setState(
+              () {},
+            ),
+          );
         }
 
         return FlutterMap(

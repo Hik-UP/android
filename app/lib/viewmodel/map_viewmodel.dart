@@ -18,7 +18,10 @@ class MapViewModel extends BaseModel {
     notifyListeners();
   }
 
-  trails({required AppState appState}) async {
+  trails({
+    required AppState appState,
+    required Function updateScreen,
+  }) async {
     var trailList = await WrapperApi().getTrail(
       id: appState.id,
       roles: appState.roles,
@@ -54,6 +57,7 @@ class MapViewModel extends BaseModel {
                   borderStrokeWidth: 0.1,
                 ));
                 // setState(() {});
+                updateScreen();
               },
               child: const Icon(Icons.fiber_manual_record_rounded,
                   color: Colors.blue, size: 24.0),
