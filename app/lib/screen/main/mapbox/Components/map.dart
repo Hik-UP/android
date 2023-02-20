@@ -5,26 +5,17 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'dart:convert';
+import 'skin.dart';
 
 class MapBox extends StatefulWidget {
-  MapBox({Key? key, required this.geolocation}) : super(key: key);
-  final Map<String, double> geolocation;
+  MapBox({Key? key}) : super(key: key);
 
   final state = _MapState();
   @override
   _MapState createState() => state;
-
-  void setGeolocation(Map<String, double> coords) =>
-      state.setGeolocation(coords);
-  void move(Map<String, double> coords) => state.move(coords);
-  void addMarker(Map<String, double> props, Widget child) =>
-      state.addMarker(props, child);
-  void setMainMarker(Map<String, double> props, Widget child) =>
-      state.setMainMarker(props, child);
 }
 
 class _MapState extends State<MapBox> {
-  late latlng.LatLng _geolocation;
   late latlng.LatLng _center;
   late MapController _mapController;
   final double _zoom = 5.5;
@@ -36,61 +27,9 @@ class _MapState extends State<MapBox> {
 
   @override
   void initState() {
-    _geolocation =
-        latlng.LatLng(widget.geolocation['x']!, widget.geolocation['y']!);
     _center = latlng.LatLng(46.227638, 2.213749);
     _mapController = MapController();
     super.initState();
-  }
-
-  void setGeolocation(Map<String, double> geolocation) {
-    setState(() {
-      _geolocation = latlng.LatLng(geolocation['x']!, geolocation['y']!);
-    });
-  }
-
-  void move(Map<String, double> coords) {
-    setState(() {
-      _center = latlng.LatLng(coords['x']!, coords['y']!);
-      _mapController.move(_center, _zoom);
-    });
-  }
-
-  void addMarker(Map<String, double> props, Widget child) {
-    setState(() {
-      _markers.add(Marker(
-          point: latlng.LatLng(props['x']!, props['y']!),
-          builder: (ctx) => child,
-          width: props['width']!,
-          height: props['height']!));
-    });
-  }
-
-  void setMainMarker(Map<String, double> props, Widget child) {
-    setState(() {
-      _markers[0] = Marker(
-          point: latlng.LatLng(props['x']!, props['y']!),
-          builder: (ctx) => child,
-          width: props['width']!,
-          height: props['height']!);
-    });
-  }
-
-  List<Marker> getMarkers() {
-    Marker geolocation = Marker(
-      width: _markerWidth,
-      height: _markerHeight,
-      point: _geolocation,
-      builder: (ctx) => const Icon(
-        Icons.fiber_manual_record_rounded,
-        color: Colors.blue,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-      ),
-    );
-    List<Marker> markers = List.from(_markers);
-    markers.add(geolocation);
-    return markers;
   }
 
   @override
@@ -126,7 +65,6 @@ class _MapState extends State<MapBox> {
                   _polylines.add(
                     Polyline(
                       points: _points,
-                      // isDotted: true,
                       color: Colors.red,
                       strokeWidth: 3.0,
                       borderColor: Color(0xFF1967D2),
@@ -153,7 +91,6 @@ class _MapState extends State<MapBox> {
     if (loading) {
       trails();
     }
-    print("2");
 
     return FlutterMap(
       mapController: _mapController,
@@ -172,6 +109,7 @@ class _MapState extends State<MapBox> {
             'id': 'mapbox.mapbox-streets-v8'
           }
         ),
+        PlayerSkin(),
         MarkerLayer(markers: loading ? [] : _markers),
         PolylineLayer(polylines: _polylines.length == 0 ? [] : _polylines)
       ],

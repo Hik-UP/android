@@ -59,6 +59,7 @@ dependencies:
   firebase_storage: 
   cached_network_image: ^3.2.3
   flutter_map_geojson: ^1.0.1
+  flutter_map_location_marker: ^5.2.1
 
 
 dev_dependencies:
