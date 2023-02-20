@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hikup/locator.dart';
+import 'package:hikup/service/custom_navigation.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UplaodPicture extends StatefulWidget {
@@ -12,6 +14,7 @@ class UplaodPicture extends StatefulWidget {
 
 class _UplaodPictureState extends State<UplaodPicture> {
   final ImagePicker _picker = ImagePicker();
+  final _navigator = locator<CustomNavigationService>();
   XFile? image;
   XFile? result;
 
@@ -34,7 +37,7 @@ class _UplaodPictureState extends State<UplaodPicture> {
               setState(() {
                 result = image;
               });
-              Navigator.of(context).pop(image);
+              _navigator.goBack(value: image);
             }),
         ListTile(
           leading: const Icon(FontAwesomeIcons.folder),
@@ -52,7 +55,8 @@ class _UplaodPictureState extends State<UplaodPicture> {
             setState(() {
               result = image;
             });
-            Navigator.of(context).pop(image);
+
+            _navigator.goBack(value: image);
           },
         ),
         const SizedBox(height: 20.0),

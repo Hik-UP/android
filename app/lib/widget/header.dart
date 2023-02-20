@@ -8,52 +8,48 @@ import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
-  Header({
-    Key? key
-  }):super(key: key);
-  Widget build(BuildContext context) {
-    AppState _appState = context.read<AppState>();
+  const Header({Key? key}) : super(key: key);
 
-    print(_appState.picture);
+  @override
+  Widget build(BuildContext context) {
+    AppState appState = context.read<AppState>();
 
     return AppBar(
-      iconTheme: IconThemeData(
+      iconTheme: const IconThemeData(
         color: Colors.black,
       ),
       leadingWidth: 250,
       leading: Container(
-        margin: const EdgeInsets.only(left: 10.0),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(
-                SettingsScreen.routeName,
+          margin: const EdgeInsets.only(left: 10.0),
+          child: Row(
+            children: [
+              GestureDetector(
+                  onTap: () => Navigator.of(context).pushNamed(
+                        SettingsScreen.routeName,
+                      ),
+                  child: Container(
+                      margin: const EdgeInsets.only(left: 10.0),
+                      width: 40,
+                      height: 40,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage(
+                                "assets/images/user_profile_example.png"),
+                          )))),
+              const SizedBox(
+                width: 16,
               ),
-              child: Container(
-                margin: const EdgeInsets.only(left: 10.0),
-                width: 40,
-                height: 40,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image:
-                        AssetImage("assets/images/user_profile_example.png"),
-                  )
-                )
+              Text(
+                appState.username.isNotEmpty
+                    ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
+                    : "",
+                style: subTitleTextStyle,
               )
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-            Text(
-              _appState.username.isNotEmpty ? "${_appState.username[0].toUpperCase()}${_appState.username.substring(1)}" : "",
-              style: subTitleTextStyle,
-            )
-          ],
-        )
-      ),
+            ],
+          )),
       backgroundColor: Colors.white,
       elevation: 0.0,
       automaticallyImplyLeading: false,
@@ -99,6 +95,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
+
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

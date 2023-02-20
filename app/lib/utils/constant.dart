@@ -1,10 +1,9 @@
 import 'package:flutter/widgets.dart';
 
 import '../model/user.dart';
-import '../screen/main/community/community_history_screen.dart';
+
 import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
-import '../screen/main/setting/settings_screen.dart';
 
 enum ViewState { idle, busy, retrieved }
 
@@ -39,9 +38,6 @@ dynamic loginButtonColor = const LinearGradient(colors: [
   Color.fromARGB(153, 21, 174, 123),
 ]);
 
-final screens = [
-  const MapBoxScreen(),
-  const SearchScreen()
-];
+final screens = [const MapBoxScreen(), const SearchScreen()];
 
 enum TypeInput { text, password }

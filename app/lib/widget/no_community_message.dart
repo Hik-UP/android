@@ -46,9 +46,7 @@ class NoCommunityMessage extends StatelessWidget {
               height: 32.0,
             ),
             TextButton.icon(
-              onPressed: () {
-                print('Foo');
-              },
+              onPressed: () {},
               icon: const Icon(Icons.search),
               label: Text(
                 "",

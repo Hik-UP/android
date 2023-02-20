@@ -49,9 +49,7 @@ class CategoryCard extends StatelessWidget {
           highlightColor: primaryColor500.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16),
           splashColor: primaryColor500.withOpacity(0.5),
-          onTap: () {
-            print('Foo');
-          },
+          onTap: () {},
           child: Container(
             padding: const EdgeInsets.all(16.0),
             child: Column(

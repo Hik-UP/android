@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-part "trail.g.dart";
 
 @HiveType(typeId: 0)
 class Trail {
@@ -48,67 +47,65 @@ class Trail {
   @HiveField(14)
   final String geoJSON;
 
-  Trail({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.pictures,
-    required this.latitude,
-    required this.longitude,
-    required this.difficulty,
-    required this.duration,
-    required this.distance,
-    required this.uphill,
-    required this.downhill,
-    required this.tools,
-    required this.relatedArticles,
-    required this.labels,
-    required this.geoJSON
-  });
+  Trail(
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.pictures,
+      required this.latitude,
+      required this.longitude,
+      required this.difficulty,
+      required this.duration,
+      required this.distance,
+      required this.uphill,
+      required this.downhill,
+      required this.tools,
+      required this.relatedArticles,
+      required this.labels,
+      required this.geoJSON});
 
   static Trail fromMap({
     required Map<String, dynamic> data,
   }) {
     return Trail(
-      id: data["id"],
-      name: data["name"],
-      description: data["description"],
-      pictures: data["pictures"],
-      latitude: data["latitude"],
-      longitude: data["longitude"],
-      difficulty: data["difficulty"],
-      duration: data["duration"],
-      distance: data["distance"],
-      uphill: data["uphill"],
-      downhill: data["downhill"],
-      tools: data["tools"],
-      relatedArticles: data["relatedArticles"],
-      labels: data["labels"],
-      geoJSON: data["geoJSON"]
-    );
+        id: data["id"],
+        name: data["name"],
+        description: data["description"],
+        pictures: data["pictures"],
+        latitude: data["latitude"],
+        longitude: data["longitude"],
+        difficulty: data["difficulty"],
+        duration: data["duration"],
+        distance: data["distance"],
+        uphill: data["uphill"],
+        downhill: data["downhill"],
+        tools: data["tools"],
+        relatedArticles: data["relatedArticles"],
+        labels: data["labels"],
+        geoJSON: data["geoJSON"]);
   }
 
   static printTrain({required Trail trail}) {
-    print("${trail.id} ==> ${trail.name} ==> ${trail.description} ==> ${trail.pictures} ==> ${trail.latitude} ==> ${trail.longitude} ==> ${trail.difficulty} ==> ${trail.duration} ==> ${trail.distance} ==> ${trail.uphill} ==> ${trail.downhill} ==> ${trail.tools} ==> ${trail.relatedArticles} ==> ${trail.labels} ==> ${trail.geoJSON}");
+    print(
+        "${trail.id} ==> ${trail.name} ==> ${trail.description} ==> ${trail.pictures} ==> ${trail.latitude} ==> ${trail.longitude} ==> ${trail.difficulty} ==> ${trail.duration} ==> ${trail.distance} ==> ${trail.uphill} ==> ${trail.downhill} ==> ${trail.tools} ==> ${trail.relatedArticles} ==> ${trail.labels} ==> ${trail.geoJSON}");
   }
 
   static Trail copy({required Trail trail}) {
     return Trail(
-      id: trail.id,
-      name: trail.name,
-      description: trail.description,
-      pictures: trail.pictures,
-      latitude: trail.latitude,
-      longitude: trail.longitude,
-      difficulty: trail.difficulty,
-      duration: trail.duration,
-      distance: trail.distance,
-      uphill: trail.uphill,
-      downhill: trail.downhill,
-      tools: trail.tools,
-      relatedArticles: trail.relatedArticles,
-      labels: trail.labels,
-      geoJSON: trail.geoJSON
-    );
+        id: trail.id,
+        name: trail.name,
+        description: trail.description,
+        pictures: trail.pictures,
+        latitude: trail.latitude,
+        longitude: trail.longitude,
+        difficulty: trail.difficulty,
+        duration: trail.duration,
+        distance: trail.distance,
+        uphill: trail.uphill,
+        downhill: trail.downhill,
+        tools: trail.tools,
+        relatedArticles: trail.relatedArticles,
+        labels: trail.labels,
+        geoJSON: trail.geoJSON);
   }
 }

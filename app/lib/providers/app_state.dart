@@ -62,7 +62,6 @@ class AppState extends ChangeNotifier {
   }
 
   void setFcmToken({required String value}) {
-    print(value);
     fcmUserToken = value;
     notifyListeners();
   }
