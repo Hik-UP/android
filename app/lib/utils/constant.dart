@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hikup/model/skin.dart';
+import 'package:hikup/screen/main/setting/settings_screen.dart';
 
 import '../model/user.dart';
 
@@ -31,13 +32,15 @@ const updateProfilePath = "/user/profile/update";
 
 const filledIconNavBar = [
   "assets/icons/home_fill.png",
-  "assets/icons/receipt_fill.png"
+  "assets/icons/receipt_fill.png",
+  "assets/icons/settings_fill.png"
 ];
 const unFilledIconNavBar = [
   "assets/icons/home_outlined.png",
-  "assets/icons/receipt_outlined.png"
+  "assets/icons/receipt_outlined.png",
+  "assets/icons/settings_outlined.png"
 ];
-const labelNavBar = ["Home", "Search"];
+const labelNavBar = ["Home", "Search", "Settings"];
 
 User emptyUser = User(
   id: "",
@@ -62,6 +65,10 @@ dynamic loginButtonColor = const LinearGradient(colors: [
   Color.fromARGB(153, 21, 174, 123),
 ]);
 
-final screens = [const MapBoxScreen(), const SearchScreen()];
+final screens = [
+  const MapBoxScreen(),
+  const SearchScreen(),
+  const SettingsScreen()
+];
 
 enum TypeInput { text, password }
