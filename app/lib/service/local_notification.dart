@@ -18,8 +18,8 @@ class LocalNotification {
     AndroidInitializationSettings initializationSettingsAndroid =
         const AndroidInitializationSettings("app_icon");
 
-    final IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings(
+    final DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
       requestSoundPermission: false,
       requestBadgePermission: false,
       requestAlertPermission: false,
@@ -36,7 +36,7 @@ class LocalNotification {
 
     await FlutterLocalNotificationsPlugin().initialize(
       initializationSettings,
-      onSelectNotification: (String? value) {
+      onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) {
         locator<CustomNavigationService>().navigateTo(
           NotificationView.routeName,
         );

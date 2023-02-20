@@ -9,7 +9,7 @@ services:
     image: hikup/android
     command: [ "${ANDROID_CMD}" ]
     volumes:
-      - ./app/lib:/usr/app/lib:ro
+      - ./app/lib:/usr/app/lib:rw
       - ./app/config:/usr/app/config:ro
       - ./app/assets:/usr/app/assets:ro
       - ./app/test:/usr/app/test:ro

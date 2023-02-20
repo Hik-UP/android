@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/user.dart';
+//import 'package:hikup/model/trail.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/main/main_screen.dart';
 import 'package:hikup/service/custom_navigation.dart';
@@ -76,22 +77,22 @@ class LoginPageViewModel extends BaseModel {
         //Passer de user JSON à user model
         User user = User.fromMap(data: data["user"]);
 
-        var response = await WrapperApi().getProfile(
+        var userProfile = await WrapperApi().getProfile(
           id: user.id,
           roles: user.roles,
           token: user.token,
         );
 
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          var data = response.data as Map<String, dynamic>;
+        if (userProfile.statusCode == 200 || userProfile.statusCode == 201) {
+          var profileData = userProfile.data as Map<String, dynamic>;
 
           appState.setToken(value: user.token);
           User newUser = User(
             id: user.id,
-            name: data["user"]["username"],
-            email: data["user"]["email"],
+            name: profileData["user"]["username"],
+            email: profileData["user"]["email"],
             accountType: "",
-            imageProfile: data["user"]["picture"] ?? "",
+            imageProfile: profileData["user"]["picture"] ?? "",
             roles: user.roles,
             token: user.token,
           );
@@ -106,7 +107,6 @@ class LoginPageViewModel extends BaseModel {
           );
           return;
         }
-
         //Stocker l'utilisateur dans le local storage d'une téléphone et ensuite dans le state de l'application
       }
     } catch (e) {

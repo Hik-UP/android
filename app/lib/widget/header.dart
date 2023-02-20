@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/providers/app_state.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 
