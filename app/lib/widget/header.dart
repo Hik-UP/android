@@ -18,38 +18,54 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: const IconThemeData(
         color: Colors.black,
       ),
-      leadingWidth: 250,
+      title: SizedBox(
+        width: MediaQuery.of(context).size.width / 2 * .9,
+        child: Text(
+          appState.username.isNotEmpty
+              ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
+              : "",
+          style: subTitleTextStyle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
       leading: Container(
-          margin: const EdgeInsets.only(left: 10.0),
-          child: Row(
-            children: [
-              GestureDetector(
-                  onTap: () => Navigator.of(context).pushNamed(
-                        SettingsScreen.routeName,
-                      ),
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 10.0),
-                      width: 40,
-                      height: 40,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage(
-                                "assets/images/user_profile_example.png"),
-                          )))),
-              const SizedBox(
-                width: 16,
+        margin: const EdgeInsets.only(left: 10.0),
+        child: Row(
+          children: [
+            GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(
+                SettingsScreen.routeName,
               ),
-              Text(
-                appState.username.isNotEmpty
-                    ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
-                    : "",
-                style: subTitleTextStyle,
-              )
-            ],
-          )),
+              child: Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                width: 35,
+                height: 35,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage("assets/images/user_profile_example.png"),
+                  ),
+                ),
+              ),
+            ),
+            // const SizedBox(width: 16.0),
+            // SizedBox(
+            //   width: MediaQuery.of(context).size.width / 2 * .9,
+            //   child: Text(
+            //     appState.username.isNotEmpty
+            //         ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
+            //         : "",
+            //     style: subTitleTextStyle,
+            //     maxLines: 1,
+            //     overflow: TextOverflow.ellipsis,
+            //   ),
+            // )
+          ],
+        ),
+      ),
       backgroundColor: Colors.white,
       elevation: 0.0,
       automaticallyImplyLeading: false,

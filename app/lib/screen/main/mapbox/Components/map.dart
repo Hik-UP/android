@@ -8,60 +8,6 @@ import 'package:latlong2/latlong.dart' as latlng;
 import 'package:provider/provider.dart';
 import 'skin.dart';
 
-// class MapBox extends StatefulWidget {
-//   MapBox({Key? key}) : super(key: key);
-
-//   final state = _MapState();
-//   @override
-//   _MapState createState() => state;
-// }
-
-// class _MapState extends State<MapBox> {
-//   late MapController _mapController;
-
-//   final double _markerWidth = 64.0;
-//   final double _markerHeight = 64.0;
-
-//   bool loading = true;
-
-//   @override
-//   void initState() {
-//     _center = latlng.LatLng(46.227638, 2.213749);
-//     _mapController = MapController();
-//     super.initState();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     //
-
-//     if (loading) {
-//       trails();
-//     }
-
-//     return FlutterMap(
-//       mapController: _mapController,
-//       options: MapOptions(
-//         pinchZoomThreshold: 69.99999999999991,
-//         center: _center,
-//         zoom: _zoom,
-//       ),
-//       children: [
-//         TileLayer(
-//           urlTemplate: urlTemplateMapBox,
-//           additionalOptions: const {
-//             'accessToken': accessTokenMapBox,
-//             'id': idMapBox
-//           },
-//         ),
-//         const PlayerSkin(),
-//         MarkerLayer(markers: loading ? [] : _markers),
-//         PolylineLayer(polylines: _polylines.length == 0 ? [] : _polylines)
-//       ],
-//     );
-//   }
-// }
-
 class MapBox extends StatefulWidget {
   const MapBox({Key? key}) : super(key: key);
 
@@ -70,6 +16,11 @@ class MapBox extends StatefulWidget {
 }
 
 class _MapBoxState extends State<MapBox> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<MapViewModel>(

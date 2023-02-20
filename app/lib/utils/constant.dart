@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:hikup/model/skin.dart';
 
 import '../model/user.dart';
 
@@ -46,6 +47,14 @@ User emptyUser = User(
   imageProfile: "",
   roles: [],
   token: "",
+);
+
+Skin emptySkin = const Skin(
+  id: "",
+  name: "",
+  description: "",
+  pictures: [],
+  model: "",
 );
 
 dynamic loginButtonColor = const LinearGradient(colors: [

@@ -1,4 +1,7 @@
+import 'package:hikup/locator.dart';
+import 'package:hikup/service/hive_service.dart';
 import 'package:hive/hive.dart';
+part 'skin.g.dart';
 
 @HiveType(typeId: 2)
 class Skin {
@@ -21,13 +24,28 @@ class Skin {
     required this.model,
   });
 
-  Skin fromMap(Map<String, dynamic> value) {
+  static Skin fromMap({required Map<String, dynamic> data}) {
+    List<String> skinString = [];
+
+    if (data["pictures"] != null) {
+      for (var value in data["pictures"]) {
+        skinString.add(value as String);
+      }
+    }
+
     return Skin(
-      id: value["id"] ?? "",
-      name: value["name"] ?? "",
-      description: value["description"] ?? "",
-      pictures: value["pictures"] ?? [],
-      model: value["model"] ?? "",
+      id: data["id"] ?? "",
+      name: data["name"] ?? "",
+      description: data["description"] ?? "",
+      pictures: skinString,
+      model: data["model"] ?? "",
     );
+  }
+
+  static addSkinOnHive({
+    required Skin skin,
+    required Box<Skin> skinBox,
+  }) async {
+    await locator<HiveService>().addOnBoxViaKey(skinBox, "skin", skin);
   }
 }

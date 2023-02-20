@@ -8,7 +8,7 @@ import 'package:latlong2/latlong.dart' as latlng;
 
 class MapViewModel extends BaseModel {
   final List<Marker> markers = [];
-  late MapController mapController;
+  late MapController mapController = MapController();
   final List<Polyline> polylines = [];
   final double zoom = 5.5;
   bool loading = true;

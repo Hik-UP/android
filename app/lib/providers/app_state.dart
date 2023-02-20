@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/other_data.dart';
+import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/constant.dart';
@@ -10,6 +11,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
   final Box<User> boxUser = Hive.box("userBox");
+  final Box<Skin> skinUserBox = Hive.box("skinBox");
   final _hiveService = locator<HiveService>();
   bool isFirstDownload = true;
   String token = "";
@@ -19,6 +21,7 @@ class AppState extends ChangeNotifier {
   String picture = "";
   String fcmUserToken = "";
   List<dynamic> roles = [];
+  Skin skin = emptySkin;
 
   void setIsFirstDownload({required bool value}) async {
     isFirstDownload = value;
@@ -66,6 +69,11 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateSkinState({required Skin value}) {
+    skin = value;
+    notifyListeners();
+  }
+
   storeInHive({required User user}) async {
     await _hiveService.addOnBoxViaKey<User>(boxUser, "user", user);
     updateAllState(user: user);
@@ -83,9 +91,11 @@ class AppState extends ChangeNotifier {
   initialState() {
     var otherData = _boxOtherData.get("otherData") ?? OtherData();
     var user = boxUser.get("user") ?? emptyUser;
+    var skin = skinUserBox.get("skin") ?? emptySkin;
 
     setIsFirstDownload(value: otherData.isFirstDownload);
     updateAllState(user: user);
+    updateSkinState(value: skin);
   }
 
   void getUserFcmToken() async {

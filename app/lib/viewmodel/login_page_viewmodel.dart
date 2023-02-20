@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
+import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
 //import 'package:hikup/model/trail.dart';
 import 'package:hikup/providers/app_state.dart';
@@ -96,6 +97,9 @@ class LoginPageViewModel extends BaseModel {
             roles: user.roles,
             token: user.token,
           );
+          Skin skin = Skin.fromMap(data: profileData["user"]["skin"]);
+          Skin.addSkinOnHive(skin: skin, skinBox: appState.skinUserBox);
+          appState.updateSkinState(value: skin);
           await appState.storeInHive(user: newUser);
 
           _navigationService.navigateTo(MainScreen.routeName);

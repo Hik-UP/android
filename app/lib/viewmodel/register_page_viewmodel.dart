@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
+import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/main/main_screen.dart';
@@ -24,9 +25,6 @@ class RegisterPageViewModel extends BaseModel {
     if (username == null) {
       return AppMessages.requiredField;
     }
-    // if(!Validation.usernameValidator(username)) {
-    //   return AppMessages.usernameinvalid;
-    // }
 
     return null;
   }
@@ -51,11 +49,12 @@ class RegisterPageViewModel extends BaseModel {
     return null;
   }
 
-  void register(
-      {required String username,
-      required String email,
-      required String password,
-      required AppState appState}) async {
+  void register({
+    required String username,
+    required String email,
+    required String password,
+    required AppState appState,
+  }) async {
     try {
       setState(ViewState.busy);
       var response = await _dioService.post(path: '/auth/signup', body: {
@@ -78,6 +77,7 @@ class RegisterPageViewModel extends BaseModel {
           var dataLogin = responseLogin.data as Map<String, dynamic>;
 
           User user = User.fromMap(data: dataLogin["user"]);
+          Skin skin = Skin.fromMap(data: dataLogin["user"]["skin"]);
           print(User.printUser(user: user));
           var responseGetProfile = await WrapperApi().getProfile(
             id: user.id,
@@ -98,8 +98,9 @@ class RegisterPageViewModel extends BaseModel {
               roles: user.roles,
               token: user.token,
             );
-
+            await Skin.addSkinOnHive(skin: skin, skinBox: appState.skinUserBox);
             await appState.storeInHive(user: newUser);
+            appState.updateSkinState(value: skin);
             setState(ViewState.retrieved);
 
             _customNavigationService.navigateTo(MainScreen.routeName);

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/other_data.dart';
+import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
@@ -25,8 +26,10 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(OtherDataAdapter());
+  Hive.registerAdapter(SkinAdapter());
   await Hive.openBox<User>("userBox");
   await Hive.openBox<OtherData>("otherData");
+  await Hive.openBox<Skin>("skinBox");
   await LocalNotification().init();
 
   setupLocator();
