@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hikup/model/rando_field.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-//import 'package:hikup/screen/detail/checkout_screen.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/widget/back_icon.dart';
-import 'package:hikup/widget/facility_card.dart';
 
 class DetailScreen extends StatelessWidget {
   final RandoField field;
@@ -50,12 +48,12 @@ class DetailScreen extends StatelessWidget {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
+                  children: const [
+                    Icon(
                       CupertinoIcons.money_dollar_circle_fill,
                       color: primaryColor500,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 16.0,
                     ),
                   ],
@@ -72,12 +70,12 @@ class DetailScreen extends StatelessWidget {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
+                  children: const [
+                    Icon(
                       Icons.hiking_rounded,
                       color: primaryColor500,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 16.0,
                     ),
                   ],
@@ -87,12 +85,12 @@ class DetailScreen extends StatelessWidget {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
+                  children: const [
+                    Icon(
                       Icons.escalator,
                       color: primaryColor500,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 16.0,
                     ),
                   ],

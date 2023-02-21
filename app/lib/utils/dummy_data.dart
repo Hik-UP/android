@@ -1,7 +1,6 @@
 import 'package:hikup/model/field_facility.dart';
 import 'package:hikup/model/field_order.dart';
 import 'package:hikup/model/rando_category.dart';
-import 'package:hikup/model/rando_field.dart';
 import 'package:hikup/model/user.dart';
 
 var sampleUser = User(

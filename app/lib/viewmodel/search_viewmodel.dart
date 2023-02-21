@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
-import 'dart:convert';
 import 'package:hikup/model/rando_field.dart';
 
 class SearchViewModel extends BaseModel {
@@ -26,25 +24,28 @@ class SearchViewModel extends BaseModel {
 
     if (trailList.statusCode == 200 || trailList.statusCode == 201) {
       trailList.data["trails"].forEach((entry) {
-        trailsList.add(
-          RandoField(
-            id: entry["id"],
-            name: entry["name"],
-            description: entry["description"],
-            pictures: entry["pictures"].cast<String>(),
-            latitude: entry["latitude"],
-            longitude: entry["longitude"],
-            difficulty: entry["difficulty"],
-            duration: entry["duration"],
-            distance: entry["distance"],
-            uphill: entry["uphill"],
-            downhill: entry["downhill"],
-            tools: entry["tools"].cast<String>(),
-            relatedArticles: entry["relatedArticles"].cast<String>(),
-            labels: entry["labels"].cast<String>(),
-            geoJSON: entry["geoJSON"],
-          )
-        );
+        trailsList.add(RandoField(
+          id: entry["id"],
+          name: entry["name"],
+          description: entry["description"],
+          pictures: entry["pictures"].cast<String>(),
+          latitude: entry["latitude"],
+          longitude: entry["longitude"],
+          difficulty: entry["difficulty"],
+          duration: entry["duration"],
+          distance: entry["distance"],
+          uphill: entry["uphill"],
+          downhill: entry["downhill"],
+          tools: entry["tools"].cast<String>(),
+          relatedArticles: entry["relatedArticles"].cast<String>(),
+          labels: entry["labels"].cast<String>(),
+          geoJSON: entry["geoJSON"],
+          imageAsset: "",
+          address: "",
+          openTime: "",
+          closeTime: "",
+          price: 0,
+        ));
       });
       setLoading(false);
     }

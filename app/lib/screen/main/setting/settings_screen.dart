@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/auth/login_page.dart';
-import 'package:hikup/screen/main/setting/logout.dart';
 import 'package:hikup/screen/main/setting/update_profile.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
@@ -67,7 +66,7 @@ class LoadPictureProfil extends StatelessWidget {
 class SettingsScreen extends StatelessWidget {
   static String routeName = "/settings";
   const SettingsScreen({Key? key}) : super(key: key);
-  
+
   get floatingActionButton => null;
 
   @override
@@ -271,12 +270,12 @@ class SettingsScreen extends StatelessWidget {
                 CustomBtn(
                   content: AppMessages.logout,
                   onPress: () {
-                  Navigator.of(context).pushNamed(
-                  LoginPage.routeName,
-                  );
-                },
-              gradient: logoutButtonColor,
-            ),
+                    Navigator.of(context).pushNamed(
+                      LoginPage.routeName,
+                    );
+                  },
+                  gradient: logoutButtonColor,
+                ),
               ],
             ),
           ),

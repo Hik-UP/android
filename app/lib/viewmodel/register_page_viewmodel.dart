@@ -78,7 +78,6 @@ class RegisterPageViewModel extends BaseModel {
 
           User user = User.fromMap(data: dataLogin["user"]);
           Skin skin = Skin.fromMap(data: dataLogin["user"]["skin"]);
-          print(User.printUser(user: user));
           var responseGetProfile = await WrapperApi().getProfile(
             id: user.id,
             roles: user.roles,

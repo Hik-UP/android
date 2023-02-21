@@ -1,6 +1,3 @@
-import 'package:hikup/model/rando_category.dart';
-import 'package:hikup/model/field_facility.dart';
-
 class RandoField {
   String id;
   String name;
@@ -17,6 +14,11 @@ class RandoField {
   List<String> relatedArticles;
   List<String> labels;
   String geoJSON;
+  String imageAsset;
+  String address;
+  String openTime;
+  String closeTime;
+  int price;
 
   RandoField({
     required this.id,
@@ -33,6 +35,11 @@ class RandoField {
     required this.tools,
     required this.relatedArticles,
     required this.labels,
-    required this.geoJSON
+    required this.geoJSON,
+    required this.imageAsset,
+    required this.address,
+    required this.openTime,
+    required this.closeTime,
+    required this.price,
   });
 }

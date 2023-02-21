@@ -15,14 +15,14 @@ class PlayerSkin extends StatefulWidget {
 class _PlayerSkinState extends State<PlayerSkin> {
   @override
   Widget build(BuildContext context) {
-    AppState _appState = context.read<AppState>();
+    AppState appState = context.read<AppState>();
 
     return CurrentLocationLayer(
       followOnLocationUpdate: FollowOnLocationUpdate.always,
       turnOnHeadingUpdate: TurnOnHeadingUpdate.always,
       style: LocationMarkerStyle(
         marker: CachedNetworkImage(
-          imageUrl: _appState.skin.model,
+          imageUrl: appState.skin.model,
           errorWidget: (context, url, error) => const Icon(
             Icons.warning,
             color: Colors.red,
