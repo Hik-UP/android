@@ -14,5 +14,6 @@ class AppMessages {
   static String usernameinvalid = "The username is incorrect";
   static String updateProfil = "Update profil";
   static String updateTxt = "Update";
+  static String logout = "Logout";
   static String needAPicture = "Please, select an image";
 }

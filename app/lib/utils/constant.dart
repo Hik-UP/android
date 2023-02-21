@@ -65,6 +65,11 @@ dynamic loginButtonColor = const LinearGradient(colors: [
   Color.fromARGB(153, 21, 174, 123),
 ]);
 
+dynamic logoutButtonColor = const LinearGradient(colors: [
+  Color.fromARGB(255, 5, 201, 240),
+  Color.fromARGB(153, 13, 164, 229),
+]);
+
 final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
