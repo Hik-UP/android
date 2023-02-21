@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../model/rando_field.dart';
 import '../screen/detail/detail_screen.dart';
@@ -38,10 +39,13 @@ class RandoFieldCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(borderRadiusSize)),
-                child: Image.asset(field.imageAsset,
-                    height: 200,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.cover),
+                child: CachedNetworkImage(
+                  imageUrl: field.pictures[0],
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.warning,
+                    color: Colors.red,
+                  ),
+                ),
               ),
               Container(
                 padding: const EdgeInsets.all(16.0),
@@ -70,14 +74,14 @@ class RandoFieldCard extends StatelessWidget {
                         const SizedBox(
                           width: 8.0,
                         ),
-                        Flexible(
+                        /*Flexible(
                           child: Text(
                             field.address,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: addressTextStyle,
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ],

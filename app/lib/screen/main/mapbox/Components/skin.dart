@@ -16,7 +16,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
   @override
   Widget build(BuildContext context) {
     AppState _appState = context.read<AppState>();
-    print(_appState.skin.model);
+
     return CurrentLocationLayer(
       followOnLocationUpdate: FollowOnLocationUpdate.always,
       turnOnHeadingUpdate: TurnOnHeadingUpdate.always,

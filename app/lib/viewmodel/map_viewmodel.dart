@@ -56,7 +56,6 @@ class MapViewModel extends BaseModel {
                   borderColor: const Color(0xFF1967D2),
                   borderStrokeWidth: 0.1,
                 ));
-                // setState(() {});
                 updateScreen();
               },
               child: const Icon(Icons.fiber_manual_record_rounded,

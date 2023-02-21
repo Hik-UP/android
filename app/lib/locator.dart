@@ -7,6 +7,7 @@ import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/viewmodel/notification_viewmodel.dart';
 import 'package:hikup/viewmodel/register_page_viewmodel.dart';
 import 'package:hikup/viewmodel/update_profil_viewmodel.dart';
+import 'package:hikup/viewmodel/search_viewmodel.dart';
 
 import 'viewmodel/login_page_viewmodel.dart';
 
@@ -25,4 +26,5 @@ void setupLocator() {
   locator.registerFactory(() => RegisterPageViewModel());
   locator.registerFactory(() => UpdateProfilModel());
   locator.registerFactory(() => MapViewModel());
+  locator.registerFactory(() => SearchViewModel());
 }

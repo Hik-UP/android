@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hikup/model/rando_field.dart';
-import 'package:hikup/screen/detail/checkout_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+//import 'package:hikup/screen/detail/checkout_screen.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/widget/back_icon.dart';
 import 'package:hikup/widget/facility_card.dart';
-//import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatelessWidget {
   final RandoField field;
@@ -36,13 +36,13 @@ class DetailScreen extends StatelessWidget {
                     const SizedBox(
                       width: 16.0,
                     ),
-                    Flexible(
+                    /*Flexible(
                       child: Text(
                         field.address,
                         overflow: TextOverflow.visible,
                         style: addressTextStyle,
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
                 const SizedBox(
@@ -57,13 +57,6 @@ class DetailScreen extends StatelessWidget {
                     ),
                     const SizedBox(
                       width: 16.0,
-                    ),
-                    Flexible(
-                      child: Text(
-                        "Nb. ${field.price} / hour",
-                        overflow: TextOverflow.visible,
-                        style: addressTextStyle,
-                      ),
                     ),
                   ],
                 ),
@@ -87,13 +80,6 @@ class DetailScreen extends StatelessWidget {
                     const SizedBox(
                       width: 16.0,
                     ),
-                    Flexible(
-                      child: Text(
-                        field.phoneNumber,
-                        overflow: TextOverflow.visible,
-                        style: addressTextStyle,
-                      ),
-                    ),
                   ],
                 ),
                 const SizedBox(
@@ -109,13 +95,6 @@ class DetailScreen extends StatelessWidget {
                     const SizedBox(
                       width: 16.0,
                     ),
-                    Flexible(
-                      child: Text(
-                        field.author,
-                        overflow: TextOverflow.visible,
-                        style: addressTextStyle,
-                      ),
-                    ),
                   ],
                 ),
                 const SizedBox(
@@ -125,7 +104,7 @@ class DetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Durée:",
+                      "Duration:",
                       style: subTitleTextStyle,
                     ),
                     TextButton(
@@ -138,24 +117,6 @@ class DetailScreen extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(
-                      Icons.date_range_rounded,
-                      color: primaryColor500,
-                    ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Text(
-                      field.openDay,
-                      style: descTextStyle,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  children: [
-                    const Icon(
                       Icons.access_time_rounded,
                       color: primaryColor500,
                     ),
@@ -163,7 +124,7 @@ class DetailScreen extends StatelessWidget {
                       width: 16.0,
                     ),
                     Text(
-                      "${field.openTime} - ${field.closeTime}",
+                      "${field.duration}",
                       style: descTextStyle,
                     ),
                   ],
@@ -172,13 +133,13 @@ class DetailScreen extends StatelessWidget {
                   height: 32,
                 ),
                 Text(
-                  "Équipement:",
+                  "Tools:",
                   style: subTitleTextStyle,
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                FacilityCardList(facilities: field.facilities),
+                //FacilityCardList(facilities: field.tools),
               ]),
             ),
           )
@@ -199,11 +160,12 @@ class DetailScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(borderRadiusSize))),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              print("CHECKOUT");
+              /*Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return CheckoutScreen(
                   field: field,
                 );
-              }));
+              }));*/
             },
             child: const Text("Réserver maintenant")),
       ),
@@ -238,9 +200,13 @@ class DetailScreen extends StatelessWidget {
             ),
           ),
         ),
-        background: Image.asset(
-          field.imageAsset,
+        background: CachedNetworkImage(
+          imageUrl: field.pictures[0],
           fit: BoxFit.cover,
+          errorWidget: (context, url, error) => const Icon(
+            Icons.warning,
+            color: Colors.red,
+          ),
         ),
         collapseMode: CollapseMode.parallax,
       ),

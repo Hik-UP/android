@@ -25,6 +25,11 @@ class _MapBoxState extends State<MapBox> {
   Widget build(BuildContext context) {
     return BaseView<MapViewModel>(
       builder: (context, model, child) {
+        /*model.mapController.mapEventStream.listen((event) {
+          if (model.mapController.zoom >= 12) {
+            print("OK");
+          }
+        });*/
         if (model.loading) {
           model.trails(
             appState: context.read<AppState>(),
@@ -40,6 +45,7 @@ class _MapBoxState extends State<MapBox> {
             pinchZoomThreshold: 69.99999999999991,
             center: latlng.LatLng(46.227638, 2.213749),
             zoom: model.zoom,
+            maxBounds: LatLngBounds(latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0))
           ),
           children: [
             TileLayer(
