@@ -3,7 +3,7 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/widget/category_card.dart';
 import 'package:hikup/widget/header.dart';
-import 'package:hikup/widget/rando_field_card.dart';
+import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +67,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   // RECOMMENDED FIELDS
                   Column(
                       children: model.trailsList
-                          .map((fieldEntity) => RandoFieldCard(
+                          .map((fieldEntity) => TrailCard(
                                 field: fieldEntity,
                               ))
                           .toList()),

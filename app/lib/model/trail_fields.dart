@@ -1,6 +1,7 @@
-class RandoField {
+class TrailFields {
   String id;
   String name;
+  String address;
   String description;
   List<String> pictures;
   double latitude;
@@ -14,15 +15,11 @@ class RandoField {
   List<String> relatedArticles;
   List<String> labels;
   String geoJSON;
-  String imageAsset;
-  String address;
-  String openTime;
-  String closeTime;
-  int price;
 
-  RandoField({
+  TrailFields({
     required this.id,
     required this.name,
+    required this.address,
     required this.description,
     required this.pictures,
     required this.latitude,
@@ -35,11 +32,6 @@ class RandoField {
     required this.tools,
     required this.relatedArticles,
     required this.labels,
-    required this.geoJSON,
-    required this.imageAsset,
-    required this.address,
-    required this.openTime,
-    required this.closeTime,
-    required this.price,
+    required this.geoJSON
   });
 }

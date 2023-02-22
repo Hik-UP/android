@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:hikup/model/checkbox_state.dart';
 import 'package:hikup/model/field_order.dart';
-import 'package:hikup/model/rando_field.dart';
+import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/screen/main/main_screen.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/utils/dummy_data.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  final RandoField field;
+  final TrailFields field;
 
   const CheckoutScreen({required this.field, Key? key}) : super(key: key);
 

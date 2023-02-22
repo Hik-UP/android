@@ -1,11 +1,11 @@
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
-import 'package:hikup/model/rando_field.dart';
+import 'package:hikup/model/trail_fields.dart';
 
 class SearchViewModel extends BaseModel {
   bool loading = true;
-  List<RandoField> trailsList = [];
+  List<TrailFields> trailsList = [];
 
   void setLoading(bool value) {
     loading = value;
@@ -24,9 +24,10 @@ class SearchViewModel extends BaseModel {
 
     if (trailList.statusCode == 200 || trailList.statusCode == 201) {
       trailList.data["trails"].forEach((entry) {
-        trailsList.add(RandoField(
+        trailsList.add(TrailFields(
           id: entry["id"],
           name: entry["name"],
+          address: entry["address"],
           description: entry["description"],
           pictures: entry["pictures"].cast<String>(),
           latitude: entry["latitude"],
@@ -39,12 +40,7 @@ class SearchViewModel extends BaseModel {
           tools: entry["tools"].cast<String>(),
           relatedArticles: entry["relatedArticles"].cast<String>(),
           labels: entry["labels"].cast<String>(),
-          geoJSON: entry["geoJSON"],
-          imageAsset: "",
-          address: "",
-          openTime: "",
-          closeTime: "",
-          price: 0,
+          geoJSON: entry["geoJSON"]
         ));
       });
       setLoading(false);

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../model/rando_field.dart';
+import '../model/trail_fields.dart';
 import '../screen/detail/detail_screen.dart';
 import '../theme.dart';
 
-class RandoFieldCard extends StatelessWidget {
-  final RandoField field;
+class TrailCard extends StatelessWidget {
+  final TrailFields field;
 
-  const RandoFieldCard({required this.field, Key? key}) : super(key: key);
+  const TrailCard({required this.field, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +74,14 @@ class RandoFieldCard extends StatelessWidget {
                         const SizedBox(
                           width: 8.0,
                         ),
-                        /*Flexible(
+                        Flexible(
                           child: Text(
                             field.address,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: addressTextStyle,
                           ),
-                        ),*/
+                        ),
                       ],
                     ),
                   ],

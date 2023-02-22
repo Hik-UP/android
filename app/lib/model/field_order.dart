@@ -1,8 +1,8 @@
-import 'package:hikup/model/rando_field.dart';
+import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/user.dart';
 
 class FieldOrder {
-  RandoField field;
+  TrailFields field;
   User user;
   String selectedDate;
   List<String> selectedTime;

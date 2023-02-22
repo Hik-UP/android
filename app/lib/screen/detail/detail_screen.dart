@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hikup/model/rando_field.dart';
+import 'package:hikup/model/trail_fields.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/widget/back_icon.dart';
 
 class DetailScreen extends StatelessWidget {
-  final RandoField field;
+  final TrailFields field;
 
   const DetailScreen({required this.field, Key? key}) : super(key: key);
 
@@ -34,13 +34,13 @@ class DetailScreen extends StatelessWidget {
                     const SizedBox(
                       width: 16.0,
                     ),
-                    /*Flexible(
+                    Flexible(
                       child: Text(
                         field.address,
                         overflow: TextOverflow.visible,
                         style: addressTextStyle,
                       ),
-                    ),*/
+                    ),
                   ],
                 ),
                 const SizedBox(

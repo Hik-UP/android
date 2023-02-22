@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hikup/model/rando_field.dart';
+import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/screen/detail/detail_screen.dart';
 import 'package:hikup/theme.dart';
 
-class RandoFieldList extends StatelessWidget {
-  final RandoField field;
+class TrailCardList extends StatelessWidget {
+  final TrailFields field;
 
-  const RandoFieldList({required this.field, Key? key}) : super(key: key);
+  const TrailCardList({required this.field, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
