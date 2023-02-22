@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/auth/login_page.dart';
+import 'package:hikup/screen/main/setting/logout.dart';
 import 'package:hikup/screen/main/setting/update_profile.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/widget/custom_btn.dart';
 
 import 'package:provider/provider.dart';
@@ -236,7 +238,33 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () => {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Do you want to logout ?"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: const Text("Cancel"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                WrapperApi().logout();
+                              }, child: const Text("Logout"),
+                            ),
+                            // TextButton(
+                            //     onPressed: () => Navigator.of(context).pop(true),
+                            //     child: const Text("Logout"),
+                            // ),  
+                          ],
+                        );
+                      } 
+                    )  
+                    // Navigator.of(context).pushNamed(
+                    // LoginPage.routeName,
+                    // );
                     //Continue ton implementation ici
                   },
                   child: Row(
