@@ -48,7 +48,7 @@ class UpdateProfilModel extends BaseModel {
     setState(ViewState.retrieved);
 
     if (result.statusCode == 200 || result.statusCode == 201) {
-      User user = appState.boxUser.get("user")!;
+      User user = boxUser.get("user")!;
 
       appState.storeInHive(
           user: User(

@@ -13,8 +13,12 @@ class MapBoxScreen extends StatefulWidget {
 
 class _MapBoxScreenState extends State<MapBoxScreen> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return const Scaffold(
       extendBodyBehindAppBar: true,
       appBar: Header(),

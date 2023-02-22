@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hikup/locator.dart';
+import 'package:hikup/service/app_interceptors.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
@@ -8,11 +9,17 @@ class DioService {
   final _dio = Dio();
   final _navigator = locator<CustomNavigationService>();
 
+  addInterceptors() {
+    _dio.interceptors.add(AppInterceptors());
+  }
+
   Future<Response> post({
     required String path,
     required Map<String, dynamic> body,
     String token = "",
   }) async {
+    addInterceptors(); //In order to add the interceptors that we have previously created
+
     try {
       var result = await _dio.post(
         "$baseUrl$path",
@@ -43,6 +50,8 @@ class DioService {
     required Map<String, dynamic> body,
     String token = "",
   }) async {
+    addInterceptors();
+
     try {
       var result = await _dio.put(
         "$baseUrl$path",
@@ -63,6 +72,7 @@ class DioService {
   }
 
   Future<Response> get({required String path}) async {
+    addInterceptors();
     try {
       var result = await _dio.get("$baseUrl$path");
 

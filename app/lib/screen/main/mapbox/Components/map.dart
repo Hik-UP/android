@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:latlong2/latlong.dart' as latlng;
@@ -19,6 +20,15 @@ class _MapBoxState extends State<MapBox> {
   @override
   void initState() {
     super.initState();
+    AppState appState = context.read<AppState>();
+    //Here , techincally MapBox is the first widget that called after login/register
+    //So, here we simulate an request
+    //If the token of user is expired, our logout on the interceptors will be executed
+    WrapperApi().getProfile(
+      id: appState.id,
+      roles: appState.roles,
+      token: appState.token,
+    );
   }
 
   @override
@@ -42,11 +52,11 @@ class _MapBoxState extends State<MapBox> {
         return FlutterMap(
           mapController: model.mapController,
           options: MapOptions(
-            pinchZoomThreshold: 69.99999999999991,
-            center: latlng.LatLng(46.227638, 2.213749),
-            zoom: model.zoom,
-            maxBounds: LatLngBounds(latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0))
-          ),
+              pinchZoomThreshold: 69.99999999999991,
+              center: latlng.LatLng(46.227638, 2.213749),
+              zoom: model.zoom,
+              maxBounds: LatLngBounds(
+                  latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0))),
           children: [
             TileLayer(
               urlTemplate: urlTemplateMapBox,

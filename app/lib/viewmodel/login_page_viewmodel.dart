@@ -98,7 +98,7 @@ class LoginPageViewModel extends BaseModel {
             token: user.token,
           );
           Skin skin = Skin.fromMap(data: profileData["user"]["skin"]);
-          Skin.addSkinOnHive(skin: skin, skinBox: appState.skinUserBox);
+          Skin.addSkinOnHive(skin: skin, skinBox: skinUserBox);
           appState.updateSkinState(value: skin);
           await appState.storeInHive(user: newUser);
 

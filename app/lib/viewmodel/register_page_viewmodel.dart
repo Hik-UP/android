@@ -97,7 +97,7 @@ class RegisterPageViewModel extends BaseModel {
               roles: user.roles,
               token: user.token,
             );
-            await Skin.addSkinOnHive(skin: skin, skinBox: appState.skinUserBox);
+            await Skin.addSkinOnHive(skin: skin, skinBox: skinUserBox);
             await appState.storeInHive(user: newUser);
             appState.updateSkinState(value: skin);
             setState(ViewState.retrieved);

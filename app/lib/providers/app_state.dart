@@ -8,10 +8,12 @@ import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+final Box<User> boxUser = Hive.box("userBox");
+final Box<Skin> skinUserBox = Hive.box("skinBox");
+
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
-  final Box<User> boxUser = Hive.box("userBox");
-  final Box<Skin> skinUserBox = Hive.box("skinBox");
+
   final _hiveService = locator<HiveService>();
   bool isFirstDownload = true;
   String token = "";

@@ -16,4 +16,5 @@ class AppMessages {
   static String updateTxt = "Update";
   static String logout = "Logout";
   static String needAPicture = "Please, select an image";
+  static String tokenExpiredMessage = "Your sessions has expired";
 }

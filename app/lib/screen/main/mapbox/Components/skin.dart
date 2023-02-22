@@ -21,13 +21,15 @@ class _PlayerSkinState extends State<PlayerSkin> {
       followOnLocationUpdate: FollowOnLocationUpdate.always,
       turnOnHeadingUpdate: TurnOnHeadingUpdate.always,
       style: LocationMarkerStyle(
-        marker: CachedNetworkImage(
-          imageUrl: appState.skin.model,
-          errorWidget: (context, url, error) => const Icon(
-            Icons.warning,
-            color: Colors.red,
-          ),
-        ),
+        marker: appState.skin.pictures.isNotEmpty
+            ? CachedNetworkImage(
+                imageUrl: appState.skin.pictures[0],
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.warning,
+                  color: Colors.red,
+                ),
+              )
+            : const DefaultLocationMarker(),
         markerSize: const Size(40, 40),
         markerDirection: MarkerDirection.heading,
       ),

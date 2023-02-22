@@ -184,97 +184,79 @@ class SettingsScreen extends StatelessWidget {
                     _showSnackBar(context, "Newest Version");
                   },
                   splashColor: primaryColor100,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: colorWhite),
-                          child: const Icon(
-                            CupertinoIcons.info_circle_fill,
-                            size: 24,
-                            color: darkBlue300,
-                          ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: colorWhite),
+                        child: const Icon(
+                          CupertinoIcons.info_circle_fill,
+                          size: 24,
+                          color: darkBlue300,
                         ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "",
-                                style: normalTextStyle,
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "Version 1.0.0",
-                                style: descTextStyle,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Text(
+                        "Version 1.0.0",
+                        style: descTextStyle,
+                      ),
+                    ],
                   ),
                 ),
                 InkWell(
                   onTap: () => {},
                   splashColor: primaryColor100,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: colorWhite),
-                          child: Image.asset(
-                            "assets/icons/github.png",
-                            color: darkBlue300,
-                          ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        padding: const EdgeInsets.all(12.0),
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: colorWhite),
+                        child: Image.asset(
+                          "assets/icons/github.png",
+                          color: darkBlue300,
                         ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Github",
-                                style: normalTextStyle,
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "",
-                                style: descTextStyle,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Text(
+                        "Github",
+                        style: normalTextStyle,
+                      ),
+                    ],
                   ),
                 ),
-                CustomBtn(
-                  content: AppMessages.logout,
-                  onPress: () {
-                    Navigator.of(context).pushNamed(
-                      LoginPage.routeName,
-                    );
+                InkWell(
+                  onTap: () {
+                    //Continue ton implementation ici
                   },
-                  gradient: logoutButtonColor,
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Icon(
+                          FontAwesomeIcons.rightFromBracket,
+                          color: darkBlue300,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Text(
+                        AppMessages.logout,
+                        style: normalTextStyle,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
