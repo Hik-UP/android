@@ -61,6 +61,7 @@ dependencies:
   flutter_map_geojson: ^1.0.1
   flutter_map_location_marker: ^5.2.1
   rename: ^2.1.1
+  carousel_slider: ^4.2.1
 
 
 dev_dependencies:

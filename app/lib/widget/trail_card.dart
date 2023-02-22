@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import '../model/trail_fields.dart';
 import '../screen/detail/detail_screen.dart';
@@ -39,12 +40,18 @@ class TrailCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(borderRadiusSize)),
-                child: CachedNetworkImage(
-                  imageUrl: field.pictures[0],
-                  errorWidget: (context, url, error) => const Icon(
-                    Icons.warning,
-                    color: Colors.red,
-                  ),
+                child: CarouselSlider(
+                  options: CarouselOptions(autoPlay: true, viewportFraction: 1),
+                  items: field.pictures.map((picture) {
+                    return CachedNetworkImage(
+                      fit: BoxFit.cover, width: 1000.0,
+                      imageUrl: picture,
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.warning,
+                        color: Colors.red,
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
               Container(
