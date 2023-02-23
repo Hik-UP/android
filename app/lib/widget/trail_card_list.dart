@@ -25,7 +25,9 @@ class TrailCardList extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0), color: colorWhite),
+            borderRadius: BorderRadius.circular(16.0),
+            color: colorWhite,
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,

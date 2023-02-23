@@ -18,8 +18,6 @@ class DioService {
     required Map<String, dynamic> body,
     String token = "",
   }) async {
-    addInterceptors(); //In order to add the interceptors that we have previously created
-
     try {
       var result = await _dio.post(
         "$baseUrl$path",

@@ -17,4 +17,6 @@ class AppMessages {
   static String logout = "Logout";
   static String needAPicture = "Please, select an image";
   static String tokenExpiredMessage = "Your sessions has expired";
+  static String succesfulLogout = "Logout";
+  static String inexistantUser = "Oops, user does not exist";
 }
