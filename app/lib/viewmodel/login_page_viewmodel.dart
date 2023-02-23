@@ -65,6 +65,14 @@ class LoginPageViewModel extends BaseModel {
       setState(ViewState.retrieved);
       Map<String, dynamic> data = result.data as Map<String, dynamic>;
 
+      if (result.statusCode == 400) {
+        _navigationService.showSnackBack(
+          content: AppMessages.inexistantUser,
+          isError: true,
+        );
+        return;
+      }
+
       if (result.statusCode == 401 &&
           data.keys.contains("error") &&
           data["error"] == "Unauthorized") {

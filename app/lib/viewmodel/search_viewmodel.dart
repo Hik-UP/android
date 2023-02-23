@@ -24,24 +24,30 @@ class SearchViewModel extends BaseModel {
 
     if (trailList.statusCode == 200 || trailList.statusCode == 201) {
       trailList.data["trails"].forEach((entry) {
-        trailsList.add(TrailFields(
-          id: entry["id"],
-          name: entry["name"],
-          address: entry["address"],
-          description: entry["description"],
-          pictures: entry["pictures"].cast<String>(),
-          latitude: entry["latitude"],
-          longitude: entry["longitude"],
-          difficulty: entry["difficulty"],
-          duration: entry["duration"],
-          distance: entry["distance"],
-          uphill: entry["uphill"],
-          downhill: entry["downhill"],
-          tools: entry["tools"].cast<String>(),
-          relatedArticles: entry["relatedArticles"].cast<String>(),
-          labels: entry["labels"].cast<String>(),
-          geoJSON: entry["geoJSON"]
-        ));
+        trailsList.add(
+          TrailFields(
+            id: entry["id"],
+            name: entry["name"],
+            address: entry["address"],
+            description: entry["description"],
+            pictures: entry["pictures"].cast<String>(),
+            latitude: entry["latitude"],
+            longitude: entry["longitude"],
+            difficulty: entry["difficulty"],
+            duration: entry["duration"],
+            distance: entry["distance"],
+            uphill: entry["uphill"],
+            downhill: entry["downhill"],
+            tools: entry["tools"].cast<String>(),
+            relatedArticles: entry["relatedArticles"].cast<String>(),
+            labels: entry["labels"].cast<String>(),
+            geoJSON: entry["geoJSON"],
+            imageAsset: "",
+            price: 0,
+            openTime: "",
+            closeTime: "",
+          ),
+        );
       });
       setLoading(false);
     }

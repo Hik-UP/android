@@ -240,28 +240,31 @@ class SettingsScreen extends StatelessWidget {
                 InkWell(
                   onTap: () => {
                     showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text("Do you want to logout ?"),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text("Cancel"),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                WrapperApi().logout();
-                              }, child: const Text("Logout"),
-                            ),
-                            // TextButton(
-                            //     onPressed: () => Navigator.of(context).pop(true),
-                            //     child: const Text("Logout"),
-                            // ),  
-                          ],
-                        );
-                      } 
-                    )  
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Do you want to logout ?"),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: const Text("Cancel"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  WrapperApi().logout(
+                                    isLogout: true,
+                                  );
+                                },
+                                child: const Text("Logout"),
+                              ),
+                              // TextButton(
+                              //     onPressed: () => Navigator.of(context).pop(true),
+                              //     child: const Text("Logout"),
+                              // ),
+                            ],
+                          );
+                        })
                     // Navigator.of(context).pushNamed(
                     // LoginPage.routeName,
                     // );

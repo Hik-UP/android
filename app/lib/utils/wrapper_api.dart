@@ -18,6 +18,8 @@ class WrapperApi {
     required List<dynamic> roles,
     required String token,
   }) async {
+    _dioService
+        .addInterceptors(); //In order to add the interceptors that we have previously created
     return await _dioService.post(
       path: getProfilePath,
       token: "Bearer $token",
@@ -41,7 +43,7 @@ class WrapperApi {
     );
   }
 
-  Future<void> logout() async {
+  Future<void> logout({required bool isLogout}) async {
     //Simply, when user want to logout we delete his information stored on his storage
     await _hiveService.deleteBoxField(
       boxUser,
@@ -53,8 +55,8 @@ class WrapperApi {
     //After delete user data then we redirect user to a login page, with some message using snack bar
     _navigationService.navigateToAndRemoveUntil(LoginPage.routeName);
     _navigationService.showSnackBack(
-      content: AppMessages.tokenExpiredMessage,
-      isError: true,
+      content: isLogout ? AppMessages.logout : AppMessages.tokenExpiredMessage,
+      isError: !isLogout,
     );
   }
 }

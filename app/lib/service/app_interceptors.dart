@@ -12,7 +12,7 @@ class AppInterceptors extends Interceptor {
       // Of the request is equal to 401
       // If is equal to 401, then we will code or call the function logout user inside this brackets
       print("Bad Token");
-      await WrapperApi().logout();
+      await WrapperApi().logout(isLogout: false);
     }
     return err;
   }

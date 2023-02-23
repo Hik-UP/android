@@ -15,6 +15,10 @@ class TrailFields {
   List<String> relatedArticles;
   List<String> labels;
   String geoJSON;
+  String imageAsset;
+  int price;
+  String openTime;
+  String closeTime;
 
   TrailFields({
     required this.id,
@@ -32,6 +36,10 @@ class TrailFields {
     required this.tools,
     required this.relatedArticles,
     required this.labels,
-    required this.geoJSON
+    required this.geoJSON,
+    required this.imageAsset,
+    required this.price,
+    required this.openTime,
+    required this.closeTime,
   });
 }
