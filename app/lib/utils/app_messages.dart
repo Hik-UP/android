@@ -28,4 +28,10 @@ class AppMessages {
   static String logOut = "Logout";
   static String newestVersion = "Newest Version";
   static String account = "Account";
+  static String weight = "Weight (kg)";
+  static String selectSex = "Select your gender";
+  static String addHeight = "Height (cm)";
+  static String add = "Add";
+  static String isRequired = "This field is required";
+  static String success = "Success";
 }
