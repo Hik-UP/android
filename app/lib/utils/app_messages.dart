@@ -19,4 +19,13 @@ class AppMessages {
   static String tokenExpiredMessage = "Your sessions has expired";
   static String succesfulLogout = "Logout";
   static String inexistantUser = "Oops, user does not exist";
+  static String infoMessage = "Info";
+  static String addExtraData = "Complete your profile here";
+  static String aboutApp = "About Hik'UP";
+  static String settingTxt = "Settings";
+  static String askIfUserWantToLogout = "Do you want to logout ?";
+  static String cancel = "Cancel";
+  static String logOut = "Logout";
+  static String newestVersion = "Newest Version";
+  static String account = "Account";
 }
