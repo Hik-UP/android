@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/other_data.dart';
+import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
@@ -9,6 +10,7 @@ import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
 import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/screen/main/main_screen.dart';
+import 'package:hikup/screen/main/setting/complete_profile.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/local_notification.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -27,9 +29,11 @@ Future<void> main() async {
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(OtherDataAdapter());
   Hive.registerAdapter(SkinAdapter());
+  Hive.registerAdapter(SensibleUserDataAdapter());
   await Hive.openBox<User>("userBox");
   await Hive.openBox<OtherData>("otherData");
   await Hive.openBox<Skin>("skinBox");
+  await Hive.openBox<SensibleUserData>("sensibleUserDataBox");
   await LocalNotification().init();
 
   setupLocator();
@@ -70,6 +74,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: createMaterialColor(primaryColor500),
         canvasColor: colorWhite,
+        scaffoldBackgroundColor: backgroundColor,
       ),
       initialRoute: getTheRightInitialRoute(context: context),
       routes: {
@@ -79,7 +84,8 @@ class MyApp extends StatelessWidget {
         OnboardingScreen.routeName: (_) => const OnboardingScreen(),
         MainScreen.routeName: (_) => const MainScreen(),
         UpdateProfile.routeName: (_) => const UpdateProfile(),
-        SettingsScreen.routeName: (_) => const SettingsScreen()
+        SettingsScreen.routeName: (_) => const SettingsScreen(),
+        CompleteProfile.routeName: (_) => const CompleteProfile()
       },
     );
   }

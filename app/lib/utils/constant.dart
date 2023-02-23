@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 
@@ -58,6 +59,13 @@ Skin emptySkin = const Skin(
   description: "",
   pictures: [],
   model: "",
+);
+
+SensibleUserData emptySensibleUserData = SensibleUserData(
+  age: 0,
+  sex: "",
+  weight: 0,
+  tall: 0,
 );
 
 dynamic loginButtonColor = const LinearGradient(colors: [

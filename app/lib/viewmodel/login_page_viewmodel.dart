@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
-//import 'package:hikup/model/trail.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/main/main_screen.dart';
 import 'package:hikup/service/custom_navigation.dart';

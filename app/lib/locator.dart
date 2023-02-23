@@ -3,6 +3,7 @@ import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/service/firebase_storage.dart';
 import 'package:hikup/service/hive_service.dart';
+import 'package:hikup/viewmodel/complete_profile_viewmodel.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/viewmodel/notification_viewmodel.dart';
 import 'package:hikup/viewmodel/register_page_viewmodel.dart';
@@ -27,4 +28,5 @@ void setupLocator() {
   locator.registerFactory(() => UpdateProfilModel());
   locator.registerFactory(() => MapViewModel());
   locator.registerFactory(() => SearchViewModel());
+  locator.registerFactory(() => CompleteProfileViewModel());
 }

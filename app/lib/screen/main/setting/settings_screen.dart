@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:hikup/screen/main/setting/complete_profile.dart';
 import 'package:hikup/screen/main/setting/update_profile.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
@@ -74,7 +75,6 @@ class SettingsScreen extends StatelessWidget {
     AppState appState = context.read<AppState>();
 
     return Scaffold(
-      backgroundColor: backgroundColor,
       appBar: AppBar(
         toolbarHeight: kTextTabBarHeight,
         title: Text(
@@ -175,7 +175,8 @@ class SettingsScreen extends StatelessWidget {
                 style: subTitleTextStyle.copyWith(color: primaryColor500),
               ),
               InkWell(
-                onTap: () => {},
+                onTap: () =>
+                    Navigator.of(context).pushNamed(CompleteProfile.routeName),
                 splashColor: primaryColor100,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
