@@ -116,6 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                       hintText: AppMessages.password,
                                       typeInput: TypeInput.password,
                                       validator: model.validPassword,
+                                      typeOfInput: TypeOfInput.password,
                                     ),
                                     const Gap(40),
                                     CustomBtn(

@@ -34,4 +34,6 @@ class AppMessages {
   static String add = "Add";
   static String isRequired = "This field is required";
   static String success = "Success";
+  static String unAvailableRecommendHike =
+      "We are sorry, no hike to recommend at this time. Try later";
 }

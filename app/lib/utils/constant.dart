@@ -10,6 +10,8 @@ import '../screen/main/mapbox/mapbox_screen.dart';
 
 enum ViewState { idle, busy, retrieved }
 
+enum TypeOfInput { text, password }
+
 const env = "PROD";
 
 const baseUrl =
