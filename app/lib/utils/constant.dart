@@ -21,6 +21,7 @@ const accessTokenMapBox =
     'pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w';
 const idMapBox = 'mapbox.mapbox-streets-v8';
 const logoBlackNoBg = "assets/images/logoBlackNoBg.png";
+const logoWhiteNoBg = "assets/images/logoWhiteNoBg.png";
 const msg =
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
 
@@ -69,8 +70,8 @@ SensibleUserData emptySensibleUserData = SensibleUserData(
 );
 
 dynamic loginButtonColor = const LinearGradient(colors: [
-  Color.fromARGB(255, 143, 251, 208),
-  Color.fromARGB(153, 21, 174, 123),
+  Color.fromARGB(255, 23, 255, 119),
+  Color.fromARGB(255, 34, 253, 173),
 ]);
 
 dynamic logoutButtonColor = const LinearGradient(colors: [
