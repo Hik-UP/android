@@ -32,7 +32,7 @@ return BaseView<LoginPageViewModel>(
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/BackgroundForestHome.jpg',
+              homeBackgroundDay,
               fit: BoxFit.cover,
             ),
           ),
