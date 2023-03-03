@@ -96,6 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   hintText: AppMessages.password,
                                   typeInput: TypeInput.password,
                                   validator: model.validatePassword,
+                                  typeOfInput: TypeOfInput.password,
                                 ),
                                 const Gap(40),
                                 CustomBtn(

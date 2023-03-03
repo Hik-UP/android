@@ -12,9 +12,8 @@ class SearchViewModel extends BaseModel {
     notifyListeners();
   }
 
-  trails({
+  Future<List<TrailFields>> trails({
     required AppState appState,
-    required Function updateScreen,
   }) async {
     var trailList = await WrapperApi().getTrail(
       id: appState.id,
@@ -23,6 +22,7 @@ class SearchViewModel extends BaseModel {
     );
 
     if (trailList.statusCode == 200 || trailList.statusCode == 201) {
+      print(trailList.data["trails"]);
       trailList.data["trails"].forEach((entry) {
         trailsList.add(
           TrailFields(
@@ -49,7 +49,8 @@ class SearchViewModel extends BaseModel {
           ),
         );
       });
-      setLoading(false);
     }
+
+    return trailsList;
   }
 }
