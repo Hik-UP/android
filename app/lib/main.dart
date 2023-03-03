@@ -20,6 +20,7 @@ import 'package:hikup/theme.dart';
 import 'firebase_options.dart';
 import 'screen/main/setting/update_profile.dart';
 import 'screen/main/setting/settings_screen.dart';
+import 'screen/main/podometer/podometer_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -85,7 +86,8 @@ class MyApp extends StatelessWidget {
         MainScreen.routeName: (_) => const MainScreen(),
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
-        CompleteProfile.routeName: (_) => const CompleteProfile()
+        CompleteProfile.routeName: (_) => const CompleteProfile(),
+        PedometerPage.routeName: (_) =>  PedometerPage()
       },
     );
   }

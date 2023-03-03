@@ -34,13 +34,6 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
       onWillPop: () async => await _onBackPressed(),
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          toolbarHeight: 0,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: backgroundColor,
-              statusBarIconBrightness: Brightness.dark),
-        ),
         backgroundColor: backgroundColor,
         body: screens[_currentIndex],
         bottomNavigationBar: CustomBottomNavBar(

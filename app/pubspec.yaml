@@ -62,6 +62,8 @@ dependencies:
   flutter_map_location_marker: ^5.2.1
   rename: ^2.1.1
   carousel_slider: ^4.2.1
+  permission_handler: ^10.2.0
+  pedometer: ^3.0.0
 
 
 dev_dependencies:
