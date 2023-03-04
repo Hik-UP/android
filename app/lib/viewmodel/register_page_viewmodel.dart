@@ -75,18 +75,19 @@ class RegisterPageViewModel extends BaseModel {
         if (responseLogin.statusCode == 200 ||
             responseLogin.statusCode == 201) {
           var dataLogin = responseLogin.data as Map<String, dynamic>;
-
           User user = User.fromMap(data: dataLogin["user"]);
-          Skin skin = Skin.fromMap(data: dataLogin["user"]["skin"]);
+          Skin skin = Skin.fromMap(data: dataLogin["user"]["skin"] ?? {});
           var responseGetProfile = await WrapperApi().getProfile(
             id: user.id,
             roles: user.roles,
             token: user.token,
           );
+
           if (responseGetProfile.statusCode == 200 ||
               responseGetProfile.statusCode == 201) {
             var responseDataProfile =
                 responseGetProfile.data as Map<String, dynamic>;
+
             appState.setToken(value: user.token);
             User newUser = User(
               id: user.id,
@@ -105,7 +106,9 @@ class RegisterPageViewModel extends BaseModel {
             _customNavigationService.navigateTo(MainScreen.routeName);
           } else {
             _customNavigationService.showSnackBack(
-                content: AppMessages.anErrorOcur, isError: true);
+              content: AppMessages.anErrorOcur,
+              isError: true,
+            );
           }
         } else {
           _customNavigationService.showSnackBack(

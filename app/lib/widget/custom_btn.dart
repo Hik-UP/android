@@ -5,18 +5,20 @@ class CustomBtn extends StatelessWidget {
   final Function()? onPress;
   final Gradient? gradient;
   final bool isLoading;
+  final double height;
   const CustomBtn({
     Key? key,
     required this.content,
     required this.onPress,
     this.gradient,
     this.isLoading = false,
+    this.height = 40,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         gradient: gradient,
