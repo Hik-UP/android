@@ -5,9 +5,11 @@ import 'package:gap/gap.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hikup/theme.dart';
+import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/detail_screen_viewmodel.dart';
 import 'package:hikup/widget/back_icon.dart';
 import 'package:hikup/widget/base_view.dart';
+import 'package:hikup/widget/invite_friend_cmp.dart';
 
 class DetailScreen extends StatelessWidget {
   final TrailFields field;
@@ -16,7 +18,6 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(field.tools);
     return BaseView<DetailScreenViewModel>(
       builder: (context, model, child) => Scaffold(
         body: CustomScrollView(
@@ -63,16 +64,12 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 32,
-                  ),
+                  const Gap(10.0),
                   Text(
-                    "Details:",
+                    "Details",
                     style: subTitleTextStyle,
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const Gap(4.0),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: const [
@@ -100,14 +97,12 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 32,
-                  ),
+                  const Gap(10.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Duration:",
+                        "Duration",
                         style: subTitleTextStyle,
                       ),
                     ],
@@ -130,15 +125,20 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 32,
-                  ),
+                  const Gap(10.0),
                   Text(
-                    "Tools:",
+                    "Tools",
                     style: subTitleTextStyle,
                   ),
-                  const Gap(16.0),
-                  model.showTools(toolsBack: field.tools)
+                  const Gap(4.0),
+                  model.showTools(toolsBack: field.tools),
+                  const Gap(10.0),
+                  Text(
+                    AppMessages.inviteFriend,
+                    style: subTitleTextStyle,
+                  ),
+                  const Gap(4.0),
+                  const InviteFriendCmp(),
                   //FacilityCardList(facilities: field.tools),
                 ]),
               ),

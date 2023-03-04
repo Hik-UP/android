@@ -36,4 +36,7 @@ class AppMessages {
   static String success = "Success";
   static String unAvailableRecommendHike =
       "We are sorry, no hike to recommend at this time. Try later";
+  static String inviteFriend = "Invite friends";
+  static String hintEmailFriend = "Enter your friend email";
+  static String invitMsg = "Invite";
 }
