@@ -2,6 +2,7 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 import 'package:hikup/model/trail_fields.dart';
+import 'package:hikup/model/comment.dart';
 
 class SearchViewModel extends BaseModel {
   bool loading = true;
@@ -42,6 +43,16 @@ class SearchViewModel extends BaseModel {
             relatedArticles: entry["relatedArticles"].cast<String>(),
             labels: entry["labels"].cast<String>(),
             geoJSON: entry["geoJSON"],
+            comments: entry["comments"].map((value) => Comment(
+              id: value["id"],
+              author: Author(
+                username: value["author"]["username"],
+                picture: value["author"]["picture"]
+              ),
+              body: value["body"],
+              pictures: value["pictures"].cast<String>(),
+              date: value["date"]
+            )).toList().cast<Comment>(),
             imageAsset: "",
             price: 0,
             openTime: "",

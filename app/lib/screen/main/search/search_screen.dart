@@ -68,6 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 future: model.trails(appState: appState),
                 builder: (context, snapshots) {
                   if (snapshots.hasError) {
+                    print(snapshots.error);
                     return Text(
                       AppMessages.anErrorOcur,
                       style: GoogleFonts.poppins(
