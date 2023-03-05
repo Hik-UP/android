@@ -51,7 +51,7 @@ class SearchViewModel extends BaseModel {
               ),
               body: value["body"],
               pictures: value["pictures"].cast<String>(),
-              date: value["date"]
+              date: DateTime.parse(value["date"])
             )).toList().cast<Comment>(),
             imageAsset: "",
             price: 0,

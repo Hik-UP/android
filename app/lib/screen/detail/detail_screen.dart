@@ -18,6 +18,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(field.comments[0].date);
     return BaseView<DetailScreenViewModel>(
       builder: (context, model, child) => Scaffold(
         body: CustomScrollView(

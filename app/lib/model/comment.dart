@@ -13,7 +13,7 @@ class Comment {
   Author author;
   String body;
   List<String> pictures;
-  String date;
+  DateTime date;
 
   Comment({
     required this.id,
