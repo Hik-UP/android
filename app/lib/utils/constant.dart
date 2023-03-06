@@ -88,7 +88,6 @@ final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
   const SettingsScreen(),
-  const Text("Test")
   // PedometerPage()
 ];
 
