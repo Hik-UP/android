@@ -10,12 +10,11 @@ import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
 import '../screen/main/podometer/podometer_page.dart';
 
-
 enum ViewState { idle, busy, retrieved }
 
 enum TypeOfInput { text, password }
 
-const env = "PROD";
+const env = "DEV";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
@@ -89,7 +88,8 @@ final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
   const SettingsScreen(),
-  PedometerPage()
+  const Text("Test")
+  // PedometerPage()
 ];
 
 enum TypeInput { text, password }

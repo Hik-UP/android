@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
-        PedometerPage.routeName: (_) =>  PedometerPage()
+        // PedometerPage.routeName: (_) =>  PedometerPage()
       },
     );
   }

@@ -23,7 +23,6 @@ class SearchViewModel extends BaseModel {
     );
 
     if (trailList.statusCode == 200 || trailList.statusCode == 201) {
-      print(trailList.data["trails"]);
       trailList.data["trails"].forEach((entry) {
         trailsList.add(
           TrailFields(
@@ -43,16 +42,17 @@ class SearchViewModel extends BaseModel {
             relatedArticles: entry["relatedArticles"].cast<String>(),
             labels: entry["labels"].cast<String>(),
             geoJSON: entry["geoJSON"],
-            comments: entry["comments"].map((value) => Comment(
-              id: value["id"],
-              author: Author(
-                username: value["author"]["username"],
-                picture: value["author"]["picture"]
-              ),
-              body: value["body"],
-              pictures: value["pictures"].cast<String>(),
-              date: DateTime.parse(value["date"])
-            )).toList().cast<Comment>(),
+            comments: entry["comments"]
+                .map((value) => Comment(
+                    id: value["id"],
+                    author: Author(
+                        username: value["author"]["username"],
+                        picture: value["author"]["picture"]),
+                    body: value["body"],
+                    pictures: value["pictures"].cast<String>(),
+                    date: DateTime.parse(value["date"])))
+                .toList()
+                .cast<Comment>(),
             imageAsset: "",
             price: 0,
             openTime: "",
