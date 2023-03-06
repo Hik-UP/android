@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';

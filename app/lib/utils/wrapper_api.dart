@@ -51,6 +51,7 @@ class WrapperApi {
     );
     //We also delete his skin
     await _hiveService.deleteBoxField(skinUserBox, "skin");
+    await _hiveService.deleteBoxField(sensibleUserDataBox, "sensibleUserData");
 
     //After delete user data then we redirect user to a login page, with some message using snack bar
     _navigationService.navigateToAndRemoveUntil(LoginPage.routeName);
