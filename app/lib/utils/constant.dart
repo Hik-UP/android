@@ -14,7 +14,7 @@ enum ViewState { idle, busy, retrieved }
 
 enum TypeOfInput { text, password }
 
-const env = "DEV";
+const env = "PROD";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
@@ -34,6 +34,8 @@ const loginPath = "/auth/login";
 const getTrailsPath = "/trail/retrieve";
 const getProfilePath = "/user/profile";
 const updateProfilePath = "/user/profile/update";
+const getDetailsPath = "/trail/details";
+const pinIcon = "assets/icons/pin.png";
 
 const filledIconNavBar = [
   "assets/icons/home_fill.png",

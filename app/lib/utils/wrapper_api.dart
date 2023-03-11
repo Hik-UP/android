@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hikup/locator.dart';
+import 'package:hikup/model/detail_trail_model.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/service/custom_navigation.dart';
@@ -59,5 +60,36 @@ class WrapperApi {
       content: isLogout ? AppMessages.logout : AppMessages.tokenExpiredMessage,
       isError: !isLogout,
     );
+  }
+
+  Future<DetailTrailMode> getDetailsTrails({
+    required AppState appState,
+    required String trailId,
+  }) async {
+    try {
+      var response = await _dioService.post(
+        path: getDetailsPath,
+        body: {
+          "user": {
+            "id": appState.id,
+            "roles": appState.roles,
+            "weight": 160,
+            "tall": 168,
+            "sex": "M",
+            "age": 19
+          },
+          "trail": {
+            "id": trailId,
+          },
+        },
+        token: "Bearer ${appState.token}",
+      );
+
+      return DetailTrailMode.fromMap(
+          data: response.data as Map<String, dynamic>);
+    } catch (e) {
+      print(e);
+      throw AppMessages.anErrorOcur;
+    }
   }
 }

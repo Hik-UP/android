@@ -39,4 +39,5 @@ class AppMessages {
   static String inviteFriend = "Invite friends";
   static String hintEmailFriend = "Enter your friend email";
   static String invitMsg = "Invite";
+  static String calorieToBurn = "calories to burn";
 }

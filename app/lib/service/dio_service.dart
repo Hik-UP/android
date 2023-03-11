@@ -10,7 +10,7 @@ class DioService {
   final _navigator = locator<CustomNavigationService>();
 
   addInterceptors() {
-    _dio.interceptors.add(AppInterceptors());
+    // _dio.interceptors.add(AppInterceptors());
   }
 
   Future<Response> post({
@@ -33,6 +33,7 @@ class DioService {
 
       return result;
     } on DioError catch (e) {
+      print(e);
       if (e.response == null) {
         _navigator.showSnackBack(
           content: AppMessages.anErrorOcur,
