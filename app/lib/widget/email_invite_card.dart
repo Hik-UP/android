@@ -27,7 +27,7 @@ class EmailInviteCard extends StatelessWidget {
             email,
             style: descTextStyle,
           ),
-          const Gap(4.0),
+          const Gap(10.0),
           GestureDetector(
             onTap: action,
             child: const Icon(

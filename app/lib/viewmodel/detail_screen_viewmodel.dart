@@ -3,6 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 
 class DetailScreenViewModel extends BaseModel {
+  List<String> emailFriends = [];
+
+  pushInEmailFirends({required String value}) {
+    emailFriends.add(value);
+    notifyListeners();
+  }
+
+  removeInEmailFriends({required String value}) {
+    emailFriends.remove(value);
+    notifyListeners();
+  }
+
   Widget showTools({required List<String> toolsBack}) {
     List<Widget> tools = [];
 

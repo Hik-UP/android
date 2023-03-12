@@ -10,7 +10,7 @@ class DioService {
   final _navigator = locator<CustomNavigationService>();
 
   addInterceptors() {
-    // _dio.interceptors.add(AppInterceptors());
+    _dio.interceptors.add(AppInterceptors());
   }
 
   Future<Response> post({

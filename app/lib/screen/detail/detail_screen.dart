@@ -146,7 +146,6 @@ class DetailScreen extends StatelessWidget {
                       );
                     },
                   ),
-
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: const [
@@ -200,17 +199,34 @@ class DetailScreen extends StatelessWidget {
                     style: subTitleTextStyle,
                   ),
                   const Gap(4.0),
-                  const InviteFriendCmp(),
+                  InviteFriendCmp(
+                    value: (data) => model.pushInEmailFirends(
+                      value: data,
+                    ),
+                  ),
                   const Gap(10.0),
-                  Row(
-                    children: [
-                      EmailInviteCard(
-                        email: "imdadadelabou0@gmail.com",
-                        action: () {},
+                  Visibility(
+                    visible: model.emailFriends.isNotEmpty,
+                    child: SizedBox(
+                      height: 40.0,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: model.emailFriends.length,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(right: 4.0),
+                          child: EmailInviteCard(
+                            email: model.emailFriends[index],
+                            action: () {
+                              model.removeInEmailFriends(
+                                value: model.emailFriends[index],
+                              );
+                            },
+                          ),
+                        ),
                       ),
-                    ],
-                  )
-                  //FacilityCardList(facilities: field.tools),
+                    ),
+                  ),
                 ]),
               ),
             )

@@ -1,5 +1,8 @@
 import "package:flutter/material.dart";
+import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/theme.dart';
+import 'package:hikup/utils/app_messages.dart';
 
 class ShowBurnCalories extends StatelessWidget {
   final int calories;
@@ -25,6 +28,15 @@ class ShowBurnCalories extends StatelessWidget {
             Text(
               calories.toString(),
               style: descTextStyle,
+            ),
+            const Gap(8.0),
+            Text(
+              AppMessages.calorieToBurn,
+              style: GoogleFonts.poppins(
+                fontSize: 11,
+                fontWeight: FontWeight.w400,
+                color: darkBlue300,
+              ),
             ),
           ],
         ),
