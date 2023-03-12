@@ -13,6 +13,9 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final Widget? suffixIcon;
   final TypeOfInput typeOfInput;
+  final Widget? prefixIcon;
+  final Function()? onTap;
+  final Function(String)? onChange;
   const CustomTextField({
     Key? key,
     this.hintText = "",
@@ -24,6 +27,9 @@ class CustomTextField extends StatefulWidget {
     this.readOnly = false,
     this.suffixIcon,
     this.typeOfInput = TypeOfInput.text,
+    this.prefixIcon,
+    this.onTap,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -36,6 +42,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChange,
+      onTap: widget.onTap,
       readOnly: widget.readOnly,
       keyboardType: widget.keyBoardType,
       inputFormatters: widget.inputsFormatter,
@@ -54,6 +62,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         fillColor: Colors.white,
         filled: true,
+        prefixIcon: widget.prefixIcon,
         suffixIcon: widget.typeOfInput == TypeOfInput.text
             ? widget.suffixIcon
             : InkWell(

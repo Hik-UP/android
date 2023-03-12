@@ -99,3 +99,4 @@ const profilePlaceHoder = "assets/images/user_profile_example.png";
 
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
+const stopWatchIcon = "assets/icons/stopwatchIcon.svg";

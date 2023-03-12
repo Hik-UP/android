@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 
 class DetailScreenViewModel extends BaseModel {
+  final TextEditingController dateCtrl = TextEditingController();
+  final TextEditingController timeCtrl = TextEditingController();
   List<String> emailFriends = [];
 
   pushInEmailFirends({required String value}) {
@@ -42,5 +44,9 @@ class DetailScreenViewModel extends BaseModel {
     }
 
     return Column(children: tools);
+  }
+
+  isReserved() {
+    return dateCtrl.text.isNotEmpty && timeCtrl.text.isNotEmpty;
   }
 }

@@ -40,4 +40,10 @@ class AppMessages {
   static String hintEmailFriend = "Enter your friend email";
   static String invitMsg = "Invite";
   static String calorieToBurn = "calories to burn";
+  static String schedule = "Schedule";
+  static String canPlanTheHike = "You can schedule your hiking";
+  static String reset = "reset";
+  static String startNow = "Start now";
+  static String schelduleNow = "Schedule now";
+  static String finish = "Finish";
 }
