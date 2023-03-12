@@ -21,11 +21,12 @@ import 'firebase_options.dart';
 import 'screen/main/setting/update_profile.dart';
 import 'screen/main/setting/settings_screen.dart';
 import 'screen/main/podometer/podometer_page.dart';
+import 'screen/main/community/comments/home.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(OtherDataAdapter());
@@ -87,7 +88,8 @@ class MyApp extends StatelessWidget {
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
-        PedometerPage.routeName: (_) =>  PedometerPage()
+        PedometerPage.routeName: (_) =>  PedometerPage(),
+        CommunityPage.routeName: (_) =>  CommunityPage()
       },
     );
   }

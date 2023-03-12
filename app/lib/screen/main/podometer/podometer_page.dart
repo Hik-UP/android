@@ -5,7 +5,6 @@ import 'package:hikup/widget/header.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 class PedometerPage extends StatefulWidget {
   static String routeName = "/pedometer";
   @override
@@ -16,7 +15,7 @@ class PedometerPageState extends State<PedometerPage> {
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = '?', _steps = '?';
-
+  
   @override
   void initState() {
     super.initState();

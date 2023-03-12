@@ -9,6 +9,7 @@ import '../model/user.dart';
 import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
 import '../screen/main/podometer/podometer_page.dart';
+import '../screen/main/community/comments/home.dart';
 
 
 enum ViewState { idle, busy, retrieved }
@@ -38,15 +39,15 @@ const filledIconNavBar = [
   "assets/icons/home_fill.png",
   "assets/icons/receipt_fill.png",
   "assets/icons/settings_fill.png",
-  "assets/icons/accessibility_fill.png"
+  "assets/icons/receipt_fill.png"
 ];
 const unFilledIconNavBar = [
   "assets/icons/home_outlined.png",
   "assets/icons/receipt_outlined.png",
   "assets/icons/settings_outlined.png",
-  "assets/icons/accessibility_outlined.png"
+  "assets/icons/receipt_outlined.png"
 ];
-const labelNavBar = ["Home", "Search", "Settings", "PM"];
+const labelNavBar = ["Home", "Search", "Settings", "Com"];
 
 User emptyUser = User(
   id: "",
@@ -87,12 +88,13 @@ final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
   const SettingsScreen(),
-  PedometerPage()
+  CommunityPage(),
+  PedometerPage(),
+
 ];
 
 enum TypeInput { text, password }
 
 const profilePlaceHoder = "assets/images/user_profile_example.png";
-
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";

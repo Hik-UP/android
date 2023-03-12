@@ -5,12 +5,12 @@ import 'package:hikup/widget/category_card.dart';
 import 'package:hikup/widget/header.dart';
 import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
+import 'package:hikup/widget/pedometer_card.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
-
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
@@ -51,6 +51,20 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ),
                   const CategoryListView(),
+                    Padding(
+                    padding: const EdgeInsets.only(
+                        top: 8.0, left: 16.0, right: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Pedometer",
+                          style: subTitleTextStyle,
+                        )
+                      ],
+                    ),
+                  ),
+                  const PedometerCard(),
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 8.0, left: 16.0, right: 16.0),
