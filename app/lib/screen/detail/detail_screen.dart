@@ -278,14 +278,28 @@ class DetailScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadiusSize),
               ),
             ),
-            onPressed: () {},
-            child: Text(
-              AppMessages.startNow,
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
+            onPressed: model.getState == ViewState.busy
+                ? null
+                : () {
+                    model.createAHike(
+                      appState: appState,
+                      trailField: field,
+                      timeStamps: model.dateCtrl.text.isNotEmpty &&
+                              model.timeCtrl.text.isNotEmpty
+                          ? model.timeStampOrNull()
+                          : null,
+                      guests: model.emailFriends,
+                    );
+                  },
+            child: model.getState == ViewState.busy
+                ? const CircularProgressIndicator()
+                : Text(
+                    AppMessages.startNow,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
           ),
         ),
       ),

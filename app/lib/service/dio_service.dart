@@ -25,7 +25,6 @@ class DioService {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': token,
-            // "Authorization": token,
           },
         ),
         data: body,
@@ -33,7 +32,6 @@ class DioService {
 
       return result;
     } on DioError catch (e) {
-      print(e);
       if (e.response == null) {
         _navigator.showSnackBack(
           content: AppMessages.anErrorOcur,
