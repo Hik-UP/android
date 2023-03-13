@@ -46,4 +46,11 @@ class AppMessages {
   static String startNow = "Start now";
   static String schelduleNow = "Schedule now";
   static String finish = "Finish";
+  static String all = "All";
+  static String organized = "Organized";
+  static String guest = "Guest";
+  static String attended = "Attended";
+  static String noHike = "Ooops, no hike to show";
+  static String date = "Date";
+  static String position = "Position";
 }

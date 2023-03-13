@@ -8,11 +8,13 @@ import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
+import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/screen/main/main_screen.dart';
 import 'package:hikup/screen/main/setting/complete_profile.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/local_notification.dart';
+import 'package:hikup/viewmodel/hikes_create_viewmodel.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/onboarding_screen.dart';
@@ -86,6 +88,7 @@ class MyApp extends StatelessWidget {
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
+        HikesCreate.routeName: (_) => const HikesCreate()
         // PedometerPage.routeName: (_) =>  PedometerPage()
       },
     );

@@ -12,6 +12,8 @@ import '../screen/main/podometer/podometer_page.dart';
 
 enum ViewState { idle, busy, retrieved }
 
+enum TypeOfHike { organized, guest, attendee }
+
 enum TypeOfInput { text, password }
 
 const env = "DEV";
@@ -36,7 +38,10 @@ const getProfilePath = "/user/profile";
 const updateProfilePath = "/user/profile/update";
 const getDetailsPath = "/trail/details";
 const createHikePath = "/user/hike/create";
+const getHikePath = "/user/hike/retrieve";
 const pinIcon = "assets/icons/pin.png";
+const idHikeIcon = "assets/icons/idHike.svg";
+const calendarIcon = "assets/icons/calendarIcon.svg";
 
 const filledIconNavBar = [
   "assets/icons/home_fill.png",

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/detail_trail_model.dart';
+import 'package:hikup/model/hike.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/service/custom_navigation.dart';
@@ -89,6 +90,39 @@ class WrapperApi {
           data: response.data as Map<String, dynamic>);
     } catch (e) {
       print(e);
+      throw AppMessages.anErrorOcur;
+    }
+  }
+
+  Future<List<Hike>> getAllHike({
+    required String path,
+    required AppState appState,
+    required List<String> target,
+  }) async {
+    List<Hike> hikes = [];
+    try {
+      var result = await _dioService.post(
+        token: "Bearer ${appState.token}",
+        path: getHikePath,
+        body: {
+          "user": {
+            "id": appState.id,
+            "roles": appState.roles,
+          },
+          "hike": {"target": target},
+        },
+      );
+      print(result);
+
+      for (String state in target) {
+        List<Hike> subElements = [];
+        for (var content in result.data["hikes"][state] as List) {
+          subElements.add(Hike.fromMap(data: content));
+        }
+        hikes.addAll(subElements);
+      }
+      return hikes;
+    } catch (e) {
       throw AppMessages.anErrorOcur;
     }
   }
