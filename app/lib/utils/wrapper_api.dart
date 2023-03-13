@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hikup/locator.dart';
+import 'package:hikup/model/detail_trail_model.dart';
+import 'package:hikup/model/hike.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/service/custom_navigation.dart';
@@ -51,6 +53,7 @@ class WrapperApi {
     );
     //We also delete his skin
     await _hiveService.deleteBoxField(skinUserBox, "skin");
+    await _hiveService.deleteBoxField(sensibleUserDataBox, "sensibleUserData");
 
     //After delete user data then we redirect user to a login page, with some message using snack bar
     _navigationService.navigateToAndRemoveUntil(LoginPage.routeName);
@@ -58,5 +61,69 @@ class WrapperApi {
       content: isLogout ? AppMessages.logout : AppMessages.tokenExpiredMessage,
       isError: !isLogout,
     );
+  }
+
+  Future<DetailTrailMode> getDetailsTrails({
+    required AppState appState,
+    required String trailId,
+  }) async {
+    try {
+      var response = await _dioService.post(
+        path: getDetailsPath,
+        body: {
+          "user": {
+            "id": appState.id,
+            "roles": appState.roles,
+            "weight": 160,
+            "tall": 168,
+            "sex": "M",
+            "age": 19
+          },
+          "trail": {
+            "id": trailId,
+          },
+        },
+        token: "Bearer ${appState.token}",
+      );
+
+      return DetailTrailMode.fromMap(
+          data: response.data as Map<String, dynamic>);
+    } catch (e) {
+      print(e);
+      throw AppMessages.anErrorOcur;
+    }
+  }
+
+  Future<List<Hike>> getAllHike({
+    required String path,
+    required AppState appState,
+    required List<String> target,
+  }) async {
+    List<Hike> hikes = [];
+    try {
+      var result = await _dioService.post(
+        token: "Bearer ${appState.token}",
+        path: getHikePath,
+        body: {
+          "user": {
+            "id": appState.id,
+            "roles": appState.roles,
+          },
+          "hike": {"target": target},
+        },
+      );
+      print(result);
+
+      for (String state in target) {
+        List<Hike> subElements = [];
+        for (var content in result.data["hikes"][state] as List) {
+          subElements.add(Hike.fromMap(data: content));
+        }
+        hikes.addAll(subElements);
+      }
+      return hikes;
+    } catch (e) {
+      throw AppMessages.anErrorOcur;
+    }
   }
 }

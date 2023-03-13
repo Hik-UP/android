@@ -5,8 +5,19 @@ import 'package:hikup/utils/constant.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 
-class InviteFriendCmp extends StatelessWidget {
-  const InviteFriendCmp({Key? key}) : super(key: key);
+class InviteFriendCmp extends StatefulWidget {
+  final Function(String data) value;
+  const InviteFriendCmp({
+    Key? key,
+    required this.value,
+  }) : super(key: key);
+
+  @override
+  State<InviteFriendCmp> createState() => _InviteFriendCmpState();
+}
+
+class _InviteFriendCmpState extends State<InviteFriendCmp> {
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +26,7 @@ class InviteFriendCmp extends StatelessWidget {
         Expanded(
           flex: 2,
           child: CustomTextField(
+            controller: _controller,
             hintText: AppMessages.hintEmailFriend,
           ),
         ),
@@ -23,7 +35,10 @@ class InviteFriendCmp extends StatelessWidget {
           child: CustomBtn(
             height: 50,
             content: AppMessages.invitMsg,
-            onPress: () {},
+            onPress: () {
+              widget.value(_controller.text);
+              _controller.text = "";
+            },
             gradient: loginButtonColor,
           ),
         )

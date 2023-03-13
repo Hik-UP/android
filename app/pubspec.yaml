@@ -63,7 +63,8 @@ dependencies:
   rename: ^2.1.1
   carousel_slider: ^4.2.1
   permission_handler: ^10.2.0
-  pedometer: ^3.0.0
+  flutter_svg: 
+  
 
 
 dev_dependencies:

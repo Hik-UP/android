@@ -10,12 +10,13 @@ import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
 import '../screen/main/podometer/podometer_page.dart';
 
-
 enum ViewState { idle, busy, retrieved }
+
+enum TypeOfHike { organized, guest, attendee }
 
 enum TypeOfInput { text, password }
 
-const env = "PROD";
+const env = "DEV";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
@@ -35,6 +36,12 @@ const loginPath = "/auth/login";
 const getTrailsPath = "/trail/retrieve";
 const getProfilePath = "/user/profile";
 const updateProfilePath = "/user/profile/update";
+const getDetailsPath = "/trail/details";
+const createHikePath = "/user/hike/create";
+const getHikePath = "/user/hike/retrieve";
+const pinIcon = "assets/icons/pin.png";
+const idHikeIcon = "assets/icons/idHike.svg";
+const calendarIcon = "assets/icons/calendarIcon.svg";
 
 const filledIconNavBar = [
   "assets/icons/home_fill.png",
@@ -89,7 +96,7 @@ final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
   const SettingsScreen(),
-  PedometerPage()
+  // PedometerPage()
 ];
 
 enum TypeInput { text, password }
@@ -98,3 +105,4 @@ const profilePlaceHoder = "assets/images/user_profile_example.png";
 
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
+const stopWatchIcon = "assets/icons/stopwatchIcon.svg";

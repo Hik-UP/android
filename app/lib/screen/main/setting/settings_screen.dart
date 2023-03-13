@@ -139,6 +139,7 @@ class SettingsScreen extends StatelessWidget {
                               height: 8,
                             ),
                             Container(
+                              width: MediaQuery.of(context).size.width * .6,
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                 color: primaryColor100.withOpacity(0.5),
@@ -149,7 +150,9 @@ class SettingsScreen extends StatelessWidget {
                                 appState.email,
                                 style: descTextStyle.copyWith(
                                   color: primaryColor500,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
+                                maxLines: 1,
                               ),
                             ),
                             const Gap(6.0),
@@ -272,9 +275,7 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              WrapperApi().logout(
-                                isLogout: true,
-                              );
+                              WrapperApi().logout(isLogout: true);
                             },
                             child: Text(AppMessages.logOut),
                           ),

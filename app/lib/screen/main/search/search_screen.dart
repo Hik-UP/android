@@ -5,7 +5,6 @@ import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
-import 'package:hikup/utils/constant.dart';
 import 'package:hikup/widget/category_card.dart';
 import 'package:hikup/widget/header.dart';
 import 'package:hikup/widget/trail_card.dart';
@@ -68,7 +67,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 future: model.trails(appState: appState),
                 builder: (context, snapshots) {
                   if (snapshots.hasError) {
-                    print(snapshots.error);
                     return Text(
                       AppMessages.anErrorOcur,
                       style: GoogleFonts.poppins(
