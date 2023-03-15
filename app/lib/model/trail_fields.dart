@@ -1,3 +1,5 @@
+import 'package:hikup/model/comment.dart';
+
 class TrailFields {
   String id;
   String name;
@@ -15,6 +17,7 @@ class TrailFields {
   List<String> relatedArticles;
   List<String> labels;
   String geoJSON;
+  List<Comment> comments;
   String imageAsset;
   int price;
   String openTime;
@@ -37,6 +40,7 @@ class TrailFields {
     required this.relatedArticles,
     required this.labels,
     required this.geoJSON,
+    required this.comments,
     required this.imageAsset,
     required this.price,
     required this.openTime,

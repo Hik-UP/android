@@ -34,13 +34,6 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
       onWillPop: () async => await _onBackPressed(),
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          toolbarHeight: 0,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: backgroundColor,
-              statusBarIconBrightness: Brightness.dark),
-        ),
         backgroundColor: backgroundColor,
         body: screens[_currentIndex],
         bottomNavigationBar: CustomBottomNavBar(
@@ -63,15 +56,15 @@ class _MainScreenState extends State<MainScreen> {
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Exit the App'),
-            content: const Text('Voulez vous quitter?'),
+            content: const Text('Do you want to exit the app?'),
             actions: <Widget>[
               // const SizedBox(height: 16),
               TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Non')),
+                  child: const Text('No')),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Oui'),
+                child: const Text('Yes'),
               ),
             ],
           ),

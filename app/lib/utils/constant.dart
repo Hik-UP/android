@@ -1,16 +1,22 @@
 import 'package:flutter/widgets.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
+import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 
 import '../model/user.dart';
 
 import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
+import '../screen/main/podometer/podometer_page.dart';
 
 enum ViewState { idle, busy, retrieved }
 
-const env = "PROD";
+enum TypeOfHike { organized, guest, attendee }
+
+enum TypeOfInput { text, password }
+
+const env = "DEV";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
@@ -32,18 +38,26 @@ const loginPath = "/auth/login";
 const getTrailsPath = "/trail/retrieve";
 const getProfilePath = "/user/profile";
 const updateProfilePath = "/user/profile/update";
+const getDetailsPath = "/trail/details";
+const createHikePath = "/user/hike/create";
+const getHikePath = "/user/hike/retrieve";
+const pinIcon = "assets/icons/pin.png";
+const idHikeIcon = "assets/icons/idHike.svg";
+const calendarIcon = "assets/icons/calendarIcon.svg";
 
 const filledIconNavBar = [
   "assets/icons/home_fill.png",
   "assets/icons/receipt_fill.png",
-  "assets/icons/settings_fill.png"
+  "assets/icons/settings_fill.png",
+  "assets/icons/accessibility_fill.png"
 ];
 const unFilledIconNavBar = [
   "assets/icons/home_outlined.png",
   "assets/icons/receipt_outlined.png",
-  "assets/icons/settings_outlined.png"
+  "assets/icons/settings_outlined.png",
+  "assets/icons/accessibility_outlined.png"
 ];
-const labelNavBar = ["Home", "Search", "Settings"];
+const labelNavBar = ["Home", "Search", "Settings", "PM"];
 
 User emptyUser = User(
   id: "",
@@ -83,7 +97,8 @@ dynamic logoutButtonColor = const LinearGradient(colors: [
 final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
-  const SettingsScreen()
+  const SettingsScreen(),
+  // PedometerPage()
 ];
 
 enum TypeInput { text, password }
@@ -92,3 +107,4 @@ const profilePlaceHoder = "assets/images/user_profile_example.png";
 
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
+const stopWatchIcon = "assets/icons/stopwatchIcon.svg";

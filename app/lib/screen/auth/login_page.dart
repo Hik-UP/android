@@ -96,6 +96,7 @@ return BaseView<LoginPageViewModel>(
                                   },
                                   gradient: loginButtonColor,
                                 ),
+
                                 const Gap(0.0),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -109,6 +110,42 @@ return BaseView<LoginPageViewModel>(
                                         Navigator.of(context).pushNamed(
                                           RegisterPage.routeName,
                                         );
+                              ],
+                            ),
+                            child: Form(
+                              key: model.loginFormKey,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    CustomTextField(
+                                      controller: model.emailController,
+                                      hintText: AppMessages.email,
+                                      validator: model.validEmail,
+                                    ),
+                                    const Gap(20.0),
+                                    CustomTextField(
+                                      controller: model.passwordController,
+                                      hintText: AppMessages.password,
+                                      typeInput: TypeInput.password,
+                                      validator: model.validPassword,
+                                      typeOfInput: TypeOfInput.password,
+                                    ),
+                                    const Gap(40),
+                                    CustomBtn(
+                                      content: AppMessages.login,
+                                      isLoading:
+                                          model.getState == ViewState.busy,
+                                      onPress: () {
+                                        if (model.loginFormKey.currentState!
+                                            .validate()) {
+                                          model.login(
+                                            email: model.emailController.text,
+                                            password:
+                                                model.passwordController.text,
+                                            appState: context.read<AppState>(),
+                                          );
+                                        }
                                       },
                                       child: const Text(
                                         "No account? Create one!",

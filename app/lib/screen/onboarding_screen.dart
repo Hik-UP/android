@@ -34,7 +34,7 @@ class OnboardingScreen extends StatelessWidget {
             Navigator.of(context).pushNamed(LoginPage.routeName);
           },
           child: Text(
-            "Explorer",
+            "Explore",
             style: buttonTextStyle,
           ),
         ),
