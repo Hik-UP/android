@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/providers/app_state.dart';
@@ -51,18 +52,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-            // const SizedBox(width: 16.0),
-            // SizedBox(
-            //   width: MediaQuery.of(context).size.width / 2 * .9,
-            //   child: Text(
-            //     appState.username.isNotEmpty
-            //         ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
-            //         : "",
-            //     style: subTitleTextStyle,
-            //     maxLines: 1,
-            //     overflow: TextOverflow.ellipsis,
-            //   ),
-            // )
           ],
         ),
       ),
@@ -72,6 +61,15 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       actions: <Widget>[
         Row(
           children: [
+            GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(
+                HikesCreate.routeName,
+              ),
+              child: const Icon(
+                FontAwesomeIcons.personHiking,
+              ),
+            ),
+            const Gap(20.0),
             GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(
                 NotificationView.routeName,

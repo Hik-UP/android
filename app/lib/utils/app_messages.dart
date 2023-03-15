@@ -39,4 +39,20 @@ class AppMessages {
   static String inviteFriend = "Invite friends";
   static String hintEmailFriend = "Enter your friend email";
   static String invitMsg = "Invite";
+  static String calorieToBurn = "calories to burn";
+  static String schedule = "Schedule";
+  static String canPlanTheHike = "You can schedule your hiking";
+  static String reset = "reset";
+  static String startNow = "Start now";
+  static String schelduleNow = "Schedule now";
+  static String finish = "Finish";
+  static String all = "All";
+  static String organized = "Organized";
+  static String guest = "Guest";
+  static String attended = "Attended";
+  static String noHike = "Ooops, no hike to show";
+  static String date = "Date";
+  static String position = "Position";
+  static String alreadyHaveAnAccount =
+      "Don't have an account ? Register here !";
 }

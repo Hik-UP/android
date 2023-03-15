@@ -10,12 +10,13 @@ import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
 import '../screen/main/podometer/podometer_page.dart';
 
-
 enum ViewState { idle, busy, retrieved }
+
+enum TypeOfHike { organized, guest, attendee }
 
 enum TypeOfInput { text, password }
 
-const env = "PROD";
+const env = "DEV";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
@@ -26,6 +27,8 @@ const accessTokenMapBox =
     'pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w';
 const idMapBox = 'mapbox.mapbox-streets-v8';
 const logoBlackNoBg = "assets/images/logoBlackNoBg.png";
+const logoWhiteNoBg = "assets/images/logoWhiteNoBg.png";
+const homeBackgroundDay = 'assets/images/BackgroundForestHome.jpg';
 const msg =
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
 
@@ -35,6 +38,12 @@ const loginPath = "/auth/login";
 const getTrailsPath = "/trail/retrieve";
 const getProfilePath = "/user/profile";
 const updateProfilePath = "/user/profile/update";
+const getDetailsPath = "/trail/details";
+const createHikePath = "/user/hike/create";
+const getHikePath = "/user/hike/retrieve";
+const pinIcon = "assets/icons/pin.png";
+const idHikeIcon = "assets/icons/idHike.svg";
+const calendarIcon = "assets/icons/calendarIcon.svg";
 
 const filledIconNavBar = [
   "assets/icons/home_fill.png",
@@ -76,8 +85,8 @@ SensibleUserData emptySensibleUserData = SensibleUserData(
 );
 
 dynamic loginButtonColor = const LinearGradient(colors: [
-  Color.fromARGB(255, 143, 251, 208),
-  Color.fromARGB(153, 21, 174, 123),
+  Color.fromARGB(255, 23, 255, 119),
+  Color.fromARGB(255, 34, 253, 173),
 ]);
 
 dynamic logoutButtonColor = const LinearGradient(colors: [
@@ -89,7 +98,7 @@ final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
   const SettingsScreen(),
-  PedometerPage()
+  // PedometerPage()
 ];
 
 enum TypeInput { text, password }
@@ -98,3 +107,4 @@ const profilePlaceHoder = "assets/images/user_profile_example.png";
 
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
+const stopWatchIcon = "assets/icons/stopwatchIcon.svg";

@@ -19,14 +19,12 @@ class DioService {
     String token = "",
   }) async {
     try {
-      print("$baseUrl$path");
       var result = await _dio.post(
         "$baseUrl$path",
         options: Options(
           headers: {
             'Content-Type': 'application/json',
             'Authorization': token,
-            // "Authorization": token,
           },
         ),
         data: body,
@@ -34,8 +32,6 @@ class DioService {
 
       return result;
     } on DioError catch (e) {
-      print(env);
-      print(e);
       if (e.response == null) {
         _navigator.showSnackBack(
           content: AppMessages.anErrorOcur,
