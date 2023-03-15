@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                                 gradient: loginButtonColor,
                               ),
-                              const Gap(0.0),
+                              const Gap(10.0),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
