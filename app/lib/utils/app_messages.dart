@@ -53,6 +53,8 @@ class AppMessages {
   static String noHike = "Ooops, no hike to show";
   static String date = "Date";
   static String position = "Position";
-  static String alreadyHaveAnAccount =
+  static String noAccountYet =
       "Don't have an account ? Register here !";
+  static String alreadyHaveAccount = "Already have an account ? Login here !";
+      
 }

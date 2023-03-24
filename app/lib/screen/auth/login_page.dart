@@ -28,7 +28,10 @@ class _LoginPageState extends State<LoginPage> {
     return BaseView<LoginPageViewModel>(
       builder: (context, model, child) => SafeArea(
         child: Scaffold(
-          body: Stack(
+          resizeToAvoidBottomInset : false,
+          backgroundColor: Color.fromARGB(255, 114, 18, 18),
+          body: Center(
+            child: Stack(
             children: [
               Positioned.fill(
                 child: Image.asset(
@@ -38,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Column(
                 children: [
-                  const Gap(30.0),
+                  const Gap(15.0),
                   Container(
                     decoration: const BoxDecoration(
                         image: DecorationImage(
@@ -49,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: <Widget>[
                         Positioned(
                           child: Container(
-                              margin: const EdgeInsets.only(top: 190)),
+                              margin: const EdgeInsets.only(top: 170)),
                         )
                       ],
                     ),
@@ -71,14 +74,14 @@ class _LoginPageState extends State<LoginPage> {
                                 hintText: AppMessages.email,
                                 validator: model.validEmail,
                               ),
-                              const Gap(20.0),
+                              const Gap(10),
                               CustomTextField(
                                 controller: model.passwordController,
                                 hintText: AppMessages.password,
                                 typeInput: TypeInput.password,
                                 validator: model.validPassword,
                               ),
-                              const Gap(20),
+                              const Gap(10),
                               CustomBtn(
                                 content: AppMessages.login,
                                 isLoading: model.getState == ViewState.busy,
@@ -94,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                                 gradient: loginButtonColor,
                               ),
-                              const Gap(10.0),
+                              const Gap(2),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -109,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                                       );
                                     },
                                     child: Text(
-                                      AppMessages.alreadyHaveAnAccount,
+                                      AppMessages.noAccountYet,
                                       style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w400,
                                       ),
@@ -126,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               )
             ],
+          ),
           ),
         ),
       ),
