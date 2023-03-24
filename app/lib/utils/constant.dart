@@ -16,7 +16,7 @@ enum TypeOfHike { organized, guest, attendee }
 
 enum TypeOfInput { text, password }
 
-const env = "DEV";
+const env = "PROD";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
