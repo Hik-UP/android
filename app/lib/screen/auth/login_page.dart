@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Column(
                 children: [
-                  const Gap(15.0),
+                  const Gap(14.0),
                   Container(
                     decoration: const BoxDecoration(
                         image: DecorationImage(
@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width *
-                        0.9, // 50% de la largeur de l'écran
+                        0.8, // 50% de la largeur de l'écran
                     height: MediaQuery.of(context).size.height * 0.5,
                     child: Padding(
                       padding: const EdgeInsets.all(25.0),
@@ -80,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                                 hintText: AppMessages.password,
                                 typeInput: TypeInput.password,
                                 validator: model.validPassword,
+                                typeOfInput: TypeOfInput.password,
                               ),
                               const Gap(10),
                               CustomBtn(

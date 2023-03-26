@@ -69,8 +69,8 @@ class UpdateProfile extends StatelessWidget {
                   ],
                 ),
               ),
-              const Spacer(),
-              CustomBtn(
+              const Spacer(),  
+            CustomBtn(
                 content: AppMessages.updateTxt,
                 isLoading: model.getState == ViewState.busy,
                 onPress: () {
