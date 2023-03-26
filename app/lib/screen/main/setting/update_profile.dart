@@ -69,7 +69,25 @@ class UpdateProfile extends StatelessWidget {
                   ],
                 ),
               ),
-              const Spacer(),  
+          const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Username',
+            ),
+          ),
+        ),
+                const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Email',
+            ),
+          ),
+        ),
+              const Spacer(),
             CustomBtn(
                 content: AppMessages.updateTxt,
                 isLoading: model.getState == ViewState.busy,
