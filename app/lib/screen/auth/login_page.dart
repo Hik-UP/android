@@ -28,7 +28,10 @@ class _LoginPageState extends State<LoginPage> {
     return BaseView<LoginPageViewModel>(
       builder: (context, model, child) => SafeArea(
         child: Scaffold(
-          body: Stack(
+          resizeToAvoidBottomInset : false,
+          backgroundColor: Color.fromARGB(255, 114, 18, 18),
+          body: Center(
+            child: Stack(
             children: [
               Positioned.fill(
                 child: Image.asset(
@@ -38,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Column(
                 children: [
-                  const Gap(30.0),
+                  const Gap(15.0),
                   Container(
                     decoration: const BoxDecoration(
                         image: DecorationImage(
@@ -77,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                                 hintText: AppMessages.password,
                                 typeInput: TypeInput.password,
                                 validator: model.validPassword,
+                                typeOfInput: TypeOfInput.password,
                               ),
                               const Gap(10),
                               CustomBtn(
@@ -126,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               )
             ],
+          ),
           ),
         ),
       ),

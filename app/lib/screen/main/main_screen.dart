@@ -35,17 +35,26 @@ class _MainScreenState extends State<MainScreen> {
       onWillPop: () async => await _onBackPressed(),
       child: Scaffold(
         backgroundColor: backgroundColor,
-        body: screens[_currentIndex],
-        bottomNavigationBar: CustomBottomNavBar(
-          defaultSelectedIndex: _currentIndex,
-          selectedItemIcon: filledIconNavBar,
-          unselectedItemIcon: unFilledIconNavBar,
-          label: labelNavBar,
-          onChange: (val) {
-            setState(() {
-              _currentIndex = val;
-            });
-          },
+        body: Stack(
+          children: [
+            screens[_currentIndex],
+            Positioned(
+              left: 15,
+              right: 15,
+              bottom: 15,
+              child: CustomBottomNavBar(
+                  defaultSelectedIndex: _currentIndex,
+                  selectedItemIcon: filledIconNavBar,
+                  unselectedItemIcon: unFilledIconNavBar,
+                  label: labelNavBar,
+                  onChange: (val) {
+                    setState(() {
+                      _currentIndex = val;
+                    });
+                  },
+              ),
+            ),
+          ],
         ),
       ),
     );

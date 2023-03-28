@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,8 +31,10 @@ class _RegisterPageState extends State<RegisterPage> {
 
     return BaseView<RegisterPageViewModel>(
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
+        resizeToAvoidBottomInset : false,
+        backgroundColor: Color.fromARGB(255, 114, 18, 18),
+        body: Center(
+          child: Stack(
         children: [
           Positioned.fill(
             child: Image.asset(
@@ -136,7 +139,9 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ],
         ),
+        )
+            
       ),
-    );
+          );
   }
 }
