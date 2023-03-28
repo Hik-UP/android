@@ -19,6 +19,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +29,6 @@ class _MainScreenState extends State<MainScreen> {
     LocalNotification.onMessageApp();
     LocalNotification.getInitialMessage();
   }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

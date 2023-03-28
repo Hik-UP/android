@@ -24,7 +24,7 @@ TextStyle titleTextStyle = GoogleFonts.poppins(
     fontSize: 18, fontWeight: FontWeight.w700, color: darkBlue500);
 
 TextStyle subTitleTextStyle = GoogleFonts.poppins(
-    fontSize: 16, fontWeight: FontWeight.w500, color: darkBlue500);
+    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white);
 
 TextStyle normalTextStyle = GoogleFonts.poppins(color: darkBlue500);
 

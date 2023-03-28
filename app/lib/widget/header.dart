@@ -17,7 +17,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       iconTheme: const IconThemeData(
-        color: Colors.black,
+        color: Color.fromARGB(255, 156, 156, 156),
       ),
       title: SizedBox(
         width: MediaQuery.of(context).size.width / 2 * .9,
@@ -44,7 +44,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                 height: 35,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 156, 156, 156),
                   image: DecorationImage(
                     fit: BoxFit.fill,
                     image: AssetImage("assets/images/user_profile_example.png"),
@@ -55,7 +55,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 32, 32, 32),
       elevation: 0.0,
       automaticallyImplyLeading: false,
       actions: <Widget>[
@@ -87,7 +87,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                     child: Container(
                       padding: const EdgeInsets.all(3.0),
                       decoration: const BoxDecoration(
-                        color: primaryColor500,
+                        color: Color.fromARGB(255, 23, 255, 119),
                         shape: BoxShape.circle,
                       ),
                       child: const Text(

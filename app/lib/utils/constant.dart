@@ -46,14 +46,14 @@ const idHikeIcon = "assets/icons/idHike.svg";
 const calendarIcon = "assets/icons/calendarIcon.svg";
 
 const filledIconNavBar = [
-  "assets/icons/home_fill.png",
-  "assets/icons/receipt_fill.png",
+  "assets/icons/HomeFull.png",
+  "assets/icons/search.png",
   "assets/icons/settings_fill.png",
   "assets/icons/accessibility_fill.png"
 ];
 const unFilledIconNavBar = [
-  "assets/icons/home_outlined.png",
-  "assets/icons/receipt_outlined.png",
+  "assets/icons/Home.png",
+  "assets/icons/search.png",
   "assets/icons/settings_outlined.png",
   "assets/icons/accessibility_outlined.png"
 ];
