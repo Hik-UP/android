@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/material.dart';
 
 class API {
   Future<String> getServerUrl() async {
@@ -21,7 +22,11 @@ class API {
           }),
           data: {'email': email, 'password': password});
       if (response.statusCode == 200) {
-        prefs.setString('authToken', response.data['token']);
+        final data = json.decode(response.body);
+        print("ici ! : " + data);
+        prefs.setString('authToken', data['user']['token']);
+        prefs.setString('id', data['user']['id']);
+        prefs.setString('roles', data['user']['roles'][0]);
       }
       return response;
     } on DioError catch (e) {
