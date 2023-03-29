@@ -31,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return BaseView<SearchViewModel>(builder: (context, model, child) {
       return Scaffold(
-        backgroundColor: Color.fromARGB(255, 19, 19, 19),
+        backgroundColor: BlackSecondary,
         appBar: const Header(),
         body: SingleChildScrollView(
           child: Column(

@@ -42,13 +42,13 @@ class CategoryCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
       child: Material(
         color: BlackPrimary,
-        //shadowColor: primaryColor500.withOpacity(0.1),
-        elevation: 2,
+        shadowColor: FullBlack.withOpacity(1),
+        elevation: 3,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: InkWell(
-          highlightColor: primaryColor500.withOpacity(0.1),
+          //highlightColor: primaryColor500.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16),
-          splashColor: primaryColor500.withOpacity(0.5),
+          //splashColor: primaryColor500.withOpacity(0.5),
           onTap: () {},
           child: Container(
             padding: const EdgeInsets.all(10.0),
@@ -57,23 +57,19 @@ class CategoryCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundColor: primaryColor100,
                     child: Image.asset(
                       imageAsset,
-                      color: primaryColor500,
-                      width: 50,
-                      height: 50,
+                      //color: primaryColor500,
+                      width: 60,
+                      height: 60,
                     ),
                   ),
-                ),
                 const SizedBox(
                   height: 8.0,
                 ),
                 Text(
                   title,
-                  style: descTextStyle,
+                  style: WhiteAddressTextStyle,
                 )
               ],
             ),

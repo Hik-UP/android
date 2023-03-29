@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const Color FullBlack = Color.fromARGB(255, 0, 0, 0);
 const Color primaryColor100 = Color.fromARGB(255, 146, 240, 199);
 const Color primaryColor300 = Color.fromARGB(255, 99, 253, 184);
 const Color primaryColor500 = Color(0xff04D300);
 const Color GreenPrimary = Color.fromARGB(255, 23, 255, 119);
 const Color GreenSecondary = Color.fromARGB(255, 34, 253, 173);
 const Color BlackPrimary = Color.fromARGB(255, 32, 32, 32);
+const Color BlackSecondary = Color.fromARGB(255, 19, 19, 19);
 const Color BlackTertiary = Color.fromARGB(255, 156, 156, 156);
 const Color colorWhite = Colors.white;
 const Color backgroundColor = Color(0xffF5F9FF);
@@ -38,7 +40,10 @@ TextStyle GreenSubTitleTextStyle = GoogleFonts.poppins(
 
 TextStyle GreenAddressTextStyle = GoogleFonts.poppins(
     fontSize: 14, fontWeight: FontWeight.w400, color: GreenPrimary);
-  
+
+TextStyle WhiteAddressTextStyle = GoogleFonts.poppins(
+    fontSize: 14, fontWeight: FontWeight.w400, color: colorWhite);
+
 TextStyle normalTextStyle = GoogleFonts.poppins(color: darkBlue500);
 
 TextStyle descTextStyle = GoogleFonts.poppins(
