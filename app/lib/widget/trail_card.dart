@@ -15,7 +15,7 @@ class TrailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          const EdgeInsets.only(right: 16, left: 16, top: 4.0, bottom: 16.0),
+          const EdgeInsets.only(right: 16, left: 16, top: 8.0, bottom: 16.0),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () {
@@ -28,13 +28,13 @@ class TrailCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
-              color: colorWhite,
-              boxShadow: [
+              color: BlackPrimary,
+              /*boxShadow: [
                 BoxShadow(
                   color: primaryColor500.withOpacity(0.1),
                   blurRadius: 20,
                 )
-              ]),
+              ]*/),
           child: Column(
             children: [
               ClipRRect(
@@ -55,7 +55,7 @@ class TrailCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.only(right: 15, left: 15, top: 10.0, bottom: 15.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,7 +76,7 @@ class TrailCard extends StatelessWidget {
                           "assets/icons/pin.png",
                           width: 20,
                           height: 20,
-                          color: primaryColor500,
+                          color: GreenPrimary,
                         ),
                         const SizedBox(
                           width: 8.0,
@@ -86,7 +86,7 @@ class TrailCard extends StatelessWidget {
                             field.address,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: addressTextStyle,
+                            style: GreenAddressTextStyle,
                           ),
                         ),
                       ],

@@ -31,19 +31,16 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return BaseView<SearchViewModel>(builder: (context, model, child) {
       return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Color.fromARGB(255, 19, 19, 19),
         appBar: const Header(),
         body: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Gap(8.0),
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: Text(
+              Text(
                   "Hik'Up!",
-                  style: greetingTextStyle,
-                ),
+                  style: GreenTitleTextStyle,
               ),
               const CategoryListView(),
               Padding(

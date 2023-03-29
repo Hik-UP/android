@@ -10,7 +10,7 @@ import 'package:hikup/viewmodel/register_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:provider/provider.dart';
-
+import 'package:hikup/theme.dart';
 import '../../widget/custom_btn.dart';
 //import 'package:hik_up/api/api.dart';
 
@@ -113,8 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   alignment: Alignment.topRight,
                                   child: TextButton(
                                     style: TextButton.styleFrom(
-                                      foregroundColor: const Color.fromARGB(
-                                          255, 23, 255, 119),
+                                      foregroundColor: GreenPrimary,
                                     ),
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(

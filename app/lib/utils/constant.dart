@@ -3,7 +3,7 @@ import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
-
+import 'package:hikup/theme.dart';
 import '../model/user.dart';
 
 import '../screen/main/search/search_screen.dart';
@@ -85,8 +85,8 @@ SensibleUserData emptySensibleUserData = SensibleUserData(
 );
 
 dynamic loginButtonColor = const LinearGradient(colors: [
-  Color.fromARGB(255, 23, 255, 119),
-  Color.fromARGB(255, 34, 253, 173),
+  GreenPrimary,
+  GreenSecondary,
 ]);
 
 dynamic logoutButtonColor = const LinearGradient(colors: [

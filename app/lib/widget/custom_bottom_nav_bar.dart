@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:hikup/theme.dart';
 import 'package:hikup/theme.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
@@ -47,7 +47,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     }
     return Container(
       decoration: BoxDecoration(
-          color: Color.fromARGB(255, 32, 32, 32),
+          color: BlackPrimary,
           borderRadius: BorderRadius.circular(15)),
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -82,7 +82,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                         activeIcon,
                         width: 25,
                         height: 25,
-                        color: Color.fromARGB(255, 23, 255, 119),
+                        color: GreenPrimary,
                       ),
                       Text(
                         label,
@@ -98,7 +98,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                       inactiveIcon,
                       width: 25,
                       height: 25,
-                      color: Color.fromARGB(255, 156, 156, 156),
+                      color: BlackTertiary,
                     ),
                   ],
                 ),
