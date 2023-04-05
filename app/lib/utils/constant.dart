@@ -89,6 +89,11 @@ dynamic loginButtonColor = const LinearGradient(colors: [
   Color.fromARGB(255, 34, 253, 173),
 ]);
 
+dynamic deleteButtonColor = const LinearGradient(colors: [
+  Color.fromARGB(255, 255, 38, 23),
+  Color.fromARGB(255, 248, 5, 5),
+]);
+
 dynamic logoutButtonColor = const LinearGradient(colors: [
   Color.fromARGB(255, 5, 201, 240),
   Color.fromARGB(153, 13, 164, 229),

@@ -14,6 +14,7 @@ import 'package:hikup/widget/upload_picture.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../../../theme.dart';
 import '../../../utils/constant.dart';
 
 class UpdateProfile extends StatelessWidget {
@@ -88,6 +89,7 @@ class UpdateProfile extends StatelessWidget {
           ),
         ),
               const Spacer(),
+ 
             CustomBtn(
                 content: AppMessages.updateTxt,
                 isLoading: model.getState == ViewState.busy,
@@ -106,6 +108,54 @@ class UpdateProfile extends StatelessWidget {
                 gradient: loginButtonColor,
               ),
               const Gap(20.0),
+              CustomBtn(
+                content: AppMessages.deleteaccount,
+                isLoading: model.getState == ViewState.busy,
+                onPress: () {
+                },
+                gradient: deleteButtonColor,
+              ), 
+              const Gap(20.0),
+              InkWell(
+                onTap: () => {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(AppMessages.askUserWantToDelete),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: Text(AppMessages.cancel),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              //WrapperApi().logout(isLogout: true);
+                            },
+                            child: Text(AppMessages.delete),
+                          ),
+                        ],
+                      );
+                    },
+                  )
+                },
+                child: Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Icon(
+                        FontAwesomeIcons.deleteLeft,
+                        color: darkBlue300,
+                      ),
+                    ),
+                    const Gap(4.0),
+                    Text(
+                      AppMessages.delete,
+                      style: normalTextStyle,
+                    ),
+                  ],
+                ),
+              ),
             ]),
           ),
         ),
