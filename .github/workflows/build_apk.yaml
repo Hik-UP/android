@@ -19,11 +19,6 @@ jobs:
         shell: bash
         run: ./app.sh docker install
 
-      - name: requirements
-        shell: bash
-        run: |
-          touch ./app/config/.env
-
       - name: build app
         shell: bash
         run: ./app.sh docker build
