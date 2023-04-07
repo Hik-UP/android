@@ -94,8 +94,8 @@ class MyApp extends StatelessWidget {
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
         HikesCreate.routeName: (_) => const HikesCreate(),
-        PedometerPage.routeName: (_) =>  PedometerPage(),
-        CommunityPage.routeName: (_) =>  CommunityPage()
+        //PedometerPage.routeName: (_) =>  PedometerPage(),
+        //CommunityPage.routeName: (_) =>  CommunityPage()
       },
     );
   }
