@@ -102,8 +102,7 @@ dynamic logoutButtonColor = const LinearGradient(colors: [
 final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
-  const SettingsScreen(),
-  // PedometerPage()
+  const SettingsScreen()
 ];
 
 enum TypeInput { text, password }

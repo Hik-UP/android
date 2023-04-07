@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hikup/theme.dart';
+import 'package:hikup/utils/constant.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   final int defaultSelectedIndex;
@@ -41,7 +42,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   Widget build(BuildContext context) {
     List<Widget> navBarItems = [];
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < screens.length; i++) {
       navBarItems.add(bottomNavBarItem(
           _selectedItemIcon[i], _unselectedItemIcon[i], _label[i], i));
     }
