@@ -103,7 +103,7 @@ final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
   const SettingsScreen(),
-  // PedometerPage()
+  PedometerPage()
 ];
 
 enum TypeInput { text, password }
