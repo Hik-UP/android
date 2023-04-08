@@ -1,11 +1,13 @@
 #!/bin/bash
 
 start_docker() {
-  ANDROID_CMD="$@" docker compose up -d	\
+  ANDROID_CMD="$@" docker compose up	\
+  --attach android			\
   --no-build				\
   --no-recreate				\
+  --exit-code-from android		\
   android
-  docker attach android
+  #docker attach android
 
   local readonly EXIT_CODE=$?
 

@@ -22,6 +22,9 @@ import 'package:hikup/theme.dart';
 import 'firebase_options.dart';
 import 'screen/main/setting/update_profile.dart';
 import 'screen/main/setting/settings_screen.dart';
+import 'screen/main/podometer/podometer_page.dart';
+import 'screen/main/community/comments/home.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,10 +35,12 @@ Future<void> main() async {
   Hive.registerAdapter(OtherDataAdapter());
   Hive.registerAdapter(SkinAdapter());
   Hive.registerAdapter(SensibleUserDataAdapter());
+
   await Hive.openBox<User>("userBox");
   await Hive.openBox<OtherData>("otherData");
   await Hive.openBox<Skin>("skinBox");
   await Hive.openBox<SensibleUserData>("sensibleUserDataBox");
+  await Hive.openBox<String>("trailId");
   await LocalNotification().init();
 
   setupLocator();
@@ -89,7 +94,6 @@ class MyApp extends StatelessWidget {
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
         HikesCreate.routeName: (_) => const HikesCreate()
-        // PedometerPage.routeName: (_) =>  PedometerPage()
       },
     );
   }

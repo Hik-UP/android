@@ -108,3 +108,8 @@ const profilePlaceHoder = "assets/images/user_profile_example.png";
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
 const stopWatchIcon = "assets/icons/stopwatchIcon.svg";
+
+dynamic deleteButtonColor = const LinearGradient(colors: [
+  Color.fromARGB(255, 255, 38, 23),
+  Color.fromARGB(255, 248, 5, 5),
+]);

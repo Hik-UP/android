@@ -10,7 +10,6 @@ import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:provider/provider.dart';
-import 'package:hikup/theme.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = "/login";
@@ -105,7 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   TextButton(
                                     style: TextButton.styleFrom(
-                                      foregroundColor: GreenPrimary,
+                                      foregroundColor: const Color.fromARGB(
+                                          255, 23, 255, 119),
                                     ),
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(

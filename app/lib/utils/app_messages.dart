@@ -14,6 +14,7 @@ class AppMessages {
   static String usernameinvalid = "The username is incorrect";
   static String updateProfil = "Update profil";
   static String updateTxt = "Update";
+  static String deleteaccount = "Delete account";
   static String logout = "Logout";
   static String needAPicture = "Please, select an image";
   static String tokenExpiredMessage = "Your sessions has expired";
@@ -24,8 +25,10 @@ class AppMessages {
   static String aboutApp = "About Hik'UP";
   static String settingTxt = "Settings";
   static String askIfUserWantToLogout = "Do you want to logout ?";
+  static String askUserWantToDelete = "Do you want to delete your account ?";
   static String cancel = "Cancel";
   static String logOut = "Logout";
+  static String delete = "Delete";
   static String newestVersion = "Newest Version";
   static String account = "Account";
   static String weight = "Weight (kg)";
@@ -53,8 +56,10 @@ class AppMessages {
   static String noHike = "Ooops, no hike to show";
   static String date = "Date";
   static String position = "Position";
+  static String editusername = "The username is edited";
+  static String editemail = "The email is edited";
   static String noAccountYet =
-      "Don't have an account ? Register here !";
+      "Don't have an account ?";
   static String alreadyHaveAccount = "Already have an account ? Login here !";
       
 }

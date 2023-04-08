@@ -16,11 +16,16 @@ import 'package:hikup/widget/email_invite_card.dart';
 import 'package:hikup/widget/invite_friend_cmp.dart';
 import 'package:hikup/widget/plan_component.dart';
 import 'package:hikup/widget/show_burn_calories.dart';
+import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/service/hive_service.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+
+final Box<String> boxtrailId = Hive.box('trailId');
+
 
 class DetailScreen extends StatelessWidget {
   final TrailFields field;
-
   const DetailScreen({required this.field, Key? key}) : super(key: key);
 
   String putZero({required int value}) {
@@ -102,6 +107,7 @@ class DetailScreen extends StatelessWidget {
                           );
                         }
                         if (snapshot.hasData) {
+                        boxtrailId.put("trailId", field.id);
                           var data = snapshot.data;
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,6 +117,22 @@ class DetailScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  Container(
+                                    child: 
+                                    GestureDetector(
+                                    onTap: () { Navigator.of(context).pushNamed("/community");},
+                                    child : Icon(
+                                      Icons.add_box,
+                                      color: Colors.green,
+                                      size: 24.0
+                                    ),
+                                  )),
+                                  const Gap(16.0),
+                                  Text(
+                                    "Users comments",
+                                    style: descTextStyle,
+                                  ),
+                                const Gap(16.0),
                                   Container(
                                     decoration: BoxDecoration(
                                       color: primaryColor500,
