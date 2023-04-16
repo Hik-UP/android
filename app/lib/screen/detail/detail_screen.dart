@@ -54,7 +54,7 @@ class DetailScreen extends StatelessWidget {
                           pinIcon,
                           width: 24,
                           height: 24,
-                          color: primaryColor500,
+                          color: HOPA,
                         ),
                         const SizedBox(
                           width: 16.0,
@@ -63,7 +63,7 @@ class DetailScreen extends StatelessWidget {
                           child: Text(
                             field.address,
                             overflow: TextOverflow.visible,
-                            style: addressTextStyle,
+                            style: HOPASTYLE,
                           ),
                         ),
                       ],
@@ -76,7 +76,7 @@ class DetailScreen extends StatelessWidget {
                       children: const [
                         Icon(
                           CupertinoIcons.money_dollar_circle_fill,
-                          color: primaryColor500,
+                          color: HOPA,
                         ),
                         SizedBox(
                           width: 16.0,
@@ -130,12 +130,12 @@ class DetailScreen extends StatelessWidget {
                                   const Gap(16.0),
                                   Text(
                                     "Users comments",
-                                    style: descTextStyle,
+                                    style: HOPASTYLE,
                                   ),
                                 const Gap(16.0),
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: primaryColor500,
+                                      color: HOPA,
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     child: Image.network(
@@ -146,7 +146,7 @@ class DetailScreen extends StatelessWidget {
                                   const Gap(16.0),
                                   Text(
                                     "${putZero(value: data.temperature)} deg",
-                                    style: descTextStyle,
+                                    style: HOPASTYLE,
                                   ),
                                 ],
                               ),
@@ -172,7 +172,7 @@ class DetailScreen extends StatelessWidget {
                       children: const [
                         Icon(
                           Icons.escalator,
-                          color: primaryColor500,
+                          color: HOPA,
                         ),
                         SizedBox(
                           width: 16.0,
@@ -196,14 +196,14 @@ class DetailScreen extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.access_time_rounded,
-                          color: primaryColor500,
+                          color: HOPA,
                         ),
                         const SizedBox(
                           width: 16.0,
                         ),
                         Text(
                           "${field.duration}",
-                          style: descTextStyle,
+                          style: HOPASTYLE,
                         ),
                       ],
                     ),
@@ -287,7 +287,7 @@ class DetailScreen extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: lightBlue300,
+                color: HOPA,
                 offset: Offset(0, 0),
                 blurRadius: 10,
               ),

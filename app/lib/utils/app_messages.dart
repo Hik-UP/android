@@ -21,7 +21,7 @@ class AppMessages {
   static String succesfulLogout = "Logout";
   static String inexistantUser = "Oops, user does not exist";
   static String infoMessage = "Info";
-  static String addExtraData = "Complete your profile here";
+  static String addExtraData = "Complete your profile";
   static String aboutApp = "About Hik'UP";
   static String settingTxt = "Settings";
   static String askIfUserWantToLogout = "Do you want to logout ?";
@@ -61,5 +61,6 @@ class AppMessages {
   static String noAccountYet =
       "Don't have an account ?";
   static String alreadyHaveAccount = "Already have an account ? Login here !";
-      
+  static String completeProfil = "Complete Profil";
+  static String save = "Save";
 }

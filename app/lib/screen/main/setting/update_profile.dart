@@ -145,13 +145,13 @@ class UpdateProfile extends StatelessWidget {
                       padding: EdgeInsets.all(12.0),
                       child: Icon(
                         FontAwesomeIcons.deleteLeft,
-                        color: darkBlue300,
+                        color: HOPA,
                       ),
                     ),
                     const Gap(4.0),
                     Text(
                       AppMessages.delete,
-                      style: normalTextStyle,
+                      style: HOPASTYLE,
                     ),
                   ],
                 ),

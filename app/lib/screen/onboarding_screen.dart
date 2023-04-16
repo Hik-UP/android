@@ -14,12 +14,12 @@ class OnboardingScreen extends StatelessWidget {
     AppState appState = context.read<AppState>();
     //Future.delayed(Duration.zero, () => showWelcomeDialog(context));
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: BlackSecondary,
       appBar: AppBar(
         elevation: 0,
         toolbarHeight: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: backgroundColor,
+            statusBarColor: BlackPrimary,
             statusBarIconBrightness: Brightness.dark),
       ),
       bottomNavigationBar: Padding(

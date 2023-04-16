@@ -8,7 +8,7 @@ class EventScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: BlackPrimary,
       body: Center(
         child: SingleChildScrollView(
           child: NoCommunityMessage(

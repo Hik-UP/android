@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const Color FullBlack = Color.fromARGB(255, 0, 0, 0);
+const Color FullBlack = Color.fromARGB(255, 0, 89, 255);
+/*
 const Color primaryColor100 = Color.fromARGB(255, 146, 240, 199);
 const Color primaryColor300 = Color.fromARGB(255, 99, 253, 184);
-const Color primaryColor500 = Color(0xff04D300);
+const Color primaryColor500 = Color(0xff04D300);*/
+
 const Color GreenPrimary = Color.fromARGB(255, 23, 255, 119);
 const Color GreenSecondary = Color.fromARGB(255, 34, 253, 173);
+
 const Color BlackPrimary = Color.fromARGB(255, 32, 32, 32);
 const Color BlackSecondary = Color.fromARGB(255, 19, 19, 19);
 const Color BlackTertiary = Color.fromARGB(255, 156, 156, 156);
-const Color colorWhite = Colors.white;
-const Color backgroundColor = Color(0xffF5F9FF);
-const Color lightBlue100 = Color(0xffF0F6FF);
-const Color lightBlue300 = Color(0xffD2DFF0);
-const Color lightBlue400 = Color(0xffBFC8D2);
-const Color darkBlue300 = Color(0xff526983);
-const Color darkBlue500 = Color(0xff293948);
-const Color darkBlue700 = Color(0xff17212B);
-const redColor = Color(0xffF32013);
+//const Color colorWhite = Colors.white;
+
+//USE THIS IF YOU DON'T KNOW THE CORRECT COLOR OR STYLE TO USE
+const Color HOPA = Color.fromARGB(255, 255, 0, 0);
+TextStyle HOPASTYLE = GoogleFonts.poppins(color: Colors.red);
+
+
 const greenColor = Color.fromARGB(255, 255, 94, 0);
 
 const double borderRadiusSize = 16.0;
 
-TextStyle greetingTextStyle = GoogleFonts.poppins(
-    fontSize: 24, fontWeight: FontWeight.w700, color: darkBlue500);
+TextStyle WhiteTitleTextStyle = GoogleFonts.poppins(
+    fontSize: 24, fontWeight: FontWeight.w700, color: Colors.white);
 
-TextStyle titleTextStyle = GoogleFonts.poppins(
-    fontSize: 18, fontWeight: FontWeight.w700, color: darkBlue500);
+TextStyle WhiteAddressTextStyle = GoogleFonts.poppins(
+    fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white);
+
+
 
 TextStyle subTitleTextStyle = GoogleFonts.poppins(
-    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black);
+    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white);
 
 TextStyle GreenTitleTextStyle = GoogleFonts.poppins(
     fontSize: 24, fontWeight: FontWeight.w700, color: GreenPrimary);
@@ -41,10 +44,38 @@ TextStyle GreenSubTitleTextStyle = GoogleFonts.poppins(
 TextStyle GreenAddressTextStyle = GoogleFonts.poppins(
     fontSize: 14, fontWeight: FontWeight.w400, color: GreenPrimary);
 
-//TextStyle WhiteAddressTextStyle = GoogleFonts.poppins(
-    //fontSize: 14, fontWeight: FontWeight.w400, color: colorWhite);
 
+
+
+
+
+
+TextStyle linkTextStyle = GoogleFonts.poppins(color: GreenPrimary);
+
+TextStyle titleTextStyleWhite = GoogleFonts.poppins(
+    fontSize: 18, fontWeight: FontWeight.w700, color: Color.fromARGB(255, 255, 255, 255));
+
+TextStyle descTextStyleWhite = GoogleFonts.poppins(
+    fontSize: 14, fontWeight: FontWeight.w400, color: Color.fromARGB(255, 255, 255, 255));
+
+TextStyle addressTextStyleWhite = GoogleFonts.poppins(
+    fontSize: 14, fontWeight: FontWeight.w400, color: Color.fromARGB(255, 255, 255, 255));
+
+TextStyle facilityTextStyleWhite = GoogleFonts.poppins(
+    fontSize: 13, fontWeight: FontWeight.w500, color: Color.fromARGB(255, 255, 255, 255));
+
+TextStyle priceTextStyleWhite = GoogleFonts.poppins(
+    fontSize: 16, fontWeight: FontWeight.w700, color: Color.fromARGB(255, 255, 255, 255));
+
+
+/*
 TextStyle normalTextStyle = GoogleFonts.poppins(color: darkBlue500);
+
+TextStyle greetingTextStyle = GoogleFonts.poppins(
+    fontSize: 24, fontWeight: FontWeight.w700, color: darkBlue500);
+
+TextStyle titleTextStyle = GoogleFonts.poppins(
+    fontSize: 18, fontWeight: FontWeight.w700, color: darkBlue500);
 
 TextStyle descTextStyle = GoogleFonts.poppins(
     fontSize: 14, fontWeight: FontWeight.w400, color: darkBlue300);
@@ -57,9 +88,14 @@ TextStyle facilityTextStyle = GoogleFonts.poppins(
 
 TextStyle priceTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w700, color: darkBlue500);
+*/
+
+
+
+
 
 TextStyle buttonTextStyle = GoogleFonts.poppins(
-    fontSize: 16, fontWeight: FontWeight.w600, color: colorWhite);
+    fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white);
 
 TextStyle bottomNavTextStyle = GoogleFonts.poppins(
     fontSize: 12, fontWeight: FontWeight.w500, color: GreenPrimary);

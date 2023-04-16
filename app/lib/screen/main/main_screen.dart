@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
       onWillPop: () async => await _onBackPressed(),
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: BlackPrimary,
         body: Stack(
           children: [
             screens[_currentIndex],

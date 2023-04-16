@@ -20,14 +20,14 @@ class ShowBurnCalories extends StatelessWidget {
           children: [
             const Icon(
               Icons.hiking_rounded,
-              color: primaryColor500,
+              color: HOPA,
             ),
             const SizedBox(
               width: 16.0,
             ),
             Text(
               calories.toString(),
-              style: descTextStyle,
+              style: HOPASTYLE,
             ),
             const Gap(8.0),
             Text(
@@ -35,7 +35,7 @@ class ShowBurnCalories extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontSize: 11,
                 fontWeight: FontWeight.w400,
-                color: darkBlue300,
+                color: HOPA,
               ),
             ),
           ],

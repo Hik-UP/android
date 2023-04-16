@@ -23,9 +23,17 @@ class CompleteProfile extends StatelessWidget {
       model.initializeInputForm(appState: context.read<AppState>());
       return Scaffold(
         appBar: AppBar(
+          title: Text(
+          AppMessages.completeProfil,
+          style: titleTextStyleWhite,
+        ),
+          iconTheme: IconThemeData(
+            color: GreenPrimary, // Couleur de la flèche retour
+          ),
           toolbarHeight: kToolbarHeight,
           elevation: 0,
-          backgroundColor: backgroundColor,
+          backgroundColor: BlackPrimary,
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
@@ -110,10 +118,10 @@ class CompleteProfile extends StatelessWidget {
                     LengthLimitingTextInputFormatter(3)
                   ],
                 ),
-                const Gap(60.0),
+                const Gap(20.0),
                 CustomBtn(
                   gradient: loginButtonColor,
-                  content: AppMessages.add,
+                  content: AppMessages.save,
                   isLoading: model.getState == ViewState.busy,
                   onPress: () {
                     model.genderNotNull();
