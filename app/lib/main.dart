@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: locator<CustomNavigationService>().navigatorKey,
       theme: ThemeData(
-        primarySwatch: createMaterialColor(Colors.white),
+        primarySwatch: createMaterialColor(primaryColor500),
         canvasColor: colorWhite,
         scaffoldBackgroundColor: backgroundColor,
       ),

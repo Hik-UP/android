@@ -30,7 +30,7 @@ TextStyle titleTextStyle = GoogleFonts.poppins(
     fontSize: 18, fontWeight: FontWeight.w700, color: darkBlue500);
 
 TextStyle subTitleTextStyle = GoogleFonts.poppins(
-    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white);
+    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black);
 
 TextStyle GreenTitleTextStyle = GoogleFonts.poppins(
     fontSize: 24, fontWeight: FontWeight.w700, color: GreenPrimary);
@@ -41,8 +41,8 @@ TextStyle GreenSubTitleTextStyle = GoogleFonts.poppins(
 TextStyle GreenAddressTextStyle = GoogleFonts.poppins(
     fontSize: 14, fontWeight: FontWeight.w400, color: GreenPrimary);
 
-TextStyle WhiteAddressTextStyle = GoogleFonts.poppins(
-    fontSize: 14, fontWeight: FontWeight.w400, color: colorWhite);
+//TextStyle WhiteAddressTextStyle = GoogleFonts.poppins(
+    //fontSize: 14, fontWeight: FontWeight.w400, color: colorWhite);
 
 TextStyle normalTextStyle = GoogleFonts.poppins(color: darkBlue500);
 

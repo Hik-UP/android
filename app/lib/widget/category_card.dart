@@ -69,7 +69,7 @@ class CategoryCard extends StatelessWidget {
                 ),
                 Text(
                   title,
-                  style: WhiteAddressTextStyle,
+                  //style: AddressTextStyle,
                 )
               ],
             ),
