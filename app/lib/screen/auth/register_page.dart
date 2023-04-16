@@ -5,6 +5,7 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/validation.dart';
 import 'package:hikup/viewmodel/register_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_text_field.dart';
@@ -30,42 +31,42 @@ class _RegisterPageState extends State<RegisterPage> {
 
     return BaseView<RegisterPageViewModel>(
       builder: (context, model, child) => Scaffold(
-        resizeToAvoidBottomInset : false,
-        backgroundColor: Color.fromARGB(255, 114, 18, 18),
-        body: Center(
-          child: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              homeBackgroundDay,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Column(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: const Color.fromARGB(255, 114, 18, 18),
+          body: Center(
+            child: Stack(
               children: [
-                const Gap(15.0),
-                Container(
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(logoWhiteNoBg),
-                          scale: 2,
-                          fit: BoxFit.contain)),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 165)
-                        ),
-                      )
-                    ],
+                Positioned.fill(
+                  child: Image.asset(
+                    homeBackgroundDay,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.9, // 50% de la largeur de l'écran
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Form(
+                Column(
+                  children: [
+                    const Gap(15.0),
+                    Container(
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(logoWhiteNoBg),
+                              scale: 2,
+                              fit: BoxFit.contain)),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            child: Container(
+                                margin: const EdgeInsets.only(top: 165)),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width *
+                          0.9, // 50% de la largeur de l'écran
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Form(
                           key: model.loginFormKey,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -74,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 CustomTextField(
                                   hintText: AppMessages.usernameHintText,
                                   controller: model.usernameController,
-                                  validator: model.validateUsername,
+                                  validator: Validation.validateUsername,
                                 ),
                                 const Gap(10.0),
                                 CustomTextField(
@@ -109,38 +110,35 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                                 const Gap(2.0),
                                 Align(
-                                  alignment: Alignment.topRight,
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      foregroundColor: const Color.fromARGB(
-                                          255, 23, 255, 119),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                        LoginPage.routeName,
-                                      );
-                                    },
-                                    child: Text(
-                                      AppMessages.alreadyHaveAccount,
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w400,
+                                    alignment: Alignment.topRight,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: const Color.fromARGB(
+                                            255, 23, 255, 119),
                                       ),
-                                    ),
-                                  )
-                                ),
+                                      onPressed: () {
+                                        Navigator.of(context).pushNamed(
+                                          LoginPage.routeName,
+                                        );
+                                      },
+                                      child: Text(
+                                        AppMessages.alreadyHaveAccount,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    )),
                               ],
                             ),
                           ),
                         ),
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
-          ),
-        ],
-        ),
-        )
-            
-      ),
-          );
+            ),
+          )),
+    );
   }
 }

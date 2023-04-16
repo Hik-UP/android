@@ -16,8 +16,6 @@ import 'package:hikup/widget/email_invite_card.dart';
 import 'package:hikup/widget/invite_friend_cmp.dart';
 import 'package:hikup/widget/plan_component.dart';
 import 'package:hikup/widget/show_burn_calories.dart';
-import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/service/hive_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 

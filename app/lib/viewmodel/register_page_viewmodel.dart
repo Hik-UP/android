@@ -21,13 +21,6 @@ class RegisterPageViewModel extends BaseModel {
   final _customNavigationService = locator<CustomNavigationService>();
   final _dioService = locator<DioService>();
 
-  String? validateUsername(String? username) {
-    if (username == null) {
-      return AppMessages.requiredField;
-    }
-
-    return null;
-  }
 
   String? validateEmail(String? email) {
     if (email == null) {
