@@ -5,6 +5,7 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/register_page.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/validation.dart';
 import 'package:hikup/viewmodel/login_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_btn.dart';
@@ -72,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                               CustomTextField(
                                 controller: model.emailController,
                                 hintText: AppMessages.email,
-                                validator: model.validEmail,
+                                validator: Validation.validEmail,
                               ),
                               const Gap(10),
                               CustomTextField(

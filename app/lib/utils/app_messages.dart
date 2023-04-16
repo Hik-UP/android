@@ -5,6 +5,7 @@ class AppMessages {
   static String requiredField = "Email is required";
   static String wrongEmail = "Not a valid email";
   static String passwordRequired = "Password is required";
+  static String usernameRequired = "Username is required";
   static String atLeastHeightChar =
       "Password required at least height (08) characters";
   static String registerButtonText = "Register";
@@ -58,11 +59,11 @@ class AppMessages {
   static String position = "Position";
   static String editusername = "The username is edited";
   static String editemail = "The email is edited";
-  static String noAccountYet =
-      "Don't have an account ?";
+  static String noAccountYet = "Don't have an account ?";
   static String alreadyHaveAccount = "Already have an account ? Login here !";
   static String age = "Age";
   static String weightPlaceHolder = "Weight";
   static String gender = "Gender";
   static String height = "Height";
+  static String nothingChange = "Nothing to update";
 }

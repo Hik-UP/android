@@ -8,7 +8,6 @@ import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
-import 'package:hikup/utils/validation.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 
 import 'base_model.dart';
@@ -19,21 +18,6 @@ class LoginPageViewModel extends BaseModel {
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  String? validEmail(String? email) {
-    if (email != null &&
-        email.isNotEmpty &&
-        Validation.emailValidator(email) == true) {
-      return null;
-    }
-    if (email == null || email.isEmpty) {
-      return AppMessages.requiredField;
-    }
-    if (!Validation.emailValidator(email)) {
-      return AppMessages.wrongEmail;
-    }
-    return null;
-  }
 
   String? validPassword(String? password) {
     if (password != null && password.length > 7) {
@@ -81,6 +65,7 @@ class LoginPageViewModel extends BaseModel {
         );
         return;
       }
+
       if (result.statusCode == 200 || result.statusCode == 201) {
         //Passer de user JSON à user model
         User user = User.fromMap(data: data["user"]);
