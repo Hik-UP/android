@@ -14,7 +14,7 @@ var sampleUser = User(
 
 var _foret = RandoCategory(
   name: "Foret",
-  image: "assets/icons/nature.png",
+  image: "assets/icons/forest.png",
 );
 var _montagne = RandoCategory(
   name: "Montagne",
@@ -22,7 +22,7 @@ var _montagne = RandoCategory(
 );
 var _parc = RandoCategory(
   name: "Parc",
-  image: "assets/icons/tree-2.png",
+  image: "assets/icons/park.png",
 );
 
 List<RandoCategory> sportCategories = [

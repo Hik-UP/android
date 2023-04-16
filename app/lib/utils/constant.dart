@@ -3,7 +3,7 @@ import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
-
+import 'package:hikup/theme.dart';
 import '../model/user.dart';
 
 import '../screen/main/search/search_screen.dart';
@@ -46,14 +46,14 @@ const idHikeIcon = "assets/icons/idHike.svg";
 const calendarIcon = "assets/icons/calendarIcon.svg";
 
 const filledIconNavBar = [
-  "assets/icons/home_fill.png",
-  "assets/icons/receipt_fill.png",
+  "assets/icons/HomeFull.png",
+  "assets/icons/search.png",
   "assets/icons/settings_fill.png",
   "assets/icons/accessibility_fill.png"
 ];
 const unFilledIconNavBar = [
-  "assets/icons/home_outlined.png",
-  "assets/icons/receipt_outlined.png",
+  "assets/icons/Home.png",
+  "assets/icons/search.png",
   "assets/icons/settings_outlined.png",
   "assets/icons/accessibility_outlined.png"
 ];
@@ -85,8 +85,8 @@ SensibleUserData emptySensibleUserData = SensibleUserData(
 );
 
 dynamic loginButtonColor = const LinearGradient(colors: [
-  Color.fromARGB(255, 23, 255, 119),
-  Color.fromARGB(255, 34, 253, 173),
+  GreenPrimary,
+  GreenSecondary,
 ]);
 
 dynamic deleteButtonColor = const LinearGradient(colors: [
@@ -112,3 +112,8 @@ const profilePlaceHoder = "assets/images/user_profile_example.png";
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
 const stopWatchIcon = "assets/icons/stopwatchIcon.svg";
+
+dynamic deleteButtonColor = const LinearGradient(colors: [
+  Color.fromARGB(255, 255, 38, 23),
+  Color.fromARGB(255, 248, 5, 5),
+]);

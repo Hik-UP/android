@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const Color FullBlack = Color.fromARGB(255, 0, 0, 0);
 const Color primaryColor100 = Color.fromARGB(255, 146, 240, 199);
 const Color primaryColor300 = Color.fromARGB(255, 99, 253, 184);
 const Color primaryColor500 = Color(0xff04D300);
+const Color GreenPrimary = Color.fromARGB(255, 23, 255, 119);
+const Color GreenSecondary = Color.fromARGB(255, 34, 253, 173);
+const Color BlackPrimary = Color.fromARGB(255, 32, 32, 32);
+const Color BlackSecondary = Color.fromARGB(255, 19, 19, 19);
+const Color BlackTertiary = Color.fromARGB(255, 156, 156, 156);
 const Color colorWhite = Colors.white;
 const Color backgroundColor = Color(0xffF5F9FF);
 const Color lightBlue100 = Color(0xffF0F6FF);
@@ -13,7 +19,7 @@ const Color darkBlue300 = Color(0xff526983);
 const Color darkBlue500 = Color(0xff293948);
 const Color darkBlue700 = Color(0xff17212B);
 const redColor = Color(0xffF32013);
-const greenColor = Color(0xff32CD32);
+const greenColor = Color.fromARGB(255, 255, 94, 0);
 
 const double borderRadiusSize = 16.0;
 
@@ -24,7 +30,19 @@ TextStyle titleTextStyle = GoogleFonts.poppins(
     fontSize: 18, fontWeight: FontWeight.w700, color: darkBlue500);
 
 TextStyle subTitleTextStyle = GoogleFonts.poppins(
-    fontSize: 16, fontWeight: FontWeight.w500, color: darkBlue500);
+    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white);
+
+TextStyle GreenTitleTextStyle = GoogleFonts.poppins(
+    fontSize: 24, fontWeight: FontWeight.w700, color: GreenPrimary);
+
+TextStyle GreenSubTitleTextStyle = GoogleFonts.poppins(
+    fontSize: 16, fontWeight: FontWeight.w700, color: GreenPrimary);
+
+TextStyle GreenAddressTextStyle = GoogleFonts.poppins(
+    fontSize: 14, fontWeight: FontWeight.w400, color: GreenPrimary);
+
+TextStyle WhiteAddressTextStyle = GoogleFonts.poppins(
+    fontSize: 14, fontWeight: FontWeight.w400, color: colorWhite);
 
 TextStyle normalTextStyle = GoogleFonts.poppins(color: darkBlue500);
 
@@ -44,10 +62,10 @@ TextStyle buttonTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w600, color: colorWhite);
 
 TextStyle bottomNavTextStyle = GoogleFonts.poppins(
-    fontSize: 12, fontWeight: FontWeight.w500, color: primaryColor500);
+    fontSize: 12, fontWeight: FontWeight.w500, color: GreenPrimary);
 
 TextStyle tabBarTextStyle =
-    GoogleFonts.poppins(fontWeight: FontWeight.w500, color: primaryColor500);
+    GoogleFonts.poppins(fontWeight: FontWeight.w500, color: GreenPrimary);
 
 MaterialColor createMaterialColor(Color color) {
   List strengths = <double>[.05];
