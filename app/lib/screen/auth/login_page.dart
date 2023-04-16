@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, model, child) => SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset : false,
-          backgroundColor: Color.fromARGB(255, 114, 18, 18),
+          backgroundColor: const Color.fromARGB(255, 114, 18, 18),
           body: Center(
             child: Stack(
             children: [

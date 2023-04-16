@@ -61,5 +61,8 @@ class AppMessages {
   static String noAccountYet =
       "Don't have an account ?";
   static String alreadyHaveAccount = "Already have an account ? Login here !";
-      
+  static String age = "Age";
+  static String weightPlaceHolder = "Weight";
+  static String gender = "Gender";
+  static String height = "Height";
 }
