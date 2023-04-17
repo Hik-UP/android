@@ -24,6 +24,7 @@ const Color BlackTertiary = Color.fromARGB(255, 156, 156, 156);
 
 //USE THIS IF YOU DON'T KNOW THE CORRECT COLOR OR STYLE TO USE
 const Color HOPA = Color.fromARGB(255, 255, 0, 0);
+const Color HOPABLUE = Color.fromARGB(255, 55, 0, 255);
 TextStyle HOPASTYLE = GoogleFonts.poppins(color: Colors.red);
 
 

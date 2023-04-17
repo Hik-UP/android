@@ -16,10 +16,9 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      shadowColor: HOPA.withOpacity(.2),
-      backgroundColor: HOPA,
+      backgroundColor: BlackSecondary,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.black.withOpacity(0.4),
+        statusBarColor: BlackPrimary,
         statusBarIconBrightness: Brightness.light,
       ),
       pinned: true,
@@ -31,13 +30,13 @@ class CustomSliverAppBar extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: kToolbarHeight,
           decoration: const BoxDecoration(
-              color: HOPA,
+              color: BlackPrimary,
               borderRadius: BorderRadius.vertical(
                   top: Radius.circular(borderRadiusSize))),
           child: Center(
             child: Text(
               field.name,
-              style: HOPASTYLE,
+              style: WhiteTitleTextStyle,
               overflow: TextOverflow.ellipsis,
             ),
           ),

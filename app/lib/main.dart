@@ -80,7 +80,6 @@ class MyApp extends StatelessWidget {
       navigatorKey: locator<CustomNavigationService>().navigatorKey,
       theme: ThemeData(
         primarySwatch: createMaterialColor(Colors.white),
-        canvasColor: HOPA,
         scaffoldBackgroundColor: BlackSecondary,
       ),
       initialRoute: getTheRightInitialRoute(context: context),

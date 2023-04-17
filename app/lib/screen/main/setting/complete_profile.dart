@@ -31,7 +31,6 @@ class CompleteProfile extends StatelessWidget {
             color: GreenPrimary, // Couleur de la flèche retour
           ),
           toolbarHeight: kToolbarHeight,
-          elevation: 0,
           backgroundColor: BlackSecondary,
           centerTitle: true,
         ),

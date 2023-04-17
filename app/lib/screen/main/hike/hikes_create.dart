@@ -25,7 +25,6 @@ class HikesCreate extends StatelessWidget {
             color: GreenPrimary, // Couleur de la flèche retour
           ),
           backgroundColor: BlackPrimary,
-          elevation: 0,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 00.0),

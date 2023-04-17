@@ -8,6 +8,7 @@ import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/base_model.dart';
+import 'package:hikup/theme.dart';
 
 class DetailScreenViewModel extends BaseModel {
   final TextEditingController dateCtrl = TextEditingController();
@@ -77,17 +78,13 @@ class DetailScreenViewModel extends BaseModel {
           Expanded(
             child: Text(
               "${i + 1}. ${toolsBack[i]}",
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w500,
-              ),
+              style: WhiteAddressTextStyle,
             ),
           ),
           Expanded(
             child: Text(
               "${i + 2}. ${toolsBack[i + 1]}",
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w500,
-              ),
+              style: WhiteAddressTextStyle,
             ),
           ),
         ],

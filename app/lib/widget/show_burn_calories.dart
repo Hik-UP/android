@@ -20,23 +20,19 @@ class ShowBurnCalories extends StatelessWidget {
           children: [
             const Icon(
               Icons.hiking_rounded,
-              color: HOPA,
+              color: GreenPrimary,
             ),
             const SizedBox(
               width: 16.0,
             ),
             Text(
               calories.toString(),
-              style: HOPASTYLE,
+              style: WhiteAddressTextStyle,
             ),
             const Gap(8.0),
             Text(
               AppMessages.calorieToBurn,
-              style: GoogleFonts.poppins(
-                fontSize: 11,
-                fontWeight: FontWeight.w400,
-                color: HOPA,
-              ),
+              style: greySubTextStyle,
             ),
           ],
         ),

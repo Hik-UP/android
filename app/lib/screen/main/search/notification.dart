@@ -25,7 +25,6 @@ class NotificationView extends StatelessWidget {
             color: GreenPrimary, // Couleur de la flèche retour
           ),
           backgroundColor: BlackPrimary,
-          elevation: 0,
           centerTitle: true,
       ),
         body: SingleChildScrollView(

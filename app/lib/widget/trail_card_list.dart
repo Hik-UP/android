@@ -26,7 +26,7 @@ class TrailCardList extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
-            color: HOPA,
+            color: HOPABLUE,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -61,7 +61,7 @@ class TrailCardList extends StatelessWidget {
                           "assets/icons/pin.png",
                           width: 20,
                           height: 20,
-                          color: HOPA,
+                          color: HOPABLUE,
                         ),
                         const SizedBox(
                           width: 8.0,
