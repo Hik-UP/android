@@ -87,8 +87,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                        border: Border.all(color: HOPA, width: 2),
-                        color: HOPA,
+                        border: Border.all(color: HOPABLUE, width: 2),
+                        color: HOPABLUE,
                         borderRadius: BorderRadius.circular(borderRadiusSize)),
                     child: Row(
                       children: [
@@ -96,7 +96,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           "assets/icons/pin.png",
                           width: 24,
                           height: 24,
-                          color: HOPA,
+                          color: HOPABLUE,
                         ),
                         const SizedBox(
                           width: 8,
