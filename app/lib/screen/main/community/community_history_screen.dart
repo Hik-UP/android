@@ -31,7 +31,7 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
           "Communauté",
           style: HOPASTYLE,
         ),
-        backgroundColor: BlackPrimary,
+        backgroundColor: BlackSecondary,
         elevation: 0.0,
         centerTitle: true,
         bottom: TabBar(

@@ -19,7 +19,7 @@ class OnboardingScreen extends StatelessWidget {
         elevation: 0,
         toolbarHeight: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: BlackPrimary,
+            statusBarColor: BlackSecondary,
             statusBarIconBrightness: Brightness.dark),
       ),
       bottomNavigationBar: Padding(

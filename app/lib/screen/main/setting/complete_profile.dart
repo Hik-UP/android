@@ -32,7 +32,7 @@ class CompleteProfile extends StatelessWidget {
           ),
           toolbarHeight: kToolbarHeight,
           elevation: 0,
-          backgroundColor: BlackPrimary,
+          backgroundColor: BlackSecondary,
           centerTitle: true,
         ),
         body: SingleChildScrollView(

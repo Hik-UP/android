@@ -70,12 +70,18 @@ class UpdateProfile extends StatelessWidget {
                   ],
                 ),
               ),
+              const Gap(20.0),
           const Padding(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+              ),
               hintText: 'Username',
+              hintStyle: TextStyle(color: Colors.grey),
+              fillColor: Colors.white,
+              filled: true,
             ),
           ),
         ),
@@ -85,6 +91,9 @@ class UpdateProfile extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Email',
+              hintStyle: TextStyle(color: Colors.grey),
+              fillColor: Colors.white,
+              filled: true,
             ),
           ),
         ),
@@ -145,13 +154,13 @@ class UpdateProfile extends StatelessWidget {
                       padding: EdgeInsets.all(12.0),
                       child: Icon(
                         FontAwesomeIcons.deleteLeft,
-                        color: HOPA,
+                        color: GreenPrimary,
                       ),
                     ),
                     const Gap(4.0),
                     Text(
-                      AppMessages.delete,
-                      style: HOPASTYLE,
+                      AppMessages.cancel,
+                      style: GreenSubTitleTextStyle,
                     ),
                   ],
                 ),

@@ -63,4 +63,5 @@ class AppMessages {
   static String alreadyHaveAccount = "Already have an account ? Login here !";
   static String completeProfil = "Complete Profil";
   static String save = "Save";
+  static String myHike = "My Hike";
 }

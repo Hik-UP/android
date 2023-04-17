@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const Color FullBlack = Color.fromARGB(255, 0, 89, 255);
 /*
 const Color primaryColor100 = Color.fromARGB(255, 146, 240, 199);
 const Color primaryColor300 = Color.fromARGB(255, 99, 253, 184);
 const Color primaryColor500 = Color(0xff04D300);*/
 
+//TEXT AND LINK
 const Color GreenPrimary = Color.fromARGB(255, 23, 255, 119);
+//GRADIENT
 const Color GreenSecondary = Color.fromARGB(255, 34, 253, 173);
 
+//BACKGROUND
 const Color BlackPrimary = Color.fromARGB(255, 32, 32, 32);
+
+//ELEMENTS ON BACKGROUND
 const Color BlackSecondary = Color.fromARGB(255, 19, 19, 19);
+
+//ICON
 const Color BlackTertiary = Color.fromARGB(255, 156, 156, 156);
+
 //const Color colorWhite = Colors.white;
 
 //USE THIS IF YOU DON'T KNOW THE CORRECT COLOR OR STYLE TO USE
@@ -34,6 +41,9 @@ TextStyle WhiteAddressTextStyle = GoogleFonts.poppins(
 
 TextStyle subTitleTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white);
+
+TextStyle subErrorTitleTextStyle = GoogleFonts.poppins(
+    fontSize: 16, fontWeight: FontWeight.w500, color: BlackTertiary);
 
 TextStyle GreenTitleTextStyle = GoogleFonts.poppins(
     fontSize: 24, fontWeight: FontWeight.w700, color: GreenPrimary);
