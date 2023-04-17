@@ -37,7 +37,8 @@ TextStyle WhiteTitleTextStyle = GoogleFonts.poppins(
 TextStyle WhiteAddressTextStyle = GoogleFonts.poppins(
     fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white);
 
-
+TextStyle greySubTextStyle = GoogleFonts.poppins(
+    fontSize: 8, fontWeight: FontWeight.w400, color: BlackTertiary);
 
 TextStyle subTitleTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white);

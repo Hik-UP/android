@@ -64,4 +64,5 @@ class AppMessages {
   static String completeProfil = "Complete Profil";
   static String save = "Save";
   static String myHike = "My Hike";
+  static String notificationText = "Notifications";
 }
