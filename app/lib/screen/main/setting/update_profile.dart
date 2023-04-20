@@ -122,11 +122,11 @@ class UpdateProfile extends StatelessWidget {
                   gradient: loginButtonColor,
                 ),
                 const Gap(70.0),
-                CustomBtn(
-                  content: AppMessages.deleteaccount,
-                  onPress: () {},
-                  gradient: deleteButtonColor,
-                ),
+                // CustomBtn(
+                //   content: AppMessages.deleteaccount,
+                //   onPress: () {},
+                //   gradient: deleteButtonColor,
+                // ),
                 const Gap(20.0),
                 InkWell(
                   onTap: () => {
@@ -151,22 +151,22 @@ class UpdateProfile extends StatelessWidget {
                       },
                     )
                   },
-                  child: Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: Icon(
-                          FontAwesomeIcons.deleteLeft,
-                          color: darkBlue300,
-                        ),
-                      ),
-                      const Gap(4.0),
-                      Text(
-                        AppMessages.delete,
-                        style: normalTextStyle,
-                      ),
-                    ],
-                  ),
+                  // child: Row(
+                  //   children: [
+                  //     const Padding(
+                  //       padding: EdgeInsets.all(12.0),
+                  //       child: Icon(
+                  //         FontAwesomeIcons.deleteLeft,
+                  //         color: darkBlue300,
+                  //       ),
+                  //     ),
+                  //     const Gap(4.0),
+                  //     Text(
+                  //       AppMessages.delete,
+                  //       style: normalTextStyle,
+                  //     ),
+                  //   ],
+                  // ),
                 ),
               ]),
             ),
