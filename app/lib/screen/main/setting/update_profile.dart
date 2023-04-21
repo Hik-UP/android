@@ -151,22 +151,22 @@ class UpdateProfile extends StatelessWidget {
                       },
                     )
                   },
-                  // child: Row(
-                  //   children: [
-                  //     const Padding(
-                  //       padding: EdgeInsets.all(12.0),
-                  //       child: Icon(
-                  //         FontAwesomeIcons.deleteLeft,
-                  //         color: darkBlue300,
-                  //       ),
-                  //     ),
-                  //     const Gap(4.0),
-                  //     Text(
-                  //       AppMessages.delete,
-                  //       style: normalTextStyle,
-                  //     ),
-                  //   ],
-                  // ),
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        // child: Icon(
+                        //   FontAwesomeIcons.deleteLeft,
+                        //   color: darkBlue300,
+                        // ),
+                      ),
+                      //const Gap(4.0),
+                      // Text(
+                      //   AppMessages.delete,
+                      //   style: normalTextStyle,
+                      // ),
+                    ],
+                  ),
                 ),
               ]),
             ),
