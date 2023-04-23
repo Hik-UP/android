@@ -72,7 +72,7 @@ class _FacilityCardState extends State<FacilityCard> {
                     )
                   : Text(
                       widget.name,
-                      style: HOPA,
+                      style: HOPASTYLE,
                       textAlign: TextAlign.center,
                     ),
             ),
