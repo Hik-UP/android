@@ -54,7 +54,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   children: [
                     Text(
                       "Recommended",
-                      style: subTitleTextStyle,
+                      style: GreenTitleTextStyle,
+                      //style: subTitleTextStyle,
                     )
                   ],
                 ),

@@ -14,7 +14,6 @@ import 'package:hikup/screen/main/main_screen.dart';
 import 'package:hikup/screen/main/setting/complete_profile.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/local_notification.dart';
-import 'package:hikup/viewmodel/hikes_create_viewmodel.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/onboarding_screen.dart';
@@ -22,8 +21,6 @@ import 'package:hikup/theme.dart';
 import 'firebase_options.dart';
 import 'screen/main/setting/update_profile.dart';
 import 'screen/main/setting/settings_screen.dart';
-import 'screen/main/podometer/podometer_page.dart';
-import 'screen/main/community/comments/home.dart';
 
 
 Future<void> main() async {
