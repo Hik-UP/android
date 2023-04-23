@@ -90,7 +90,7 @@ class HikeCard extends StatelessWidget {
                 pinIcon,
                 width: 18,
                 height: 18,
-                color: primaryColor500,
+                color: HOPA,
               ),
               const Gap(8.0),
               Text(

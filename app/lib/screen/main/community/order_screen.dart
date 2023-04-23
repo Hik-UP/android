@@ -11,7 +11,7 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: BlackPrimary,
       body: fieldOrderList.isEmpty
           ? const Center(
               child: SingleChildScrollView(
@@ -26,7 +26,7 @@ class OrderScreen extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
                   onTap: () {},
-                  splashColor: primaryColor100,
+                  splashColor: HOPA,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -52,14 +52,14 @@ class OrderScreen extends StatelessWidget {
                           children: [
                             Text(
                               fieldOrderList[index].field.name,
-                              style: normalTextStyle,
+                              style: HOPASTYLE,
                             ),
                             const SizedBox(
                               height: 4,
                             ),
                             Text(
                               fieldOrderList[index].selectedDate,
-                              style: normalTextStyle,
+                              style: HOPASTYLE,
                             ),
                           ],
                         ),
@@ -73,7 +73,7 @@ class OrderScreen extends StatelessWidget {
                           ),
                           child: Text(
                             "Annuler",
-                            style: normalTextStyle.copyWith(
+                            style: HOPASTYLE.copyWith(
                               fontWeight: FontWeight.w500,
                               color: Colors.red,
                             ),

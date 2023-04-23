@@ -61,13 +61,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         slivers: [
           const SliverAppBar(
             systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: colorWhite,
+              statusBarColor: HOPA,
               statusBarIconBrightness: Brightness.dark,
             ),
             title: Text("Checkout"),
-            backgroundColor: colorWhite,
+            backgroundColor: HOPA,
             centerTitle: true,
-            foregroundColor: primaryColor500,
+            foregroundColor: HOPA,
           ),
           SliverPadding(
             padding:
@@ -87,8 +87,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                        border: Border.all(color: primaryColor100, width: 2),
-                        color: lightBlue100,
+                        border: Border.all(color: HOPABLUE, width: 2),
+                        color: HOPABLUE,
                         borderRadius: BorderRadius.circular(borderRadiusSize)),
                     child: Row(
                       children: [
@@ -96,13 +96,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           "assets/icons/pin.png",
                           width: 24,
                           height: 24,
-                          color: primaryColor500,
+                          color: HOPABLUE,
                         ),
                         const SizedBox(
                           width: 8,
                         ),
                         Text(widget.field.name,
-                            style: normalTextStyle.copyWith(
+                            style: HOPASTYLE.copyWith(
                                 fontWeight: FontWeight.w600)),
                       ],
                     ),
@@ -124,8 +124,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                          border: Border.all(color: primaryColor100, width: 2),
-                          color: lightBlue100,
+                          border: Border.all(color: HOPA, width: 2),
+                          color: HOPA,
                           borderRadius:
                               BorderRadius.circular(borderRadiusSize)),
                       child: Row(
@@ -133,14 +133,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         children: [
                           const Icon(
                             Icons.date_range_rounded,
-                            color: primaryColor500,
+                            color: HOPA,
                           ),
                           const SizedBox(
                             width: 8,
                           ),
                           Text(
                             dateFormat.format(_dateTime).toString(),
-                            style: normalTextStyle,
+                            style: HOPASTYLE,
                           ),
                         ],
                       ),
@@ -167,7 +167,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         padding: const EdgeInsets.all(16),
         decoration: const BoxDecoration(color: Colors.white, boxShadow: [
           BoxShadow(
-            color: lightBlue300,
+            color: HOPA,
             offset: Offset(0, 0),
             blurRadius: 10,
           )
@@ -180,11 +180,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 Text(
                   "Total:",
-                  style: descTextStyle,
+                  style: HOPASTYLE,
                 ),
                 Text(
                   "h $_totalBill",
-                  style: priceTextStyle,
+                  style: HOPASTYLE,
                 ),
               ],
             ),

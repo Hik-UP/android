@@ -31,7 +31,7 @@ class LoadPictureProfil extends StatelessWidget {
         height: 75,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white,
+          color: BlackPrimary,
         ),
         child: const Center(
           child: CircularProgressIndicator(),
@@ -42,7 +42,7 @@ class LoadPictureProfil extends StatelessWidget {
         height: 75,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white,
+          color: BlackSecondary,
         ),
         child: const Icon(
           FontAwesomeIcons.triangleExclamation,
@@ -53,7 +53,7 @@ class LoadPictureProfil extends StatelessWidget {
         height: 75,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white,
+          color: BlackPrimary,
           image: DecorationImage(
             fit: BoxFit.fill,
             image: imageProvider,
@@ -79,10 +79,12 @@ class SettingsScreen extends StatelessWidget {
         toolbarHeight: kTextTabBarHeight,
         title: Text(
           AppMessages.settingTxt,
-          style: titleTextStyle,
+          style: titleTextStyleWhite,
         ),
-        backgroundColor: backgroundColor,
-        elevation: 0,
+        iconTheme: IconThemeData(
+            color: GreenPrimary, // Couleur de la flèche retour
+        ),
+        backgroundColor: BlackPrimary,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -91,9 +93,10 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Gap(20.0),
               Text(
                 AppMessages.account,
-                style: subTitleTextStyle.copyWith(color: primaryColor500),
+                style: subTitleTextStyle,
               ),
               const SizedBox(
                 height: 8,
@@ -111,7 +114,7 @@ class SettingsScreen extends StatelessWidget {
                                 height: 75,
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.white,
+                                  color: BlackPrimary,
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
                                     image: AssetImage(
@@ -141,23 +144,16 @@ class SettingsScreen extends StatelessWidget {
                             Container(
                               width: MediaQuery.of(context).size.width * .6,
                               padding: const EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                color: primaryColor100.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: primaryColor500),
-                              ),
                               child: Text(
                                 appState.email,
-                                style: descTextStyle.copyWith(
-                                  color: primaryColor500,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                style: descTextStyleWhite,
                                 maxLines: 1,
                               ),
                             ),
                             const Gap(6.0),
                             CustomBtn(
                               content: AppMessages.updateProfil,
+                              height: 50, 
                               onPress: () {
                                 Navigator.of(context).pushNamed(
                                   UpdateProfile.routeName,
@@ -175,12 +171,11 @@ class SettingsScreen extends StatelessWidget {
               const Gap(40),
               Text(
                 AppMessages.infoMessage,
-                style: subTitleTextStyle.copyWith(color: primaryColor500),
+                style: subTitleTextStyle,
               ),
               InkWell(
                 onTap: () =>
                     Navigator.of(context).pushNamed(CompleteProfile.routeName),
-                splashColor: primaryColor100,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -190,7 +185,7 @@ class SettingsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(12.0),
                       child: const Icon(
                         FontAwesomeIcons.clipboardList,
-                        color: darkBlue300,
+                        color: BlackTertiary,
                       ),
                     ),
                     const SizedBox(
@@ -198,7 +193,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     Text(
                       AppMessages.addExtraData,
-                      style: normalTextStyle,
+                      style: linkTextStyle,
                     ),
                   ],
                 ),
@@ -206,10 +201,8 @@ class SettingsScreen extends StatelessWidget {
               const Gap(30.0),
               Text(
                 AppMessages.aboutApp,
-                style: subTitleTextStyle.copyWith(
-                  color: primaryColor500,
+                style: subTitleTextStyle
                 ),
-              ),
               InkWell(
                 onTap: () {
                   _showSnackBar(
@@ -217,7 +210,6 @@ class SettingsScreen extends StatelessWidget {
                     AppMessages.newestVersion,
                   );
                 },
-                splashColor: primaryColor100,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -227,20 +219,19 @@ class SettingsScreen extends StatelessWidget {
                       child: Icon(
                         CupertinoIcons.info_circle_fill,
                         size: 24,
-                        color: darkBlue300,
+                        color: BlackTertiary,
                       ),
                     ),
                     const Gap(4.0),
                     Text(
                       "Version 1.0.0",
-                      style: descTextStyle,
+                      style: linkTextStyle,
                     ),
                   ],
                 ),
               ),
               InkWell(
                 onTap: () => {},
-                splashColor: primaryColor100,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -250,13 +241,13 @@ class SettingsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(12.0),
                       child: Image.asset(
                         githubLink,
-                        color: darkBlue300,
+                        color: BlackTertiary,
                       ),
                     ),
                     const Gap(4.0),
                     Text(
                       githubName,
-                      style: normalTextStyle,
+                      style: linkTextStyle,
                     ),
                   ],
                 ),
@@ -290,13 +281,13 @@ class SettingsScreen extends StatelessWidget {
                       padding: EdgeInsets.all(12.0),
                       child: Icon(
                         FontAwesomeIcons.rightFromBracket,
-                        color: darkBlue300,
+                        color: BlackTertiary,
                       ),
                     ),
                     const Gap(4.0),
                     Text(
                       AppMessages.logout,
-                      style: normalTextStyle,
+                      style: linkTextStyle,
                     ),
                   ],
                 ),

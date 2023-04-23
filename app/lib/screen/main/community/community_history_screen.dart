@@ -24,22 +24,22 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: BlackPrimary,
       appBar: AppBar(
         toolbarHeight: kTextTabBarHeight,
         title: Text(
           "Communauté",
-          style: titleTextStyle,
+          style: HOPASTYLE,
         ),
-        backgroundColor: backgroundColor,
+        backgroundColor: BlackSecondary,
         elevation: 0.0,
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
           labelStyle: tabBarTextStyle,
-          labelColor: primaryColor500,
-          unselectedLabelColor: darkBlue300,
-          indicatorColor: primaryColor500,
+          labelColor: HOPA,
+          unselectedLabelColor: HOPA,
+          indicatorColor: HOPA,
           tabs: const [
             Tab(
               text: "ma randonnée",

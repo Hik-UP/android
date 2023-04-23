@@ -4,6 +4,8 @@ import 'package:hikup/viewmodel/notification_viewmodel.dart';
 import 'package:hikup/widget/back_icon.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/notification_card.dart';
+import 'package:hikup/utils/app_messages.dart';
+import '../../../theme.dart';
 
 class NotificationView extends StatelessWidget {
   static String routeName = "/notification";
@@ -14,15 +16,21 @@ class NotificationView extends StatelessWidget {
     return BaseView<NotificationViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          elevation: 3,
-          automaticallyImplyLeading: false,
-          leading: const BackIcon(),
-        ),
+          toolbarHeight: kTextTabBarHeight,
+          title: Text(
+            AppMessages.notificationText,
+            style: titleTextStyleWhite,
+          ),
+          iconTheme: IconThemeData(
+            color: GreenPrimary, // Couleur de la flèche retour
+          ),
+          backgroundColor: BlackPrimary,
+          centerTitle: true,
+      ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 0.0),
           child: Column(
             children: [
-              const Gap(20.0),
               Column(
                 children: List.generate(
                   7,

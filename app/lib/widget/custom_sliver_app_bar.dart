@@ -16,10 +16,9 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      shadowColor: primaryColor500.withOpacity(.2),
-      backgroundColor: colorWhite,
+      backgroundColor: BlackSecondary,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.black.withOpacity(0.4),
+        statusBarColor: BlackPrimary,
         statusBarIconBrightness: Brightness.light,
       ),
       pinned: true,
@@ -31,13 +30,13 @@ class CustomSliverAppBar extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: kToolbarHeight,
           decoration: const BoxDecoration(
-              color: colorWhite,
+              color: BlackPrimary,
               borderRadius: BorderRadius.vertical(
                   top: Radius.circular(borderRadiusSize))),
           child: Center(
             child: Text(
               field.name,
-              style: titleTextStyle,
+              style: WhiteTitleTextStyle,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -47,7 +46,7 @@ class CustomSliverAppBar extends StatelessWidget {
           fit: BoxFit.cover,
           errorWidget: (context, url, error) => const Icon(
             Icons.warning,
-            color: Colors.red,
+            color: GreenPrimary,
           ),
         ),
         collapseMode: CollapseMode.parallax,
@@ -58,7 +57,7 @@ class CustomSliverAppBar extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: const BoxDecoration(
-              color: colorWhite,
+              color: BlackPrimary,
               shape: BoxShape.circle,
             ),
             child: PopupMenuButton(
@@ -66,7 +65,7 @@ class CustomSliverAppBar extends StatelessWidget {
               padding: EdgeInsets.zero,
               icon: const Icon(
                 CupertinoIcons.info,
-                color: darkBlue500,
+                color: GreenPrimary,
               ),
               itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                 PopupMenuItem(
@@ -74,11 +73,11 @@ class CustomSliverAppBar extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                        color: lightBlue100,
+                        color: HOPA,
                         borderRadius: BorderRadius.circular(8)),
                     child: Text(
                       "",
-                      style: subTitleTextStyle,
+                      style: HOPASTYLE,
                     ),
                   ),
                 ),
@@ -90,7 +89,7 @@ class CustomSliverAppBar extends StatelessWidget {
                   leading: const Icon(Icons.account_circle_outlined),
                   title: Text(
                     "",
-                    style: normalTextStyle,
+                    style: HOPASTYLE,
                   ),
                 )),
                 PopupMenuItem(
@@ -101,7 +100,7 @@ class CustomSliverAppBar extends StatelessWidget {
                   //leading: const Icon(Icons.image_outlined),
                   title: Text(
                     "",
-                    style: normalTextStyle,
+                    style: HOPASTYLE,
                   ),
                 )),
               ],

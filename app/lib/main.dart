@@ -76,9 +76,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: locator<CustomNavigationService>().navigatorKey,
       theme: ThemeData(
-        primarySwatch: createMaterialColor(primaryColor500),
-        canvasColor: colorWhite,
-        scaffoldBackgroundColor: backgroundColor,
+        primarySwatch: createMaterialColor(Colors.white),
+        scaffoldBackgroundColor: BlackSecondary,
       ),
       initialRoute: getTheRightInitialRoute(context: context),
       routes: {

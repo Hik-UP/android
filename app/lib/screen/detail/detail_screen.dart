@@ -40,8 +40,7 @@ class DetailScreen extends StatelessWidget {
           slivers: [
             CustomSliverAppBar(field: field),
             SliverPadding(
-              padding: const EdgeInsets.only(
-                  right: 24, left: 24, bottom: 24, top: 8),
+              padding: const EdgeInsets.all(20),
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   [
@@ -52,7 +51,7 @@ class DetailScreen extends StatelessWidget {
                           pinIcon,
                           width: 24,
                           height: 24,
-                          color: primaryColor500,
+                          color: GreenPrimary,
                         ),
                         const SizedBox(
                           width: 16.0,
@@ -61,7 +60,7 @@ class DetailScreen extends StatelessWidget {
                           child: Text(
                             field.address,
                             overflow: TextOverflow.visible,
-                            style: addressTextStyle,
+                            style: WhiteAddressTextStyle,
                           ),
                         ),
                       ],
@@ -74,7 +73,7 @@ class DetailScreen extends StatelessWidget {
                       children: const [
                         Icon(
                           CupertinoIcons.money_dollar_circle_fill,
-                          color: primaryColor500,
+                          color: GreenPrimary,
                         ),
                         SizedBox(
                           width: 16.0,
@@ -121,19 +120,19 @@ class DetailScreen extends StatelessWidget {
                                     onTap: () { Navigator.of(context).pushNamed("/community");},
                                     child : Icon(
                                       Icons.add_box,
-                                      color: Colors.green,
+                                      color: GreenPrimary,
                                       size: 24.0
                                     ),
                                   )),
                                   const Gap(16.0),
                                   Text(
                                     "Users comments",
-                                    style: descTextStyle,
+                                    style: WhiteAddressTextStyle,
                                   ),
                                 const Gap(16.0),
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: primaryColor500,
+                                      color: GreenPrimary,
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     child: Image.network(
@@ -144,7 +143,7 @@ class DetailScreen extends StatelessWidget {
                                   const Gap(16.0),
                                   Text(
                                     "${putZero(value: data.temperature)} deg",
-                                    style: descTextStyle,
+                                    style: WhiteAddressTextStyle,
                                   ),
                                 ],
                               ),
@@ -170,7 +169,7 @@ class DetailScreen extends StatelessWidget {
                       children: const [
                         Icon(
                           Icons.escalator,
-                          color: primaryColor500,
+                          color: GreenPrimary,
                         ),
                         SizedBox(
                           width: 16.0,
@@ -194,14 +193,14 @@ class DetailScreen extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.access_time_rounded,
-                          color: primaryColor500,
+                          color: GreenPrimary,
                         ),
                         const SizedBox(
                           width: 16.0,
                         ),
                         Text(
                           "${field.duration}",
-                          style: descTextStyle,
+                          style: WhiteAddressTextStyle,
                         ),
                       ],
                     ),
@@ -256,7 +255,7 @@ class DetailScreen extends StatelessWidget {
                       timeCtrl: model.timeCtrl,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
                           onPressed: () {
@@ -265,10 +264,7 @@ class DetailScreen extends StatelessWidget {
                           },
                           child: Text(
                             AppMessages.reset,
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              decoration: TextDecoration.underline,
-                            ),
+                            style: GreenSubTitleTextStyle,
                           ),
                         ),
                       ],
@@ -282,18 +278,27 @@ class DetailScreen extends StatelessWidget {
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(16),
           decoration: const BoxDecoration(
-            color: Colors.white,
+            color: BlackPrimary,
             boxShadow: [
               BoxShadow(
-                color: lightBlue300,
+                color: GreenPrimary,
                 offset: Offset(0, 0),
                 blurRadius: 10,
               ),
             ],
           ),
-          child: ElevatedButton(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: loginButtonColor,
+            borderRadius: BorderRadius.circular(borderRadiusSize),
+            ),
+            constraints: BoxConstraints(
+              minWidth: 100,
+              minHeight: 45,
+            ),
+            child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size(100, 45),
+              backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadiusSize),
               ),
@@ -315,11 +320,9 @@ class DetailScreen extends StatelessWidget {
                 ? const CircularProgressIndicator()
                 : Text(
                     AppMessages.startNow,
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
+                    style: subTitleTextStyle,
                   ),
+            ),
           ),
         ),
       ),

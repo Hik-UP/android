@@ -9,6 +9,7 @@ class HikeCreateViewModel extends BaseModel {
     ["attendee"],
     ["guest"]
   ];
+
   List<Tab> tabs = <Tab>[
     Tab(text: AppMessages.all),
     Tab(text: AppMessages.attended),

@@ -32,14 +32,14 @@ class NoCommunityMessage extends StatelessWidget {
             ),
             Text(
               messageTitle,
-              style: titleTextStyle.copyWith(color: darkBlue300),
+              style: HOPASTYLE.copyWith(color: HOPA),
             ),
             const SizedBox(
               height: 8.0,
             ),
             Text(
               messageDesc,
-              style: descTextStyle,
+              style: HOPASTYLE,
               textAlign: TextAlign.center,
             ),
             const SizedBox(
@@ -50,7 +50,7 @@ class NoCommunityMessage extends StatelessWidget {
               icon: const Icon(Icons.search),
               label: Text(
                 "",
-                style: buttonTextStyle.copyWith(color: primaryColor500),
+                style: buttonTextStyle.copyWith(color: HOPA),
               ),
             )
           ],

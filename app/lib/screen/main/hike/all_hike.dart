@@ -7,6 +7,7 @@ import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/widget/hike_card.dart';
 import 'package:provider/provider.dart';
+import '../../../theme.dart';
 
 class AllHike extends StatelessWidget {
   final List<String> targets;
@@ -51,12 +52,13 @@ class AllHike extends StatelessWidget {
               ),
             );
           } else {
-            return Center(
-              child: Text(
-                AppMessages.noHike,
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12.0,
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height - 200,
+              child:Center(
+                child: Text(
+                  AppMessages.noHike,
+                  style: subErrorTitleTextStyle,
                 ),
               ),
             );

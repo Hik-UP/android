@@ -49,11 +49,11 @@ class _FacilityCardState extends State<FacilityCard> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: lightBlue100,
+      color: HOPA,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        splashColor: lightBlue300,
+        splashColor: HOPA,
         onTap: () {
           setState(() {
             showName = !showName;
@@ -68,11 +68,11 @@ class _FacilityCardState extends State<FacilityCard> {
                       widget.imageIcon,
                       width: 30,
                       height: 30,
-                      color: primaryColor500,
+                      color: HOPA,
                     )
                   : Text(
                       widget.name,
-                      style: facilityTextStyle,
+                      style: HOPA,
                       textAlign: TextAlign.center,
                     ),
             ),

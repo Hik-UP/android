@@ -84,6 +84,7 @@ class UpdateProfile extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 const Gap(50.0),
                 CustomTextField(
                   controller: model.usernameCtrl,
@@ -111,7 +112,6 @@ class UpdateProfile extends StatelessWidget {
                       );
                       return;
                     }
-
                     model.updateProfile(
                       appState: appState,
                       username: model.usernameCtrl.text,
