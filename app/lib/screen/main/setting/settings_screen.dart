@@ -258,17 +258,21 @@ class SettingsScreen extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text(AppMessages.askIfUserWantToLogout),
+                        backgroundColor: BlackPrimary,
+                        title: Text(AppMessages.askIfUserWantToLogout,
+                        style: subTitleTextStyle),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(false),
-                            child: Text(AppMessages.cancel),
+                            child: Text(AppMessages.cancel,
+                            style: GreenAddressTextStyle),
                           ),
                           TextButton(
                             onPressed: () {
                               WrapperApi().logout(isLogout: true);
                             },
-                            child: Text(AppMessages.logOut),
+                            child: Text(AppMessages.logOut,
+                            style: GreenAddressTextStyle),
                           ),
                         ],
                       );

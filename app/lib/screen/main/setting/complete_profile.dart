@@ -30,7 +30,7 @@ class HeadPlaceHolder extends StatelessWidget {
       children: [
         Text(
           label,
-          style: priceTextStyle,
+          style: subTitleTextStyle,
         ),
         const Gap(4.0),
         child
@@ -133,7 +133,7 @@ class CompleteProfile extends StatelessWidget {
                         child: Text(
                           AppMessages.selectSex,
                           style: const TextStyle(
-                            color: Colors.red,
+                            color: Color.fromARGB(255, 255, 0, 0),
                             fontSize: 12.0,
                           ),
                         ),
