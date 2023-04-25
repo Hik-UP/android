@@ -5,6 +5,7 @@ import 'package:hikup/theme.dart';
 import 'package:hikup/utils/dummy_data.dart';
 
 class CommunityHistoryScreen extends StatefulWidget {
+  static String routeName = "/communityhistoryscreen";
   const CommunityHistoryScreen({Key? key}) : super(key: key);
 
   @override

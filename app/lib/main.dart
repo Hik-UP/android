@@ -8,6 +8,7 @@ import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
+import 'package:hikup/screen/main/community/community_history_screen.dart';
 import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/screen/main/main_screen.dart';
@@ -89,7 +90,8 @@ class MyApp extends StatelessWidget {
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
-        HikesCreate.routeName: (_) => const HikesCreate()
+        HikesCreate.routeName: (_) => const HikesCreate(),
+        CommunityHistoryScreen.routeName: (_) => const CommunityHistoryScreen(),
       },
     );
   }
