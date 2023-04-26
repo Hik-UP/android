@@ -17,7 +17,7 @@ class _FolderPageState extends State<FolderPage> {
   SharedPreferencesService sharedPreferences = SharedPreferencesService();
   TextEditingController addCategoryController = TextEditingController();
 
-  List categories = ["General"];
+  List categories = [""];
   int length = 0;
   late FToast fToast;
 

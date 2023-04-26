@@ -31,29 +31,29 @@ showToast(
             child: Row(
               // crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                status == NotificationStatus.failure ? Icon(
-                    Icons.error,
-                    color: Colors.red[800],) : Icon(
-                    Icons.check_circle,
-                    color: Colors.green[800],),
-                Container(
-                  margin: const EdgeInsets.only(left: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          status == NotificationStatus.success ? 'Succès' : 'Erreur',
-                          style: const TextStyle(fontSize: 16, color: Colors.black)
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: Text(msg),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              // children: [
+              //   status == NotificationStatus.failure ? Icon(
+              //       Icons.error,
+              //       color: Colors.red[800],) : Icon(
+              //       Icons.check_circle,
+              //       color: Colors.green[800],),
+              //   Container(
+              //     margin: const EdgeInsets.only(left: 15),
+              //     child: Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       // children: [
+              //       //   Text(
+              //       //       status == NotificationStatus.success ? 'Succès' : 'Erreur',
+              //       //       style: const TextStyle(fontSize: 16, color: Colors.black)
+              //       //   ),
+              //       //   SizedBox(
+              //       //     width: 200,
+              //       //     child: Text(msg),
+              //       //   ),
+              //       // ],
+              //     ),
+              //   ),
+              // ],
             ),
           ),
         ],

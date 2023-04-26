@@ -308,7 +308,7 @@ class _AddPageState extends State<AddPage> {
                   controller: titleController,
                   decoration: const InputDecoration(
                       border: InputBorder.none,
-                      hintText: "Entrer le sentier souhaité"),
+                      hintText: "Entrer l'événement souhaité"),
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
