@@ -396,7 +396,7 @@ class _HomePageState extends State<ComePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    "Liste des évenements",
+                    "List of events",
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -406,7 +406,7 @@ class _HomePageState extends State<ComePage> {
                     children: [
                       GestureDetector(
                         child: const Text(
-                          "Tous voir",
+                          "",
                           style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
@@ -447,7 +447,7 @@ class _HomePageState extends State<ComePage> {
                               TextFormField(
                                 controller: addChecklistController,
                                 decoration: InputDecoration(
-                                  labelText: 'Entrer votre événement',
+                                  labelText: 'Enter your event',
                                   labelStyle: const TextStyle(color: Colors.black),
                                   //hintStyle: TextStyle(color: Colors.black),
                                   focusedBorder: OutlineInputBorder(
@@ -475,7 +475,7 @@ class _HomePageState extends State<ComePage> {
                                     ),
                                   ),
                                   child: const Text(
-                                    'Créer',
+                                    'Create',
                                     style: TextStyle(fontSize: 17),
                                   ),
                                   onPressed: () {
@@ -498,7 +498,7 @@ class _HomePageState extends State<ComePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text(
-                      "Ajouter évenements",
+                      "Add event",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -611,7 +611,7 @@ class _HomePageState extends State<ComePage> {
                 width: 5,
               ),
               Text(
-                "Partager cette événement",
+                "Share this event",
                 style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               )
             ],
