@@ -144,9 +144,9 @@ class _HomePageState extends State<ComePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 206, 218, 207),
-      appBar: AppBar(
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      // ),
       body: ListView(children: [
         SizedBox(
             height: MediaQuery.of(context).size.height * 0.45,
@@ -164,29 +164,29 @@ class _HomePageState extends State<ComePage> {
                           left: 20, top: 3, bottom: 10, right: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Toutes les demandes",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 52, 63, 71)),
-                          ),
-                          Row(
-                            children: const [
-                              Text(
-                                "Refresh",
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 86, 127, 160)),
-                              ),
-                              Icon(Icons.refresh,
-                                  size: 17,
-                                  color: Color.fromARGB(255, 86, 127, 160))
-                            ],
-                          )
-                        ],
+                        // children: [
+                        //   const Text(
+                        //     "Toutes les demandes",
+                        //     style: TextStyle(
+                        //         fontSize: 18,
+                        //         fontWeight: FontWeight.bold,
+                        //         color: Color.fromARGB(255, 52, 63, 71)),
+                        //   ),
+                        //   Row(
+                        //     children: const [
+                        //       Text(
+                        //         "Refresh",
+                        //         style: TextStyle(
+                        //             fontSize: 17,
+                        //             fontWeight: FontWeight.bold,
+                        //             color: Color.fromARGB(255, 86, 127, 160)),
+                        //       ),
+                        //       Icon(Icons.refresh,
+                        //           size: 17,
+                        //           color: Color.fromARGB(255, 86, 127, 160))
+                        //     ],
+                        //   )
+                        // ],
                       ),
                     ),
                   ),
@@ -198,7 +198,7 @@ class _HomePageState extends State<ComePage> {
                               child: Text('No notes to display'));
                         } else if (!snapshot.hasData) {
                           return const Center(
-                              child: Text("No notes to display"));
+                              child: Text(""));
                         } else {
                           return Container(
                               margin: const EdgeInsets.only(left: 8, right: 8),
@@ -382,7 +382,7 @@ class _HomePageState extends State<ComePage> {
         Column(children: [
           Container(
               padding:
-                  const EdgeInsets.only(left: 20, top: 1, bottom: 1, right: 20),
+                  const EdgeInsets.only(left: 20, top: 0, bottom: 0, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -439,6 +439,7 @@ class _HomePageState extends State<ComePage> {
                                 controller: addChecklistController,
                                 decoration: InputDecoration(
                                   labelText: 'Entrer votre événement',
+                                  //hintStyle: TextStyle(color: Colors.black),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: const BorderSide(
@@ -595,12 +596,12 @@ class _HomePageState extends State<ComePage> {
           },
           label: Row(
             children: const [
-              Icon(Icons.add),
+              Icon(Icons.share),
               SizedBox(
                 width: 5,
               ),
               Text(
-                "Inviter une personne",
+                "Partager cette événement",
                 style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               )
             ],

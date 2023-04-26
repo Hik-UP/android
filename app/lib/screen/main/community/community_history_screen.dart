@@ -29,8 +29,9 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
       appBar: AppBar(
         toolbarHeight: kTextTabBarHeight,
         title: Text(
-          "Communauté",
-          style: HOPASTYLE,
+          "Événement",
+          style: titleTextStyleWhite,
+          //style: HOPASTYLE,
         ),
         backgroundColor: BlackSecondary,
         elevation: 0.0,
@@ -38,9 +39,9 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
         bottom: TabBar(
           controller: _tabController,
           labelStyle: tabBarTextStyle,
-          labelColor: HOPA,
+          labelColor: Colors.white,
           unselectedLabelColor: HOPA,
-          indicatorColor: HOPA,
+          indicatorColor: Colors.white,
           tabs: const [
             Tab(
               text: "ma randonnée",
