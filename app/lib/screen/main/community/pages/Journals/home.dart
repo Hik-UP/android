@@ -439,6 +439,7 @@ class _HomePageState extends State<ComePage> {
                                 controller: addChecklistController,
                                 decoration: InputDecoration(
                                   labelText: 'Entrer votre événement',
+                                  labelStyle: const TextStyle(color: Colors.black),
                                   //hintStyle: TextStyle(color: Colors.black),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
@@ -480,10 +481,10 @@ class _HomePageState extends State<ComePage> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.grey[100],
+                    color: Colors.blue,
                     borderRadius: BorderRadius.circular(10)),
                 margin: const EdgeInsets.fromLTRB(5, 8, 5, 10),
-                padding: const EdgeInsets.all(7),
+                padding: const EdgeInsets.all(14),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [

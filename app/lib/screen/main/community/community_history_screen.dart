@@ -40,7 +40,7 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
           controller: _tabController,
           labelStyle: tabBarTextStyle,
           labelColor: Colors.white,
-          unselectedLabelColor: HOPA,
+          unselectedLabelColor: Colors.white,
           indicatorColor: Colors.white,
           tabs: const [
             Tab(
