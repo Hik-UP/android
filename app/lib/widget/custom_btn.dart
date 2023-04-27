@@ -6,6 +6,8 @@ class CustomBtn extends StatelessWidget {
   final Gradient? gradient;
   final bool isLoading;
   final double height;
+  final Color textColor;
+  final Color bgColor;
   const CustomBtn({
     Key? key,
     required this.content,
@@ -13,6 +15,8 @@ class CustomBtn extends StatelessWidget {
     this.gradient,
     this.isLoading = false,
     this.height = 40,
+    this.textColor = Colors.white,
+    this.bgColor = Colors.transparent,
   }) : super(key: key);
 
   @override
@@ -26,7 +30,7 @@ class CustomBtn extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isLoading ? null : onPress,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
+          backgroundColor: bgColor,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -41,8 +45,8 @@ class CustomBtn extends StatelessWidget {
                 )
               : Text(
                   content,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: textColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

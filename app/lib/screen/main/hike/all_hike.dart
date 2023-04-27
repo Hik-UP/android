@@ -9,7 +9,7 @@ import 'package:hikup/widget/hike_card.dart';
 import 'package:provider/provider.dart';
 import '../../../theme.dart';
 
-class AllHike extends StatelessWidget {
+class AllHike extends StatefulWidget {
   final List<String> targets;
   const AllHike({
     Key? key,
@@ -17,12 +17,17 @@ class AllHike extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AllHike> createState() => _AllHikeState();
+}
+
+class _AllHikeState extends State<AllHike> {
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Hike>>(
       future: WrapperApi().getAllHike(
         path: getHikePath,
         appState: context.read<AppState>(),
-        target: targets,
+        target: widget.targets,
       ),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -32,6 +37,7 @@ class AllHike extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w400,
                 fontSize: 12.0,
+                color: Colors.white,
               ),
             ),
           );
@@ -48,14 +54,15 @@ class AllHike extends StatelessWidget {
                 ),
                 child: HikeCard(
                   hike: snapshot.data![index],
+                  update: () => setState(() {}),
                 ),
               ),
             );
           } else {
-            return Container(
+            return SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height - 200,
-              child:Center(
+              child: Center(
                 child: Text(
                   AppMessages.noHike,
                   style: subErrorTitleTextStyle,
