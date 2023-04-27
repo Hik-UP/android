@@ -68,21 +68,23 @@ class Trail {
     required Map<String, dynamic> data,
   }) {
     return Trail(
-        id: data["id"],
-        name: data["name"],
-        description: data["description"],
-        pictures: data["pictures"],
-        latitude: data["latitude"],
-        longitude: data["longitude"],
-        difficulty: data["difficulty"],
-        duration: data["duration"],
-        distance: data["distance"],
-        uphill: data["uphill"],
-        downhill: data["downhill"],
-        tools: data["tools"],
-        relatedArticles: data["relatedArticles"],
-        labels: data["labels"],
-        geoJSON: data["geoJSON"]);
+      id: data["id"] ?? "",
+      name: data["name"] ?? "",
+      description: data["description"] ?? "",
+      pictures: (data["pictures"] as List).map((e) => e as String).toList(),
+      latitude: data["latitude"] ?? 0,
+      longitude: data["longitude"] ?? 0,
+      difficulty: data["difficulty"] ?? 0,
+      duration: data["duration"] ?? 0,
+      distance: data["distance"] ?? 0,
+      uphill: data["uphill"] ?? 0,
+      downhill: data["downhill"] ?? 0,
+      tools: (data["tools"] as List).map((e) => e as String).toList(),
+      relatedArticles:
+          (data["relatedArticles"] as List).map((e) => e as String).toList(),
+      labels: (data["labels"] as List).map((e) => e as String).toList(),
+      geoJSON: data["geoJSON"],
+    );
   }
 
   static printTrain({required Trail trail}) {

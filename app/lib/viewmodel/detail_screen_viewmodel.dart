@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/providers/app_state.dart';
@@ -68,32 +67,7 @@ class DetailScreenViewModel extends BaseModel {
       setState(ViewState.retrieved);
     }
   }
-
-  Widget showTools({required List<String> toolsBack}) {
-    List<Widget> tools = [];
-
-    for (int i = 0; i + 1 < toolsBack.length; i += 2) {
-      tools.add(Row(
-        children: [
-          Expanded(
-            child: Text(
-              "${i + 1}. ${toolsBack[i]}",
-              style: WhiteAddressTextStyle,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              "${i + 2}. ${toolsBack[i + 1]}",
-              style: WhiteAddressTextStyle,
-            ),
-          ),
-        ],
-      ));
-    }
-
-    return Column(children: tools);
-  }
-
+  
   int timeStampOrNull() {
     var dateSplit = timeCtrl.text.split(':');
     String minute =

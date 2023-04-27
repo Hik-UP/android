@@ -42,6 +42,7 @@ const createHikePath = "/user/hike/create";
 const getHikePath = "/user/hike/retrieve";
 const acceptInvitePath = "/user/hike/guest/accept";
 const declineInvitePath = "/user/hike/guest/refuse";
+const leaveHikePath = "/user/hike/attendee/leave";
 
 const pinIcon = "assets/icons/pin.png";
 const idHikeIcon = "assets/icons/idHike.svg";

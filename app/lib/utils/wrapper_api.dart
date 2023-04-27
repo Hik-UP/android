@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/detail_trail_model.dart';
 import 'package:hikup/model/hike.dart';
@@ -7,6 +8,7 @@ import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/service/hive_service.dart';
+import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 
@@ -89,7 +91,6 @@ class WrapperApi {
       return DetailTrailMode.fromMap(
           data: response.data as Map<String, dynamic>);
     } catch (e) {
-      print(e);
       throw AppMessages.anErrorOcur;
     }
   }
@@ -112,7 +113,6 @@ class WrapperApi {
           "hike": {"target": target},
         },
       );
-      print(result);
 
       for (String state in target) {
         List<Hike> subElements = [];
@@ -123,7 +123,33 @@ class WrapperApi {
       }
       return hikes;
     } catch (e) {
+      print(e);
       throw AppMessages.anErrorOcur;
     }
+  }
+
+  Widget showTools({required List<String> toolsBack}) {
+    List<Widget> tools = [];
+
+    for (int i = 0; i + 1 < toolsBack.length; i += 2) {
+      tools.add(Row(
+        children: [
+          Expanded(
+            child: Text(
+              "${i + 1}. ${toolsBack[i]}",
+              style: WhiteAddressTextStyle,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              "${i + 2}. ${toolsBack[i + 1]}",
+              style: WhiteAddressTextStyle,
+            ),
+          ),
+        ],
+      ));
+    }
+
+    return Column(children: tools);
   }
 }

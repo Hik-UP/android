@@ -37,6 +37,7 @@ class _AllHikeState extends State<AllHike> {
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w400,
                 fontSize: 12.0,
+                color: Colors.white,
               ),
             ),
           );

@@ -7,6 +7,7 @@ class CustomBtn extends StatelessWidget {
   final bool isLoading;
   final double height;
   final Color textColor;
+  final Color bgColor;
   const CustomBtn({
     Key? key,
     required this.content,
@@ -15,6 +16,7 @@ class CustomBtn extends StatelessWidget {
     this.isLoading = false,
     this.height = 40,
     this.textColor = Colors.white,
+    this.bgColor = Colors.transparent,
   }) : super(key: key);
 
   @override
@@ -28,7 +30,7 @@ class CustomBtn extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isLoading ? null : onPress,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
+          backgroundColor: bgColor,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

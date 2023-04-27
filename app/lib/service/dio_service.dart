@@ -44,6 +44,37 @@ class DioService {
     }
   }
 
+  Future<Response> delete({
+    required String path,
+    required Map<String, dynamic> body,
+    String token = "",
+  }) async {
+    print("$baseUrl$path");
+    try {
+      var result = await _dio.delete(
+        "$baseUrl$path",
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+          },
+        ),
+        data: body,
+      );
+
+      return result;
+    } on DioError catch (e) {
+      print(e);
+      if (e.response == null) {
+        _navigator.showSnackBack(
+          content: AppMessages.anErrorOcur,
+          isError: true,
+        );
+      }
+      return e.response!;
+    }
+  }
+
   Future<Response> put({
     required String path,
     required Map<String, dynamic> body,

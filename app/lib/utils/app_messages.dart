@@ -70,6 +70,11 @@ class AppMessages {
   static String save = "Save";
   static String myHike = "My Hike";
   static String notificationText = "Notifications";
-  static String accepter = "Accepter";
-  static String decliner = "Decliner";
+  static String accepter = "Accepte";
+  static String decliner = "Decline";
+  static String seeAll = "Expand";
+  static String me = "Me";
+  static String noGuest = "No pending invitations";
+  static String noAttended = "No attended for this hike";
+  static String quit = "Leave";
 }
