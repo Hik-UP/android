@@ -5,6 +5,7 @@ import 'package:hikup/theme.dart';
 import 'package:hikup/utils/dummy_data.dart';
 
 class CommunityHistoryScreen extends StatefulWidget {
+  static String routeName = "/communityhistoryscreen";
   const CommunityHistoryScreen({Key? key}) : super(key: key);
 
   @override
@@ -28,8 +29,9 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
       appBar: AppBar(
         toolbarHeight: kTextTabBarHeight,
         title: Text(
-          "Communauté",
-          style: HOPASTYLE,
+          "Event",
+          style: titleTextStyleWhite,
+          //style: HOPASTYLE,
         ),
         backgroundColor: BlackSecondary,
         elevation: 0.0,
@@ -37,15 +39,15 @@ class _CommunityHistoryScreenState extends State<CommunityHistoryScreen>
         bottom: TabBar(
           controller: _tabController,
           labelStyle: tabBarTextStyle,
-          labelColor: HOPA,
-          unselectedLabelColor: HOPA,
-          indicatorColor: HOPA,
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white,
+          indicatorColor: Colors.white,
           tabs: const [
             Tab(
-              text: "ma randonnée",
+              text: "Alone",
             ),
             Tab(
-              text: "en groupe",
+              text: "In group",
             ),
             //Tab(
             //text: "événement",
