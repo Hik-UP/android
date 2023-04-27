@@ -22,6 +22,12 @@ class HikeCardViewModel extends BaseModel {
     notifyListeners();
   }
 
+  setDeclineLoader(bool value) {
+    declineLoader = value;
+
+    notifyListeners();
+  }
+
   acceptOrRefuse({
     required String routeName,
     required String hikeId,
@@ -29,10 +35,9 @@ class HikeCardViewModel extends BaseModel {
     required Function() load,
     required Function() stop,
   }) async {
-    print(hikeId);
     load();
     try {
-      await _dioService.post(
+      await _dioService.put(
         path: routeName,
         body: {
           "user": {
@@ -45,8 +50,8 @@ class HikeCardViewModel extends BaseModel {
         },
         token: "Bearer ${appState.token}",
       );
+    
     } catch (e) {
-      print(e);
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,

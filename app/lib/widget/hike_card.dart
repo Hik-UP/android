@@ -14,9 +14,11 @@ import 'package:provider/provider.dart';
 
 class HikeCard extends StatelessWidget {
   final Hike hike;
+  final Function() update;
   const HikeCard({
     Key? key,
     required this.hike,
+    required this.update,
   }) : super(key: key);
 
   String formatDate() {
@@ -128,9 +130,21 @@ class HikeCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CustomBtn(
+                        isLoading: model.declineLoader,
                         textColor: Colors.red,
                         content: AppMessages.decliner,
-                        onPress: () {},
+                        onPress: () {
+                          model.acceptOrRefuse(
+                            routeName: declineInvitePath,
+                            hikeId: hike.id,
+                            appState: appState,
+                            load: () => model.setDeclineLoader(true),
+                            stop: () {
+                              model.setDeclineLoader(false);
+                              update();
+                            },
+                          );
+                        },
                       ),
                     ),
                     Expanded(
@@ -143,7 +157,10 @@ class HikeCard extends StatelessWidget {
                             hikeId: hike.id,
                             appState: appState,
                             load: () => model.setAcceptLoader(true),
-                            stop: () => model.setAcceptLoader(false),
+                            stop: () {
+                              model.setAcceptLoader(false);
+                              update();
+                            },
                           );
                         },
                       ),
