@@ -9,7 +9,6 @@ import '../model/user.dart';
 import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
 
-
 enum ViewState { idle, busy, retrieved }
 
 enum TypeOfHike { organized, guest, attendee }
@@ -21,8 +20,13 @@ const env = "PROD";
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
 
-const urlTemplateMapBox =
+const urlTemplateMapBoxDay =
     "https://api.mapbox.com/styles/v1/hikupapp/cle0lx80a00j701qqki8kcxqd/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w";
+const urlTemplateMapBoxNight =
+    "https://api.mapbox.com/styles/v1/hikupapp/cle6pe8m0005101qmp8irwrda/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w";
+const urlTemplateMapBoxCrepu =
+    "https://api.mapbox.com/styles/v1/hikupapp/cle6pea5c002z01q92yuxzzw0/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w";
+
 const accessTokenMapBox =
     'pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w';
 const idMapBox = 'mapbox.mapbox-streets-v8';

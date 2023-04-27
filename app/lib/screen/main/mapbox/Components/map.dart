@@ -8,6 +8,7 @@ import 'package:hikup/widget/base_view.dart';
 import 'package:latlong2/latlong.dart' as latlng;
 import 'package:provider/provider.dart';
 import 'skin.dart';
+import 'map_over_time.dart';
 
 class MapBox extends StatefulWidget {
   const MapBox({Key? key}) : super(key: key);
@@ -59,7 +60,7 @@ class _MapBoxState extends State<MapBox> {
                   latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0))),
           children: [
             TileLayer(
-              urlTemplate: urlTemplateMapBox,
+              urlTemplate: getMap(),
               additionalOptions: const {
                 'accessToken': accessTokenMapBox,
                 'id': idMapBox
