@@ -21,7 +21,7 @@ class HikesCreate extends StatelessWidget {
             style: titleTextStyleWhite,
           ),
           centerTitle: true,
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: GreenPrimary, // Couleur de la flèche retour
           ),
           backgroundColor: BlackPrimary,
@@ -46,11 +46,12 @@ class HikesCreate extends StatelessWidget {
                     children: [
                       TabBar(
                         labelColor: GreenPrimary,
-                        unselectedLabelColor: Color.fromARGB(255, 255, 255, 255),
+                        unselectedLabelColor:
+                            const Color.fromARGB(255, 255, 255, 255),
                         indicatorColor: GreenPrimary,
                         tabs: model.tabs,
                       ),
-                      const Gap(20.0),
+                      const Gap(30.0),
                       AllHike(
                         targets: model.targets[model.currentIndex],
                       ),

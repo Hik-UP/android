@@ -70,4 +70,6 @@ class AppMessages {
   static String save = "Save";
   static String myHike = "My Hike";
   static String notificationText = "Notifications";
+  static String accepter = "Accepter";
+  static String decliner = "Decliner";
 }

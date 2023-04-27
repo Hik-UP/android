@@ -6,6 +6,7 @@ class CustomBtn extends StatelessWidget {
   final Gradient? gradient;
   final bool isLoading;
   final double height;
+  final Color textColor;
   const CustomBtn({
     Key? key,
     required this.content,
@@ -13,6 +14,7 @@ class CustomBtn extends StatelessWidget {
     this.gradient,
     this.isLoading = false,
     this.height = 40,
+    this.textColor = Colors.white,
   }) : super(key: key);
 
   @override
@@ -41,8 +43,8 @@ class CustomBtn extends StatelessWidget {
                 )
               : Text(
                   content,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: textColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
