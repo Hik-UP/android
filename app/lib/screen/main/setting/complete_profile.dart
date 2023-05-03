@@ -119,7 +119,7 @@ class CompleteProfile extends StatelessWidget {
                       model.setDropDownIsActive(value: !model.dropDownIsActive);
                     },
                     hintText: AppMessages.selectSex,
-                    content: const ["M", "F"],
+                    content: const ["H", "F"],
                   ),
                 ),
                 Visibility(

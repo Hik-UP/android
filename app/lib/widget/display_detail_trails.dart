@@ -125,7 +125,7 @@ class DisplayDetailTrails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Duration",
+              "Durée",
               style: subTitleTextStyle,
             ),
           ],
@@ -150,7 +150,7 @@ class DisplayDetailTrails extends StatelessWidget {
         ),
         const Gap(10.0),
         Text(
-          "Tools",
+          "Équipements",
           style: subTitleTextStyle,
         ),
         const Gap(4.0),

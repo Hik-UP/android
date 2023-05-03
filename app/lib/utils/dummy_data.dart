@@ -13,7 +13,7 @@ var sampleUser = User(
     token: "");
 
 var _foret = RandoCategory(
-  name: "Foret",
+  name: "Forêt",
   image: "assets/icons/forest.png",
 );
 var _montagne = RandoCategory(

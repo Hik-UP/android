@@ -88,7 +88,7 @@ class UpdateProfile extends StatelessWidget {
                 const Gap(50.0),
                 CustomTextField(
                   controller: model.usernameCtrl,
-                  hintText: 'Username',
+                  hintText: 'Prénom',
                   validator: Validation.validateUsername,
                 ),
                 const Gap(20.0),

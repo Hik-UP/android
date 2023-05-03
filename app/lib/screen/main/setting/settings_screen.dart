@@ -224,7 +224,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     const Gap(4.0),
                     Text(
-                      "Version 1.0.0",
+                      "Version Beta",
                       style: linkTextStyle,
                     ),
                   ],
