@@ -65,7 +65,7 @@ const unFilledIconNavBar = [
   "assets/icons/settings_outlined.png",
   "assets/icons/accessibility_outlined.png"
 ];
-const labelNavBar = ["Home", "Search", "Settings", "PM"];
+const labelNavBar = ["Accueil", "Recherche", "Réglages", "PM"];
 
 User emptyUser = User(
   id: "",

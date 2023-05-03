@@ -32,9 +32,9 @@ class AppMessages {
   static String delete = "Delete";
   static String newestVersion = "Newest Version";
   static String account = "Compte";
-  static String weight = "Weight (kg)";
+  static String weight = "Poids (kg)";
   static String selectSex = "Selectionner votre genre";
-  static String addHeight = "Height (cm)";
+  static String addHeight = "Taille (cm)";
   static String add = "Add";
   static String isRequired = "Ce champs est obligatoire.";
   static String success = "Success";
@@ -44,10 +44,10 @@ class AppMessages {
   static String hintEmailFriend = "Entrer l'email de votre ami.";
   static String invitMsg = "Inviter";
   static String calorieToBurn = "calories à bruler";
-  static String schedule = "Schedule";
+  static String schedule = "Calendrier";
   static String canPlanTheHike = "You can schedule your hiking";
   static String reset = "reset";
-  static String startNow = "Start now";
+  static String startNow = "Commencer maintenant";
   static String schelduleNow = "Schedule now";
   static String finish = "Finish";
   static String all = "All";
@@ -67,7 +67,7 @@ class AppMessages {
   static String height = "Taille";
   static String nothingChange = "Nothing to update";
   static String completeProfil = "Complete Profil";
-  static String save = "Save";
+  static String save = "Sauvegarder";
   static String myHike = "Ma randonnée";
   static String notificationText = "Notifications";
   static String accepter = "Accepter";

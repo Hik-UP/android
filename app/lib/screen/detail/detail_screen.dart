@@ -17,7 +17,7 @@ import 'package:hikup/widget/plan_component.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
-final Box<String> boxtrailId = Hive.box('trailId');
+//final Box<String> boxtrailId = Hive.box('trailId');
 
 class DetailScreen extends StatelessWidget {
   final TrailFields field;
