@@ -33,7 +33,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
           appState.skin = snapshot.data!;
 
           return CurrentLocationLayer(
-            followOnLocationUpdate: FollowOnLocationUpdate.always,
+            followOnLocationUpdate: FollowOnLocationUpdate.once,
             turnOnHeadingUpdate: TurnOnHeadingUpdate.always,
             style: LocationMarkerStyle(
               marker: appState.skin.pictures.isNotEmpty
