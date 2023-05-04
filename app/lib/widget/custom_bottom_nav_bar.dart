@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hikup/theme.dart';
-import 'package:hikup/theme.dart';
 import 'package:hikup/utils/constant.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
