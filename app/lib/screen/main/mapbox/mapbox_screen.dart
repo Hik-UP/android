@@ -14,6 +14,7 @@ import 'package:latlong2/latlong.dart' as latlng;
 import 'package:provider/provider.dart';
 import 'Components/skin.dart';
 import 'Components/map_over_time.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
@@ -45,6 +46,12 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
   Widget build(BuildContext context) {
     return BaseView<MapViewModel>(
       builder: (context, model, child) {
+
+        Future<void> _launchUrl(String url) async {
+          if (!await launchUrl(Uri.parse(url))) {
+            throw Exception('Could not launch URL');
+          }
+        }
         model.mapController.mapEventStream.listen((event) {
           if (!model.polylines.isEmpty && model.mapController.zoom <= 12) {
             model.polylines.clear();
@@ -79,13 +86,34 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                 color:BlackPrimary,
                 borderRadius: BorderRadius.circular(15),
               ),
-              margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
+              margin: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
               child: Container(
                 margin: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-                child: Text(
-                  model.trailsList.isEmpty ? "" : model.trailsList[0].name,
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.center,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      model.trailsList.isEmpty ? "" : model.trailsList[0].name,
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(borderRadiusSize),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (!model.trailsList.isEmpty) {
+                          _launchUrl("https://maps.google.com/?q=${model.trailsList[0].latitude},${model.trailsList[0].longitude}");
+                        }
+                      },
+                      child: Text(
+                        "Direction",
+                        style: subTitleTextStyle,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
