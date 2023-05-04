@@ -588,10 +588,10 @@ packages:
     dependency: "direct main"
     description:
       name: get_it
-      sha256: f9982979e3d2f286a957c04d2c3a98f55b0f0a06ffd6c5c4abbb96f06937f463
+      sha256: d7d31d8bc11a94fe1514fa2c44e820990181277783cbb3ce873a40149ff9d52f
       url: "https://pub.dev"
     source: hosted
-    version: "7.3.0"
+    version: "7.4.0"
   glob:
     dependency: transitive
     description:
