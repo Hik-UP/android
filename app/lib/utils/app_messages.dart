@@ -14,7 +14,7 @@ class AppMessages {
   static String anErrorOcur = "An error occur please, try again";
   static String usernameinvalid = "Le prénom est incorrecte";
   static String updateProfil = "Mettre à jour le profile";
-  static String updateTxt = "Update";
+  static String updateTxt = "Mettre à jour";
   static String deleteaccount = "Delete account";
   static String logout = "Se déconnecter";
   static String needAPicture = "Please, select an image";
@@ -25,6 +25,7 @@ class AppMessages {
   static String addExtraData = "Completer votre profile";
   static String aboutApp = "À propos Hik'UP";
   static String settingTxt = "Réglages";
+  static String modifprofilTxt = "Modifier profile";
   static String askIfUserWantToLogout = "Do you want to logout ?";
   static String askUserWantToDelete = "Do you want to delete your account ?";
   static String cancel = "Annuler";
