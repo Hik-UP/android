@@ -46,15 +46,10 @@ class HikeCard extends StatelessWidget {
           ),
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.only(
-              top: 25.0,
-              right: 22.0,
-              bottom: 17.0,
-              left: 22.0,
-            ),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(10.0),
+              color: BlackPrimary,
+              borderRadius: BorderRadius.circular(20.0),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,13 +57,16 @@ class HikeCard extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SvgPicture.asset(idHikeIcon),
+                    Image.asset(
+                          idHikeIcon,
+                          width: 20,
+                          height: 20,
+                          color: GreenPrimary,
+                    ),
                     const Gap(8.0),
                     Text(
-                      "ID",
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w600,
-                      ),
+                      "Informations",
+                      style: subTitleTextStyle,
                     ),
                   ],
                 ),
@@ -76,22 +74,23 @@ class HikeCard extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 24.0),
                   child: Text(
                     hike.name,
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: WhiteAddressTextStyle,
                   ),
                 ),
                 const Gap(10.0),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SvgPicture.asset(calendarIcon),
+                    Image.asset(
+                          calendarIcon,
+                          width: 20,
+                          height: 20,
+                          color: GreenPrimary,
+                    ),
                     const Gap(8.0),
                     Text(
                       AppMessages.date,
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: subTitleTextStyle,
                     ),
                   ],
                 ),
@@ -99,9 +98,7 @@ class HikeCard extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 24.0),
                   child: Text(
                     formatDate(),
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: WhiteAddressTextStyle,
                   ),
                 ),
                 const Gap(10.0),
@@ -111,14 +108,12 @@ class HikeCard extends StatelessWidget {
                       pinIcon,
                       width: 18,
                       height: 18,
-                      color: HOPA,
+                      color: GreenPrimary,
                     ),
                     const Gap(8.0),
                     Text(
                       AppMessages.position,
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: subTitleTextStyle,
                     ),
                   ],
                 ),
@@ -126,9 +121,7 @@ class HikeCard extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 24.0),
                   child: Text(
                     hike.address,
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: WhiteAddressTextStyle,
                   ),
                 ),
                 Visibility(

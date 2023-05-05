@@ -68,7 +68,7 @@ class AppMessages {
   static String nothingChange = "Nothing to update";
   static String completeProfil = "Complete Profil";
   static String save = "Sauvegarder";
-  static String myHike = "Ma randonnée";
+  static String myHike = "Mes randonnées";
   static String notificationText = "Notifications";
   static String accepter = "Accepter";
   static String decliner = "Refuser";
