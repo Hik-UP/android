@@ -59,16 +59,14 @@ const calendarIcon = "assets/icons/appointment.png";
 const filledIconNavBar = [
   "assets/icons/HomeFull.png",
   "assets/icons/search.png",
-  "assets/icons/settings_fill.png",
-  "assets/icons/receipt_fill.png"
+  "assets/icons/settings_fill.png"
 ];
 const unFilledIconNavBar = [
   "assets/icons/Home.png",
   "assets/icons/search.png",
-  "assets/icons/settings_outlined.png",
-  "assets/icons/receipt_outlined.png"
+  "assets/icons/settings_outlined.png"
 ];
-const labelNavBar = ["Accueil", "Recherche", "Réglages", "PM"];
+const labelNavBar = ["Accueil", "Recherche", "Réglages"];
 
 User emptyUser = User(
   id: "",
@@ -113,8 +111,7 @@ dynamic logoutButtonColor = const LinearGradient(colors: [
 final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
-  const SettingsScreen(),
-  CommunityPage(),
+  const SettingsScreen()
 ];
 
 enum TypeInput { text, password }
