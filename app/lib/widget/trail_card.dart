@@ -48,7 +48,7 @@ class TrailCard extends StatelessWidget {
                       imageUrl: picture,
                       errorWidget: (context, url, error) => const Icon(
                         Icons.warning,
-                        color: HOPABLUE,
+                        color: HOPA,
                       ),
                     );
                   }).toList(),

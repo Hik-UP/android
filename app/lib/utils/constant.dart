@@ -50,8 +50,8 @@ const declineInvitePath = "/user/hike/guest/refuse";
 const leaveHikePath = "/user/hike/attendee/leave";
 
 const pinIcon = "assets/icons/pin.png";
-const idHikeIcon = "assets/icons/idHike.svg";
-const calendarIcon = "assets/icons/calendarIcon.svg";
+const idHikeIcon = "assets/icons/information.png";
+const calendarIcon = "assets/icons/appointment.png";
 
 const filledIconNavBar = [
   "assets/icons/HomeFull.png",

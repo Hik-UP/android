@@ -57,12 +57,16 @@ class CustomSliverAppBar extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: const BoxDecoration(
-              color: BlackPrimary,
+              color: BlackSecondary,
               shape: BoxShape.circle,
             ),
             child: PopupMenuButton(
               tooltip: "Image's Author Url",
               padding: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+              color: BlackSecondary,
               icon: const Icon(
                 CupertinoIcons.info,
                 color: GreenPrimary,
@@ -73,10 +77,10 @@ class CustomSliverAppBar extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                        color: HOPA,
+                        color: HOPABLUE,
                         borderRadius: BorderRadius.circular(8)),
                     child: Text(
-                      "",
+                      "TEST",
                       style: HOPASTYLE,
                     ),
                   ),
@@ -88,7 +92,7 @@ class CustomSliverAppBar extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.account_circle_outlined),
                   title: Text(
-                    "",
+                    "TEST",
                     style: HOPASTYLE,
                   ),
                 )),
@@ -99,7 +103,7 @@ class CustomSliverAppBar extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   //leading: const Icon(Icons.image_outlined),
                   title: Text(
-                    "",
+                    "TEST",
                     style: HOPASTYLE,
                   ),
                 )),

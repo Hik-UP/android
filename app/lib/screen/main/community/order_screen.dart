@@ -69,13 +69,13 @@ class OrderScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.red.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.red),
+                            border: Border.all(color: HOPA),
                           ),
                           child: Text(
                             "Annuler",
                             style: HOPASTYLE.copyWith(
                               fontWeight: FontWeight.w500,
-                              color: Colors.red,
+                              color: HOPA,
                             ),
                           ),
                         )
