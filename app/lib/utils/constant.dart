@@ -59,12 +59,14 @@ const calendarIcon = "assets/icons/appointment.png";
 const filledIconNavBar = [
   "assets/icons/HomeFull.png",
   "assets/icons/search.png",
-  "assets/icons/settings_fill.png"
+  "assets/icons/settings_fill.png",
+  "assets/icons/accessibility_fill.png"
 ];
 const unFilledIconNavBar = [
   "assets/icons/Home.png",
   "assets/icons/search.png",
-  "assets/icons/settings_outlined.png"
+  "assets/icons/settings_outlined.png",
+  "assets/icons/accessibility_outlined.png"
 ];
 const labelNavBar = ["Accueil", "Recherche", "Réglages"];
 
