@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/validation.dart';
 import 'package:hikup/viewmodel/register_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_text_field.dart';
@@ -29,50 +31,41 @@ class _RegisterPageState extends State<RegisterPage> {
 
     return BaseView<RegisterPageViewModel>(
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 300,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(logoBlackNoBg), fit: BoxFit.fill),
+          resizeToAvoidBottomInset: false,
+          backgroundColor: const Color.fromARGB(255, 114, 18, 18),
+          body: Center(
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    homeBackgroundDay,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 210),
-                        child: const Center(
-                          child: Text(
-                            "Register",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 0, 189, 41),
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  children: <Widget>[
+                Column(
+                  children: [
+                    const Gap(15.0),
                     Container(
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Color.fromRGBO(143, 148, 251, .2),
-                                  blurRadius: 20.0,
-                                  offset: Offset(0, 10))
-                            ]),
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(logoWhiteNoBg),
+                              scale: 2,
+                              fit: BoxFit.contain)),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            child: Container(
+                                margin: const EdgeInsets.only(top: 165)),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width *
+                          0.9, // 50% de la largeur de l'écran
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(25.0),
                         child: Form(
                           key: model.loginFormKey,
                           child: Padding(
@@ -82,22 +75,23 @@ class _RegisterPageState extends State<RegisterPage> {
                                 CustomTextField(
                                   hintText: AppMessages.usernameHintText,
                                   controller: model.usernameController,
-                                  validator: model.validateUsername,
+                                  validator: Validation.validateUsername,
                                 ),
-                                const Gap(20.0),
+                                const Gap(10.0),
                                 CustomTextField(
                                   controller: model.emailController,
                                   hintText: AppMessages.email,
                                   validator: model.validateEmail,
                                 ),
-                                const Gap(20.0),
+                                const Gap(10.0),
                                 CustomTextField(
                                   controller: model.passwordController,
                                   hintText: AppMessages.password,
                                   typeInput: TypeInput.password,
                                   validator: model.validatePassword,
+                                  typeOfInput: TypeOfInput.password,
                                 ),
-                                const Gap(40),
+                                const Gap(10),
                                 CustomBtn(
                                   isLoading: model.getState == ViewState.busy,
                                   content: AppMessages.registerButtonText,
@@ -114,34 +108,37 @@ class _RegisterPageState extends State<RegisterPage> {
                                   },
                                   gradient: loginButtonColor,
                                 ),
-                                const Gap(20.0),
+                                const Gap(2.0),
                                 Align(
-                                  alignment: Alignment.topRight,
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      foregroundColor:
-                                          const Color.fromARGB(255, 0, 179, 60),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed(LoginPage.routeName);
-                                    },
-                                    child: const Text(
-                                      "Already have an account? Sign in!",
-                                    ),
-                                  ),
-                                ),
+                                    alignment: Alignment.topRight,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: const Color.fromARGB(
+                                            255, 23, 255, 119),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pushNamed(
+                                          LoginPage.routeName,
+                                        );
+                                      },
+                                      child: Text(
+                                        AppMessages.alreadyHaveAccount,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    )),
                               ],
                             ),
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
+              ],
+            ),
+          )),
     );
   }
 }

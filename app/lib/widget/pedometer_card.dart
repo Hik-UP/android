@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import '../theme.dart';
 import '../utils/dummy_data.dart';
 
@@ -72,3 +72,4 @@ class PedometerCardState extends StatelessWidget {
     );
   }
 }
+*/

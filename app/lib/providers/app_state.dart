@@ -13,6 +13,8 @@ final Box<User> boxUser = Hive.box("userBox");
 final Box<Skin> skinUserBox = Hive.box("skinBox");
 final Box<SensibleUserData> sensibleUserDataBox =
     Hive.box("sensibleUserDataBox");
+final Box<String> boxtrailId = Hive.box('trailId');
+
 
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
@@ -105,7 +107,6 @@ class AppState extends ChangeNotifier {
     var skin = skinUserBox.get("skin") ?? emptySkin;
     var sensibleUserData =
         sensibleUserDataBox.get("sensibleUserData") ?? emptySensibleUserData;
-
     setIsFirstDownload(value: otherData.isFirstDownload);
     updateAllState(user: user);
     updateSkinState(value: skin);

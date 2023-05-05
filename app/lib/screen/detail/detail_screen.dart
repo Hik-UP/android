@@ -1,266 +1,180 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 import 'package:hikup/model/trail_fields.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
-import 'package:hikup/widget/back_icon.dart';
+import 'package:hikup/utils/app_messages.dart';
+import 'package:hikup/utils/constant.dart';
+import 'package:hikup/viewmodel/detail_screen_viewmodel.dart';
+import 'package:hikup/widget/base_view.dart';
+import 'package:hikup/widget/custom_sliver_app_bar.dart';
+import 'package:hikup/widget/display_address.dart';
+import 'package:hikup/widget/display_detail_trails.dart';
+import 'package:hikup/widget/email_invite_card.dart';
+import 'package:hikup/widget/invite_friend_cmp.dart';
+import 'package:hikup/widget/plan_component.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
 class DetailScreen extends StatelessWidget {
   final TrailFields field;
-
   const DetailScreen({required this.field, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          customSliverAppBar(context, field),
-          SliverPadding(
-            padding:
-                const EdgeInsets.only(right: 24, left: 24, bottom: 24, top: 8),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/icons/pin.png",
-                      width: 24,
-                      height: 24,
-                      color: primaryColor500,
+    AppState appState = context.read<AppState>();
+
+    return BaseView<DetailScreenViewModel>(
+      builder: (context, model, child) => Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            CustomSliverAppBar(field: field),
+            SliverPadding(
+              padding: const EdgeInsets.all(20),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    DisplayAddress(address: field.address),
+                    const Gap(16),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          CupertinoIcons.money_dollar_circle_fill,
+                          color: GreenPrimary,
+                        ),
+                        SizedBox(
+                          width: 16.0,
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Flexible(
-                      child: Text(
-                        field.address,
-                        overflow: TextOverflow.visible,
-                        style: addressTextStyle,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      CupertinoIcons.money_dollar_circle_fill,
-                      color: primaryColor500,
-                    ),
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                Text(
-                  "Details:",
-                  style: subTitleTextStyle,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.hiking_rounded,
-                      color: primaryColor500,
-                    ),
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.escalator,
-                      color: primaryColor500,
-                    ),
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                    const Gap(10.0),
                     Text(
-                      "Duration:",
+                      "Details",
                       style: subTitleTextStyle,
                     ),
-                    TextButton(
-                        onPressed: () {}, child: const Text("See Availability"))
-                  ],
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.access_time_rounded,
-                      color: primaryColor500,
+                    const Gap(4.0),
+                    DisplayDetailTrails(
+                      trailId: field.id,
+                      duration: field.duration,
+                      tools: field.tools,
                     ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
+                    const Gap(10.0),
                     Text(
-                      "${field.duration}",
-                      style: descTextStyle,
+                      AppMessages.inviteFriend,
+                      style: subTitleTextStyle,
+                    ),
+                    const Gap(4.0),
+                    InviteFriendCmp(
+                      value: (data) => model.pushInEmailFirends(
+                        value: data,
+                      ),
+                    ),
+                    const Gap(10.0),
+                    Visibility(
+                      visible: model.emailFriends.isNotEmpty,
+                      child: SizedBox(
+                        height: 40.0,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: model.emailFriends.length,
+                          itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.only(right: 4.0),
+                            child: EmailInviteCard(
+                              email: model.emailFriends[index],
+                              action: () {
+                                model.removeInEmailFriends(
+                                  value: model.emailFriends[index],
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Gap(10.0),
+                    Text(
+                      AppMessages.schedule,
+                      style: subTitleTextStyle,
+                    ),
+                    PlanComponent(
+                      dateCtrl: model.dateCtrl,
+                      timeCtrl: model.timeCtrl,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            model.dateCtrl.text = "";
+                            model.timeCtrl.text = "";
+                          },
+                          child: Text(
+                            AppMessages.reset,
+                            style: GreenSubTitleTextStyle,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 32,
-                ),
-                Text(
-                  "Tools:",
-                  style: subTitleTextStyle,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                //FacilityCardList(facilities: field.tools),
-              ]),
-            ),
-          )
-        ],
-      ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-          BoxShadow(
-            color: lightBlue300,
-            offset: Offset(0, 0),
-            blurRadius: 10,
-          ),
-        ]),
-        child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                minimumSize: const Size(100, 45),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(borderRadiusSize))),
-            onPressed: () {
-              print("CHECKOUT");
-              /*Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return CheckoutScreen(
-                  field: field,
-                );
-              }));*/
-            },
-            child: const Text("Réserver maintenant")),
-      ),
-    );
-  }
-
-  Widget customSliverAppBar(context, field) {
-    return SliverAppBar(
-      shadowColor: primaryColor500.withOpacity(.2),
-      backgroundColor: colorWhite,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.black.withOpacity(0.4),
-        statusBarIconBrightness: Brightness.light,
-      ),
-      pinned: true,
-      flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
-        expandedTitleScale: 1,
-        titlePadding: EdgeInsets.zero,
-        title: Container(
-          width: MediaQuery.of(context).size.width,
-          height: kToolbarHeight,
+              ),
+            )
+          ],
+        ),
+        bottomNavigationBar: Container(
+          padding: const EdgeInsets.all(16),
           decoration: const BoxDecoration(
-              color: colorWhite,
-              borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(borderRadiusSize))),
-          child: Center(
-            child: Text(
-              field.name,
-              style: titleTextStyle,
-              overflow: TextOverflow.ellipsis,
-            ),
+            color: BlackPrimary,
+            boxShadow: [
+              BoxShadow(
+                color: GreenPrimary,
+                offset: Offset(0, 0),
+                blurRadius: 10,
+              ),
+            ],
           ),
-        ),
-        background: CachedNetworkImage(
-          imageUrl: field.pictures[0],
-          fit: BoxFit.cover,
-          errorWidget: (context, url, error) => const Icon(
-            Icons.warning,
-            color: Colors.red,
-          ),
-        ),
-        collapseMode: CollapseMode.parallax,
-      ),
-      leading: const BackIcon(),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
           child: Container(
-            decoration: const BoxDecoration(
-              color: colorWhite,
-              shape: BoxShape.circle,
+            decoration: BoxDecoration(
+              gradient: loginButtonColor,
+              borderRadius: BorderRadius.circular(borderRadiusSize),
             ),
-            child: PopupMenuButton(
-              tooltip: "Image's Author Url",
-              padding: EdgeInsets.zero,
-              icon: const Icon(CupertinoIcons.info, color: darkBlue500),
-              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                PopupMenuItem(
-                    enabled: false,
-                    child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                            color: lightBlue100,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Text(
-                          "",
-                          style: subTitleTextStyle,
-                        ))),
-                PopupMenuItem(
-                    //onTap: () => launch(field.authorUrl),
-                    child: ListTile(
-                  horizontalTitleGap: 0,
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.account_circle_outlined),
-                  title: Text(
-                    "",
-                    style: normalTextStyle,
-                  ),
-                )),
-                PopupMenuItem(
-                    //onTap: () => launch(field.imageUrl),
-                    child: ListTile(
-                  horizontalTitleGap: 0,
-                  contentPadding: EdgeInsets.zero,
-                  //leading: const Icon(Icons.image_outlined),
-                  title: Text(
-                    "",
-                    style: normalTextStyle,
-                  ),
-                )),
-              ],
+            constraints: const BoxConstraints(
+              minWidth: 100,
+              minHeight: 45,
+            ),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadiusSize),
+                ),
+              ),
+              onPressed: model.getState == ViewState.busy
+                  ? null
+                  : () {
+                      model.createAHike(
+                        appState: appState,
+                        trailField: field,
+                        timeStamps: model.dateCtrl.text.isNotEmpty &&
+                                model.timeCtrl.text.isNotEmpty
+                            ? model.timeStampOrNull()
+                            : null,
+                        guests: model.emailFriends,
+                      );
+                    },
+              child: model.getState == ViewState.busy
+                  ? const CircularProgressIndicator()
+                  : Text(
+                      AppMessages.startNow,
+                      style: subTitleTextStyle,
+                    ),
             ),
           ),
-        )
-      ],
-      expandedHeight: 300,
+        ),
+      ),
     );
   }
 }

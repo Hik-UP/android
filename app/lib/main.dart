@@ -8,6 +8,8 @@ import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
+import 'package:hikup/screen/main/community/community_history_screen.dart';
+import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/screen/main/main_screen.dart';
 import 'package:hikup/screen/main/setting/complete_profile.dart';
@@ -20,7 +22,6 @@ import 'package:hikup/theme.dart';
 import 'firebase_options.dart';
 import 'screen/main/setting/update_profile.dart';
 import 'screen/main/setting/settings_screen.dart';
-import 'screen/main/podometer/podometer_page.dart';
 import 'screen/main/community/comments/home.dart';
 
 
@@ -32,10 +33,12 @@ Future<void> main() async {
   Hive.registerAdapter(OtherDataAdapter());
   Hive.registerAdapter(SkinAdapter());
   Hive.registerAdapter(SensibleUserDataAdapter());
+
   await Hive.openBox<User>("userBox");
   await Hive.openBox<OtherData>("otherData");
   await Hive.openBox<Skin>("skinBox");
   await Hive.openBox<SensibleUserData>("sensibleUserDataBox");
+  await Hive.openBox<String>("trailId");
   await LocalNotification().init();
 
   setupLocator();
@@ -74,9 +77,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: locator<CustomNavigationService>().navigatorKey,
       theme: ThemeData(
-        primarySwatch: createMaterialColor(primaryColor500),
-        canvasColor: colorWhite,
-        scaffoldBackgroundColor: backgroundColor,
+        primarySwatch: createMaterialColor(Colors.white),
+        scaffoldBackgroundColor: BlackSecondary,
       ),
       initialRoute: getTheRightInitialRoute(context: context),
       routes: {
@@ -88,8 +90,9 @@ class MyApp extends StatelessWidget {
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
-        PedometerPage.routeName: (_) =>  PedometerPage(),
-        CommunityPage.routeName: (_) =>  CommunityPage()
+        CommunityPage.routeName: (_) =>  CommunityPage(),
+        HikesCreate.routeName: (_) => const HikesCreate(),
+        CommunityHistoryScreen.routeName: (_) => const CommunityHistoryScreen(),
       },
     );
   }

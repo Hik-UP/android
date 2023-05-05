@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hikup/screen/main/community/pages/Journals/all_checklists.dart';
 import 'package:hikup/screen/main/community/shared_preferences.dart';
+import '../../../../../model/trail_fields.dart';
+import '../../../../../utils/app_messages.dart';
+import '../../../../../widget/trail_card.dart';
 import '../../utils/enums.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../Notifications/ftoast_style.dart';
 import 'add_event.dart';
 import 'edit_page.dart';
@@ -25,6 +29,10 @@ class _HomePageState extends State<ComePage> {
   late String? name = "";
   late FToast fToast;
   String emoticon = "129489";
+  
+  var appState;
+  
+  get model => null;
 
   @override
   void initState() {
@@ -145,250 +153,251 @@ class _HomePageState extends State<ComePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 206, 218, 207),
-      appBar: AppBar(
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      // ),
       body: ListView(children: [
-        SizedBox(
-            height: MediaQuery.of(context).size.height * 0.45,
-            child: SingleChildScrollView(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {});
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          left: 20, top: 3, bottom: 10, right: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Toutes les demandes",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 52, 63, 71)),
-                          ),
-                          Row(
-                            children: const [
-                              Text(
-                                "Refresh",
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 86, 127, 160)),
-                              ),
-                              Icon(Icons.refresh,
-                                  size: 17,
-                                  color: Color.fromARGB(255, 86, 127, 160))
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  FutureBuilder(
-                      future: setJournals(),
-                      builder: (context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasError) {
-                          return const Center(
-                              child: Text('No notes to display'));
-                        } else if (!snapshot.hasData) {
-                          return const Center(
-                              child: Text("No notes to display"));
-                        } else {
-                          return Container(
-                              margin: const EdgeInsets.only(left: 8, right: 8),
-                              // decoration: BoxDecoration(
-                              //   borderRadius: BorderRadius.circular(15),
-                              //   color: Color.fromARGB(255, 189, 220, 179)
-                              // ),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ListView.builder(
-                                        padding: const EdgeInsets.only(top: 10),
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: snapshot.data.length,
-                                        itemBuilder: (context, index) {
-                                          //setProfileIcons(snapshot.data[index]);
-                                          return Container(
-                                              margin: const EdgeInsets.only(
-                                                  bottom: 15,
-                                                  left: 10,
-                                                  right: 10),
-                                              height: 79,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                    EditPage(
-                                                                      title: snapshot
-                                                                              .data[index]
-                                                                          [
-                                                                          "title"],
-                                                                      body: snapshot
-                                                                              .data[index]
-                                                                          [
-                                                                          "body"],
-                                                                      tag: snapshot
-                                                                              .data[index]
-                                                                          [
-                                                                          "tags"],
-                                                                      index:
-                                                                          index,
-                                                                    )));
-                                                  },
-                                                  child: Card(
-                                                    elevation: 1,
-                                                    margin: EdgeInsets.zero,
-                                                    color: Colors.grey[100],
-                                                    child: ListTile(
-                                                      contentPadding:
-                                                          const EdgeInsets.only(
-                                                              left: 8,
-                                                              bottom: 4,
-                                                              top: 2,
-                                                              right: 4),
-                                                      title: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    bottom: 6.0,
-                                                                    top: 2.0),
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5.0),
-                                                              child: Container(
-                                                                height: 60.0,
-                                                                width: 60.0,
-                                                                color: Colors
-                                                                    .grey[300],
-                                                                //child: profileIcon,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                              width: 10),
-                                                          Expanded(
-                                                            child: Text(
-                                                              snapshot.data[
-                                                                      index]
-                                                                  ["title"],
-                                                              maxLines: 1,
-                                                              style: const TextStyle(
-                                                                  fontSize:
-                                                                      17.0,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                          ),
-                                                          Row(children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right:
-                                                                          8.0,
-                                                                      left: 5),
-                                                              child:
-                                                                  GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        Navigator
-                                                                            .push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                              builder: (context) => EditPage(
-                                                                                    title: snapshot.data[index]["title"],
-                                                                                    body: snapshot.data[index]["body"],
-                                                                                    tag: snapshot.data[index]["tags"],
-                                                                                    index: index,
-                                                                                  )),
-                                                                        );
-                                                                      },
-                                                                      child:
-                                                                          const Icon(
-                                                                        Icons
-                                                                            .edit,
-                                                                        color: Color.fromARGB(
-                                                                            137,
-                                                                            105,
-                                                                            105,
-                                                                            105),
-                                                                        size:
-                                                                            22,
-                                                                      )),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right:
-                                                                          5.0),
-                                                              child:
-                                                                  GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        removeNote(
-                                                                            index);
-                                                                      },
-                                                                      child:
-                                                                          const Icon(
-                                                                        Icons
-                                                                            .delete,
-                                                                        color: Color.fromARGB(
-                                                                            137,
-                                                                            105,
-                                                                            105,
-                                                                            105),
-                                                                        size:
-                                                                            22,
-                                                                      )),
-                                                            ),
-                                                          ])
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  )));
-                                        })
-                                  ]));
-                        }
-                      })
-                ]))),
+        // SizedBox(
+        //     height: MediaQuery.of(context).size.height * 0.45,
+        //     child: SingleChildScrollView(
+        //         child: Column(
+        //             mainAxisAlignment: MainAxisAlignment.start,
+        //             crossAxisAlignment: CrossAxisAlignment.start,
+        //             children: [
+        //           GestureDetector(
+        //             onTap: () {
+        //               setState(() {});
+        //             },
+        //             child: Container(
+        //               padding: const EdgeInsets.only(
+        //                   left: 20, top: 3, bottom: 10, right: 20),
+        //               child: Row(
+        //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //                 // children: [
+        //                 //   const Text(
+        //                 //     "Toutes les demandes",
+        //                 //     style: TextStyle(
+        //                 //         fontSize: 18,
+        //                 //         fontWeight: FontWeight.bold,
+        //                 //         color: Color.fromARGB(255, 52, 63, 71)),
+        //                 //   ),
+        //                 //   Row(
+        //                 //     children: const [
+        //                 //       Text(
+        //                 //         "Refresh",
+        //                 //         style: TextStyle(
+        //                 //             fontSize: 17,
+        //                 //             fontWeight: FontWeight.bold,
+        //                 //             color: Color.fromARGB(255, 86, 127, 160)),
+        //                 //       ),
+        //                 //       Icon(Icons.refresh,
+        //                 //           size: 17,
+        //                 //           color: Color.fromARGB(255, 86, 127, 160))
+        //                 //     ],
+        //                 //   )
+        //                 // ],
+        //               ),
+        //             ),
+        //           ),
+        //           FutureBuilder(
+        //               future: setJournals(),
+        //               builder: (context, AsyncSnapshot snapshot) {
+        //                 if (snapshot.hasError) {
+        //                   return const Center(
+        //                       child: Text('No notes to display'));
+        //                 } else if (!snapshot.hasData) {
+        //                   return const Center(
+        //                       child: Text(""));
+        //                 } else {
+        //                   return Container(
+        //                       margin: const EdgeInsets.only(left: 8, right: 8),
+        //                       // decoration: BoxDecoration(
+        //                       //   borderRadius: BorderRadius.circular(15),
+        //                       //   color: Color.fromARGB(255, 189, 220, 179)
+        //                       // ),
+        //                       child: Column(
+        //                           mainAxisAlignment: MainAxisAlignment.start,
+        //                           crossAxisAlignment: CrossAxisAlignment.start,
+        //                           children: [
+        //                             ListView.builder(
+        //                                 padding: const EdgeInsets.only(top: 10),
+        //                                 physics:
+        //                                     const NeverScrollableScrollPhysics(),
+        //                                 shrinkWrap: true,
+        //                                 itemCount: snapshot.data.length,
+        //                                 itemBuilder: (context, index) {
+        //                                   //setProfileIcons(snapshot.data[index]);
+        //                                   return Container(
+        //                                       margin: const EdgeInsets.only(
+        //                                           bottom: 15,
+        //                                           left: 10,
+        //                                           right: 10),
+        //                                       height: 79,
+        //                                       decoration: BoxDecoration(
+        //                                         borderRadius:
+        //                                             BorderRadius.circular(10),
+        //                                       ),
+        //                                       child: GestureDetector(
+        //                                           onTap: () {
+        //                                             Navigator.push(
+        //                                                 context,
+        //                                                 MaterialPageRoute(
+        //                                                     builder:
+        //                                                         (context) =>
+        //                                                             EditPage(
+        //                                                               title: snapshot
+        //                                                                       .data[index]
+        //                                                                   [
+        //                                                                   "title"],
+        //                                                               body: snapshot
+        //                                                                       .data[index]
+        //                                                                   [
+        //                                                                   "body"],
+        //                                                               tag: snapshot
+        //                                                                       .data[index]
+        //                                                                   [
+        //                                                                   "tags"],
+        //                                                               index:
+        //                                                                   index,
+        //                                                             )));
+        //                                           },
+        //                                           child: Card(
+        //                                             elevation: 1,
+        //                                             margin: EdgeInsets.zero,
+        //                                             color: Colors.grey[100],
+        //                                             child: ListTile(
+        //                                               contentPadding:
+        //                                                   const EdgeInsets.only(
+        //                                                       left: 8,
+        //                                                       bottom: 4,
+        //                                                       top: 2,
+        //                                                       right: 4),
+        //                                               title: Row(
+        //                                                 mainAxisAlignment:
+        //                                                     MainAxisAlignment
+        //                                                         .start,
+        //                                                 children: [
+        //                                                   Padding(
+        //                                                     padding:
+        //                                                         const EdgeInsets
+        //                                                                 .only(
+        //                                                             bottom: 6.0,
+        //                                                             top: 2.0),
+        //                                                     child: ClipRRect(
+        //                                                       borderRadius:
+        //                                                           BorderRadius
+        //                                                               .circular(
+        //                                                                   5.0),
+        //                                                       child: Container(
+        //                                                         height: 60.0,
+        //                                                         width: 60.0,
+        //                                                         color: Colors
+        //                                                             .grey[300],
+        //                                                         //child: profileIcon,
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                   const SizedBox(
+        //                                                       width: 10),
+        //                                                   Expanded(
+        //                                                     child: Text(
+        //                                                       snapshot.data[
+        //                                                               index]
+        //                                                           ["title"],
+        //                                                       maxLines: 1,
+        //                                                       style: const TextStyle(
+        //                                                           fontSize:
+        //                                                               17.0,
+        //                                                           color: Colors
+        //                                                               .black,
+        //                                                           fontWeight:
+        //                                                               FontWeight
+        //                                                                   .bold),
+        //                                                     ),
+        //                                                   ),
+        //                                                   Row(children: [
+        //                                                     Padding(
+        //                                                       padding:
+        //                                                           const EdgeInsets
+        //                                                                   .only(
+        //                                                               right:
+        //                                                                   8.0,
+        //                                                               left: 5),
+        //                                                       child:
+        //                                                           GestureDetector(
+        //                                                               onTap:
+        //                                                                   () {
+        //                                                                 Navigator
+        //                                                                     .push(
+        //                                                                   context,
+        //                                                                   MaterialPageRoute(
+        //                                                                       builder: (context) => EditPage(
+        //                                                                             title: snapshot.data[index]["title"],
+        //                                                                             body: snapshot.data[index]["body"],
+        //                                                                             tag: snapshot.data[index]["tags"],
+        //                                                                             index: index,
+        //                                                                           )),
+        //                                                                 );
+        //                                                               },
+        //                                                               child:
+        //                                                                   const Icon(
+        //                                                                 Icons
+        //                                                                     .edit,
+        //                                                                 color: Color.fromARGB(
+        //                                                                     137,
+        //                                                                     105,
+        //                                                                     105,
+        //                                                                     105),
+        //                                                                 size:
+        //                                                                     22,
+        //                                                               )),
+        //                                                     ),
+        //                                                     Padding(
+        //                                                       padding:
+        //                                                           const EdgeInsets
+        //                                                                   .only(
+        //                                                               right:
+        //                                                                   5.0),
+        //                                                       child:
+        //                                                           GestureDetector(
+        //                                                               onTap:
+        //                                                                   () {
+        //                                                                 removeNote(
+        //                                                                     index);
+        //                                                               },
+        //                                                               child:
+        //                                                                   const Icon(
+        //                                                                 Icons
+        //                                                                     .delete,
+        //                                                                 color: Color.fromARGB(
+        //                                                                     137,
+        //                                                                     105,
+        //                                                                     105,
+        //                                                                     105),
+        //                                                                 size:
+        //                                                                     22,
+        //                                                               )),
+        //                                                     ),
+        //                                                   ])
+        //                                                 ],
+        //                                               ),
+        //                                             ),
+        //                                           )));
+        //                                 })
+        //                           ]));
+        //                 }
+        //               })
+        //         ]))),
         Column(children: [
+          
           Container(
               padding:
-                  const EdgeInsets.only(left: 20, top: 1, bottom: 1, right: 20),
+                  const EdgeInsets.only(left: 20, top: 1, bottom: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    "Liste des évenements",
+                    "List of events",
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -398,7 +407,7 @@ class _HomePageState extends State<ComePage> {
                     children: [
                       GestureDetector(
                         child: const Text(
-                          "Tous voir",
+                          "",
                           style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
@@ -439,7 +448,9 @@ class _HomePageState extends State<ComePage> {
                               TextFormField(
                                 controller: addChecklistController,
                                 decoration: InputDecoration(
-                                  labelText: 'Entrer votre événement',
+                                  labelText: 'Enter your event',
+                                  labelStyle: const TextStyle(color: Colors.black),
+                                  //hintStyle: TextStyle(color: Colors.black),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: const BorderSide(
@@ -465,7 +476,7 @@ class _HomePageState extends State<ComePage> {
                                     ),
                                   ),
                                   child: const Text(
-                                    'Créer',
+                                    'Create',
                                     style: TextStyle(fontSize: 17),
                                   ),
                                   onPressed: () {
@@ -480,15 +491,15 @@ class _HomePageState extends State<ComePage> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.grey[100],
+                    color: Colors.green,
                     borderRadius: BorderRadius.circular(10)),
                 margin: const EdgeInsets.fromLTRB(5, 8, 5, 10),
-                padding: const EdgeInsets.all(7),
+                padding: const EdgeInsets.all(14),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text(
-                      "Ajouter évenements",
+                      "Add event",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -596,12 +607,12 @@ class _HomePageState extends State<ComePage> {
           },
           label: Row(
             children: const [
-              Icon(Icons.add),
+              Icon(Icons.share),
               SizedBox(
                 width: 5,
               ),
               Text(
-                "Inviter une personne",
+                "Share this event",
                 style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               )
             ],

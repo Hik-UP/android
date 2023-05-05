@@ -19,6 +19,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
+
   @override
   void initState() {
     super.initState();
@@ -28,24 +29,32 @@ class _MainScreenState extends State<MainScreen> {
     LocalNotification.onMessageApp();
     LocalNotification.getInitialMessage();
   }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => await _onBackPressed(),
       child: Scaffold(
-        backgroundColor: backgroundColor,
-        body: screens[_currentIndex],
-        bottomNavigationBar: CustomBottomNavBar(
-          defaultSelectedIndex: _currentIndex,
-          selectedItemIcon: filledIconNavBar,
-          unselectedItemIcon: unFilledIconNavBar,
-          label: labelNavBar,
-          onChange: (val) {
-            setState(() {
-              _currentIndex = val;
-            });
-          },
+        backgroundColor: BlackPrimary,
+        body: Stack(
+          children: [
+            screens[_currentIndex],
+            Positioned(
+              left: 15,
+              right: 15,
+              bottom: 15,
+              child: CustomBottomNavBar(
+                  defaultSelectedIndex: _currentIndex,
+                  selectedItemIcon: filledIconNavBar,
+                  unselectedItemIcon: unFilledIconNavBar,
+                  label: labelNavBar,
+                  onChange: (val) {
+                    setState(() {
+                      _currentIndex = val;
+                    });
+                  },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -56,15 +65,15 @@ class _MainScreenState extends State<MainScreen> {
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Exit the App'),
-            content: const Text('Voulez vous quitter?'),
+            content: const Text('Do you want to exit the app?'),
             actions: <Widget>[
               // const SizedBox(height: 16),
               TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Non')),
+                  child: const Text('No')),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Oui'),
+                child: const Text('Yes'),
               ),
             ],
           ),

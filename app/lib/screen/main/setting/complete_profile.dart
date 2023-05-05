@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
@@ -14,6 +13,32 @@ import 'package:hikup/widget/custom_drop_down.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
+class HeadPlaceHolder extends StatelessWidget {
+  final String label;
+  final Widget child;
+  const HeadPlaceHolder({
+    Key? key,
+    required this.label,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          label,
+          style: subTitleTextStyle,
+        ),
+        const Gap(4.0),
+        child
+      ],
+    );
+  }
+}
+
 class CompleteProfile extends StatelessWidget {
   static String routeName = "/complete-profile";
   const CompleteProfile({Key? key}) : super(key: key);
@@ -24,9 +49,16 @@ class CompleteProfile extends StatelessWidget {
       model.initializeInputForm(appState: context.read<AppState>());
       return Scaffold(
         appBar: AppBar(
+          title: Text(
+          AppMessages.completeProfil,
+          style: titleTextStyleWhite,
+        ),
+          iconTheme: IconThemeData(
+            color: GreenPrimary, // Couleur de la flèche retour
+          ),
           toolbarHeight: kToolbarHeight,
-          elevation: 0,
-          backgroundColor: backgroundColor,
+          backgroundColor: BlackSecondary,
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
@@ -41,45 +73,54 @@ class CompleteProfile extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: CustomTextField(
-                        controller: model.ageCtrl,
-                        keyBoardType: TextInputType.number,
-                        hintText: "Age",
-                        validator: model.requiredField,
-                        inputsFormatter: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(2)
-                        ],
+                      child: HeadPlaceHolder(
+                        label: "Age",
+                        child: CustomTextField(
+                          controller: model.ageCtrl,
+                          keyBoardType: TextInputType.number,
+                          hintText: "Age",
+                          validator: model.requiredField,
+                          inputsFormatter: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(2)
+                          ],
+                        ),
                       ),
                     ),
                     const Gap(8.0),
                     Expanded(
-                      child: CustomTextField(
-                        controller: model.weightCtrl,
-                        keyBoardType: TextInputType.number,
-                        hintText: AppMessages.weight,
-                        validator: model.requiredField,
-                        inputsFormatter: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(3)
-                        ],
+                      child: HeadPlaceHolder(
+                        label: AppMessages.weightPlaceHolder,
+                        child: CustomTextField(
+                          controller: model.weightCtrl,
+                          keyBoardType: TextInputType.number,
+                          hintText: AppMessages.weight,
+                          validator: model.requiredField,
+                          inputsFormatter: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(3)
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
                 const Gap(20.0),
-                CustomDropDown(
-                  getSelectedGender: (String gender) {
-                    model.setGenderValue(value: gender);
-                    model.setDropDownIsActive(value: false);
-                  },
-                  inputController: model.genderCtrl,
-                  isVisible: model.dropDownIsActive,
-                  onTap: () {
-                    model.setDropDownIsActive(value: !model.dropDownIsActive);
-                  },
-                  hintText: AppMessages.selectSex,
-                  content: const ["M", "F"],
+                HeadPlaceHolder(
+                  label: AppMessages.gender,
+                  child: CustomDropDown(
+                    getSelectedGender: (String gender) {
+                      model.setGenderValue(value: gender);
+                      model.setDropDownIsActive(value: false);
+                    },
+                    inputController: model.genderCtrl,
+                    isVisible: model.dropDownIsActive,
+                    onTap: () {
+                      model.setDropDownIsActive(value: !model.dropDownIsActive);
+                    },
+                    hintText: AppMessages.selectSex,
+                    content: const ["H", "F"],
+                  ),
                 ),
                 Visibility(
                   visible: model.isGenderError,
@@ -92,7 +133,7 @@ class CompleteProfile extends StatelessWidget {
                         child: Text(
                           AppMessages.selectSex,
                           style: const TextStyle(
-                            color: Colors.red,
+                            color: Color.fromARGB(255, 255, 0, 0),
                             fontSize: 12.0,
                           ),
                         ),
@@ -101,20 +142,23 @@ class CompleteProfile extends StatelessWidget {
                   ),
                 ),
                 const Gap(20.0),
-                CustomTextField(
-                  controller: model.tallCtrl,
-                  keyBoardType: TextInputType.number,
-                  hintText: AppMessages.addHeight,
-                  validator: model.requiredField,
-                  inputsFormatter: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(3)
-                  ],
+                HeadPlaceHolder(
+                  label: AppMessages.height,
+                  child: CustomTextField(
+                    controller: model.tallCtrl,
+                    keyBoardType: TextInputType.number,
+                    hintText: AppMessages.addHeight,
+                    validator: model.requiredField,
+                    inputsFormatter: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(3)
+                    ],
+                  ),
                 ),
-                const Gap(60.0),
+                const Gap(20.0),
                 CustomBtn(
                   gradient: loginButtonColor,
-                  content: AppMessages.add,
+                  content: AppMessages.save,
                   isLoading: model.getState == ViewState.busy,
                   onPress: () {
                     model.genderNotNull();

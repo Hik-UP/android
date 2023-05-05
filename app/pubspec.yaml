@@ -36,7 +36,7 @@ dependencies:
   animated_text_kit: ^4.2.1
   google_fonts: ^4.0.3
   intl: ^0.18.0
-  url_launcher: ^6.0.20
+  url_launcher: ^6.1.10
   shared_preferences: ^2.0.12
   flutter_map: ^3.1.0
   geolocator: ^9.0.2
@@ -63,8 +63,8 @@ dependencies:
   rename: ^2.1.1
   carousel_slider: ^4.2.1
   permission_handler: ^10.2.0
-  pedometer: ^3.0.0
-
+  flutter_svg:
+  sliding_up_panel: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:

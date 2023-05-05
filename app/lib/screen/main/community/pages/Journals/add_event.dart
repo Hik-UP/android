@@ -148,7 +148,8 @@ class _AddPageState extends State<AddPage> {
                   TextFormField(
                     controller: addCategoryController,
                     decoration: InputDecoration(
-                      labelText: 'Entrer le nom de la personne',
+                      labelText: 'Enter the name of the personn',
+                      labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                         borderSide: const BorderSide(
@@ -172,7 +173,7 @@ class _AddPageState extends State<AddPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20))),
                       child: const Text(
-                        'Rechercher',
+                        'Research',
                         style: TextStyle(fontSize: 17),
                       ),
                       onPressed: () {
@@ -192,8 +193,8 @@ class _AddPageState extends State<AddPage> {
         backgroundColor: const Color.fromARGB(255, 213, 240, 209),
         appBar: AppBar(
             title: const Text(
-              "Inviter une personne",
-              style: TextStyle(color: Colors.black38),
+              "Event sharing",
+              style: TextStyle(color: Colors.green),
             ),
             backgroundColor: Colors.white),
         floatingActionButton: isLoading
@@ -214,7 +215,7 @@ class _AddPageState extends State<AddPage> {
                 label: Row(children: const [
                   Icon(Icons.add),
                   SizedBox(width: 5),
-                  Text("Envoyer")
+                  Text("Send")
                 ]),
               ),
         body: Container(
@@ -225,21 +226,21 @@ class _AddPageState extends State<AddPage> {
                   padding: const EdgeInsets.only(top: 10),
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(2, 10, 3, 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: const Color.fromARGB(255, 220, 215, 179)),
+                      // decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(5.0),
+                      //     color: const Color.fromARGB(255, 220, 215, 179)),
                       child: Row(children: [
                         Padding(
                           padding: const EdgeInsets.only(
                               bottom: 2.0, top: 2.0, left: 5.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
-                            child: Container(
-                              height: 60.0,
-                              width: 60.0,
-                              color: Colors.white,
-                              child: profileIcon,
-                            ),
+                            // child: Container(
+                            //   height: 60.0,
+                            //   width: 60.0,
+                            //   color: Colors.white,
+                            //   //hild: profileIcon,
+                            // ),
                           ),
                         ),
                         Column(
@@ -307,7 +308,7 @@ class _AddPageState extends State<AddPage> {
                   controller: titleController,
                   decoration: const InputDecoration(
                       border: InputBorder.none,
-                      hintText: "Entrer le sentier souhaité"),
+                      hintText: "Enter the event"),
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -318,7 +319,7 @@ class _AddPageState extends State<AddPage> {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: const InputDecoration(
-                    hintText: "Ajouter un commentaire",
+                    hintText: "Add a comment",
                     border: InputBorder.none),
               )),
             ],

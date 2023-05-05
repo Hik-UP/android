@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:hikup/theme.dart';
+import 'package:hikup/utils/constant.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   final int defaultSelectedIndex;
@@ -41,14 +41,14 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   Widget build(BuildContext context) {
     List<Widget> navBarItems = [];
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < screens.length; i++) {
       navBarItems.add(bottomNavBarItem(
           _selectedItemIcon[i], _unselectedItemIcon[i], _label[i], i));
     }
     return Container(
-      decoration: const BoxDecoration(
-          color: colorWhite,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(18))),
+      decoration: BoxDecoration(
+          color: BlackPrimary,
+          borderRadius: BorderRadius.circular(15)),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -68,25 +68,21 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       child: Container(
         height: kBottomNavigationBarHeight,
         width: MediaQuery.of(context).size.width / _selectedItemIcon.length,
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius:
-                BorderRadius.vertical(top: Radius.circular(borderRadiusSize))),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(6.0),
           child: _selectedIndex == index
               ? Container(
-                  decoration: BoxDecoration(
-                      color: primaryColor100,
-                      borderRadius: BorderRadius.circular(borderRadiusSize)),
+/*                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 43, 43, 43),
+                      borderRadius: BorderRadius.circular(10)),*/
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Image.asset(
                         activeIcon,
-                        width: 22,
-                        height: 22,
-                        color: primaryColor500,
+                        width: 25,
+                        height: 25,
+                        color: GreenPrimary,
                       ),
                       Text(
                         label,
@@ -100,9 +96,9 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                   children: [
                     Image.asset(
                       inactiveIcon,
-                      width: 22,
-                      height: 22,
-                      color: primaryColor300,
+                      width: 25,
+                      height: 25,
+                      color: BlackTertiary,
                     ),
                   ],
                 ),

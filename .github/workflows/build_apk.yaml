@@ -1,0 +1,24 @@
+on:
+  push:
+    branches:
+      - master
+      - dev
+  workflow_dispatch:
+
+name: ci
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install app
+        shell: bash
+        run: ./app.sh docker install
+
+      - name: build app
+        shell: bash
+        run: ./app.sh docker build

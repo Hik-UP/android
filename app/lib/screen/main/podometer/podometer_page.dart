@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:hikup/widget/header.dart';
-import 'package:pedometer/pedometer.dart';
+import 'package:hikup/utils/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PedometerPage extends StatefulWidget {

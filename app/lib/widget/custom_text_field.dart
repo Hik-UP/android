@@ -1,8 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hikup/utils/constant.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String hintText;
   final String? Function(String?)? validator;
@@ -11,6 +12,10 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyBoardType;
   final bool readOnly;
   final Widget? suffixIcon;
+  final TypeOfInput typeOfInput;
+  final Widget? prefixIcon;
+  final Function()? onTap;
+  final Function(String)? onChange;
   const CustomTextField({
     Key? key,
     this.hintText = "",
@@ -21,21 +26,34 @@ class CustomTextField extends StatelessWidget {
     this.keyBoardType,
     this.readOnly = false,
     this.suffixIcon,
+    this.typeOfInput = TypeOfInput.text,
+    this.prefixIcon,
+    this.onTap,
+    this.onChange,
   }) : super(key: key);
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool obsureText = true;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly: readOnly,
-      keyboardType: keyBoardType,
-      inputFormatters: inputsFormatter,
-      controller: controller,
-      validator: validator,
+      onChanged: widget.onChange,
+      onTap: widget.onTap,
+      readOnly: widget.readOnly,
+      keyboardType: widget.keyBoardType,
+      inputFormatters: widget.inputsFormatter,
+      controller: widget.controller,
+      validator: widget.validator,
       cursorColor: const Color.fromARGB(255, 0, 189, 41),
-      obscureText: typeInput == TypeInput.password,
+      obscureText: widget.typeOfInput == TypeOfInput.text ? false : obsureText,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(10),
-        hintText: hintText,
+        hintText: widget.hintText,
         hintStyle: TextStyle(
           color: Colors.grey[400],
         ),
@@ -44,7 +62,17 @@ class CustomTextField extends StatelessWidget {
         ),
         fillColor: Colors.white,
         filled: true,
-        suffixIcon: suffixIcon,
+        prefixIcon: widget.prefixIcon,
+        suffixIcon: widget.typeOfInput == TypeOfInput.text
+            ? widget.suffixIcon
+            : InkWell(
+                onTap: () => setState(() {
+                  obsureText = !obsureText;
+                }),
+                child: Icon(
+                  obsureText ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
+                ),
+              ),
       ),
     );
   }

@@ -38,13 +38,13 @@ class User {
     required Map<String, dynamic> data,
   }) {
     return User(
-      id: data["id"],
-      name: data["name"] ?? "",
+      id: data["id"] ?? "",
+      name: data["username"] ?? "",
       email: data["email"] ?? "",
-      token: data["token"],
-      roles: data["roles"],
+      token: data["token"] ?? "",
+      roles: data["roles"] ?? [],
       accountType: "",
-      imageProfile: "",
+      imageProfile: data["picture"] ?? "",
     );
   }
 

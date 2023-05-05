@@ -26,7 +26,7 @@ class _UplaodPictureState extends State<UplaodPicture> {
         ListTile(
             leading: const Icon(Icons.camera),
             title: Text(
-              'Prendre une image depuis votre appareil photo',
+              'Prendre une image depuis votre caméra',
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold,
                 fontSize: 13.0,
@@ -42,7 +42,7 @@ class _UplaodPictureState extends State<UplaodPicture> {
         ListTile(
           leading: const Icon(FontAwesomeIcons.folder),
           title: Text(
-            'Sélectionnez une photo dans votre galerie',
+            'Selectionner une image depuis votre galerie',
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.bold,
               fontSize: 13.0,

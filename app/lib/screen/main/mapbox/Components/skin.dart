@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:hikup/model/skin.dart';
 
 import 'package:hikup/providers/app_state.dart';
 import 'package:provider/provider.dart';
+import 'retail.dart';
 
 class PlayerSkin extends StatefulWidget {
   const PlayerSkin({Key? key}) : super(key: key);
@@ -13,26 +15,46 @@ class PlayerSkin extends StatefulWidget {
 }
 
 class _PlayerSkinState extends State<PlayerSkin> {
+  Future<Skin>? _skinFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _skinFuture = retailSkin(context.read<AppState>());
+  }
+
   @override
   Widget build(BuildContext context) {
-    AppState appState = context.read<AppState>();
+    return FutureBuilder<Skin>(
+      future: _skinFuture,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final appState = context.read<AppState>();
+          appState.skin = snapshot.data!;
 
-    return CurrentLocationLayer(
-      followOnLocationUpdate: FollowOnLocationUpdate.always,
-      turnOnHeadingUpdate: TurnOnHeadingUpdate.always,
-      style: LocationMarkerStyle(
-        marker: appState.skin.pictures.isNotEmpty
-            ? CachedNetworkImage(
-                imageUrl: appState.skin.model,
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.warning,
-                  color: Colors.red,
-                ),
-              )
-            : const DefaultLocationMarker(),
-        markerSize: const Size(40, 40),
-        markerDirection: MarkerDirection.heading,
-      ),
+          return CurrentLocationLayer(
+            followOnLocationUpdate: FollowOnLocationUpdate.once,
+            turnOnHeadingUpdate: TurnOnHeadingUpdate.always,
+            style: LocationMarkerStyle(
+              marker: appState.skin.pictures.isNotEmpty
+                  ? CachedNetworkImage(
+                      imageUrl: appState.skin.model,
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.warning,
+                        color: Colors.red,
+                      ),
+                    )
+                  : const DefaultLocationMarker(),
+              markerSize: const Size(40, 40),
+              markerDirection: MarkerDirection.heading,
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error fetching skin data');
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 }
