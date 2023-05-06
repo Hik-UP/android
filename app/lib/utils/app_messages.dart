@@ -11,7 +11,7 @@ class AppMessages {
   static String registerButtonText = "Créer un compte";
   static String usernameHintText = "Username";
   static String loginError = "Email ou mot de passe incorrect";
-  static String anErrorOcur = "An error occur please, try again";
+  static String anErrorOcur = "Une erreur s'est prduite, réessayer";
   static String usernameinvalid = "Le prénom est incorrecte";
   static String updateProfil = "Mettre à jour le profile";
   static String updateTxt = "Mettre à jour";
@@ -19,7 +19,7 @@ class AppMessages {
   static String logout = "Se déconnecter";
   static String needAPicture = "Please, select an image";
   static String tokenExpiredMessage = "Votre token est expiré";
-  static String succesfulLogout = "Logout";
+  static String succesfulLogout = "Déconnexion";
   static String inexistantUser = "Oops, Cette utilisateur n'existe pas.";
   static String infoMessage = "Info";
   static String addExtraData = "Completer votre profile";
@@ -41,13 +41,13 @@ class AppMessages {
   static String success = "Success";
   static String unAvailableRecommendHike =
       "We are sorry, no hike to recommend at this time. Try later";
-  static String inviteFriend = "Invite friends";
+  static String inviteFriend = "Inviter un ami";
   static String hintEmailFriend = "Entrer l'email de votre ami.";
   static String invitMsg = "Inviter";
   static String calorieToBurn = "calories à bruler";
   static String schedule = "Calendrier";
-  static String canPlanTheHike = "You can schedule your hiking";
-  static String reset = "reset";
+  static String canPlanTheHike = "Vous pouvez programmer votre randonnée.";
+  static String reset = "reinitialiser";
   static String startNow = "Commencer maintenant";
   static String schelduleNow = "Schedule now";
   static String finish = "Finish";

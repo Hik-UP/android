@@ -17,10 +17,6 @@ class CustomSliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: BlackSecondary,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: BlackPrimary,
-        statusBarIconBrightness: Brightness.light,
-      ),
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
@@ -52,66 +48,7 @@ class CustomSliverAppBar extends StatelessWidget {
         collapseMode: CollapseMode.parallax,
       ),
       leading: const BackIcon(),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: BlackSecondary,
-              shape: BoxShape.circle,
-            ),
-            child: PopupMenuButton(
-              tooltip: "Image's Author Url",
-              padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-              ),
-              color: BlackSecondary,
-              icon: const Icon(
-                CupertinoIcons.info,
-                color: GreenPrimary,
-              ),
-              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                PopupMenuItem(
-                  enabled: false,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                        color: HOPABLUE,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Text(
-                      "TEST",
-                      style: HOPASTYLE,
-                    ),
-                  ),
-                ),
-                PopupMenuItem(
-                    //onTap: () => launch(field.authorUrl),
-                    child: ListTile(
-                  horizontalTitleGap: 0,
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.account_circle_outlined),
-                  title: Text(
-                    "TEST",
-                    style: HOPASTYLE,
-                  ),
-                )),
-                PopupMenuItem(
-                    //onTap: () => launch(field.imageUrl),
-                    child: ListTile(
-                  horizontalTitleGap: 0,
-                  contentPadding: EdgeInsets.zero,
-                  //leading: const Icon(Icons.image_outlined),
-                  title: Text(
-                    "TEST",
-                    style: HOPASTYLE,
-                  ),
-                )),
-              ],
-            ),
-          ),
-        )
-      ],
+      actions: [],
       expandedHeight: 300,
     );
   }

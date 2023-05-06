@@ -130,7 +130,7 @@ class DetailScreen extends StatelessWidget {
             color: BlackPrimary,
             boxShadow: [
               BoxShadow(
-                color: GreenPrimary,
+                //color: GreenPrimary,
                 offset: Offset(0, 0),
                 blurRadius: 10,
               ),
