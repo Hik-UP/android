@@ -69,7 +69,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
         height: kBottomNavigationBarHeight,
         width: MediaQuery.of(context).size.width / _selectedItemIcon.length,
         child: Padding(
-          padding: const EdgeInsets.all(6.0),
+          padding: const EdgeInsets.all(4.0),
           child: _selectedIndex == index
               ? Container(
 /*                  decoration: BoxDecoration(

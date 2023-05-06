@@ -8,9 +8,9 @@ class AppMessages {
   static String usernameRequired = "Le prénom est obligatoire";
   static String atLeastHeightChar =
       "Le mot requis au moins 8 characters.";
-  static String registerButtonText = "Register";
+  static String registerButtonText = "Créer un compte";
   static String usernameHintText = "Username";
-  static String loginError = "Incorrect email or password";
+  static String loginError = "Email ou mot de passe incorrect";
   static String anErrorOcur = "An error occur please, try again";
   static String usernameinvalid = "Le prénom est incorrecte";
   static String updateProfil = "Mettre à jour le profile";
@@ -18,7 +18,7 @@ class AppMessages {
   static String deleteaccount = "Delete account";
   static String logout = "Se déconnecter";
   static String needAPicture = "Please, select an image";
-  static String tokenExpiredMessage = "Your sessions has expired";
+  static String tokenExpiredMessage = "Votre token est expiré";
   static String succesfulLogout = "Logout";
   static String inexistantUser = "Oops, Cette utilisateur n'existe pas.";
   static String infoMessage = "Info";
@@ -26,10 +26,10 @@ class AppMessages {
   static String aboutApp = "À propos Hik'UP";
   static String settingTxt = "Réglages";
   static String modifprofilTxt = "Modifier profile";
-  static String askIfUserWantToLogout = "Do you want to logout ?";
+  static String askIfUserWantToLogout = "Souhaitez-vous vous déconnectez ?";
   static String askUserWantToDelete = "Do you want to delete your account ?";
   static String cancel = "Annuler";
-  static String logOut = "Logout";
+  static String logOut = "Confirmer";
   static String delete = "Delete";
   static String newestVersion = "Newest Version";
   static String account = "Compte";
@@ -67,7 +67,7 @@ class AppMessages {
   static String gender = "Genre";
   static String height = "Taille";
   static String nothingChange = "Nothing to update";
-  static String completeProfil = "Complete Profil";
+  static String completeProfil = "Completer Profile";
   static String save = "Sauvegarder";
   static String myHike = "Mes randonnées";
   static String notificationText = "Notifications";

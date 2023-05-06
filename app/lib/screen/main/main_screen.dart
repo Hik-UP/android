@@ -64,16 +64,16 @@ class _MainScreenState extends State<MainScreen> {
     return await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Exit the App'),
-            content: const Text('Do you want to exit the app?'),
+            title: const Text('Quitter'),
+            content: const Text('Souhaitez-vous quitter ?'),
             actions: <Widget>[
               // const SizedBox(height: 16),
               TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('No')),
+                  child: const Text('Non')),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Yes'),
+                child: const Text('Oui'),
               ),
             ],
           ),
