@@ -62,6 +62,16 @@ class DetailScreen extends StatelessWidget {
                     ),
                     const Gap(10.0),
                     Text(
+                      "Description",
+                      style: subTitleTextStyle,
+                    ),
+                    const Gap(4.0),
+                    Text(
+                      field.description.toString(),
+                      style: WhiteAddressTextStyle,
+                    ),
+                    const Gap(10.0),
+                    Text(
                       AppMessages.inviteFriend,
                       style: subTitleTextStyle,
                     ),
