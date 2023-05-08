@@ -51,6 +51,16 @@ class DetailScreen extends StatelessWidget {
                     ),
                     const Gap(10.0),
                     Text(
+                      "Description",
+                      style: subTitleTextStyle,
+                    ),
+                    const Gap(4.0),
+                    Text(
+                      field.description.toString(),
+                      style: WhiteAddressTextStyle,
+                    ),
+                    const Gap(10.0),
+                    Text(
                       "Details",
                       style: subTitleTextStyle,
                     ),
@@ -59,16 +69,6 @@ class DetailScreen extends StatelessWidget {
                       trailId: field.id,
                       duration: field.duration,
                       tools: field.tools,
-                    ),
-                    const Gap(10.0),
-                    Text(
-                      "Description",
-                      style: subTitleTextStyle,
-                    ),
-                    const Gap(4.0),
-                    Text(
-                      field.description.toString(),
-                      style: WhiteAddressTextStyle,
                     ),
                     const Gap(10.0),
                     Text(
