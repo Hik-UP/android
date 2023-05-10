@@ -3,6 +3,7 @@ import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/service/firebase_storage.dart';
 import 'package:hikup/service/hive_service.dart';
+import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/viewmodel/complete_profile_viewmodel.dart';
 import 'package:hikup/viewmodel/detail_hike_invite.dart';
 import 'package:hikup/viewmodel/detail_screen_viewmodel.dart';
@@ -37,4 +38,5 @@ void setupLocator() {
   locator.registerFactory(() => HikeCreateViewModel());
   locator.registerFactory(() => HikeCardViewModel());
   locator.registerFactory(() => DetailHikeInviteViewModel());
+  locator.registerFactory(() => CommunityPageViewModel());
 }

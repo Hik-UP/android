@@ -24,7 +24,6 @@ import 'screen/main/setting/update_profile.dart';
 import 'screen/main/setting/settings_screen.dart';
 import 'screen/main/community/comments/home.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -90,7 +89,7 @@ class MyApp extends StatelessWidget {
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
-        CommunityPage.routeName: (_) =>  CommunityPage(),
+        CommunityView.routeName: (_) => const CommunityView(),
         HikesCreate.routeName: (_) => const HikesCreate(),
         CommunityHistoryScreen.routeName: (_) => const CommunityHistoryScreen(),
       },

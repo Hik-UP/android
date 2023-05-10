@@ -78,4 +78,5 @@ class AppMessages {
   static String noGuest = "No pending invitations";
   static String noAttended = "No attended for this hike";
   static String quit = "Leave";
+  
 }
