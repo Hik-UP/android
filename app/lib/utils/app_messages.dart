@@ -42,7 +42,7 @@ class AppMessages {
   static String unAvailableRecommendHike =
       "We are sorry, no hike to recommend at this time. Try later";
   static String inviteFriend = "Inviter un ami";
-  static String hintEmailFriend = "Entrer l'email de votre ami.";
+  static String hintEmailFriend = "Adresse email.";
   static String invitMsg = "Inviter";
   static String calorieToBurn = "calories à bruler";
   static String schedule = "Calendrier";

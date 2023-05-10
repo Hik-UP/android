@@ -29,6 +29,7 @@ class MapBoxScreen extends StatefulWidget {
 class _MapBoxScreenState extends State<MapBoxScreen> {
   PanelController _pc = new PanelController();
 
+  //_pc.hide();
   @override
   void initState() {
     super.initState();
@@ -112,7 +113,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                         ),
                       ),
                     ),
-                    const Gap(40.0),
+                    const Gap(90.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
