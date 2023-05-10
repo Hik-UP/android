@@ -90,7 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ],
               ),
-              const Gap(70.0),
+              const Gap(80.0),
             ],
           ),
         ),

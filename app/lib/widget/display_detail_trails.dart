@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'dart:math' as math;
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:hikup/model/detail_trail_model.dart";
@@ -11,13 +12,17 @@ import "package:provider/provider.dart";
 
 class DisplayDetailTrails extends StatelessWidget {
   final String trailId;
-  final int duration;
+  final String duration;
+  final String upHill;
+  final String downHill;
   final List<String> tools;
 
   const DisplayDetailTrails({
     Key? key,
     required this.trailId,
     required this.duration,
+    required this.upHill,
+    required this.downHill,
     required this.tools,
   }) : super(key: key);
 
@@ -70,7 +75,7 @@ class DisplayDetailTrails extends StatelessWidget {
                       ),
                       const Gap(16.0),
                       Text(
-                        "Users comments",
+                        "Avis",
                         style: WhiteAddressTextStyle,
                       ),
                       const Gap(16.0),
@@ -86,7 +91,7 @@ class DisplayDetailTrails extends StatelessWidget {
                       ),
                       const Gap(16.0),
                       Text(
-                        "${putZero(value: data.temperature)} deg",
+                        "${putZero(value: data.temperature)} °C",
                         style: WhiteAddressTextStyle,
                       ),
                     ],
@@ -110,13 +115,33 @@ class DisplayDetailTrails extends StatelessWidget {
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            Icon(
+          children: [
+            const Icon(
               Icons.escalator,
               color: GreenPrimary,
             ),
-            SizedBox(
+            const SizedBox(
               width: 16.0,
+            ),
+            Text(
+              upHill,
+              style: WhiteAddressTextStyle,
+            ),
+            const Gap(16.0),
+            Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationY(math.pi),
+              child: Icon(
+                Icons.escalator,
+                color: GreenPrimary,
+              ),
+            ),
+            const SizedBox(
+              width: 16.0,
+            ),
+            Text(
+              downHill,
+              style: WhiteAddressTextStyle,
             ),
           ],
         ),
@@ -131,7 +156,7 @@ class DisplayDetailTrails extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 4,
+          height: 8,
         ),
         Row(
           children: [
@@ -143,7 +168,7 @@ class DisplayDetailTrails extends StatelessWidget {
               width: 16.0,
             ),
             Text(
-              "$duration",
+              duration,
               style: WhiteAddressTextStyle,
             ),
           ],
@@ -153,7 +178,7 @@ class DisplayDetailTrails extends StatelessWidget {
           "Équipements",
           style: subTitleTextStyle,
         ),
-        const Gap(4.0),
+        const Gap(8.0),
         WrapperApi().showTools(
           toolsBack: tools,
         ),

@@ -30,10 +30,15 @@ class CustomSliverAppBar extends StatelessWidget {
               borderRadius: BorderRadius.vertical(
                   top: Radius.circular(borderRadiusSize))),
           child: Center(
-            child: Text(
-              field.name,
-              style: WhiteTitleTextStyle,
-              overflow: TextOverflow.ellipsis,
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(50.0, 4.0, 50.0, 4.0),
+              child: Text(
+                field.name,
+                maxLines: 2,
+                style: subTitleTextStyle,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),

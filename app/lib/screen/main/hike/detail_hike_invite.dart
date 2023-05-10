@@ -29,6 +29,12 @@ class DetailHikeInvite extends StatelessWidget {
     double maxHeight = MediaQuery.of(context).size.height;
     AppState appState = context.read<AppState>();
 
+    String durationToString(int minutes) {
+      var d = Duration(minutes:minutes);
+      List<String> parts = d.toString().split(':');
+      return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
+    }
+
     return BaseView<DetailHikeInviteViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
@@ -95,7 +101,9 @@ class DetailHikeInvite extends StatelessWidget {
               const Gap(10.0),
               DisplayDetailTrails(
                 trailId: hike.trail.id,
-                duration: hike.trail.duration,
+                duration: "${durationToString(hike.trail.duration)}",
+                upHill: "${hike.trail.uphill} m",
+                downHill: "${hike.trail.downhill} m",
                 tools: hike.trail.tools,
               ),
               const Gap(10.0),
