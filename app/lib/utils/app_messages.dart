@@ -6,8 +6,7 @@ class AppMessages {
   static String wrongEmail = "Email invalide";
   static String passwordRequired = "Le mot de passe est obligatoire";
   static String usernameRequired = "Le prénom est obligatoire";
-  static String atLeastHeightChar =
-      "Le mot requis au moins 8 characters.";
+  static String atLeastHeightChar = "Le mot requis au moins 8 characters.";
   static String registerButtonText = "Register";
   static String usernameHintText = "Username";
   static String loginError = "Incorrect email or password";
@@ -61,7 +60,8 @@ class AppMessages {
   static String editusername = "The username is edited";
   static String editemail = "The email is edited";
   static String noAccountYet = "Vous n'avez pas de compte?";
-  static String alreadyHaveAccount = "Vous avez déjà un compte? Se connecter ici !";
+  static String alreadyHaveAccount =
+      "Vous avez déjà un compte? Se connecter ici !";
   static String age = "Age";
   static String weightPlaceHolder = "Poids";
   static String gender = "Genre";
@@ -78,5 +78,5 @@ class AppMessages {
   static String noGuest = "No pending invitations";
   static String noAttended = "No attended for this hike";
   static String quit = "Leave";
-  
+  static String noComment = "Aucun commentaire à afficher pour ce parcours";
 }

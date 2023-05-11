@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/comment.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/header.dart';
@@ -85,7 +86,17 @@ class CommunityView extends StatelessWidget {
                         trailId: trailId,
                       ),
                       builder: (context, snapshot) {
-                        if (snapshot.hasData) {
+                        if (snapshot.hasError) {
+                          return Text(
+                            '${snapshot.error}',
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          );
+                        }
+
+                        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                           List<Comment> commentsPhotos = snapshot.data!;
                           return ListView.builder(
                             shrinkWrap: true,
@@ -94,25 +105,26 @@ class CommunityView extends StatelessWidget {
                             itemBuilder: (context, index) {
                               Comment commentPhoto = commentsPhotos[index];
                               return Card(
-                                child: Column(children: [
-                                  Text(
-                                    commentPhoto.author.username,
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 20.0,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      commentPhoto.body,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      commentPhoto.author.username,
                                       style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20.0,
                                       ),
                                     ),
-                                  ),
-                                  ListView.builder(
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        commentPhoto.body,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15.0,
+                                        ),
+                                      ),
+                                    ),
+                                    ListView.builder(
                                       shrinkWrap: true,
                                       physics: const ClampingScrollPhysics(),
                                       itemCount: commentPhoto.pictures.length,
@@ -121,21 +133,35 @@ class CommunityView extends StatelessWidget {
                                         String pictures =
                                             commentPhoto.pictures[index];
                                         return Image.network(pictures);
-                                      }),
-                                ]),
+                                      },
+                                    ),
+                                  ],
+                                ),
                               );
                             },
                           );
-                        } else if (snapshot.hasError) {
-                          return Text('${snapshot.error}');
-                        } else {
-                          return const Padding(
-                            padding: EdgeInsets.only(top: 20.0),
-                            child: Center(
-                              child: CircularProgressIndicator(),
+                        }
+                        if (snapshot.hasData && snapshot.data!.isEmpty) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              top: 10.0,
+                            ),
+                            child: Text(
+                              AppMessages.noComment,
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           );
                         }
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
                       },
                     )
                   ],
