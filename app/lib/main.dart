@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
-        CommunityView.routeName: (_) => const CommunityView(),
+        // CommunityView.routeName: (_) => const CommunityView(),
         HikesCreate.routeName: (_) => const HikesCreate(),
         CommunityHistoryScreen.routeName: (_) => const CommunityHistoryScreen(),
       },

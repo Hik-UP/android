@@ -26,7 +26,7 @@ class MapBoxScreen extends StatefulWidget {
 }
 
 class _MapBoxScreenState extends State<MapBoxScreen> {
- final PanelController _pc = PanelController();
+  final PanelController _pc = PanelController();
 
   @override
   void initState() {
@@ -81,7 +81,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
 
       return Scaffold(
           extendBodyBehindAppBar: true,
-          appBar: Header(),
+          appBar: const Header(),
           body: SlidingUpPanel(
               controller: _pc,
               renderPanelSheet: false,
@@ -109,7 +109,9 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                   model.trailsList.isEmpty
                                       ? ""
                                       : model.trailsList[0].name,
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -167,9 +169,12 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                             borderRadiusSize),
                                       ),
                                     ),
-                                    onPressed: () =>
-                                        Navigator.of(context).pushNamed(
-                                      CommunityView.routeName,
+                                    onPressed: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => CommunityView(
+                                          trailId: model.trailsList[0].id,
+                                        ),
+                                      ),
                                     ),
                                     child: Text(
                                       "Avis",
@@ -263,11 +268,12 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
               body: FlutterMap(
                 mapController: model.mapController,
                 options: MapOptions(
-                    pinchZoomThreshold: 69.99999999999991,
-                    center: latlng.LatLng(46.227638, 2.213749),
-                    zoom: model.zoom,
-                    maxBounds: LatLngBounds(latlng.LatLng(-90, -180.0),
-                        latlng.LatLng(90.0, 180.0))),
+                  pinchZoomThreshold: 69.99999999999991,
+                  center: latlng.LatLng(46.227638, 2.213749),
+                  zoom: model.zoom,
+                  maxBounds: LatLngBounds(
+                      latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0)),
+                ),
                 children: [
                   TileLayer(
                     urlTemplate: getMap(),
