@@ -4,6 +4,9 @@ import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:hikup/model/comment.dart";
+import "package:hikup/utils/constant.dart";
+import "package:hikup/widget/custom_loader.dart";
+import "package:hikup/widget/warning_error_img.dart";
 
 class CommentCard extends StatelessWidget {
   final Comment comment;
@@ -14,7 +17,6 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(comment.pictures);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -24,10 +26,23 @@ class CommentCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                const CircleAvatar(
-                  radius: 20.0,
-                  backgroundColor: Colors.green,
-                ),
+                comment.author.picture.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: "",
+                        errorWidget: (context, url, error) =>
+                            const ShowAvatarContainer(
+                          child: WarmingErrorImg(),
+                        ),
+                        progressIndicatorBuilder: (context, url, progress) =>
+                            const ShowAvatarContainer(
+                          child: CustomLoader(),
+                        ),
+                      )
+                    : const ShowAvatarContainer(
+                        backgroundImage: AssetImage(
+                          profilePlaceHoder,
+                        ),
+                      ),
                 const Gap(10.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,16 +84,9 @@ class CommentCard extends StatelessWidget {
                       comment.pictures.first.isNotEmpty)
                     CachedNetworkImage(
                       imageUrl: comment.pictures[0],
-                      errorWidget: (context, url, error) => ContainerPicture(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(
-                              FontAwesomeIcons.triangleExclamation,
-                              color: Colors.white,
-                            )
-                          ],
-                        ),
+                      errorWidget: (context, url, error) =>
+                          const ContainerPicture(
+                        child: WarmingErrorImg(),
                       ),
                       imageBuilder: (context, imageProvider) =>
                           ContainerPicture(
@@ -88,13 +96,8 @@ class CommentCard extends StatelessWidget {
                         ),
                       ),
                       progressIndicatorBuilder: (context, url, progress) =>
-                          ContainerPicture(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            CircularProgressIndicator(),
-                          ],
-                        ),
+                          const ContainerPicture(
+                        child: CustomLoader(),
                       ),
                     )
                 ],
@@ -126,6 +129,26 @@ class ContainerPicture extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         image: image,
       ),
+      child: child,
+    );
+  }
+}
+
+class ShowAvatarContainer extends StatelessWidget {
+  final Widget? child;
+  final ImageProvider<Object>? backgroundImage;
+  const ShowAvatarContainer({
+    Key? key,
+    this.backgroundImage,
+    this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: 20.0,
+      backgroundColor: Colors.green,
+      backgroundImage: backgroundImage,
       child: child,
     );
   }
