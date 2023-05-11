@@ -612,10 +612,10 @@ packages:
     dependency: transitive
     description:
       name: graphs
-      sha256: f9e130f3259f52d26f0cfc0e964513796dafed572fa52e45d2f8d6ca14db39b2
+      sha256: "772db3d53d23361d4ffcf5a9bb091cf3ee9b22f2be52cd107cd7a2683a89ba0e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   hive:
     dependency: "direct main"
     description:
@@ -692,10 +692,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: "271e0448e82268b3fa1cb2a48e4a911cbc2135587123d7df8e7ca703c5b10da2"
+      sha256: cc3e183c6dc00b24f3d07a913cc30f4fb7b54ec9aac1c135df27e3b5faf487be
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.6+11"
+    version: "0.8.6+12"
   image_picker_for_web:
     dependency: transitive
     description:

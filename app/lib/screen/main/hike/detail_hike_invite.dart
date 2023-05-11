@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'dart:convert';
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
@@ -15,6 +16,9 @@ import "package:hikup/widget/display_address.dart";
 import "package:hikup/widget/display_detail_trails.dart";
 import "package:hikup/widget/guest_cmp.dart";
 import "package:provider/provider.dart";
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart' as latlng;
+import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 
 class DetailHikeInvite extends StatelessWidget {
   final Hike hike;
@@ -28,12 +32,35 @@ class DetailHikeInvite extends StatelessWidget {
   Widget build(BuildContext context) {
     double maxHeight = MediaQuery.of(context).size.height;
     AppState appState = context.read<AppState>();
+    final Marker marker = Marker(
+      width: 50.0,
+      height: 50.0,
+      point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
+      builder: (ctx) => Icon(Icons.fiber_manual_record_rounded,
+        color: Colors.blue, size: 24.0),
+    );
+    final Polyline polyline = Polyline(
+      points: json.decode(hike.trail.geoJSON)["features"][0]["geometry"]["coordinates"]
+        .map<latlng.LatLng>((entry) => latlng.LatLng(entry[1], entry[0])).toList(),
+      color: Colors.red,
+      strokeWidth: 3.0,
+      borderColor: const Color(0xFF1967D2),
+      borderStrokeWidth: 0.1,
+    );
 
     String durationToString(int minutes) {
       var d = Duration(minutes:minutes);
       List<String> parts = d.toString().split(':');
       return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
     }
+
+    Marker(
+      width: 50.0,
+      height: 50.0,
+      point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
+      builder: (ctx) => Icon(Icons.fiber_manual_record_rounded,
+        color: Colors.blue, size: 24.0),
+    );
 
     return BaseView<DetailHikeInviteViewModel>(
       builder: (context, model, child) => Scaffold(
@@ -63,6 +90,30 @@ class DetailHikeInvite extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    child: FlutterMap(
+                      options: MapOptions(
+                        enableScrollWheel: false,
+                        interactiveFlags: InteractiveFlag.none,
+                        center: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
+                        zoom: 13,
+                        maxBounds: LatLngBounds(
+                            latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0))),
+                      children: [
+                        TileLayer(
+                          urlTemplate: getMap(),
+                          additionalOptions: const {
+                            'accessToken': accessTokenMapBox,
+                            'id': idMapBox
+                          },
+                        ),
+                        MarkerLayer(
+                          markers: [marker],
+                        ),
+                        PolylineLayer(
+                          polylines: [polyline],
+                        )
+                      ],
                     ),
                   ),
                   Positioned(

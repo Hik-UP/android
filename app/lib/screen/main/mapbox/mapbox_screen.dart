@@ -12,8 +12,8 @@ import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:latlong2/latlong.dart' as latlng;
 import 'package:provider/provider.dart';
-import 'Components/skin.dart';
-import 'Components/map_over_time.dart';
+import 'package:hikup/screen/main/mapbox/Components/skin.dart';
+import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:gap/gap.dart';
 
