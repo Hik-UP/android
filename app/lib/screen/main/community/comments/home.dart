@@ -5,6 +5,7 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
+import 'package:hikup/widget/comment_card.dart';
 import 'package:hikup/widget/header.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hikup/viewmodel/comments_model.dart';
@@ -103,40 +104,15 @@ class CommunityView extends StatelessWidget {
                             physics: const ClampingScrollPhysics(),
                             itemCount: commentsPhotos.length,
                             itemBuilder: (context, index) {
-                              Comment commentPhoto = commentsPhotos[index];
-                              return Card(
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      commentPhoto.author.username,
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 20.0,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        commentPhoto.body,
-                                        style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15.0,
-                                        ),
-                                      ),
-                                    ),
-                                    ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: const ClampingScrollPhysics(),
-                                      itemCount: commentPhoto.pictures.length,
-                                      itemBuilder:
-                                          (BuildContext context, index) {
-                                        String pictures =
-                                            commentPhoto.pictures[index];
-                                        return Image.network(pictures);
-                                      },
-                                    ),
-                                  ],
-                                ),
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (BuildContext context, index) {
+                                  return CommentCard(
+                                    comment: snapshot.data![index],
+                                  );
+                                },
                               );
                             },
                           );
@@ -167,9 +143,12 @@ class CommunityView extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.only(
                       bottom: 20.0,
@@ -206,7 +185,10 @@ class CommunityView extends StatelessWidget {
                               children: [
                                 IconButton(
                                   color: Colors.green,
-                                  onPressed: () => model.submitMessage(),
+                                  onPressed: () => model.submitMessage(
+                                    appState: appState,
+                                    trailId: trailId,
+                                  ),
                                   icon: const Icon(
                                     Icons.send_outlined,
                                   ),

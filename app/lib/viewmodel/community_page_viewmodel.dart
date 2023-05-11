@@ -54,20 +54,43 @@ class CommunityPageViewModel extends BaseModel {
     return currentTrail.comments;
   }
 
-  void submitMessage() async {
+  void submitMessage({
+    required AppState appState,
+    required String trailId,
+  }) async {
+    Map<String, dynamic> body = {
+      "user": {
+        "id": appState.id,
+        "roles": appState.roles,
+      },
+      "trail": {"id": trailId},
+      "comment": {
+        "body": textController.text,
+        "pictures": [],
+      },
+    };
     final text = textController.text;
     //final myUserId = supabase.auth.currentUser!.id;
     if (text.isEmpty) {
       return;
     }
-    textController.clear();
     try {
-      //_sendMessage(_text);
+      if (image != null) {
+        print(image!.path);
+      }
+      print("Load");
+      var response = await dioService.post(
+        path: createCommentPath,
+        body: body,
+        token: "Bearer ${appState.token}",
+      );
+      print("Finish");
     } catch (_) {
       custonNavigationService.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,
       );
     }
+    textController.clear();
   }
 }
