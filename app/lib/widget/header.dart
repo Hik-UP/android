@@ -13,10 +13,14 @@ import '../screen/main/community/community_history_screen.dart';
 class Header extends StatelessWidget implements PreferredSizeWidget {
   const Header({Key? key}) : super(key: key);
 
+  
+
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
+    appState.picture;
 
+    var state;
     return AppBar(
       iconTheme: const IconThemeData(
         color: Color.fromARGB(255, 156, 156, 156),
@@ -41,19 +45,80 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                 //CommunityHistoryScreen.routeName,
                 SettingsScreen.routeName,
               ),
-              child: Container(
-                margin: const EdgeInsets.only(left: 10.0),
-                width: 35,
-                height: 35,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromARGB(255, 156, 156, 156),
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage("assets/images/user_profile_example.png"),
-                  ),
-                ),
-              ),
+                  child: Consumer<AppState>(builder: (context, state, child) {
+                    return Row(
+                      children: [
+                        state.picture.isEmpty
+                            ? Container(
+                                width: 35,
+                                height: 35,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: BlackPrimary,
+                                  // image: DecorationImage(
+                                  //   fit: BoxFit.fill,
+                                  //   image: AssetImage(
+                                  //     profilePlaceHoder,
+                                  //   ),
+                                  // ),
+                                ),
+                              )
+                            : LoadPictureProfil(
+                                appState: state,
+                              ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        // Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     Text(
+                        //       appState.username.isNotEmpty
+                        //           ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
+                        //           : "",
+                        //       style: subTitleTextStyle,
+                        //     ),
+                        //     const SizedBox(
+                        //       height: 8,
+                        //     ),
+                        //     Container(
+                        //       width: MediaQuery.of(context).size.width * .6,
+                        //       padding: const EdgeInsets.all(2),
+                        //       child: Text(
+                        //         appState.email,
+                        //         style: descTextStyleWhite,
+                        //         maxLines: 1,
+                        //       ),
+                        //     ),
+                        //     const Gap(6.0),
+                        //     // CustomBtn(
+                        //     //   content: AppMessages.updateProfil,
+                        //     //   height: 50, 
+                        //     //   onPress: () {
+                        //     //     Navigator.of(context).pushNamed(
+                        //     //       UpdateProfile.routeName,
+                        //     //     );
+                        //     //   },
+                        //     //   gradient: loginButtonColor,
+                        //     // ),
+                        //   ],
+                        // ),
+                      ],
+                    );
+                  }),
+              // child: Container(
+              //   margin: const EdgeInsets.only(left: 10.0),
+              //   width: 35,
+              //   height: 35,
+              //   decoration: const BoxDecoration(
+              //     shape: BoxShape.circle,
+              //     color: Color.fromARGB(255, 156, 156, 156),
+              //     image: DecorationImage(
+              //       fit: BoxFit.fill,
+              //       image: AssetImage("assets/images/user_profile_example.png"),
+              //     ),
+              //   ),
+              // ),
             ),
           ],
         ),
