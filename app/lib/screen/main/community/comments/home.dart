@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/comment.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
@@ -80,7 +81,18 @@ class _CommunityViewState extends State<CommunityView> {
 
     return BaseView<CommunityPageViewModel>(
       builder: (context, model, child) => Scaffold(
-        appBar: const Header(),
+        appBar: AppBar(
+          toolbarHeight: kTextTabBarHeight,
+          title: Text(
+            "Commentaires",
+            style: titleTextStyleWhite,
+          ),
+          iconTheme: const IconThemeData(
+            color: GreenPrimary, // Couleur de la flèche retour
+          ),
+          backgroundColor: BlackPrimary,
+          centerTitle: true,
+        ),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

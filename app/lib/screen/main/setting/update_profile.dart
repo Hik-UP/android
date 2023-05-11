@@ -32,18 +32,18 @@ class UpdateProfile extends StatelessWidget {
       model.usernameCtrl.text = appState.username;
 
       return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: kTextTabBarHeight,
-        title: Text(
-          AppMessages.modifprofilTxt,
-          style: titleTextStyleWhite,
-        ),
-        iconTheme: IconThemeData(
+        appBar: AppBar(
+          toolbarHeight: kTextTabBarHeight,
+          title: Text(
+            AppMessages.modifprofilTxt,
+            style: titleTextStyleWhite,
+          ),
+          iconTheme: const IconThemeData(
             color: GreenPrimary, // Couleur de la flèche retour
+          ),
+          backgroundColor: BlackPrimary,
+          centerTitle: true,
         ),
-        backgroundColor: BlackPrimary,
-        centerTitle: true,
-      ),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),

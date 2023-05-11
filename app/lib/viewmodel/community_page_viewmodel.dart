@@ -90,16 +90,18 @@ class CommunityPageViewModel extends BaseModel {
           file: File(image!.path),
           userId: appState.id,
         );
-
         body["trail"]["comment"]["pictures"] = [urlImage];
       }
 
+      print("load");
+      print(body);
       await dioService.post(
         path: createCommentPath,
         body: body,
         token: "Bearer ${appState.token}",
       );
     } catch (e) {
+      print(e);
       custonNavigationService.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,
