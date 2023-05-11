@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/comment.dart';
@@ -5,6 +8,7 @@ import 'package:hikup/model/trail.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
+import 'package:hikup/service/firebase_storage.dart';
 
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
@@ -15,6 +19,7 @@ class CommunityPageViewModel extends BaseModel {
   final dioService = locator<DioService>();
   final custonNavigationService = locator<CustomNavigationService>();
   final TextEditingController textController = TextEditingController();
+  final firebaseStorage = locator<FirebaseStorageService>();
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
@@ -26,7 +31,6 @@ class CommunityPageViewModel extends BaseModel {
   }
 
   void closeThumbmail() {
-    print("close");
     image = null;
     notifyListeners();
   }
@@ -61,6 +65,7 @@ class CommunityPageViewModel extends BaseModel {
   void submitMessage({
     required AppState appState,
     required String trailId,
+    required Function update,
   }) async {
     Map<String, dynamic> body = {
       "user": {
@@ -71,29 +76,29 @@ class CommunityPageViewModel extends BaseModel {
         "id": trailId,
         "comment": {
           "body": textController.text,
-          "pictures": [
-            "https://images.cgames.de/images/gsgp/4/naruto-anime_6224688.jpg"
-          ],
+          "pictures": [""],
         },
       },
-      //  "https://images.cgames.de/images/gsgp/4/naruto-anime_6224688.jpg"
     };
     final text = textController.text;
-    //final myUserId = supabase.auth.currentUser!.id;
     if (text.isEmpty) {
       return;
     }
     try {
       if (image != null) {
-        print(image!.path);
+        String urlImage = await firebaseStorage.uploadProfile(
+          file: File(image!.path),
+          userId: appState.id,
+        );
+
+        body["trail"]["comment"]["pictures"] = [urlImage];
       }
-      print("Load");
-      var response = await dioService.post(
+
+      await dioService.post(
         path: createCommentPath,
         body: body,
         token: "Bearer ${appState.token}",
       );
-      print("Finish");
     } catch (e) {
       custonNavigationService.showSnackBack(
         content: AppMessages.anErrorOcur,
@@ -101,5 +106,8 @@ class CommunityPageViewModel extends BaseModel {
       );
     }
     textController.clear();
+    image = null;
+
+    update();
   }
 }

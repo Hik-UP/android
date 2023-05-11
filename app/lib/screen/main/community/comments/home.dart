@@ -14,7 +14,7 @@ import 'package:hikup/widget/thumbail_img.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class CommunityView extends StatelessWidget {
+class CommunityView extends StatefulWidget {
   final String trailId;
   static String routeName = "/community";
   const CommunityView({
@@ -22,6 +22,11 @@ class CommunityView extends StatelessWidget {
     required this.trailId,
   }) : super(key: key);
 
+  @override
+  State<CommunityView> createState() => _CommunityViewState();
+}
+
+class _CommunityViewState extends State<CommunityView> {
   void myAlert({
     required BuildContext context,
     required Function getImageGallery,
@@ -131,7 +136,15 @@ class CommunityView extends StatelessWidget {
                                   color: Colors.green,
                                   onPressed: () => model.submitMessage(
                                     appState: appState,
-                                    trailId: trailId,
+                                    trailId: widget.trailId,
+                                    update: () {
+                                      Future.delayed(
+                                        const Duration(seconds: 4),
+                                        () => setState(
+                                          () {},
+                                        ),
+                                      );
+                                    },
                                   ),
                                   icon: const Icon(
                                     Icons.send_outlined,
@@ -164,7 +177,7 @@ class CommunityView extends StatelessWidget {
               FutureBuilder<List<Comment>>(
                 future: model.retrieveData(
                   appState: appState,
-                  trailId: trailId,
+                  trailId: widget.trailId,
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -203,17 +216,19 @@ class CommunityView extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          top: 10.0,
-                        ),
-                        child: Text(
-                          AppMessages.noComment,
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 12,
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
                           ),
-                          textAlign: TextAlign.center,
+                          child: Text(
+                            AppMessages.noComment,
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       );
                     }
