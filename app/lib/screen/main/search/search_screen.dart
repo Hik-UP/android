@@ -9,7 +9,6 @@ import 'package:hikup/widget/category_card.dart';
 import 'package:hikup/widget/header.dart';
 import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
-import 'package:hikup/widget/pedometer_card.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
 import 'package:provider/provider.dart';
 

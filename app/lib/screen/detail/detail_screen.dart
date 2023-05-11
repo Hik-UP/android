@@ -14,7 +14,6 @@ import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:hikup/widget/email_invite_card.dart';
 import 'package:hikup/widget/invite_friend_cmp.dart';
 import 'package:hikup/widget/plan_component.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 class DetailScreen extends StatelessWidget {
