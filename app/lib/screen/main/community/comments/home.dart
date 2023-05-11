@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/comment.dart';
 import 'package:hikup/providers/app_state.dart';
@@ -75,30 +76,98 @@ class CommunityView extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-              Expanded(
-                child: FutureBuilder<List<Comment>>(
-                  future: model.retrieveData(
-                    appState: appState,
-                    trailId: trailId,
+              const Gap(18.0),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 12.0,
+                  right: 12.0,
+                  bottom: 20.0,
+                ),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                    color: const Color(0xffEDEDED),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text(
-                        '${snapshot.error}',
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
+                  child: Stack(
+                    children: [
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        maxLines: 2,
+                        controller: model.textController,
+                        decoration: const InputDecoration(
+                          hintText: 'Type a message',
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          hintStyle: TextStyle(
+                            color: Colors.black26,
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      );
-                    }
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              color: Colors.green,
+                              onPressed: () => model.submitMessage(
+                                appState: appState,
+                                trailId: trailId,
+                              ),
+                              icon: const Icon(
+                                Icons.send_outlined,
+                              ),
+                            ),
+                            IconButton(
+                              color: Colors.green,
+                              onPressed: () {
+                                myAlert(
+                                  context: context,
+                                  getImageGallery: () => model.getImage(
+                                    ImageSource.gallery,
+                                  ),
+                                  getImageCamera: () => model.getImage(
+                                    ImageSource.camera,
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.camera_alt),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              FutureBuilder<List<Comment>>(
+                future: model.retrieveData(
+                  appState: appState,
+                  trailId: trailId,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(
+                      '${snapshot.error}',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    );
+                  }
 
-                    if (snapshot.hasData) {
-                      if (snapshot.data!.isNotEmpty) {
-                        return Padding(
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.isNotEmpty) {
+                      return Expanded(
+                        child: Padding(
                           padding: const EdgeInsets.only(
                             right: 16.0,
                             left: 16.0,
-                            top: 20.0,
+                            top: 10.0,
                           ),
                           child: ListView.builder(
                             shrinkWrap: true,
@@ -114,108 +183,33 @@ class CommunityView extends StatelessWidget {
                               );
                             },
                           ),
-                        );
-                      } else {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10.0,
+                        ),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          top: 10.0,
+                        ),
+                        child: Text(
+                          AppMessages.noComment,
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 12,
                           ),
-                          child: Text(
-                            AppMessages.noComment,
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      }
+                          textAlign: TextAlign.center,
+                        ),
+                      );
                     }
+                  }
 
-                    return const Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
-                ),
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: 12.0,
-                    right: 12.0,
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 20.0,
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffEDEDED),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Stack(
-                        children: [
-                          TextFormField(
-                            keyboardType: TextInputType.text,
-                            maxLines: 2,
-                            controller: model.textController,
-                            decoration: const InputDecoration(
-                              hintText: 'Type a message',
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              hintStyle: TextStyle(
-                                color: Colors.black26,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  color: Colors.green,
-                                  onPressed: () => model.submitMessage(
-                                    appState: appState,
-                                    trailId: trailId,
-                                  ),
-                                  icon: const Icon(
-                                    Icons.send_outlined,
-                                  ),
-                                ),
-                                IconButton(
-                                  color: Colors.green,
-                                  onPressed: () {
-                                    myAlert(
-                                      context: context,
-                                      getImageGallery: () => model.getImage(
-                                        ImageSource.gallery,
-                                      ),
-                                      getImageCamera: () => model.getImage(
-                                        ImageSource.camera,
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(Icons.camera_alt),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
         ),

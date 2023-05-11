@@ -43,7 +43,6 @@ class CommunityPageViewModel extends BaseModel {
     if (!(response.statusCode == 200)) {
       return [];
     }
-
     List<Trail> trails = (response.data["trails"] as List)
         .map((e) => Trail.fromMap(data: e))
         .toList();
