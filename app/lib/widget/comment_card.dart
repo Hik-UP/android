@@ -28,7 +28,11 @@ class CommentCard extends StatelessWidget {
               children: [
                 comment.author.picture.isNotEmpty
                     ? CachedNetworkImage(
-                        imageUrl: "",
+                        imageUrl: comment.author.picture,
+                        imageBuilder: (context, imageProvider) =>
+                            ShowAvatarContainer(
+                          backgroundImage: imageProvider,
+                        ),
                         errorWidget: (context, url, error) =>
                             const ShowAvatarContainer(
                           child: WarmingErrorImg(),
