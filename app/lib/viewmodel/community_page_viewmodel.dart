@@ -50,6 +50,7 @@ class CommunityPageViewModel extends BaseModel {
 
     Trail currentTrail =
         trails.where((element) => element.id == trailId).toList()[0];
+    print(currentTrail.comments.length);
 
     return currentTrail.comments;
   }
@@ -63,11 +64,16 @@ class CommunityPageViewModel extends BaseModel {
         "id": appState.id,
         "roles": appState.roles,
       },
-      "trail": {"id": trailId},
-      "comment": {
-        "body": textController.text,
-        "pictures": [],
+      "trail": {
+        "id": trailId,
+        "comment": {
+          "body": textController.text,
+          "pictures": [
+            "https://images.cgames.de/images/gsgp/4/naruto-anime_6224688.jpg"
+          ],
+        },
       },
+      //  "https://images.cgames.de/images/gsgp/4/naruto-anime_6224688.jpg"
     };
     final text = textController.text;
     //final myUserId = supabase.auth.currentUser!.id;
@@ -85,7 +91,7 @@ class CommunityPageViewModel extends BaseModel {
         token: "Bearer ${appState.token}",
       );
       print("Finish");
-    } catch (_) {
+    } catch (e) {
       custonNavigationService.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,

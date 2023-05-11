@@ -38,7 +38,9 @@ class Comment {
       pictures: (data["pictures"] as List).isNotEmpty
           ? (data["pictures"] as List).map<String>((e) => e as String).toList()
           : [],
-      date: data["date"],
+      date: DateTime.parse(
+        data["date"],
+      ),
     );
   }
 }

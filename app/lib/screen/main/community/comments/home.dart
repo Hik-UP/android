@@ -78,75 +78,85 @@ class CommunityView extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    FutureBuilder<List<Comment>>(
-                      future: model.retrieveData(
-                        appState: appState,
-                        trailId: trailId,
-                      ),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Text(
-                            '${snapshot.error}',
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          );
-                        }
+                child: FutureBuilder<List<Comment>>(
+                  future: model.retrieveData(
+                    appState: appState,
+                    trailId: trailId,
+                  ),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text(
+                        '${snapshot.error}',
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      );
+                    }
 
-                        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                          List<Comment> commentsPhotos = snapshot.data!;
-                          return ListView.builder(
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.isNotEmpty) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            top: 20.0,
+                          ),
+                          child: ListView.builder(
                             shrinkWrap: true,
                             physics: const ClampingScrollPhysics(),
-                            itemCount: commentsPhotos.length,
+                            itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
+                              print(snapshot.data!.length);
                               return ListView.builder(
                                 shrinkWrap: true,
-                                physics: const ClampingScrollPhysics(),
                                 itemCount: snapshot.data!.length,
                                 itemBuilder: (BuildContext context, index) {
-                                  return CommentCard(
-                                    comment: snapshot.data![index],
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: 16.0,
+                                      left: 16.0,
+                                      bottom: 20.0,
+                                    ),
+                                    child: CommentCard(
+                                      comment: snapshot.data![index],
+                                    ),
                                   );
                                 },
                               );
                             },
-                          );
-                        }
-                        if (snapshot.hasData && snapshot.data!.isEmpty) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10.0,
-                            ),
-                            child: Text(
-                              AppMessages.noComment,
-                              style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          );
-                        }
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 20.0),
-                          child: Center(
-                            child: CircularProgressIndicator(),
                           ),
                         );
-                      },
-                    )
-                  ],
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
+                          ),
+                          child: Text(
+                            AppMessages.noComment,
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }
+                    }
+
+                    return const Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  },
                 ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: EdgeInsets.only(
+                    left: 12.0,
+                    right: 12.0,
                     bottom: MediaQuery.of(context).viewInsets.bottom,
                   ),
                   child: Padding(
@@ -154,7 +164,7 @@ class CommunityView extends StatelessWidget {
                       bottom: 20.0,
                     ),
                     child: Container(
-                      width: 350,
+                      width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: BoxDecoration(
                         color: const Color(0xffEDEDED),
@@ -164,8 +174,7 @@ class CommunityView extends StatelessWidget {
                         children: [
                           TextFormField(
                             keyboardType: TextInputType.text,
-                            maxLines: null,
-                            autofocus: true,
+                            maxLines: 2,
                             controller: model.textController,
                             decoration: const InputDecoration(
                               hintText: 'Type a message',
