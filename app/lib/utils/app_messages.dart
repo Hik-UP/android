@@ -79,4 +79,5 @@ class AppMessages {
   static String noAttended = "No attended for this hike";
   static String quit = "Leave";
   static String noComment = "Aucun commentaire à afficher pour ce parcours";
+  static String commentaireLabel = "Commentaires";
 }

@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/comment.dart';
@@ -93,15 +91,12 @@ class CommunityPageViewModel extends BaseModel {
         body["trail"]["comment"]["pictures"] = [urlImage];
       }
 
-      print("load");
-      print(body);
       await dioService.post(
         path: createCommentPath,
         body: body,
         token: "Bearer ${appState.token}",
       );
     } catch (e) {
-      print(e);
       custonNavigationService.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,

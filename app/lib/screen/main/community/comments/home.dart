@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +9,6 @@ import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/comment_card.dart';
-import 'package:hikup/widget/header.dart';
 import 'package:hikup/widget/thumbail_img.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +82,7 @@ class _CommunityViewState extends State<CommunityView> {
         appBar: AppBar(
           toolbarHeight: kTextTabBarHeight,
           title: Text(
-            "Commentaires",
+            AppMessages.commentaireLabel,
             style: titleTextStyleWhite,
           ),
           iconTheme: const IconThemeData(
