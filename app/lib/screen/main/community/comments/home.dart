@@ -8,7 +8,6 @@ import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/comment_card.dart';
 import 'package:hikup/widget/header.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:hikup/viewmodel/comments_model.dart';
 import 'package:provider/provider.dart';
 
 class CommunityView extends StatelessWidget {
@@ -72,7 +71,6 @@ class CommunityView extends StatelessWidget {
 
     return BaseView<CommunityPageViewModel>(
       builder: (context, model, child) => Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: const Header(),
         body: SafeArea(
           child: Column(
@@ -98,29 +96,21 @@ class CommunityView extends StatelessWidget {
                       if (snapshot.data!.isNotEmpty) {
                         return Padding(
                           padding: const EdgeInsets.only(
+                            right: 16.0,
+                            left: 16.0,
                             top: 20.0,
                           ),
                           child: ListView.builder(
                             shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
                             itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              print(snapshot.data!.length);
-                              return ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (BuildContext context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: 16.0,
-                                      left: 16.0,
-                                      bottom: 20.0,
-                                    ),
-                                    child: CommentCard(
-                                      comment: snapshot.data![index],
-                                    ),
-                                  );
-                                },
+                            itemBuilder: (BuildContext context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 16.0,
+                                ),
+                                child: CommentCard(
+                                  comment: snapshot.data![index],
+                                ),
                               );
                             },
                           ),

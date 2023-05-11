@@ -47,10 +47,8 @@ class CommunityPageViewModel extends BaseModel {
     List<Trail> trails = (response.data["trails"] as List)
         .map((e) => Trail.fromMap(data: e))
         .toList();
-
     Trail currentTrail =
         trails.where((element) => element.id == trailId).toList()[0];
-    print(currentTrail.comments.length);
 
     return currentTrail.comments;
   }
