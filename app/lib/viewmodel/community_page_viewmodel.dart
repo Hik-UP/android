@@ -25,6 +25,12 @@ class CommunityPageViewModel extends BaseModel {
     notifyListeners();
   }
 
+  void closeThumbmail() {
+    print("close");
+    image = null;
+    notifyListeners();
+  }
+
   Future<List<Comment>> retrieveData({
     required AppState appState,
     required String trailId,
