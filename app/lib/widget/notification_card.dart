@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/notification.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/utils/constant.dart';
@@ -40,15 +41,19 @@ class NotificationCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /*Text(
-                      "Titre",
-                      style: WhiteTitleTextStyle,
-                    ),
-                    const Gap(4.0),*/
+                        Text(
+                          notification.title,
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const Gap(4.0),
                         SizedBox(
                           width: (MediaQuery.of(context).size.width / 2) + 100,
                           child: Text(
-                            msg.substring(0, 70),
+                            notification.body,
                             style: WhiteAddressTextStyle,
                             maxLines: 6,
                             overflow: TextOverflow.ellipsis,
@@ -56,7 +61,10 @@ class NotificationCard extends StatelessWidget {
                         ),
                         const Gap(4.0),
                         Text(
-                          DateTime.now().toLocal().toString().split(' ')[0],
+                          notification.dateTime.split('T')[0].replaceAll(
+                                RegExp(r'-'),
+                                "/",
+                              ),
                           style: greySubTextStyle,
                         ),
                       ],

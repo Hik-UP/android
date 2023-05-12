@@ -19,7 +19,7 @@ class NotificationModel {
       title: data["title"],
       body: data["body"],
       read: data["read"],
-      dateTime: data["dateTime"],
+      dateTime: data["date"],
     );
   }
 }

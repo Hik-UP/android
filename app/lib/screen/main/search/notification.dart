@@ -67,7 +67,15 @@ class NotificationView extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return Text("Data");
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        primary: false,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) => NotificationCard(
+                          notification: snapshot.data![index],
+                        ),
+                      );
                     }
                   }
 

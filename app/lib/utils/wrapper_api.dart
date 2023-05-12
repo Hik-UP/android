@@ -184,6 +184,8 @@ class WrapperApi {
         token: "Bearer ${appState.token}",
       );
 
+      print(response.data["notifications"]);
+
       return (response.data["notifications"] as List)
           .map<NotificationModel>(
             (e) => NotificationModel.fromMap(
