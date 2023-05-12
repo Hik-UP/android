@@ -9,7 +9,7 @@ services:
     image: hikup/android
     command: [ "${ANDROID_CMD}" ]
     volumes:
-      - ./app/lib:/usr/app/lib:ro
+      - ./app/lib:/usr/app/lib:rw
       - ./app/config:/usr/app/config:ro
       - ./app/assets:/usr/app/assets:ro
       - ./app/test:/usr/app/test:ro
@@ -25,7 +25,7 @@ services:
       network:
         ipv4_address: 172.20.0.2
     stdin_open: true
-    tty: true
+#   tty: true
 
 networks:
   network:

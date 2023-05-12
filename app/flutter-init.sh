@@ -26,7 +26,6 @@ main() {
   elif [ $1 = 'build' ]; then
     flutter build apk
     mv /usr/app/build/app/outputs/flutter-apk/* /usr/app/apk
-    chown -R "${USER_UID}":"${USER_GID}" /usr/app/apk
   else
     flutter test --coverage
     genhtml /usr/app/coverage/lcov.info -o /usr/app/coverage/html

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>952779681389-q9d7o4bahn7l8ilcv852s4ae7176ulqi.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.952779681389-q9d7o4bahn7l8ilcv852s4ae7176ulqi</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAM2aPJMOtwqHuQXPe1JpjeaJW9vtLOEb4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>952779681389</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.app</string>
+	<key>PROJECT_ID</key>
+	<string>hikup-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hikup-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:952779681389:ios:d02aa7604b350914a55964</string>
+</dict>
+</plist>
