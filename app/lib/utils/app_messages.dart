@@ -48,7 +48,7 @@ class AppMessages {
   static String schedule = "Calendrier";
   static String canPlanTheHike = "Vous pouvez programmer votre randonnée.";
   static String reset = "reinitialiser";
-  static String startNow = "Commencer maintenant";
+  static String startNow = "Plannifier";
   static String schelduleNow = "Schedule now";
   static String finish = "Finish";
   static String all = "Tous";
