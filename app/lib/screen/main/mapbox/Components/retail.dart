@@ -19,8 +19,7 @@ Future<Skin> retailSkin(AppState appState) async {
 
   if (response.statusCode == 200) {
     Map<String, dynamic> data = json.decode(response.body);
-    print(data);
-    Skin skin = Skin.fromMap(data: data["skin"] ?? {});
+    Skin skin = Skin.fromMap(data: data["skins"] ?? {});
     return (skin);
   } else {
     return (appState.skin);

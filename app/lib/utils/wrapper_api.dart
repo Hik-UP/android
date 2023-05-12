@@ -131,25 +131,18 @@ class WrapperApi {
   Widget showTools({required List<String> toolsBack}) {
     List<Widget> tools = [];
 
-    for (int i = 0; i + 1 < toolsBack.length; i += 2) {
-      tools.add(Row(
-        children: [
-          Expanded(
-            child: Text(
-              "${i + 1}. ${toolsBack[i]}",
-              style: WhiteAddressTextStyle,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              "${i + 2}. ${toolsBack[i + 1]}",
-              style: WhiteAddressTextStyle,
-            ),
-          ),
-        ],
-      ));
+    for (int i = 0; i < toolsBack.length; i += 1) {
+      tools.add(
+        Text(
+          "${i + 1}. ${toolsBack[i]}",
+          style: WhiteAddressTextStyle,
+        ),
+      );
     }
 
-    return Column(children: tools);
+    return Column(mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: tools
+    );
   }
 }

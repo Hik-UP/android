@@ -24,6 +24,12 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
 
+    String durationToString(int minutes) {
+      var d = Duration(minutes:minutes);
+      List<String> parts = d.toString().split(':');
+      return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
+    }
+
     return BaseView<DetailScreenViewModel>(
       builder: (context, model, child) => Scaffold(
         body: CustomScrollView(
@@ -36,7 +42,7 @@ class DetailScreen extends StatelessWidget {
                   [
                     DisplayAddress(address: field.address),
                     const Gap(16),
-                    Row(
+                    /*Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: const [
                         Icon(
@@ -48,15 +54,28 @@ class DetailScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Gap(10.0),
+                    const Gap(10.0),*/
                     Text(
-                      "Details",
+                      "Description",
                       style: subTitleTextStyle,
                     ),
-                    const Gap(4.0),
+                    const Gap(8.0),
+                    Text(
+                      field.description.toString(),
+                      textAlign: TextAlign.justify,
+                      style: WhiteAddressTextStyle,
+                    ),
+                    const Gap(10.0),
+                    Text(
+                      "Détails",
+                      style: subTitleTextStyle,
+                    ),
+                    const Gap(8.0),
                     DisplayDetailTrails(
                       trailId: field.id,
-                      duration: field.duration,
+                      duration: "${durationToString(field.duration)}",
+                      upHill: "${field.uphill} m",
+                      downHill: "${field.downhill} m",
                       tools: field.tools,
                     ),
                     const Gap(10.0),
@@ -64,7 +83,7 @@ class DetailScreen extends StatelessWidget {
                       AppMessages.inviteFriend,
                       style: subTitleTextStyle,
                     ),
-                    const Gap(4.0),
+                    const Gap(8.0),
                     InviteFriendCmp(
                       value: (data) => model.pushInEmailFirends(
                         value: data,
@@ -129,7 +148,7 @@ class DetailScreen extends StatelessWidget {
             color: BlackPrimary,
             boxShadow: [
               BoxShadow(
-                color: GreenPrimary,
+                //color: GreenPrimary,
                 offset: Offset(0, 0),
                 blurRadius: 10,
               ),

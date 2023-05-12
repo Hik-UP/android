@@ -7,13 +7,18 @@ import 'package:hikup/model/comment.dart';
 class SearchViewModel extends BaseModel {
   bool loading = true;
   List<TrailFields> trailsList = [];
+  List<TrailFields> filterTrailsList = [];
 
-  void setLoading(bool value) {
-    loading = value;
+  filterTrails({ required String filter }) {
+    if (filter == "") {
+      filterTrailsList = trailsList;
+    } else {
+      filterTrailsList = trailsList.where((trail) => trail.labels.indexWhere((label) => label == filter) >= 0).toList();
+    }
     notifyListeners();
   }
 
-  Future<List<TrailFields>> trails({
+  trails({
     required AppState appState,
   }) async {
     var trailList = await WrapperApi().getTrail(
@@ -61,7 +66,7 @@ class SearchViewModel extends BaseModel {
         );
       });
     }
-
-    return trailsList;
+    filterTrailsList = trailsList;
+    notifyListeners();
   }
 }

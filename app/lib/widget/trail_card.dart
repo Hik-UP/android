@@ -65,6 +65,7 @@ class TrailCard extends StatelessWidget {
                       maxLines: 2,
                       style: subTitleTextStyle,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.justify,
                     ),
                     const SizedBox(
                       height: 8.0,

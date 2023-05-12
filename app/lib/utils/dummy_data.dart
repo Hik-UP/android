@@ -12,23 +12,33 @@ var sampleUser = User(
     roles: [],
     token: "");
 
-var _foret = RandoCategory(
-  name: "Forêt",
-  image: "assets/icons/forest.png",
+var _all = RandoCategory(
+  title: "Tout",
+  imageAsset: "assets/icons/all.png",
 );
-var _montagne = RandoCategory(
-  name: "Montagne",
-  image: "assets/icons/mountain.png",
+var _loop = RandoCategory(
+  title: "Boucle",
+  imageAsset: "assets/icons/loop.png",
 );
-var _parc = RandoCategory(
-  name: "Parc",
-  image: "assets/icons/park.png",
+var _forest = RandoCategory(
+  title: "Forêt",
+  imageAsset: "assets/icons/forest.png",
+);
+var _lake = RandoCategory(
+  title: "Étang",
+  imageAsset: "assets/icons/lake.png",
+);
+var _mountain = RandoCategory(
+  title: "Montagne",
+  imageAsset: "assets/icons/mountain.png",
 );
 
-List<RandoCategory> sportCategories = [
-  _foret,
-  _parc,
-  _montagne,
+List<RandoCategory> trailsLabels = [
+  _all,
+  _loop,
+  _forest,
+  _lake,
+  _mountain,
 ];
 
 final wifi = FieldFacility(name: "WiFi", imageAsset: "assets/icons/wifi.png");

@@ -26,13 +26,8 @@ class ShowBurnCalories extends StatelessWidget {
               width: 16.0,
             ),
             Text(
-              calories.toString(),
+              "${calories / 1000} kcal",
               style: WhiteAddressTextStyle,
-            ),
-            const Gap(8.0),
-            Text(
-              AppMessages.calorieToBurn,
-              style: greySubTextStyle,
             ),
           ],
         ),

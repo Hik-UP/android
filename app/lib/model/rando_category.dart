@@ -1,6 +1,6 @@
 class RandoCategory {
-  String name;
-  String image;
+  String title;
+  String imageAsset;
 
-  RandoCategory({required this.name, required this.image});
+  RandoCategory({required this.title, required this.imageAsset});
 }
