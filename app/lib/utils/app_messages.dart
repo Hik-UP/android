@@ -61,7 +61,8 @@ class AppMessages {
   static String editusername = "The username is edited";
   static String editemail = "The email is edited";
   static String noAccountYet = "Vous n'avez pas de compte?";
-  static String alreadyHaveAccount = "Vous avez déjà un compte? Se connecter ici !";
+  static String alreadyHaveAccount =
+      "Vous avez déjà un compte? Se connecter ici !";
   static String age = "Age";
   static String weightPlaceHolder = "Poids";
   static String gender = "Genre";
@@ -78,4 +79,6 @@ class AppMessages {
   static String noGuest = "No pending invitations";
   static String noAttended = "No attended for this hike";
   static String quit = "Leave";
+  static String noComment = "Aucun commentaire à afficher pour ce parcours";
+  static String commentaireLabel = "Commentaires";
 }

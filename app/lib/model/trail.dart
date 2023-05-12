@@ -1,3 +1,4 @@
+import 'package:hikup/model/comment.dart';
 import 'package:hive/hive.dart';
 
 @HiveType(typeId: 0)
@@ -47,6 +48,9 @@ class Trail {
   @HiveField(14)
   final String geoJSON;
 
+  @HiveField(15)
+  final List<Comment> comments;
+
   Trail(
       {required this.id,
       required this.name,
@@ -62,7 +66,8 @@ class Trail {
       required this.tools,
       required this.relatedArticles,
       required this.labels,
-      required this.geoJSON});
+      required this.geoJSON,
+      required this.comments});
 
   static Trail fromMap({
     required Map<String, dynamic> data,
@@ -84,6 +89,13 @@ class Trail {
           (data["relatedArticles"] as List).map((e) => e as String).toList(),
       labels: (data["labels"] as List).map((e) => e as String).toList(),
       geoJSON: data["geoJSON"],
+      comments: (data["comments"] as List).isNotEmpty
+          ? (data["comments"] as List)
+              .map<Comment>((e) => Comment.fromMap(
+                    data: e,
+                  ))
+              .toList()
+          : [],
     );
   }
 
@@ -94,20 +106,22 @@ class Trail {
 
   static Trail copy({required Trail trail}) {
     return Trail(
-        id: trail.id,
-        name: trail.name,
-        description: trail.description,
-        pictures: trail.pictures,
-        latitude: trail.latitude,
-        longitude: trail.longitude,
-        difficulty: trail.difficulty,
-        duration: trail.duration,
-        distance: trail.distance,
-        uphill: trail.uphill,
-        downhill: trail.downhill,
-        tools: trail.tools,
-        relatedArticles: trail.relatedArticles,
-        labels: trail.labels,
-        geoJSON: trail.geoJSON);
+      id: trail.id,
+      name: trail.name,
+      description: trail.description,
+      pictures: trail.pictures,
+      latitude: trail.latitude,
+      longitude: trail.longitude,
+      difficulty: trail.difficulty,
+      duration: trail.duration,
+      distance: trail.distance,
+      uphill: trail.uphill,
+      downhill: trail.downhill,
+      tools: trail.tools,
+      relatedArticles: trail.relatedArticles,
+      labels: trail.labels,
+      geoJSON: trail.geoJSON,
+      comments: trail.comments,
+    );
   }
 }

@@ -4,6 +4,7 @@ import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:hikup/model/detail_trail_model.dart";
 import "package:hikup/providers/app_state.dart";
+import "package:hikup/screen/main/community/comments/home.dart";
 import "package:hikup/theme.dart";
 import "package:hikup/utils/app_messages.dart";
 import "package:hikup/utils/wrapper_api.dart";
@@ -65,7 +66,13 @@ class DisplayDetailTrails extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed("/community");
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => CommunityView(
+                                trailId: trailId,
+                              ),
+                            ),
+                          );
                         },
                         child: const Icon(
                           Icons.add_box,

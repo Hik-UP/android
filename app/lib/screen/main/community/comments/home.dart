@@ -1,328 +1,256 @@
-// import 'package:flutter/material.dart';
-// import 'dart:async';
-// import 'dart:io';
-// import 'package:hikup/widget/header.dart';
-// import 'package:flutter/material.dart';
-// import 'package:image_picker/image_picker.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:hikup/viewmodel/comments_model.dart';
-// import 'package:hikup/utils/wrapper_api.dart';
-// import 'package:hikup/model/user.dart';
-// import 'package:hikup/service/firebase_storage.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
-// import 'dart:convert';
-// import 'package:hikup/utils/constant.dart';
-// import 'package:hikup/service/hive_service.dart';
-// import 'package:hive_flutter/hive_flutter.dart';
-// import 'package:hikup/service/custom_navigation.dart';
-// import 'package:hikup/utils/app_messages.dart';
-// import 'package:provider/provider.dart';
-// import 'package:hikup/providers/app_state.dart';
-// import 'package:hikup/locator.dart';
-// import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hikup/model/comment.dart';
+import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/theme.dart';
+import 'package:hikup/utils/app_messages.dart';
+import 'package:hikup/viewmodel/community_page_viewmodel.dart';
+import 'package:hikup/widget/base_view.dart';
+import 'package:hikup/widget/comment_card.dart';
+import 'package:hikup/widget/thumbail_img.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
-// const unexpectedErrorMessage = 'Unexpected error occurred.';
+class CommunityView extends StatefulWidget {
+  final String trailId;
+  static String routeName = "/community";
+  const CommunityView({
+    Key? key,
+    required this.trailId,
+  }) : super(key: key);
 
+  @override
+  State<CommunityView> createState() => _CommunityViewState();
+}
 
-// class CommunityPage extends StatefulWidget {
-//   static String routeName = "/community";
-//   @override
-//    CommunityPageState createState() => CommunityPageState();
-// }
+class _CommunityViewState extends State<CommunityView> {
+  void myAlert({
+    required BuildContext context,
+    required Function getImageGallery,
+    required Function getImageCamera,
+  }) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          title: const Text('Please choose media to select'),
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height / 6,
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    getImageGallery();
+                  },
+                  child: Row(
+                    children: const [
+                      Icon(Icons.image),
+                      Text('From Gallery'),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    getImageCamera();
+                  },
+                  child: Row(
+                    children: const [
+                      Icon(Icons.camera),
+                      Text('From Camera'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    AppState appState = context.read<AppState>();
 
-//   extension ShowSnackBar on BuildContext {
-//     /// Displays a basic snackbar
-//       void showSnackBar({
-//         required String message,
-//         Color backgroundColor = Colors.white,
-//       }) {
-//         ScaffoldMessenger.of(this).showSnackBar(SnackBar(
-//           content: Text(message),
-//           backgroundColor: backgroundColor,
-//         ));
-//       }
-//       void showErrorSnackBar({required String message}) {
-//         showSnackBar(message: message, backgroundColor: Colors.red);
-//       }
-//   }
+    return BaseView<CommunityPageViewModel>(
+      builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          toolbarHeight: kTextTabBarHeight,
+          title: Text(
+            AppMessages.commentaireLabel,
+            style: titleTextStyleWhite,
+          ),
+          iconTheme: const IconThemeData(
+            color: GreenPrimary, // Couleur de la flèche retour
+          ),
+          backgroundColor: BlackPrimary,
+          centerTitle: true,
+        ),
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Gap(18.0),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 12.0,
+                  right: 12.0,
+                  bottom: 20.0,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (model.image != null)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: ThumbailImg(
+                          file: File(model.image!.path),
+                          action: () => model.closeThumbmail(),
+                        ),
+                      ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffEDEDED),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Stack(
+                        children: [
+                          TextFormField(
+                            keyboardType: TextInputType.text,
+                            maxLines: 2,
+                            controller: model.textController,
+                            decoration: const InputDecoration(
+                              hintText: 'Type a message',
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              hintStyle: TextStyle(
+                                color: Colors.black26,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  color: Colors.green,
+                                  onPressed: () => model.submitMessage(
+                                    appState: appState,
+                                    trailId: widget.trailId,
+                                    update: () {
+                                      setState(() {});
+                                    },
+                                  ),
+                                  icon: const Icon(
+                                    Icons.send_outlined,
+                                  ),
+                                ),
+                                IconButton(
+                                  color: Colors.green,
+                                  onPressed: () {
+                                    myAlert(
+                                      context: context,
+                                      getImageGallery: () => model.getImage(
+                                        ImageSource.gallery,
+                                      ),
+                                      getImageCamera: () => model.getImage(
+                                        ImageSource.camera,
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.camera_alt),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              FutureBuilder<List<Comment>>(
+                future: model.retrieveData(
+                  appState: appState,
+                  trailId: widget.trailId,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(
+                      '${snapshot.error}',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    );
+                  }
 
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.isNotEmpty) {
+                      return Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            right: 16.0,
+                            left: 16.0,
+                            top: 10.0,
+                          ),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 16.0,
+                                ),
+                                child: CommentCard(
+                                  comment: snapshot.data![index],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
+                          ),
+                          child: Text(
+                            AppMessages.noComment,
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    }
+                  }
 
-// class CommunityPageState extends State<CommunityPage> {
-//   late final TextEditingController _textController;
-//   List<XFile>? _imageFileList;
-//   dynamic _pickImageError;
-//   final _firebaseStorage = FirebaseStorage.instance;
-//   final _customService = locator<CustomNavigationService>();
-
-//   void _setImageFileListFromFile(XFile? value) {
-//     _imageFileList = value == null ? null : <XFile>[value];
-//   }
-
-//   File convertXFiletoFile(XFile selectedImage) {
-//     return File(selectedImage.path);
-//   }
-
-//   @override
-//   void initState() {
-//     _textController = TextEditingController();
-//     _retrieveData();
-//     super.initState();
-//   }
-
-//   final ImagePicker picker = ImagePicker();
-
-//   Future<dynamic> uploadProfile(File file, String userId) async {
-//     try {
-//       var snapshot = await _firebaseStorage
-//           .ref()
-//           .child("images/${userId}_${file.path.split('/').last}")
-//           .putFile(file);
-//       var downloadUrl = await snapshot.ref.getDownloadURL();
-//       print(downloadUrl);
-//       return downloadUrl;
-//     } catch (e) {
-//       _customService.showSnackBack(
-//         content: AppMessages.anErrorOcur,
-//         isError: true,
-//       );
-//       return (false);
-//     }
-//   }
-
-//   void _sendPictureToServer(List<XFile> pickedFileList, final text) async {
-//     final Box<User> boxUser = Hive.box("userBox");
-//     final Box<String> boxtrailId = Hive.box("trailId");
-//     var user = boxUser.get("user");
-//     var trailId = boxtrailId.get("trailId") ?? "";
-//     List<File> pictures_path = [];
-//     String id = user?.id ?? "";
-//     List<dynamic> roles = user?.roles ?? [];
-//     String token = user?.token ?? "";
-//     pickedFileList.forEach((picture) =>  pictures_path.add(convertXFiletoFile(picture)));
-//     var imagesUrls = await uploadProfile(pictures_path[0], id);
-//     print(imagesUrls);
-//     String json = "{\"user\": {\"id\": \"" + id +"\",\"roles\": [\""+ roles[0]+"\"]}, \"trail\":{\"id\":\""+ trailId +"\"\",\"comment\":{\"body\":\"" + text +"\", \"pictures\":\["+ jsonEncode(imagesUrls) +"] }}}";
-//     print("json : " + json);
-//     final response = await http.post(Uri.parse('https://dev-hikup.westeurope.cloudapp.azure.com/api/trail/comment/create'),
-//      headers: <String, String>{
-//       'Content-Type': 'application/json',
-//       'Authorization': "Bearer " + token
-//       },
-//       body: json
-//     );
-//   if (response.statusCode == 200) {
-//     final comments = jsonDecode(response.body);
-//     print(comments);
-//     _customService.showSnackBack(
-//         content: "Comment upload successfully !",
-//         isError: false,
-//       );
-//     return;
-//   } else {
-//     final string = jsonDecode(response.body);
-//     throw Exception(string['error']);
-//   }
-//   }
-
-//   Future<void> _onImageButtonPressed(ImageSource source, final text) async {
-//         try {
-//           final ImagePicker _picker = ImagePicker();
-//           final List<XFile> pickedFileList = await _picker.pickMultiImage();
-//           _sendPictureToServer(pickedFileList, text);
-//         } catch (e) {
-//           setState(() {
-//             _pickImageError = e;
-//           });
-//         }
-//   }
-
-
-// Future<List<CommentPhoto>> _retrieveData() async {
-//   final Box<User> boxUser = Hive.box("userBox");
-//   var user = boxUser.get("user");
-//   String id = user?.id ?? "";
-//   print("user : " + id);
-//   List<dynamic> roles = user?.roles ?? [];
-//   String token = user?.token ?? "";
-//   String json = "{\"user\": {\"id\": \"" + id +"\",\"roles\": [\""+ roles[0]+"\"]}}";
-//   final response = await http.post(Uri.parse('https://dev-hikup.westeurope.cloudapp.azure.com/api/trail/retrieve'),
-//      headers: <String, String>{
-//       'Content-Type': 'application/json',
-//       'Authorization': "Bearer " + token
-//     },
-//     body: json
-//   );
-//   if (response.statusCode == 200) {
-//     final comments = jsonDecode(response.body);
-//     print(comments['trails'][0]['comments']);
-//     final List<dynamic> data = comments['trails'][0]['comments'];
-//     return data.map((commentPhoto) => CommentPhoto.fromJson(commentPhoto)).toList()!;
-//   } else {
-//     final string = jsonDecode(response.body);
-//     throw Exception(string['error']);
-//   }
-// }
-
-// void myAlert(final text) async {
-//     showDialog(
-//         context: context,
-//         builder: (BuildContext context) {
-//           return AlertDialog(
-//             shape:
-//                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-//             title: Text('Please choose media to select'),
-//             content: Container(
-//               height: MediaQuery.of(context).size.height / 6,
-//               child: Column(
-//                 children: [
-//                   ElevatedButton(
-//                     onPressed: () {
-//                       Navigator.pop(context);
-//                       _onImageButtonPressed(ImageSource.gallery, text);
-//                     },
-//                     child: Row(
-//                       children: [
-//                         Icon(Icons.image),
-//                         Text('From Gallery'),
-//                       ],
-//                     ),
-//                   ),
-//                   ElevatedButton(
-//                     onPressed: () {
-//                       Navigator.pop(context);
-//                        _onImageButtonPressed(ImageSource.camera, text);
-//                     },
-//                     child: Row(
-//                       children: [
-//                         Icon(Icons.camera),
-//                         Text('From Camera'),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           );
-//         });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) { 
-//         return MaterialApp(
-//         home: Scaffold(
-//         resizeToAvoidBottomInset: true,
-//         appBar: const Header(),
-//         body:  SafeArea(
-//           child: Column(
-//             children:[
-//             Expanded(
-//             child: ListView(
-//           shrinkWrap: true,
-//           children:  [
-//             FutureBuilder<List<CommentPhoto>>(
-//             future: _retrieveData(),
-//             builder: (context, snapshot) {
-//             if (snapshot.hasData){ 
-//             List<CommentPhoto> commentsPhotos = snapshot.data!;
-//             return ListView.builder(
-//                 shrinkWrap: true,
-//                 physics: ClampingScrollPhysics(), 
-//                 itemCount: commentsPhotos.length,
-//                 itemBuilder: (context, index) {
-//                 CommentPhoto commentPhoto = commentsPhotos[index];
-//                 return Card(
-//                   child: Column(
-//                     children: [
-//                       Text(commentPhoto.username , style: TextStyle(fontSize: 20)),
-//                       Padding(
-//                           padding: const EdgeInsets.all(8.0),
-//                           child: Text(commentPhoto.body, style: TextStyle(fontSize: 15)),
-//                       ),
-//                       ListView.builder(
-//                         shrinkWrap: true,
-//                         physics: ClampingScrollPhysics(), 
-//                         itemCount: commentPhoto.pictures.length,
-//                         itemBuilder: (BuildContext context, index) {
-//                         String pictures = commentPhoto.pictures[index];
-//                         return Image.network(pictures);
-//                         }),
-//                     ]),
-//                   );
-//                 }); } 
-//                 else if (snapshot.hasError) { 
-//                   return Text('${snapshot.error}');
-//                 } else {
-//                   return Center(child: CircularProgressIndicator());
-//                 }
-//             })])),
-//                 Align(
-//                 alignment: Alignment.bottomCenter,
-//                 child:Container(
-//                           width: 350,
-//                           padding: EdgeInsets.symmetric(horizontal: 15),
-//                           decoration: BoxDecoration(color: Color(0xffEDEDED), borderRadius: BorderRadius.circular(20)),
-//                           child: Stack(children: [
-//                           TextFormField(
-//                             keyboardType: TextInputType.text,
-//                             maxLines: null,
-//                             autofocus: true,
-//                             controller: _textController,
-//                             decoration: const InputDecoration(
-//                               hintText: 'Type a message',
-//                               border: InputBorder.none,
-//                               focusedBorder: InputBorder.none,
-//                               hintStyle: TextStyle(color: Colors.black26),
-//                           ),
-//                         ), 
-//                          Positioned(bottom: 0,right: 0,child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         mainAxisSize: MainAxisSize.min,
-//                         children: [ 
-//                           IconButton(color: Colors.green, onPressed: () => _submitMessage(), icon: Icon(Icons.send_outlined)),
-//                         ]
-//                   ))
-//                 ])))]))),
-//               debugShowCheckedModeBanner: false,
-//     );
-//   }
-
-//   void _submitMessage() async {
-//   final text = _textController.text;
-//   if (text != null) {
-//     myAlert(text);
-//   }
-//     var url = "";
-//     //final myUserId = supabase.auth.currentUser!.id;
-//     if (text.isEmpty) {
-//       return;
-//     }
-//     _textController.clear();
-//     try {
-//       //_sendMessage(_text);
-//     } catch (_) {
-//       context.showErrorSnackBar(message: unexpectedErrorMessage);
-//     }
-//   }
-
-//     //Widget checkoutListBuilder(snapshot) {
-//     //return ListView.builder(
-//     //  itemCount: snapshot.data.length,
-//     //  itemBuilder: (BuildContext context, i) {
-//     //    final commentList = snapshot.data[i];
-//     //    return ListTile(
-//     //      title: Text(commentList.name),
-//     //      subtitle: Text("${cartList[i]['price']}\$"),
-//     //      trailing: IconButton(
-//     //        icon: Icon(Icons.remove_shopping_cart),
-//     //        onPressed: () {
-//     //          bloc.removeFromCart(commentList[i]);
-//     //        },
-//     //      ),
-//     //      onTap: () {},
-//     //    );
-//     //  },
-//     //);
-//   //}
-
-// }
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

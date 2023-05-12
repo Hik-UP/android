@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/local_notification.dart';
 import 'package:hikup/theme.dart';

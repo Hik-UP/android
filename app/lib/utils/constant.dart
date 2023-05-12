@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 import 'package:hikup/theme.dart';
 import '../model/user.dart';
-
 import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
 
@@ -48,6 +47,7 @@ const getHikePath = "/user/hike/retrieve";
 const acceptInvitePath = "/user/hike/guest/accept";
 const declineInvitePath = "/user/hike/guest/refuse";
 const leaveHikePath = "/user/hike/attendee/leave";
+const createCommentPath = "/trail/comment/create";
 
 const pinIcon = "assets/icons/pin.png";
 const idHikeIcon = "assets/icons/information.png";
@@ -65,7 +65,7 @@ const unFilledIconNavBar = [
   "assets/icons/settings_outlined.png",
   "assets/icons/accessibility_outlined.png"
 ];
-const labelNavBar = ["Accueil", "Recherche", "Réglages", "PM"];
+const labelNavBar = ["Accueil", "Recherche", "Réglages"];
 
 User emptyUser = User(
   id: "",
@@ -116,7 +116,6 @@ final screens = [
 enum TypeInput { text, password }
 
 const profilePlaceHoder = "assets/images/user_profile_example.png";
-
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
 const stopWatchIcon = "assets/icons/stopwatchIcon.svg";
