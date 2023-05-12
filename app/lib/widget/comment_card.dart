@@ -71,9 +71,9 @@ class CommentCard extends StatelessWidget {
                 ),
               ],
             ),
-            const Gap(16.0),
+            const Gap(18.0),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
+              padding: const EdgeInsets.symmetric(horizontal: 3.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

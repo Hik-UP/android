@@ -37,6 +37,7 @@ class _CommunityViewState extends State<CommunityView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: BlackPrimary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           title: const Text('Sélectionner le média'),
           content: SizedBox(
@@ -214,9 +215,7 @@ class _CommunityViewState extends State<CommunityView> {
                             itemCount: snapshot.data!.length,
                             itemBuilder: (BuildContext context, index) {
                               return Padding(
-                                padding: const EdgeInsets.only(
-                                  bottom: 26.0,
-                                ),
+                                padding: const EdgeInsets.all(14.0),
                                 child: CommentCard(
                                   comment: snapshot.data![index],
                                 ),
