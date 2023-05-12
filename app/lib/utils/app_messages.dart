@@ -1,7 +1,7 @@
 class AppMessages {
   static String email = "Email";
-  static String password = "Password";
-  static String login = "Login";
+  static String password = "Mot de passe";
+  static String login = "Se connecter";
   static String requiredField = "Email obligatoire";
   static String wrongEmail = "Email invalide";
   static String passwordRequired = "Le mot de passe est obligatoire";
@@ -9,14 +9,14 @@ class AppMessages {
   static String atLeastHeightChar =
       "Le mot requis au moins 8 characters.";
   static String registerButtonText = "Créer un compte";
-  static String usernameHintText = "Username";
+  static String usernameHintText = "Nom utilisateur";
   static String loginError = "Email ou mot de passe incorrect";
   static String anErrorOcur = "Une erreur s'est prduite, réessayer";
   static String usernameinvalid = "Le prénom est incorrecte";
   static String updateProfil = "Mettre à jour le profile";
   static String updateTxt = "Mettre à jour";
   static String deleteaccount = "Delete account";
-  static String logout = "Se déconnecter";
+  static String logout = "Déconnexion";
   static String needAPicture = "Please, select an image";
   static String tokenExpiredMessage = "Votre token est expiré";
   static String succesfulLogout = "Déconnexion";
@@ -54,7 +54,7 @@ class AppMessages {
   static String all = "Tous";
   static String organized = "Organized";
   static String guest = "Invité(e)";
-  static String attended = "Attended";
+  static String attended = "Mes randonnées";
   static String noHike = "Ooops, pas de rando à montrer";
   static String date = "Date";
   static String position = "Position";
@@ -62,7 +62,7 @@ class AppMessages {
   static String editemail = "The email is edited";
   static String noAccountYet = "Vous n'avez pas de compte?";
   static String alreadyHaveAccount =
-      "Vous avez déjà un compte? Se connecter ici !";
+      "Vous avez déjà un compte ?";
   static String age = "Age";
   static String weightPlaceHolder = "Poids";
   static String gender = "Genre";
