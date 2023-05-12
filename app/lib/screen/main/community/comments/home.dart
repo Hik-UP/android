@@ -148,12 +148,7 @@ class _CommunityViewState extends State<CommunityView> {
                                     appState: appState,
                                     trailId: widget.trailId,
                                     update: () {
-                                      Future.delayed(
-                                        const Duration(seconds: 4),
-                                        () => setState(
-                                          () {},
-                                        ),
-                                      );
+                                      setState(() {});
                                     },
                                   ),
                                   icon: const Icon(
