@@ -30,7 +30,7 @@ class DioService {
         ),
         data: body,
       );
-
+      print(result.statusCode);
       return result;
     } on DioError catch (e) {
       if (e.response == null) {
