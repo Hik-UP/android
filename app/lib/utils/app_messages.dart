@@ -81,4 +81,5 @@ class AppMessages {
   static String quit = "Leave";
   static String noComment = "Aucun commentaire à afficher pour ce parcours";
   static String commentaireLabel = "Commentaires";
+  static String noNotificationLabel = "Oops, aucune notification à afficher";
 }

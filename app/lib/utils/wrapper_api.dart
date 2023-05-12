@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/detail_trail_model.dart';
 import 'package:hikup/model/hike.dart';
+import 'package:hikup/model/notification.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/service/custom_navigation.dart';
@@ -144,5 +145,50 @@ class WrapperApi {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: tools
     );
+  }
+
+  sendFcmToken({
+    required AppState appState,
+  }) async {
+    _dioService.post(
+      path: updateProfilePath,
+      body: {
+        "user": {
+          "id": appState.id,
+          "roles": appState.roles,
+          "fcmToken": appState.fcmUserToken,
+        },
+      },
+      token: "Bearer ${appState.token}",
+    );
+  }
+
+  Future<List<NotificationModel>> getAllNotification(
+      {required AppState appState}) async {
+    try {
+      var response = await _dioService.post(
+        path: retrieveNotificationPath,
+        body: {
+          "user": {
+            "id": appState.id,
+            "roles": appState.roles,
+          },
+        },
+        token: "Bearer ${appState.token}",
+      );
+
+      print(response.data["notifications"]);
+
+      return (response.data["notifications"] as List)
+          .map<NotificationModel>(
+            (e) => NotificationModel.fromMap(
+              data: e,
+            ),
+          )
+          .toList();
+    } catch (e) {
+      print(e);
+      return [];
+    }
   }
 }

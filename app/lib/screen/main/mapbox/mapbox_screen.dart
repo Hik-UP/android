@@ -41,6 +41,10 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
       roles: appState.roles,
       token: appState.token,
     );
+    WrapperApi().sendFcmToken(
+      appState: appState,
+    );
+    
   }
 
   @override

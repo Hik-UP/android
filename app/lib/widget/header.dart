@@ -8,8 +8,6 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 
-import '../screen/main/community/community_history_screen.dart';
-
 class Header extends StatelessWidget implements PreferredSizeWidget {
   const Header({Key? key}) : super(key: key);
 
@@ -123,7 +121,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
       ),
-      backgroundColor: Color.fromARGB(255, 32, 32, 32),
+      backgroundColor: const Color.fromARGB(255, 32, 32, 32),
       elevation: 0.0,
       automaticallyImplyLeading: false,
       actions: <Widget>[
@@ -154,19 +152,19 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                     right: 0,
                     top: -5,
                     child: Container(
-                      padding: const EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.all(5.0),
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 23, 255, 119),
                         shape: BoxShape.circle,
                       ),
-                      child: const Text(
-                        "3",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 8.0,
-                        ),
-                      ),
+                      // child: const Text(
+                      //   "3",
+                      //   style: TextStyle(
+                      //     color: Colors.white,
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 8.0,
+                      //   ),
+                      // ),
                     ),
                   ),
                 ],

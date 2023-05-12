@@ -24,6 +24,9 @@ class User {
   @HiveField(6)
   final String token;
 
+  @HiveField(7)
+  final String? fcmToken;
+
   User({
     required this.id,
     required this.name,
@@ -32,6 +35,7 @@ class User {
     required this.imageProfile,
     required this.roles,
     required this.token,
+    this.fcmToken,
   });
 
   static User fromMap({
@@ -45,6 +49,7 @@ class User {
       roles: data["roles"] ?? [],
       accountType: "",
       imageProfile: data["picture"] ?? "",
+      fcmToken: data["fcmToken"],
     );
   }
 
@@ -61,6 +66,7 @@ class User {
       imageProfile: user.imageProfile,
       roles: user.roles,
       token: user.token,
+      fcmToken: user.fcmToken,
     );
   }
 }
