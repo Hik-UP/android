@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/comment.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
+import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
@@ -12,6 +13,7 @@ import 'package:hikup/widget/comment_card.dart';
 import 'package:hikup/widget/thumbail_img.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
 
 class CommunityView extends StatefulWidget {
   final String trailId;
@@ -36,7 +38,7 @@ class _CommunityViewState extends State<CommunityView> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          title: const Text('Please choose media to select'),
+          title: const Text('Sélectionner le média'),
           content: SizedBox(
             height: MediaQuery.of(context).size.height / 6,
             child: Column(
@@ -49,7 +51,7 @@ class _CommunityViewState extends State<CommunityView> {
                   child: Row(
                     children: const [
                       Icon(Icons.image),
-                      Text('From Gallery'),
+                      Text('À partir de la gallerie'),
                     ],
                   ),
                 ),
@@ -61,7 +63,7 @@ class _CommunityViewState extends State<CommunityView> {
                   child: Row(
                     children: const [
                       Icon(Icons.camera),
-                      Text('From Camera'),
+                      Text('À partir de la caméra'),
                     ],
                   ),
                 ),
@@ -117,7 +119,8 @@ class _CommunityViewState extends State<CommunityView> {
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: BoxDecoration(
-                        color: const Color(0xffEDEDED),
+                        color: BlackPrimary,
+                        //color: const Color(0xffEDEDED),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Stack(
@@ -127,12 +130,14 @@ class _CommunityViewState extends State<CommunityView> {
                             maxLines: 2,
                             controller: model.textController,
                             decoration: const InputDecoration(
-                              hintText: 'Type a message',
+                              hintText: 'Écrire un commentaire',
+                              //style: TextStyle(color: Colors.white),
                               border: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               hintStyle: TextStyle(
-                                color: Colors.black26,
+                                color: Colors.white,
                               ),
+                              //style: TextStyle(color: Colors.white),
                             ),
                           ),
                           Positioned(
@@ -143,7 +148,7 @@ class _CommunityViewState extends State<CommunityView> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 IconButton(
-                                  color: Colors.green,
+                                  color: GreenPrimary,
                                   onPressed: () => model.submitMessage(
                                     appState: appState,
                                     trailId: widget.trailId,
@@ -156,7 +161,7 @@ class _CommunityViewState extends State<CommunityView> {
                                   ),
                                 ),
                                 IconButton(
-                                  color: Colors.green,
+                                  color: GreenPrimary,
                                   onPressed: () {
                                     myAlert(
                                       context: context,
@@ -202,7 +207,7 @@ class _CommunityViewState extends State<CommunityView> {
                           padding: const EdgeInsets.only(
                             right: 16.0,
                             left: 16.0,
-                            top: 10.0,
+                            top: 20.0,
                           ),
                           child: ListView.builder(
                             shrinkWrap: true,
@@ -210,7 +215,7 @@ class _CommunityViewState extends State<CommunityView> {
                             itemBuilder: (BuildContext context, index) {
                               return Padding(
                                 padding: const EdgeInsets.only(
-                                  bottom: 16.0,
+                                  bottom: 26.0,
                                 ),
                                 child: CommentCard(
                                   comment: snapshot.data![index],
