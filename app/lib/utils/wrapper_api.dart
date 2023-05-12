@@ -148,18 +148,21 @@ class WrapperApi {
   }
 
   sendFcmToken({
-    required AppState appState,
+    required String id,
+    required List<dynamic> roles,
+    required String token,
+    required String tokenFcm,
   }) async {
-    _dioService.post(
+    _dioService.put(
       path: updateProfilePath,
       body: {
         "user": {
-          "id": appState.id,
-          "roles": appState.roles,
-          "fcmToken": appState.fcmUserToken,
+          "id": id,
+          "roles": roles,
+          "fcmToken": tokenFcm,
         },
       },
-      token: "Bearer ${appState.token}",
+      token: "Bearer $token",
     );
   }
 
