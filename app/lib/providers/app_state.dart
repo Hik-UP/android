@@ -15,7 +15,6 @@ final Box<SensibleUserData> sensibleUserDataBox =
     Hive.box("sensibleUserDataBox");
 final Box<String> boxtrailId = Hive.box('trailId');
 
-
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
 
@@ -74,6 +73,7 @@ class AppState extends ChangeNotifier {
 
   void setFcmToken({required String value}) {
     fcmUserToken = value;
+
     notifyListeners();
   }
 

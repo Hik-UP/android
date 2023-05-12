@@ -18,7 +18,6 @@ class DioService {
     required Map<String, dynamic> body,
     String token = "",
   }) async {
-    print("$baseUrl$path");
     try {
       var result = await _dio.post(
         "$baseUrl$path",
@@ -33,7 +32,6 @@ class DioService {
 
       return result;
     } on DioError catch (e) {
-      print(e);
       if (e.response == null) {
         _navigator.showSnackBack(
           content: AppMessages.anErrorOcur,
