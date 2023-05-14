@@ -5,6 +5,7 @@ import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/utils/constant.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 
@@ -15,7 +16,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
 
-    var state;
     return AppBar(
       iconTheme: const IconThemeData(
         color: Color.fromARGB(255, 156, 156, 156),
@@ -40,6 +40,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                 //CommunityHistoryScreen.routeName,
                 SettingsScreen.routeName,
               ),
+
                   child: Consumer<AppState>(builder: (context, state, child) {
                     return Row(
                       children: [
@@ -58,64 +59,15 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                                   // ),
                                 ),
                               )
-                            : LoadPictureProfil(
-                                appState: state,
-                                width: 30,
-                                height: 30,
-                              ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     Text(
-                        //       appState.username.isNotEmpty
-                        //           ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
-                        //           : "",
-                        //       style: subTitleTextStyle,
-                        //     ),
-                        //     const SizedBox(
-                        //       height: 8,
-                        //     ),
-                        //     Container(
-                        //       width: MediaQuery.of(context).size.width * .6,
-                        //       padding: const EdgeInsets.all(2),
-                        //       child: Text(
-                        //         appState.email,
-                        //         style: descTextStyleWhite,
-                        //         maxLines: 1,
-                        //       ),
-                        //     ),
-                        //     const Gap(6.0),
-                        //     // CustomBtn(
-                        //     //   content: AppMessages.updateProfil,
-                        //     //   height: 50, 
-                        //     //   onPress: () {
-                        //     //     Navigator.of(context).pushNamed(
-                        //     //       UpdateProfile.routeName,
-                        //     //     );
-                        //     //   },
-                        //     //   gradient: loginButtonColor,
-                        //     // ),
-                        //   ],
-                        // ),
-                      ],
-                    );
-                  }),
-              // child: Container(
-              //   margin: const EdgeInsets.only(left: 10.0),
-              //   width: 35,
-              //   height: 35,
-              //   decoration: const BoxDecoration(
-              //     shape: BoxShape.circle,
-              //     color: Color.fromARGB(255, 156, 156, 156),
-              //     image: DecorationImage(
-              //       fit: BoxFit.fill,
-              //       image: AssetImage("assets/images/user_profile_example.png"),
-              //     ),
-              //   ),
-              // ),
+
+                          : LoadPictureProfil(
+                              size: 35,
+                              appState: state,
+                            ),
+                    ],
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -137,7 +89,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             const Gap(20.0),
             GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(
-                //CommunityHistoryScreen.routeName,
                 NotificationView.routeName,
               ),
               child: Stack(

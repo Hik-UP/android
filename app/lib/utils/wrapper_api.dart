@@ -124,7 +124,6 @@ class WrapperApi {
       }
       return hikes;
     } catch (e) {
-      print(e);
       throw AppMessages.anErrorOcur;
     }
   }
@@ -141,10 +140,10 @@ class WrapperApi {
       );
     }
 
-    return Column(mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: tools
-    );
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: tools);
   }
 
   sendFcmToken({
@@ -180,8 +179,6 @@ class WrapperApi {
         token: "Bearer ${appState.token}",
       );
 
-      print(response.data["notifications"]);
-
       return (response.data["notifications"] as List)
           .map<NotificationModel>(
             (e) => NotificationModel.fromMap(
@@ -190,8 +187,30 @@ class WrapperApi {
           )
           .toList();
     } catch (e) {
-      print(e);
       return [];
+    }
+  }
+
+  Future<void> moveNotificationToRead({required AppState appState}) async {
+    var notifications = await getAllNotification(appState: appState);
+
+    for (NotificationModel notif in notifications) {
+      if (!notif.read) {
+        _dioService.put(
+          path: notifUpdatePath,
+          body: {
+            "user": {
+              "id": appState.id,
+              "roles": appState.roles,
+            },
+            "notification": {
+              "id": notif.id,
+              "read": true,
+            },
+          },
+          token: "Bearer ${appState.token}",
+        );
+      }
     }
   }
 }

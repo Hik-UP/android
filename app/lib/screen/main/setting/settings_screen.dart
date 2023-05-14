@@ -16,14 +16,12 @@ import '../../../providers/app_state.dart';
 import '../../../theme.dart';
 
 class LoadPictureProfil extends StatelessWidget {
-  final AppState appState;
-  final double width;
-  final double height;
+  final double size;
+  final AppState appState,
   const LoadPictureProfil({
     Key? key,
     required this.appState,
-    required this.width,
-    required this.height,
+    this.size = 75,
   }) : super(key: key);
 
   @override
@@ -31,8 +29,8 @@ class LoadPictureProfil extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: appState.picture,
       progressIndicatorBuilder: (context, url, progress) => Container(
-        width: width,
-        height: height,
+        width: size,
+        height: size,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: BlackPrimary,
@@ -42,8 +40,8 @@ class LoadPictureProfil extends StatelessWidget {
         ),
       ),
       errorWidget: (context, url, error) => Container(
-        width: width,
-        height: height,
+        width: size,
+        height: size,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: BlackSecondary,
@@ -53,8 +51,8 @@ class LoadPictureProfil extends StatelessWidget {
         ),
       ),
       imageBuilder: (context, imageProvider) => Container(
-        width: width,
-        height: height,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: BlackPrimary,
@@ -86,7 +84,7 @@ class SettingsScreen extends StatelessWidget {
           style: titleTextStyleWhite,
         ),
         iconTheme: IconThemeData(
-            color: GreenPrimary, // Couleur de la flèche retour
+          color: GreenPrimary, // Couleur de la flèche retour
         ),
         backgroundColor: BlackPrimary,
         centerTitle: true,
@@ -129,8 +127,6 @@ class SettingsScreen extends StatelessWidget {
                               )
                             : LoadPictureProfil(
                                 appState: state,
-                                width: 75,
-                                height: 75,
                               ),
                         const SizedBox(
                           width: 16,
@@ -159,7 +155,7 @@ class SettingsScreen extends StatelessWidget {
                             const Gap(6.0),
                             CustomBtn(
                               content: AppMessages.updateProfil,
-                              height: 50, 
+                              height: 50,
                               onPress: () {
                                 Navigator.of(context).pushNamed(
                                   UpdateProfile.routeName,
@@ -205,10 +201,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               const Gap(30.0),
-              Text(
-                AppMessages.aboutApp,
-                style: subTitleTextStyle
-                ),
+              Text(AppMessages.aboutApp, style: subTitleTextStyle),
               InkWell(
                 onTap: () {
                   _showSnackBar(
@@ -266,19 +259,19 @@ class SettingsScreen extends StatelessWidget {
                       return AlertDialog(
                         backgroundColor: BlackPrimary,
                         title: Text(AppMessages.askIfUserWantToLogout,
-                        style: subTitleTextStyle),
+                            style: subTitleTextStyle),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(false),
                             child: Text(AppMessages.cancel,
-                            style: GreenAddressTextStyle),
+                                style: GreenAddressTextStyle),
                           ),
                           TextButton(
                             onPressed: () {
                               WrapperApi().logout(isLogout: true);
                             },
                             child: Text(AppMessages.logOut,
-                            style: GreenAddressTextStyle),
+                                style: GreenAddressTextStyle),
                           ),
                         ],
                       );
