@@ -192,20 +192,22 @@ class WrapperApi {
     var notifications = await getAllNotification(appState: appState);
 
     for (NotificationModel notif in notifications) {
-      _dioService.put(
-        path: notifUpdatePath,
-        body: {
-          "user": {
-            "id": appState.id,
-            "roles": appState.roles,
+      if (!notif.read) {
+        _dioService.put(
+          path: notifUpdatePath,
+          body: {
+            "user": {
+              "id": appState.id,
+              "roles": appState.roles,
+            },
+            "notification": {
+              "id": notif.id,
+              "read": true,
+            },
           },
-          "notification": {
-            "id": notif.id,
-            "read": true,
-          },
-        },
-        token: "Bearer ${appState.token}",
-      );
+          token: "Bearer ${appState.token}",
+        );
+      }
     }
   }
 }
