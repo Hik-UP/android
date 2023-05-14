@@ -11,9 +11,28 @@ import 'package:hikup/utils/app_messages.dart';
 import 'package:provider/provider.dart';
 import '../../../theme.dart';
 
-class NotificationView extends StatelessWidget {
+class NotificationView extends StatefulWidget {
   static String routeName = "/notification";
   const NotificationView({Key? key}) : super(key: key);
+
+  @override
+  State<NotificationView> createState() => _NotificationViewState();
+}
+
+class _NotificationViewState extends State<NotificationView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 5), () {
+      WrapperApi()
+          .moveNotificationToRead(appState: context.read<AppState>())
+          .then(
+            (value) => setState(
+              () {},
+            ),
+          );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
