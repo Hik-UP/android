@@ -16,7 +16,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
     AppState appState = context.read<AppState>();
 
     return CurrentLocationLayer(
-      followOnLocationUpdate: FollowOnLocationUpdate.always,
+      followOnLocationUpdate: FollowOnLocationUpdate.once,
       turnOnHeadingUpdate: TurnOnHeadingUpdate.always,
       style: LocationMarkerStyle(
         marker: appState.skin.pictures.isNotEmpty
