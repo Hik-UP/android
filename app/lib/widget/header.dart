@@ -11,12 +11,9 @@ import 'package:hikup/screen/main/setting/settings_screen.dart';
 class Header extends StatelessWidget implements PreferredSizeWidget {
   const Header({Key? key}) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
-    appState.picture;
 
     var state;
     return AppBar(

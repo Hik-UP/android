@@ -186,7 +186,8 @@ class DetailScreen extends StatelessWidget {
               child: model.getState == ViewState.busy
                   ? const CircularProgressIndicator()
                   : Text(
-                      AppMessages.startNow,
+                      model.dateCtrl.text.isEmpty ?
+                        AppMessages.startHike : AppMessages.scheduleHike,
                       style: subTitleTextStyle,
                     ),
             ),
