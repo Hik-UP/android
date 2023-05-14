@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,7 +40,7 @@ class _CommunityViewState extends State<CommunityView> {
         return AlertDialog(
           backgroundColor: BlackPrimary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          title: const Text('Sélectionner le média'),
+          title: const Text('Sélectionner le média', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
           content: SizedBox(
             height: MediaQuery.of(context).size.height / 6,
             child: Column(
@@ -127,9 +128,14 @@ class _CommunityViewState extends State<CommunityView> {
                       child: Stack(
                         children: [
                           TextFormField(
-                            keyboardType: TextInputType.text,
+                            //keyboardType: TextInputType.text,
                             maxLines: 2,
                             controller: model.textController,
+                                            keyboardType: TextInputType.text,
+                                      style: TextStyle(
+                                    color: Colors.white
+                                    ),
+
                             decoration: const InputDecoration(
                               hintText: 'Écrire un commentaire',
                               //style: TextStyle(color: Colors.white),

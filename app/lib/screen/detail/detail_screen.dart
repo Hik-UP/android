@@ -25,7 +25,7 @@ class DetailScreen extends StatelessWidget {
     AppState appState = context.read<AppState>();
 
     String durationToString(int minutes) {
-      var d = Duration(minutes:minutes);
+      var d = Duration(minutes: minutes);
       List<String> parts = d.toString().split(':');
       return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
     }
@@ -77,6 +77,18 @@ class DetailScreen extends StatelessWidget {
                       upHill: "${field.uphill} m",
                       downHill: "${field.downhill} m",
                       tools: field.tools,
+                      difficulty: field.difficulty.toString(),
+                    ),
+                    const Gap(10.0),
+                    Text(
+                      "Label",
+                      style: subTitleTextStyle,
+                    ),
+                    const Gap(8.0),
+                    Text(
+                      field.labels.toString(),
+                      textAlign: TextAlign.justify,
+                      style: WhiteAddressTextStyle,
                     ),
                     const Gap(10.0),
                     Text(
@@ -186,7 +198,8 @@ class DetailScreen extends StatelessWidget {
               child: model.getState == ViewState.busy
                   ? const CircularProgressIndicator()
                   : Text(
-                      AppMessages.startNow,
+                      model.dateCtrl.text.isEmpty ?
+                        AppMessages.startHike : AppMessages.scheduleHike,
                       style: subTitleTextStyle,
                     ),
             ),

@@ -17,6 +17,7 @@ class DisplayDetailTrails extends StatelessWidget {
   final String upHill;
   final String downHill;
   final List<String> tools;
+  final String difficulty;
 
   const DisplayDetailTrails({
     Key? key,
@@ -25,6 +26,7 @@ class DisplayDetailTrails extends StatelessWidget {
     required this.upHill,
     required this.downHill,
     required this.tools,
+    required this.difficulty,
   }) : super(key: key);
 
   String putZero({required int value}) {
@@ -189,6 +191,29 @@ class DisplayDetailTrails extends StatelessWidget {
         WrapperApi().showTools(
           toolsBack: tools,
         ),
+        Text(
+          "Difficulté",
+          style: subTitleTextStyle,
+        ),
+        const Gap(8.0),
+        Row(
+          children: [
+            const Icon(
+              Icons.emoji_events,
+              color: GreenPrimary,
+              size: 24.0,
+            ),
+            const SizedBox(
+              width: 16.0,
+            ),
+            Text(
+              this.difficulty + " / 5",
+              textAlign: TextAlign.justify,
+              style: WhiteAddressTextStyle,
+            ),
+          ],
+        ),
+        const Gap(10.0),
       ],
     );
   }

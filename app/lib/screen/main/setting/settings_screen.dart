@@ -17,7 +17,7 @@ import '../../../theme.dart';
 
 class LoadPictureProfil extends StatelessWidget {
   final double size;
-  final AppState appState;
+  final AppState appState,
   const LoadPictureProfil({
     Key? key,
     required this.appState,

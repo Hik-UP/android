@@ -37,11 +37,13 @@ class DetailHikeInvite extends StatelessWidget {
       height: 50.0,
       point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
       builder: (ctx) => Icon(Icons.fiber_manual_record_rounded,
-        color: Colors.blue, size: 24.0),
+          color: Colors.blue, size: 24.0),
     );
     final Polyline polyline = Polyline(
-      points: json.decode(hike.trail.geoJSON)["features"][0]["geometry"]["coordinates"]
-        .map<latlng.LatLng>((entry) => latlng.LatLng(entry[1], entry[0])).toList(),
+      points: json
+          .decode(hike.trail.geoJSON)["features"][0]["geometry"]["coordinates"]
+          .map<latlng.LatLng>((entry) => latlng.LatLng(entry[1], entry[0]))
+          .toList(),
       color: Colors.red,
       strokeWidth: 3.0,
       borderColor: const Color(0xFF1967D2),
@@ -49,7 +51,7 @@ class DetailHikeInvite extends StatelessWidget {
     );
 
     String durationToString(int minutes) {
-      var d = Duration(minutes:minutes);
+      var d = Duration(minutes: minutes);
       List<String> parts = d.toString().split(':');
       return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
     }
@@ -59,7 +61,7 @@ class DetailHikeInvite extends StatelessWidget {
       height: 50.0,
       point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
       builder: (ctx) => Icon(Icons.fiber_manual_record_rounded,
-        color: Colors.blue, size: 24.0),
+          color: Colors.blue, size: 24.0),
     );
 
     return BaseView<DetailHikeInviteViewModel>(
@@ -93,12 +95,13 @@ class DetailHikeInvite extends StatelessWidget {
                     ),
                     child: FlutterMap(
                       options: MapOptions(
-                        enableScrollWheel: false,
-                        interactiveFlags: InteractiveFlag.none,
-                        center: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
-                        zoom: 13,
-                        maxBounds: LatLngBounds(
-                            latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0))),
+                          enableScrollWheel: false,
+                          interactiveFlags: InteractiveFlag.none,
+                          center: latlng.LatLng(
+                              hike.trail.latitude, hike.trail.longitude),
+                          zoom: 13,
+                          maxBounds: LatLngBounds(latlng.LatLng(-90, -180.0),
+                              latlng.LatLng(90.0, 180.0))),
                       children: [
                         TileLayer(
                           urlTemplate: getMap(),
@@ -156,6 +159,7 @@ class DetailHikeInvite extends StatelessWidget {
                 upHill: "${hike.trail.uphill} m",
                 downHill: "${hike.trail.downhill} m",
                 tools: hike.trail.tools,
+                difficulty: hike.trail.difficulty.toString(),
               ),
               const Gap(10.0),
               Text(

@@ -15,7 +15,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
-    appState.picture;
 
     return AppBar(
       iconTheme: const IconThemeData(
@@ -41,25 +40,26 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                 //CommunityHistoryScreen.routeName,
                 SettingsScreen.routeName,
               ),
-              child: Consumer<AppState>(
-                builder: (context, state, child) {
-                  return Row(
-                    children: [
-                      state.picture.isEmpty
-                          ? Container(
-                              width: 35,
-                              height: 35,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: BlackPrimary,
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage(
-                                    profilePlaceHoder,
-                                  ),
+
+                  child: Consumer<AppState>(builder: (context, state, child) {
+                    return Row(
+                      children: [
+                        state.picture.isEmpty
+                            ? Container(
+                                width: 30,
+                                height: 30,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: BlackPrimary,
+                                  // image: DecorationImage(
+                                  //   fit: BoxFit.fill,
+                                  //   image: AssetImage(
+                                  //     profilePlaceHoder,
+                                  //   ),
+                                  // ),
                                 ),
-                              ),
-                            )
+                              )
+
                           : LoadPictureProfil(
                               size: 35,
                               appState: state,
