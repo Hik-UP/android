@@ -7,6 +7,7 @@ import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 final Box<User> boxUser = Hive.box("userBox");
@@ -74,6 +75,15 @@ class AppState extends ChangeNotifier {
   void setFcmToken({required String value}) {
     fcmUserToken = value;
 
+    print("Tpken");
+    print(value);
+    WrapperApi().sendFcmToken(
+      id: id,
+      roles: roles,
+      token: token,
+      tokenFcm: value,
+    );
+
     notifyListeners();
   }
 
@@ -115,7 +125,7 @@ class AppState extends ChangeNotifier {
 
   void getUserFcmToken() async {
     FirebaseMessaging.instance.getToken().then((value) => setFcmToken(
-          value: value ?? "",
+          value: value!,
         ));
   }
 }
