@@ -118,7 +118,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                 ),
                               ),
                             ),
-                            const Gap(40.0),
+                            const Gap(100.0),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
