@@ -49,6 +49,7 @@ const declineInvitePath = "/user/hike/guest/refuse";
 const leaveHikePath = "/user/hike/attendee/leave";
 const createCommentPath = "/trail/comment/create";
 const retrieveNotificationPath = "/user/notification/retrieve";
+const notifUpdatePath = "/user/notification/update";
 
 const pinIcon = "assets/icons/pin.png";
 const idHikeIcon = "assets/icons/information.png";
