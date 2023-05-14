@@ -17,9 +17,13 @@ import '../../../theme.dart';
 
 class LoadPictureProfil extends StatelessWidget {
   final AppState appState;
+  final double width;
+  final double height;
   const LoadPictureProfil({
     Key? key,
     required this.appState,
+    required this.width,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -27,8 +31,8 @@ class LoadPictureProfil extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: appState.picture,
       progressIndicatorBuilder: (context, url, progress) => Container(
-        width: 75,
-        height: 75,
+        width: width,
+        height: height,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: BlackPrimary,
@@ -38,8 +42,8 @@ class LoadPictureProfil extends StatelessWidget {
         ),
       ),
       errorWidget: (context, url, error) => Container(
-        width: 75,
-        height: 75,
+        width: width,
+        height: height,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: BlackSecondary,
@@ -49,8 +53,8 @@ class LoadPictureProfil extends StatelessWidget {
         ),
       ),
       imageBuilder: (context, imageProvider) => Container(
-        width: 75,
-        height: 75,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: BlackPrimary,
@@ -125,6 +129,8 @@ class SettingsScreen extends StatelessWidget {
                               )
                             : LoadPictureProfil(
                                 appState: state,
+                                width: 75,
+                                height: 75,
                               ),
                         const SizedBox(
                           width: 16,

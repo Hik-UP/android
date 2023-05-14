@@ -45,8 +45,8 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         state.picture.isEmpty
                             ? Container(
-                                width: 35,
-                                height: 35,
+                                width: 30,
+                                height: 30,
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: BlackPrimary,
@@ -60,6 +60,8 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                               )
                             : LoadPictureProfil(
                                 appState: state,
+                                width: 30,
+                                height: 30,
                               ),
                         const SizedBox(
                           width: 16,
