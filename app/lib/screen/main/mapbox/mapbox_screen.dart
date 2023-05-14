@@ -186,7 +186,34 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                 ),
                               ],
                             ),
-                            const Gap(40.0),
+                            const Gap(20.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "Labels:",
+                                  style: subTitleTextStyle,
+                                ),
+                                const Gap(10.0),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: model.trailsList[0].labels.map((label) => Container(
+                                    padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                                    margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(4.0),
+                                    ),
+                                    child: Text(
+                                        "${label}",
+                                        style: subTitleTextStyle,
+                                      ),
+                                    ),
+                                  ).toList(),
+                                ),
+                              ],
+                            ),
+                            const Gap(20.0),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
