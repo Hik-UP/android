@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/notification.dart';
 import 'package:hikup/theme.dart';
+import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 
 class NotificationCard extends StatelessWidget {
@@ -16,7 +17,6 @@ class NotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      // height: MediaQuery.of(context).size.height / 4 * .5,
       child: Padding(
         padding: const EdgeInsets.all(0.0),
         child: Card(
@@ -41,13 +41,38 @@ class NotificationCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          notification.title,
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              notification.title,
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const Gap(16.0),
+                            Container(
+                              padding: const EdgeInsets.all(3.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.0),
+                                color: notification.read
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
+                              child: Text(
+                                notification.read
+                                    ? AppMessages.lueNotifLabel
+                                    : AppMessages.nonLueNotifLabel,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11.0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const Gap(4.0),
                         SizedBox(
