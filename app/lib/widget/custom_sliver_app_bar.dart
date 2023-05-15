@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
@@ -42,13 +43,22 @@ class CustomSliverAppBar extends StatelessWidget {
             ),
           ),
         ),
-        background: CachedNetworkImage(
-          imageUrl: field.pictures[0],
-          fit: BoxFit.cover,
-          errorWidget: (context, url, error) => const Icon(
-            Icons.warning,
-            color: GreenPrimary,
+        background: CarouselSlider(
+          options: CarouselOptions(
+            autoPlay: true,
+            viewportFraction: 1,
+            height: MediaQuery.of(context).size.height
           ),
+          items: field.pictures.map((picture) {
+            return CachedNetworkImage(
+              fit: BoxFit.cover, width: 1000.0,
+              imageUrl: picture,
+              errorWidget: (context, url, error) => const Icon(
+                Icons.warning,
+                color: HOPA,
+              ),
+            );
+          }).toList(),
         ),
         collapseMode: CollapseMode.parallax,
       ),
