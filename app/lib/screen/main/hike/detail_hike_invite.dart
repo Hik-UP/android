@@ -36,8 +36,11 @@ class DetailHikeInvite extends StatelessWidget {
       width: 50.0,
       height: 50.0,
       point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
-      builder: (ctx) => Icon(Icons.fiber_manual_record_rounded,
-          color: Colors.blue, size: 24.0),
+      builder: (ctx) => const Icon(
+        Icons.fiber_manual_record_rounded,
+        color: Colors.blue,
+        size: 24.0,
+      ),
     );
     final Polyline polyline = Polyline(
       points: json
@@ -60,8 +63,11 @@ class DetailHikeInvite extends StatelessWidget {
       width: 50.0,
       height: 50.0,
       point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
-      builder: (ctx) => Icon(Icons.fiber_manual_record_rounded,
-          color: Colors.blue, size: 24.0),
+      builder: (ctx) => const Icon(
+        Icons.fiber_manual_record_rounded,
+        color: Colors.blue,
+        size: 24.0,
+      ),
     );
 
     return BaseView<DetailHikeInviteViewModel>(
@@ -119,35 +125,35 @@ class DetailHikeInvite extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 10,
-                    right: 20,
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        gradient: loginButtonColor,
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            FontAwesomeIcons.locationArrow,
-                            color: Colors.white,
-                          ),
-                          const Gap(8.0),
-                          Text(
-                            AppMessages.seeAll,
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                  // Positioned(
+                  //   bottom: 10,
+                  //   right: 20,
+                  //   child: Container(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     decoration: BoxDecoration(
+                  //       gradient: loginButtonColor,
+                  //       borderRadius: BorderRadius.circular(30.0),
+                  //     ),
+                  //     child: Row(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       children: [
+                  //         const Icon(
+                  //           FontAwesomeIcons.locationArrow,
+                  //           color: Colors.white,
+                  //         ),
+                  //         const Gap(8.0),
+                  //         Text(
+                  //           AppMessages.seeAll,
+                  //           style: GoogleFonts.poppins(
+                  //             fontWeight: FontWeight.bold,
+                  //             fontSize: 14.0,
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
               const Gap(20.0),
@@ -162,19 +168,24 @@ class DetailHikeInvite extends StatelessWidget {
                   const Gap(10.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: hike.trail.labels.map((label) => Container(
-                      padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-                      margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      child: Text(
-                          "${label}",
-                          style: subTitleTextStyle,
-                        ),
-                      ),
-                    ).toList(),
+                    children: hike.trail.labels
+                        .map(
+                          (label) => Container(
+                            padding:
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            margin:
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Text(
+                              label,
+                              style: subTitleTextStyle,
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ],
               ),
