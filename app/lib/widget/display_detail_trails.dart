@@ -244,7 +244,7 @@ class DisplayDetailTrails extends StatelessWidget {
                 link: articles[index],
                 displayDirection: UIDirection.uiDirectionVertical,
                 showMultimedia: true,
-                bodyMaxLines: 5,
+                bodyMaxLines: 2,
                 bodyTextOverflow: TextOverflow.ellipsis,
                 titleStyle: GoogleFonts.poppins(
                   color: Colors.black,
