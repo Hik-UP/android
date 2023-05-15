@@ -189,14 +189,6 @@ class DisplayDetailTrails extends StatelessWidget {
         ),
         const Gap(10.0),
         Text(
-          "Équipements",
-          style: subTitleTextStyle,
-        ),
-        const Gap(8.0),
-        WrapperApi().showTools(
-          toolsBack: tools,
-        ),
-        Text(
           "Difficulté",
           style: subTitleTextStyle,
         ),
@@ -220,6 +212,15 @@ class DisplayDetailTrails extends StatelessWidget {
         ),
         const Gap(10.0),
         Text(
+          "Équipements",
+          style: subTitleTextStyle,
+        ),
+        const Gap(8.0),
+        WrapperApi().showTools(
+          toolsBack: tools,
+        ),
+        const Gap(10.0),
+        Text(
           "Label",
           style: subTitleTextStyle,
         ),
@@ -232,14 +233,13 @@ class DisplayDetailTrails extends StatelessWidget {
           "Articles",
           style: subTitleTextStyle,
         ),
-        const Gap(8.0),
         SizedBox(
           height: 200,
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: articles.length,
             itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(right: 8.0),
+              padding: const EdgeInsets.only(right: 4.0),
               child: AnyLinkPreview(
                 link: articles[index],
                 displayDirection: UIDirection.uiDirectionVertical,

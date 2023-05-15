@@ -73,10 +73,10 @@ class DetailScreen extends StatelessWidget {
                     DisplayDetailTrails(
                       trailId: field.id,
                       duration: "${durationToString(field.duration)}",
+                      difficulty: field.difficulty.toString(),
                       upHill: "${field.uphill} m",
                       downHill: "${field.downhill} m",
                       tools: field.tools,
-                      difficulty: field.difficulty.toString(),
                       labels: field.labels,
                       articles: field.relatedArticles,
                     ),
