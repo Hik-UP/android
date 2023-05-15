@@ -19,7 +19,6 @@ class DisplayDetailTrails extends StatelessWidget {
   final String downHill;
   final List<String> tools;
   final String difficulty;
-  final List<String> labels;
   final List<String> articles;
 
   const DisplayDetailTrails({
@@ -30,7 +29,6 @@ class DisplayDetailTrails extends StatelessWidget {
     required this.downHill,
     required this.tools,
     required this.difficulty,
-    required this.labels,
     required this.articles,
   }) : super(key: key);
 
@@ -160,6 +158,29 @@ class DisplayDetailTrails extends StatelessWidget {
           ],
         ),
         const Gap(10.0),
+        Text(
+          "Difficulté",
+          style: subTitleTextStyle,
+        ),
+        const Gap(10.0),
+        Row(
+          children: [
+            const Icon(
+              Icons.emoji_events,
+              color: GreenPrimary,
+              size: 24.0,
+            ),
+            const SizedBox(
+              width: 16.0,
+            ),
+            Text(
+              "${difficulty} / 5",
+              textAlign: TextAlign.justify,
+              style: WhiteAddressTextStyle,
+            ),
+          ],
+        ),
+        const Gap(10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -189,57 +210,26 @@ class DisplayDetailTrails extends StatelessWidget {
         ),
         const Gap(10.0),
         Text(
-          "Difficulté",
-          style: subTitleTextStyle,
-        ),
-        const Gap(8.0),
-        Row(
-          children: [
-            const Icon(
-              Icons.emoji_events,
-              color: GreenPrimary,
-              size: 24.0,
-            ),
-            const SizedBox(
-              width: 16.0,
-            ),
-            Text(
-              "$difficulty +  / 5",
-              textAlign: TextAlign.justify,
-              style: WhiteAddressTextStyle,
-            ),
-          ],
-        ),
-        const Gap(10.0),
-        Text(
           "Équipements",
           style: subTitleTextStyle,
         ),
-        const Gap(8.0),
+        const Gap(10.0),
         WrapperApi().showTools(
           toolsBack: tools,
-        ),
-        const Gap(10.0),
-        Text(
-          "Label",
-          style: subTitleTextStyle,
-        ),
-        const Gap(8.0),
-        WrapperApi().showTools(
-          toolsBack: labels,
         ),
         const Gap(10.0),
         Text(
           "Articles",
           style: subTitleTextStyle,
         ),
+        const Gap(8.0),
         SizedBox(
           height: 200,
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: articles.length,
             itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(right: 4.0),
+              padding: const EdgeInsets.only(right: 8.0),
               child: AnyLinkPreview(
                 link: articles[index],
                 displayDirection: UIDirection.uiDirectionVertical,

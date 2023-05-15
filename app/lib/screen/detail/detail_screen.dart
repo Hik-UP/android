@@ -54,6 +54,32 @@ class DetailScreen extends StatelessWidget {
                       ],
                     ),
                     const Gap(10.0),*/
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "Labels:",
+                          style: subTitleTextStyle,
+                        ),
+                        const Gap(10.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: field.labels.map((label) => Container(
+                            padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                            margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Text(
+                                "${label}",
+                                style: subTitleTextStyle,
+                              ),
+                            ),
+                          ).toList(),
+                        ),
+                      ],
+                    ),
+                    const Gap(10.0),
                     Text(
                       "Description",
                       style: subTitleTextStyle,
@@ -69,15 +95,14 @@ class DetailScreen extends StatelessWidget {
                       "Détails",
                       style: subTitleTextStyle,
                     ),
-                    const Gap(8.0),
+                    const Gap(10.0),
                     DisplayDetailTrails(
                       trailId: field.id,
                       duration: "${durationToString(field.duration)}",
-                      difficulty: field.difficulty.toString(),
                       upHill: "${field.uphill} m",
                       downHill: "${field.downhill} m",
                       tools: field.tools,
-                      labels: field.labels,
+                      difficulty: field.difficulty.toString(),
                       articles: field.relatedArticles,
                     ),
                     const Gap(10.0),

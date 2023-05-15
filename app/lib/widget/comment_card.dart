@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:hikup/model/comment.dart";
-import "package:hikup/theme.dart";
 import "package:hikup/utils/constant.dart";
 import "package:hikup/widget/custom_loader.dart";
 import "package:hikup/widget/warning_error_img.dart";
@@ -18,7 +17,6 @@ class CommentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: BlackPrimary,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -54,7 +52,10 @@ class CommentCard extends StatelessWidget {
                   children: [
                     Text(
                       comment.author.username,
-                      style: subTitleTextStyle,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14.0,
+                      ),
                     ),
                     Text(
                       comment.date.toString().split(' ')[0].replaceAll(
@@ -78,7 +79,9 @@ class CommentCard extends StatelessWidget {
                 children: [
                   Text(
                     comment.body,
-                    style: WhiteAddressTextStyle,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14.0,
+                    ),
                   ),
                   if (comment.pictures.isNotEmpty &&
                       comment.pictures.first.isNotEmpty)

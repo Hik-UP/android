@@ -100,78 +100,11 @@ class _CommunityViewState extends State<CommunityView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Gap(18.0),
-              FutureBuilder<List<Comment>>(
-                future: model.retrieveData(
-                  appState: appState,
-                  trailId: widget.trailId,
-                ),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text(
-                      '${snapshot.error}',
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    );
-                  }
-
-                  if (snapshot.hasData) {
-                    if (snapshot.data!.isNotEmpty) {
-                      return Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            right: 16.0,
-                            left: 16.0,
-                            top: 20.0,
-                          ),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (BuildContext context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(14.0),
-                                child: CommentCard(
-                                  comment: snapshot.data![index],
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      );
-                    } else {
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10.0,
-                          ),
-                          child: Text(
-                            AppMessages.noComment,
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      );
-                    }
-                  }
-
-                  return const Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                },
-              ),
-                Padding(
+              Padding(
                 padding: const EdgeInsets.only(
                   left: 12.0,
                   right: 12.0,
-                  top: 20.0,
-                  bottom: 20,
+                  bottom: 20.0,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,6 +190,72 @@ class _CommunityViewState extends State<CommunityView> {
                     ),
                   ],
                 ),
+              ),
+              FutureBuilder<List<Comment>>(
+                future: model.retrieveData(
+                  appState: appState,
+                  trailId: widget.trailId,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(
+                      '${snapshot.error}',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    );
+                  }
+
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.isNotEmpty) {
+                      return Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            right: 16.0,
+                            left: 16.0,
+                            top: 20.0,
+                          ),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: CommentCard(
+                                  comment: snapshot.data![index],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
+                          ),
+                          child: Text(
+                            AppMessages.noComment,
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    }
+                  }
+
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
