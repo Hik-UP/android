@@ -152,6 +152,37 @@ class DetailHikeInvite extends StatelessWidget {
               ),
               const Gap(20.0),
               DisplayAddress(address: hike.address),
+              const Gap(16.0),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Labels:",
+                    style: subTitleTextStyle,
+                  ),
+                  const Gap(10.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: hike.trail.labels.map((label) => Container(
+                      padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                      margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                      child: Text(
+                          "${label}",
+                          style: subTitleTextStyle,
+                        ),
+                      ),
+                    ).toList(),
+                  ),
+                ],
+              ),
+              const Gap(10.0),
+              Text(
+                "Détails",
+                style: subTitleTextStyle,
+              ),
               const Gap(10.0),
               DisplayDetailTrails(
                 trailId: hike.trail.id,
@@ -160,7 +191,6 @@ class DetailHikeInvite extends StatelessWidget {
                 downHill: "${hike.trail.downhill} m",
                 tools: hike.trail.tools,
                 difficulty: hike.trail.difficulty.toString(),
-                labels: hike.trail.labels,
                 articles: hike.trail.relatedArticles,
               ),
               const Gap(10.0),

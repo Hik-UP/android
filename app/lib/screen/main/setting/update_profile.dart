@@ -15,6 +15,7 @@ import 'package:hikup/widget/custom_text_field.dart';
 import 'package:hikup/widget/upload_picture.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:hikup/screen/main/setting/settings_screen.dart';
 
 import '../../../theme.dart';
 import '../../../utils/constant.dart';
@@ -49,21 +50,24 @@ class UpdateProfile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Form(
               key: model.formKey,
-              child: Column(children: [
+              child: Consumer<AppState>(builder: (context, state, child) {
+                return Column(children: [
                 const Gap(10.0),
                 Center(
                   child: Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      CircleAvatar(
+                      model.userImage != null
+                      ? CircleAvatar(
                         radius: 70,
-                        backgroundImage: model.userImage != null
-                            ? FileImage(
-                                File(
-                                  model.userImage!.path,
-                                ),
-                              )
-                            : null,
+                        backgroundImage: FileImage(
+                          File(
+                            model.userImage!.path,
+                          ),
+                        ),
+                      ): LoadPictureProfil(
+                        appState: state,
+                        size: 140
                       ),
                       Positioned(
                         left: 50,
@@ -96,14 +100,33 @@ class UpdateProfile extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 const Gap(50.0),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Text(
+                      "Nom d'utilisateur",
+                      style: subTitleTextStyle,
+                    ),
+                  ),
+                ),
+                const Gap(5.0),
                 CustomTextField(
                   controller: model.usernameCtrl,
-                  hintText: 'Prénom',
+                  hintText: "Nom d'utilisateur",
                   validator: Validation.validateUsername,
                 ),
                 const Gap(20.0),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Text(
+                      "Email",
+                      style: subTitleTextStyle,
+                    ),
+                  ),
+                ),
+                const Gap(5.0),
                 CustomTextField(
                   controller: model.emailCtrl,
                   hintText: "Email",
@@ -180,7 +203,8 @@ class UpdateProfile extends StatelessWidget {
                     ],
                   ),
                 ),
-              ]),
+              ]);
+            }),
             ),
           ),
         ),
