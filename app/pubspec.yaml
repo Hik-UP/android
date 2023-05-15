@@ -65,6 +65,7 @@ dependencies:
   permission_handler: ^10.2.0
   flutter_svg:
   sliding_up_panel: ^2.0.0+1
+  any_link_preview: ^3.0.0
 
 dev_dependencies:
   flutter_test:

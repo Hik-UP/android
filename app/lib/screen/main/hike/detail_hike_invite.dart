@@ -155,11 +155,13 @@ class DetailHikeInvite extends StatelessWidget {
               const Gap(10.0),
               DisplayDetailTrails(
                 trailId: hike.trail.id,
-                duration: "${durationToString(hike.trail.duration)}",
+                duration: durationToString(hike.trail.duration),
                 upHill: "${hike.trail.uphill} m",
                 downHill: "${hike.trail.downhill} m",
                 tools: hike.trail.tools,
                 difficulty: hike.trail.difficulty.toString(),
+                labels: hike.trail.labels,
+                articles: hike.trail.relatedArticles,
               ),
               const Gap(10.0),
               Text(
