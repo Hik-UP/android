@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/model/trail_fields.dart';
@@ -78,17 +77,8 @@ class DetailScreen extends StatelessWidget {
                       downHill: "${field.downhill} m",
                       tools: field.tools,
                       difficulty: field.difficulty.toString(),
-                    ),
-                    const Gap(10.0),
-                    Text(
-                      "Label",
-                      style: subTitleTextStyle,
-                    ),
-                    const Gap(8.0),
-                    Text(
-                      field.labels.toString(),
-                      textAlign: TextAlign.justify,
-                      style: WhiteAddressTextStyle,
+                      labels: field.labels,
+                      articles: field.relatedArticles,
                     ),
                     const Gap(10.0),
                     Text(
@@ -198,8 +188,9 @@ class DetailScreen extends StatelessWidget {
               child: model.getState == ViewState.busy
                   ? const CircularProgressIndicator()
                   : Text(
-                      model.dateCtrl.text.isEmpty ?
-                        AppMessages.startHike : AppMessages.scheduleHike,
+                      model.dateCtrl.text.isEmpty
+                          ? AppMessages.startHike
+                          : AppMessages.scheduleHike,
                       style: subTitleTextStyle,
                     ),
             ),

@@ -1,3 +1,4 @@
+import "package:any_link_preview/any_link_preview.dart";
 import "package:flutter/material.dart";
 import 'dart:math' as math;
 import "package:gap/gap.dart";
@@ -18,6 +19,8 @@ class DisplayDetailTrails extends StatelessWidget {
   final String downHill;
   final List<String> tools;
   final String difficulty;
+  final List<String> labels;
+  final List<String> articles;
 
   const DisplayDetailTrails({
     Key? key,
@@ -27,6 +30,8 @@ class DisplayDetailTrails extends StatelessWidget {
     required this.downHill,
     required this.tools,
     required this.difficulty,
+    required this.labels,
+    required this.articles,
   }) : super(key: key);
 
   String putZero({required int value}) {
@@ -140,7 +145,7 @@ class DisplayDetailTrails extends StatelessWidget {
             Transform(
               alignment: Alignment.center,
               transform: Matrix4.rotationY(math.pi),
-              child: Icon(
+              child: const Icon(
                 Icons.escalator,
                 color: GreenPrimary,
               ),
@@ -207,11 +212,66 @@ class DisplayDetailTrails extends StatelessWidget {
               width: 16.0,
             ),
             Text(
-              this.difficulty + " / 5",
+              "$difficulty +  / 5",
               textAlign: TextAlign.justify,
               style: WhiteAddressTextStyle,
             ),
           ],
+        ),
+        const Gap(10.0),
+        Text(
+          "Label",
+          style: subTitleTextStyle,
+        ),
+        const Gap(8.0),
+        WrapperApi().showTools(
+          toolsBack: labels,
+        ),
+        const Gap(10.0),
+        Text(
+          "Articles",
+          style: subTitleTextStyle,
+        ),
+        const Gap(8.0),
+        SizedBox(
+          height: 200,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: articles.length,
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: AnyLinkPreview(
+                link: articles[index],
+                displayDirection: UIDirection.uiDirectionVertical,
+                showMultimedia: true,
+                bodyMaxLines: 5,
+                bodyTextOverflow: TextOverflow.ellipsis,
+                titleStyle: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+                bodyStyle: GoogleFonts.poppins(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
+                errorBody: 'Show my custom error body',
+                errorTitle: 'Show my custom error title',
+                errorWidget: Container(
+                  color: Colors.grey[300],
+                  child: const Text('Oops!'),
+                ),
+                errorImage: "https://google.com/",
+                cache: const Duration(days: 7),
+                backgroundColor: Colors.grey[300],
+                borderRadius: 12,
+                removeElevation: false,
+                boxShadow: const [
+                  BoxShadow(blurRadius: 3, color: Colors.grey),
+                ],
+              ),
+            ),
+          ),
         ),
         const Gap(10.0),
       ],
