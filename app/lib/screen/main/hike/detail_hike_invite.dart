@@ -233,9 +233,10 @@ class DetailHikeInvite extends StatelessWidget {
               const Gap(30.0),
               Visibility(
                 visible: hike.attendee
-                    .map((e) => e.username)
-                    .toList()
-                    .contains(appState.username),
+                        .map((e) => e.username)
+                        .toList()
+                        .contains(appState.username) &&
+                    hike.status != "DONE",
                 child: CustomBtn(
                   isLoading: model.loadingDelete,
                   bgColor: Colors.red,
@@ -245,6 +246,10 @@ class DetailHikeInvite extends StatelessWidget {
                       : AppMessages.quit,
                   onPress: () {
                     if (appState.username == hike.organizers.username) {
+                      model.finishByOrganizer(
+                        hikeId: hike.id,
+                        appState: appState,
+                      );
                     } else {
                       model.leaveHike(
                         hikeId: hike.id,

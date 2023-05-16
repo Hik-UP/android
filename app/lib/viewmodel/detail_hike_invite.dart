@@ -42,6 +42,34 @@ class DetailHikeInviteViewModel extends BaseModel {
       );
       _navigatorService.goBack();
     }
+  }
+
+  finishByOrganizer({
+    required String hikeId,
+    required AppState appState,
+  }) async {
+    setLoadingDelete(true);
+
+    var response = await _dioService.put(
+      path: organzierUpdatePath,
+      body: {
+        "user": {
+          "id": appState.id,
+          "roles": appState.roles,
+        },
+        "hike": {
+          "id": hikeId,
+          "status": "DONE",
+        },
+      },
+      token: "Bearer ${appState.token}",
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      _navigatorService.showSnackBack(
+        content: AppMessages.success,
+      );
+      _navigatorService.goBack();
+    }
 
     setLoadingDelete(false);
   }
