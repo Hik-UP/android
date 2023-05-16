@@ -27,6 +27,7 @@ class MapBoxScreen extends StatefulWidget {
 
 class _MapBoxScreenState extends State<MapBoxScreen> {
   final PanelController _pc = PanelController();
+  bool contentPanel = false;
 
   //_pc.hide();
   @override
@@ -88,6 +89,24 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
               controller: _pc,
               renderPanelSheet: false,
               minHeight: 120,
+              onPanelSlide: (position) {
+                if (contentPanel == false) {
+                  setState(
+                    () {
+                      contentPanel = true;
+                    },
+                  );
+                }
+              },
+              onPanelClosed: () {
+                if (contentPanel == true) {
+                  setState(
+                    () {
+                      contentPanel = false;
+                    },
+                  );
+                }
+              },
 
               /* PANEL */
               panel: Container(
@@ -118,175 +137,182 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                 ),
                               ),
                             ),
-                            const Gap(100.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  decoration: BoxDecoration(
-                                    gradient: loginButtonColor,
-                                    borderRadius:
-                                        BorderRadius.circular(borderRadiusSize),
-                                  ),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 70,
-                                    minHeight: 25,
-                                  ),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            borderRadiusSize),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (!model.trailsList.isEmpty) {
-                                        _launchUrl(
-                                            "https://maps.google.com/?q=${model.trailsList[0].latitude},${model.trailsList[0].longitude}");
-                                      }
-                                    },
-                                    child: Text(
-                                      "Direction",
-                                      style: subTitleTextStyle,
-                                    ),
-                                  ),
-                                ),
-                                const Gap(10.0),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    gradient: loginButtonColor,
-                                    borderRadius:
-                                        BorderRadius.circular(borderRadiusSize),
-                                  ),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 70,
-                                    minHeight: 25,
-                                  ),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            borderRadiusSize),
-                                      ),
-                                    ),
-                                    onPressed: () => Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => CommunityView(
-                                          trailId: model.trailsList[0].id,
+                            contentPanel == false ? const Gap(100.0) : Container(
+                              margin: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+                              child: Column(
+                                children: <Widget>[
+                                  const Gap(10.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          gradient: loginButtonColor,
+                                          borderRadius:
+                                              BorderRadius.circular(borderRadiusSize),
+                                        ),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 70,
+                                          minHeight: 25,
+                                        ),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.transparent,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(
+                                                  borderRadiusSize),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            if (!model.trailsList.isEmpty) {
+                                              _launchUrl(
+                                                  "https://maps.google.com/?q=${model.trailsList[0].latitude},${model.trailsList[0].longitude}");
+                                            }
+                                          },
+                                          child: Text(
+                                            "Direction",
+                                            style: subTitleTextStyle,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    child: Text(
-                                      "Avis",
-                                      style: subTitleTextStyle,
-                                    ),
+                                      const Gap(10.0),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          gradient: loginButtonColor,
+                                          borderRadius:
+                                              BorderRadius.circular(borderRadiusSize),
+                                        ),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 70,
+                                          minHeight: 25,
+                                        ),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.transparent,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(
+                                                  borderRadiusSize),
+                                            ),
+                                          ),
+                                          onPressed: () => Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) => CommunityView(
+                                                trailId: model.trailsList[0].id,
+                                              ),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "Avis",
+                                            style: subTitleTextStyle,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            const Gap(20.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Labels:",
-                                  style: subTitleTextStyle,
-                                ),
-                                const Gap(10.0),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: model.trailsList[0].labels.map((label) => Container(
-                                    padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-                                    margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-                                    decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(4.0),
-                                    ),
-                                    child: Text(
-                                        "${label}",
+                                  const Gap(20.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Labels:",
                                         style: subTitleTextStyle,
                                       ),
-                                    ),
-                                  ).toList(),
-                                ),
-                              ],
-                            ),
-                            const Gap(20.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Difficulté:",
-                                  style: subTitleTextStyle,
-                                ),
-                                const Gap(10.0),
-                                Text(
-                                  "${model.trailsList[0].difficulty} / 5",
-                                  style: subTitleTextStyle,
-                                ),
-                              ],
-                            ),
-                            const Gap(10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Distance:",
-                                  style: subTitleTextStyle,
-                                ),
-                                const Gap(10.0),
-                                Text(
-                                  "${model.trailsList[0].distance / 1000} km",
-                                  style: subTitleTextStyle,
-                                ),
-                              ],
-                            ),
-                            const Gap(10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Durée:",
-                                  style: subTitleTextStyle,
-                                ),
-                                const Gap(10.0),
-                                Text(
-                                  "${durationToString(model.trailsList[0].duration)}",
-                                  style: subTitleTextStyle,
-                                ),
-                              ],
-                            ),
-                            const Gap(10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Dénivelé ↗:",
-                                  style: subTitleTextStyle,
-                                ),
-                                const Gap(10.0),
-                                Text(
-                                  "${model.trailsList[0].uphill} m",
-                                  style: subTitleTextStyle,
-                                ),
-                              ],
-                            ),
-                            const Gap(10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Dénivelé ↘:",
-                                  style: subTitleTextStyle,
-                                ),
-                                const Gap(10.0),
-                                Text(
-                                  "${model.trailsList[0].downhill} m",
-                                  style: subTitleTextStyle,
-                                ),
-                              ],
+                                      const Gap(10.0),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: model.trailsList[0].labels.map((label) => Container(
+                                          padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                                          margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.circular(4.0),
+                                          ),
+                                          child: Text(
+                                              "${label}",
+                                              style: subTitleTextStyle,
+                                            ),
+                                          ),
+                                        ).toList(),
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap(20.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Difficulté:",
+                                        style: subTitleTextStyle,
+                                      ),
+                                      const Gap(10.0),
+                                      Text(
+                                        "${model.trailsList[0].difficulty} / 5",
+                                        style: subTitleTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap(10.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Distance:",
+                                        style: subTitleTextStyle,
+                                      ),
+                                      const Gap(10.0),
+                                      Text(
+                                        "${model.trailsList[0].distance / 1000} km",
+                                        style: subTitleTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap(10.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Durée:",
+                                        style: subTitleTextStyle,
+                                      ),
+                                      const Gap(10.0),
+                                      Text(
+                                        "${durationToString(model.trailsList[0].duration)}",
+                                        style: subTitleTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap(10.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Dénivelé ↗:",
+                                        style: subTitleTextStyle,
+                                      ),
+                                      const Gap(10.0),
+                                      Text(
+                                        "${model.trailsList[0].uphill} m",
+                                        style: subTitleTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap(10.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Dénivelé ↘:",
+                                        style: subTitleTextStyle,
+                                      ),
+                                      const Gap(10.0),
+                                      Text(
+                                        "${model.trailsList[0].downhill} m",
+                                        style: subTitleTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -312,12 +338,12 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                     },
                   ),
                   const PlayerSkin(),
+                  PolylineLayer(
+                    polylines: model.polylines.isEmpty ? [] : model.polylines,
+                  ),
                   MarkerLayer(
                     markers: model.loading ? [] : model.markers,
                   ),
-                  PolylineLayer(
-                    polylines: model.polylines.isEmpty ? [] : model.polylines,
-                  )
                 ],
               )));
     });

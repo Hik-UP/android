@@ -40,8 +40,8 @@ class MapViewModel extends BaseModel {
 
         markers.add(
           Marker(
-            width: 50.0,
-            height: 50.0,
+            width: 26.0,
+            height: 26.0,
             point: trailLatLng,
             builder: (ctx) => GestureDetector(
               onTap: () {
@@ -96,8 +96,13 @@ class MapViewModel extends BaseModel {
                 ));
                 updateScreen();
               },
-              child: const Icon(Icons.fiber_manual_record_rounded,
-                  color: Colors.blue, size: 24.0),
+              child: SizedBox(
+                height: 10,
+                width: 10,
+                child: Image.asset(
+                  "assets/icons/flag.png",
+                ),
+              ),
             ),
           ),
         );
