@@ -1,7 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/hike.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/main/hike/detail_hike_invite.dart';

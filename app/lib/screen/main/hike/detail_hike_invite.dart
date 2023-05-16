@@ -237,12 +237,21 @@ class DetailHikeInvite extends StatelessWidget {
                     .toList()
                     .contains(appState.username),
                 child: CustomBtn(
+                  isLoading: model.loadingDelete,
                   bgColor: Colors.red,
                   textColor: Colors.white,
                   content: appState.username == hike.organizers.username
                       ? AppMessages.finish
                       : AppMessages.quit,
-                  onPress: () {},
+                  onPress: () {
+                    if (appState.username == hike.organizers.username) {
+                    } else {
+                      model.leaveHike(
+                        hikeId: hike.id,
+                        appState: appState,
+                      );
+                    }
+                  },
                 ),
               ),
               const Gap(30.0),
