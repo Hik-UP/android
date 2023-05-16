@@ -55,18 +55,26 @@ class HikeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
                           idHikeIcon,
                           width: 20,
                           height: 20,
                           color: GreenPrimary,
+                        ),
+                        const Gap(8.0),
+                        Text(
+                          "Informations",
+                          style: subTitleTextStyle,
+                        ),
+                      ],
                     ),
-                    const Gap(8.0),
-                    Text(
-                      "Informations",
-                      style: subTitleTextStyle,
+                    model.labelStatus(
+                      status: hike.status,
                     ),
                   ],
                 ),
@@ -82,10 +90,10 @@ class HikeCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.asset(
-                          calendarIcon,
-                          width: 20,
-                          height: 20,
-                          color: GreenPrimary,
+                      calendarIcon,
+                      width: 20,
+                      height: 20,
+                      color: GreenPrimary,
                     ),
                     const Gap(8.0),
                     Text(

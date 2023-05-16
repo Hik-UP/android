@@ -84,4 +84,7 @@ class AppMessages {
   static String lueNotifLabel = "Lue";
   static String nonLueNotifLabel = "Non lue";
   static String creeLabel = "Crée";
+  static String inProgress = "En cours";
+  static String scheduled = "Programmé";
+  static String doneLabel = "Terminé";
 }

@@ -12,18 +12,21 @@ class Hike {
   final Trail trail;
   final List<Guest> attendee;
   final Guest organizers;
+  final String status;
 
-  Hike(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required this.guests,
-      required this.schedule,
-      required this.createdAt,
-      required this.address,
-      required this.trail,
-      required this.attendee,
-      required this.organizers});
+  Hike({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.guests,
+    required this.schedule,
+    required this.createdAt,
+    required this.address,
+    required this.trail,
+    required this.attendee,
+    required this.organizers,
+    required this.status,
+  });
 
   static Hike fromMap({
     required Map<String, dynamic> data,
@@ -51,6 +54,7 @@ class Hike {
         data: data["trail"],
       ),
       organizers: Guest.fromMap(data: data["organizers"][0]),
+      status: data["status"] ?? "",
     );
   }
 }
