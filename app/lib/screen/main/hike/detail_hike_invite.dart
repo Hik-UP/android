@@ -36,8 +36,11 @@ class DetailHikeInvite extends StatelessWidget {
       width: 50.0,
       height: 50.0,
       point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
-      builder: (ctx) => Icon(Icons.fiber_manual_record_rounded,
-          color: Colors.blue, size: 24.0),
+      builder: (ctx) => const Icon(
+        Icons.fiber_manual_record_rounded,
+        color: Colors.blue,
+        size: 24.0,
+      ),
     );
     final Polyline polyline = Polyline(
       points: json
@@ -60,8 +63,11 @@ class DetailHikeInvite extends StatelessWidget {
       width: 50.0,
       height: 50.0,
       point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
-      builder: (ctx) => Icon(Icons.fiber_manual_record_rounded,
-          color: Colors.blue, size: 24.0),
+      builder: (ctx) => const Icon(
+        Icons.fiber_manual_record_rounded,
+        color: Colors.blue,
+        size: 24.0,
+      ),
     );
 
     return BaseView<DetailHikeInviteViewModel>(
@@ -119,35 +125,35 @@ class DetailHikeInvite extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 10,
-                    right: 20,
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        gradient: loginButtonColor,
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            FontAwesomeIcons.locationArrow,
-                            color: Colors.white,
-                          ),
-                          const Gap(8.0),
-                          Text(
-                            AppMessages.seeAll,
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                  // Positioned(
+                  //   bottom: 10,
+                  //   right: 20,
+                  //   child: Container(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     decoration: BoxDecoration(
+                  //       gradient: loginButtonColor,
+                  //       borderRadius: BorderRadius.circular(30.0),
+                  //     ),
+                  //     child: Row(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       children: [
+                  //         const Icon(
+                  //           FontAwesomeIcons.locationArrow,
+                  //           color: Colors.white,
+                  //         ),
+                  //         const Gap(8.0),
+                  //         Text(
+                  //           AppMessages.seeAll,
+                  //           style: GoogleFonts.poppins(
+                  //             fontWeight: FontWeight.bold,
+                  //             fontSize: 14.0,
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
               const Gap(20.0),
@@ -222,16 +228,30 @@ class DetailHikeInvite extends StatelessWidget {
               const Gap(30.0),
               Visibility(
                 visible: hike.attendee
-                    .map((e) => e.username)
-                    .toList()
-                    .contains(appState.username),
+                        .map((e) => e.username)
+                        .toList()
+                        .contains(appState.username) &&
+                    hike.status != "DONE",
                 child: CustomBtn(
+                  isLoading: model.loadingDelete,
                   bgColor: Colors.red,
                   textColor: Colors.white,
                   content: appState.username == hike.organizers.username
                       ? AppMessages.finish
                       : AppMessages.quit,
-                  onPress: () {},
+                  onPress: () {
+                    if (appState.username == hike.organizers.username) {
+                      model.finishByOrganizer(
+                        hikeId: hike.id,
+                        appState: appState,
+                      );
+                    } else {
+                      model.leaveHike(
+                        hikeId: hike.id,
+                        appState: appState,
+                      );
+                    }
+                  },
                 ),
               ),
               const Gap(30.0),

@@ -63,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Recommendation",
+                      "Recommandation",
                       style: WhiteTitleTextStyle,
                       //style: subTitleTextStyle,
                     )

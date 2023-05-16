@@ -1,7 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/hike.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/main/hike/detail_hike_invite.dart';
@@ -55,18 +53,26 @@ class HikeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
                           idHikeIcon,
                           width: 20,
                           height: 20,
                           color: GreenPrimary,
+                        ),
+                        const Gap(8.0),
+                        Text(
+                          "Informations",
+                          style: subTitleTextStyle,
+                        ),
+                      ],
                     ),
-                    const Gap(8.0),
-                    Text(
-                      "Informations",
-                      style: subTitleTextStyle,
+                    model.labelStatus(
+                      status: hike.status,
                     ),
                   ],
                 ),
@@ -82,10 +88,10 @@ class HikeCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.asset(
-                          calendarIcon,
-                          width: 20,
-                          height: 20,
-                          color: GreenPrimary,
+                      calendarIcon,
+                      width: 20,
+                      height: 20,
+                      color: GreenPrimary,
                     ),
                     const Gap(8.0),
                     Text(

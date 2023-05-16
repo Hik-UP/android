@@ -54,7 +54,12 @@ class _AllHikeState extends State<AllHike> {
                 ),
                 child: HikeCard(
                   hike: snapshot.data![index],
-                  update: () => setState(() {}),
+                  update: () => Future.delayed(
+                      const Duration(
+                        seconds: 3,
+                      ), () {
+                    setState(() {});
+                  }),
                 ),
               ),
             );
