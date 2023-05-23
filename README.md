@@ -1,15 +1,13 @@
-# android
-Hik'Up Android Application
 # Project title
-
-
+##Hik'Up
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 ## Project description
 
 Hik'Up is an hiking app, that consist of making hiking more fun.
 
 ### Pré-requis
 
-
+It is necessary to have Flutter on your computer.
 
 ### Installation
 
