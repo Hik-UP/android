@@ -10,7 +10,12 @@ It is necessary to have Flutter on your computer.
 
 ### Installation
 
-
+```
+$ git clone git@github.com:Hik-UP/android.git
+$ cd app
+$ flutter pub get
+$ flutter run
+```
 
 ## How to start and run the project
 
