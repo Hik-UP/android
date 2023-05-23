@@ -1,7 +1,7 @@
 # Hik'Up
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)]
 ## Project description
-
+ 
 Hik'Up is an hiking app, that consist of making hiking more fun.
 
 ### Pré-requis
