@@ -22,7 +22,7 @@ import 'package:hikup/theme.dart';
 import 'firebase_options.dart';
 import 'screen/main/setting/update_profile.dart';
 import 'screen/main/setting/settings_screen.dart';
-
+import "package:hikup/screen/navigation/navigation_screen.dart";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,7 +89,6 @@ class MyApp extends StatelessWidget {
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
-        // CommunityView.routeName: (_) => const CommunityView(),
         HikesCreate.routeName: (_) => const HikesCreate(),
         CommunityHistoryScreen.routeName: (_) => const CommunityHistoryScreen(),
       },

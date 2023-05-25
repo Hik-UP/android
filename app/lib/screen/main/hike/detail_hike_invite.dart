@@ -19,6 +19,8 @@ import "package:provider/provider.dart";
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latlng;
 import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
+import "package:hikup/screen/navigation/navigation_screen.dart";
+import 'package:hikup/utils/socket.dart';
 
 class DetailHikeInvite extends StatelessWidget {
   final Hike hike;
@@ -225,6 +227,33 @@ class DetailHikeInvite extends StatelessWidget {
                   : EmptyLabel(
                       label: AppMessages.noAttended,
                     ),
+              const Gap(30.0),
+              Visibility(
+                visible: hike.attendee
+                        .map((e) => e.username)
+                        .toList()
+                        .contains(appState.username) &&
+                    hike.status != "DONE",
+                child: CustomBtn(
+                  isLoading: model.loadingDelete,
+                  bgColor: Colors.green,
+                  textColor: Colors.white,
+                  content: "Rejoindre",
+                  onPress: () {
+                    SocketService().connect(
+                      token: appState.token,
+                      userId: appState.id,
+                      userRoles: appState.roles
+                    );
+                    SocketService().joinHike(hike.id);
+                    SocketService().onConnect((_) => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => NavigationScreen(hike: hike),
+                      ),
+                    ));
+                  }
+                ),
+              ),
               const Gap(30.0),
               Visibility(
                 visible: hike.attendee
