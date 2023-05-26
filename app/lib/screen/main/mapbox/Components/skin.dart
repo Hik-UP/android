@@ -16,19 +16,12 @@ class PlayerSkin extends StatefulWidget {
 class _PlayerSkinState extends State<PlayerSkin> {
   final LocationSettings locationSettings = LocationSettings(
     accuracy: LocationAccuracy.high,
-    distanceFilter: 100,
+    distanceFilter: 0,
   );
 
   @override
   void initState() {
     super.initState();
-    /*StreamSubscription<Position> positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen((Position? position) {
-      print(position == null
-          ? 'Unknown'
-          : '${position.latitude.toString()}, ${position.longitude.toString()}');
-    });*/
     StreamSubscription<Position> positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings)
             .listen(widget.onLocationUpdate);
@@ -37,16 +30,13 @@ class _PlayerSkinState extends State<PlayerSkin> {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
-    //late final Stream<Position?> _positionStream;
-    //const factory = LocationMarkerDataStreamFactory();
 
-    /*_positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .asBroadcastStream();*/
     return CurrentLocationLayer(
-      /*positionStream: factory.fromGeolocatorPositionStream(
-        stream: _positionStream,
-      ),*/
+      positionStream:
+          LocationMarkerDataStreamFactory().fromGeolocatorPositionStream(
+        stream: Geolocator.getPositionStream(locationSettings: locationSettings)
+            .asBroadcastStream(),
+      ),
       followOnLocationUpdate: FollowOnLocationUpdate.once,
       turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
       style: LocationMarkerStyle(
