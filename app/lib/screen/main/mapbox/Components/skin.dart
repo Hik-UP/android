@@ -7,7 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
 
 class PlayerSkin extends StatefulWidget {
-  const PlayerSkin({Key? key}) : super(key: key);
+  final Function(Position? position)? onLocationUpdate;
+  const PlayerSkin({Key? key, this.onLocationUpdate}) : super(key: key);
   @override
   State<PlayerSkin> createState() => _PlayerSkinState();
 }
@@ -21,13 +22,16 @@ class _PlayerSkinState extends State<PlayerSkin> {
   @override
   void initState() {
     super.initState();
-    StreamSubscription<Position> positionStream =
+    /*StreamSubscription<Position> positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings)
             .listen((Position? position) {
       print(position == null
           ? 'Unknown'
           : '${position.latitude.toString()}, ${position.longitude.toString()}');
-    });
+    });*/
+    StreamSubscription<Position> positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen(widget.onLocationUpdate);
   }
 
   @override

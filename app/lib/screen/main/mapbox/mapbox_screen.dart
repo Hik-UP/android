@@ -15,6 +15,7 @@ import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/community/comments/home.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
@@ -73,7 +74,8 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
         _pc.hide();
       }
 
-      if (model.loading) {
+      if (model.loading == true) {
+        model.loading = false;
         model.trails(
           appState: context.read<AppState>(),
           updateScreen: () => setState(
@@ -89,7 +91,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
               controller: _pc,
               renderPanelSheet: false,
               minHeight: 120,
-              onPanelSlide: (position) {
+              /*onPanelSlide: (position) {
                 if (contentPanel == false) {
                   setState(
                     () {
@@ -106,7 +108,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                     },
                   );
                 }
-              },
+              },*/
 
               /* PANEL */
               panel: Container(
@@ -371,7 +373,13 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                       'id': idMapBox
                     },
                   ),
-                  const PlayerSkin(),
+                  PlayerSkin(
+                    onLocationUpdate: (Position? position) {
+                      print(position == null
+                          ? 'Unknown'
+                          : '${position.latitude.toString()}, ${position.longitude.toString()}');
+                    },
+                  ),
                   PolylineLayer(
                     polylines: model.polylines.isEmpty ? [] : model.polylines,
                   ),
