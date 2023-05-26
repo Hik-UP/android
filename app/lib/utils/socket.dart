@@ -18,9 +18,11 @@ class SocketService {
     try {
       socket = IO.io(
           "$baseSocketUrl",
-          IO.OptionBuilder().setTransports(['websocket']).setExtraHeaders({
-            'token': token
-          }).setQuery({'id': userId, 'roles': userRoles.join(",")}).build());
+          IO.OptionBuilder().setTransports(['websocket']).setQuery({
+            'token': token,
+            'id': userId,
+            'roles': userRoles.join(",")
+          }).build());
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,
