@@ -377,7 +377,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                     onLocationUpdate: (Position? position) {
                       print(position == null
                           ? 'Unknown'
-                          : '${position.latitude.toString()}, ${position.longitude.toString()}');
+                          : 'Lat: ${position.latitude.toString()}, Lng: ${position.longitude.toString()}');
                     },
                   ),
                   PolylineLayer(
