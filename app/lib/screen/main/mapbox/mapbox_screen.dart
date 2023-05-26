@@ -89,7 +89,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
               controller: _pc,
               renderPanelSheet: false,
               minHeight: 120,
-              onPanelSlide: (position) {
+              /*onPanelSlide: (position) {
                 if (contentPanel == false) {
                   setState(
                     () {
@@ -106,7 +106,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                     },
                   );
                 }
-              },
+              },*/
 
               /* PANEL */
               panel: Container(
