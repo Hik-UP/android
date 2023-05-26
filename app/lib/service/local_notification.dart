@@ -36,7 +36,8 @@ class LocalNotification {
 
     await FlutterLocalNotificationsPlugin().initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) {
+      onDidReceiveNotificationResponse:
+          (NotificationResponse notificationResponse) {
         locator<CustomNavigationService>().navigateTo(
           NotificationView.routeName,
         );

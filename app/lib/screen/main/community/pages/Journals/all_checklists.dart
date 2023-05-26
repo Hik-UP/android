@@ -177,7 +177,6 @@ class _AllChecklistState extends State<AllChecklist> {
                       ),
                     );
                   },
-                  
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[100],

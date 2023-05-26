@@ -13,7 +13,7 @@ showToast(
     child: Container(
       // width: 200,
       decoration: BoxDecoration(
-          color: status.index==0?Colors.green[100]:Colors.red[100],
+          color: status.index == 0 ? Colors.green[100] : Colors.red[100],
           borderRadius: BorderRadius.circular(10)),
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,32 +29,32 @@ showToast(
           Container(
             padding: const EdgeInsets.fromLTRB(0, 10, 15, 10),
             child: Row(
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.center,
-              // children: [
-              //   status == NotificationStatus.failure ? Icon(
-              //       Icons.error,
-              //       color: Colors.red[800],) : Icon(
-              //       Icons.check_circle,
-              //       color: Colors.green[800],),
-              //   Container(
-              //     margin: const EdgeInsets.only(left: 15),
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       // children: [
-              //       //   Text(
-              //       //       status == NotificationStatus.success ? 'Succès' : 'Erreur',
-              //       //       style: const TextStyle(fontSize: 16, color: Colors.black)
-              //       //   ),
-              //       //   SizedBox(
-              //       //     width: 200,
-              //       //     child: Text(msg),
-              //       //   ),
-              //       // ],
-              //     ),
-              //   ),
-              // ],
-            ),
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // children: [
+                //   status == NotificationStatus.failure ? Icon(
+                //       Icons.error,
+                //       color: Colors.red[800],) : Icon(
+                //       Icons.check_circle,
+                //       color: Colors.green[800],),
+                //   Container(
+                //     margin: const EdgeInsets.only(left: 15),
+                //     child: Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       // children: [
+                //       //   Text(
+                //       //       status == NotificationStatus.success ? 'Succès' : 'Erreur',
+                //       //       style: const TextStyle(fontSize: 16, color: Colors.black)
+                //       //   ),
+                //       //   SizedBox(
+                //       //     width: 200,
+                //       //     child: Text(msg),
+                //       //   ),
+                //       // ],
+                //     ),
+                //   ),
+                // ],
+                ),
           ),
         ],
       ),

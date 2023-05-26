@@ -27,6 +27,7 @@ class _MainScreenState extends State<MainScreen> {
     LocalNotification.onMessageApp();
     LocalNotification.getInitialMessage();
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -41,15 +42,15 @@ class _MainScreenState extends State<MainScreen> {
               right: 15,
               bottom: 15,
               child: CustomBottomNavBar(
-                  defaultSelectedIndex: _currentIndex,
-                  selectedItemIcon: filledIconNavBar,
-                  unselectedItemIcon: unFilledIconNavBar,
-                  label: labelNavBar,
-                  onChange: (val) {
-                    setState(() {
-                      _currentIndex = val;
-                    });
-                  },
+                defaultSelectedIndex: _currentIndex,
+                selectedItemIcon: filledIconNavBar,
+                unselectedItemIcon: unFilledIconNavBar,
+                label: labelNavBar,
+                onChange: (val) {
+                  setState(() {
+                    _currentIndex = val;
+                  });
+                },
               ),
             ),
           ],
@@ -79,5 +80,3 @@ class _MainScreenState extends State<MainScreen> {
         false;
   }
 }
-
-

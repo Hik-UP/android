@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
 
 class PlayerSkin extends StatefulWidget {
   const PlayerSkin({Key? key}) : super(key: key);
@@ -11,13 +13,38 @@ class PlayerSkin extends StatefulWidget {
 }
 
 class _PlayerSkinState extends State<PlayerSkin> {
+  final LocationSettings locationSettings = LocationSettings(
+    accuracy: LocationAccuracy.high,
+    distanceFilter: 100,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    StreamSubscription<Position> positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen((Position? position) {
+      print(position == null
+          ? 'Unknown'
+          : '${position.latitude.toString()}, ${position.longitude.toString()}');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
+    //late final Stream<Position?> _positionStream;
+    //const factory = LocationMarkerDataStreamFactory();
 
+    /*_positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .asBroadcastStream();*/
     return CurrentLocationLayer(
+      /*positionStream: factory.fromGeolocatorPositionStream(
+        stream: _positionStream,
+      ),*/
       followOnLocationUpdate: FollowOnLocationUpdate.once,
-      turnOnHeadingUpdate: TurnOnHeadingUpdate.always,
+      turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
       style: LocationMarkerStyle(
         marker: appState.skin.pictures.isNotEmpty
             ? CachedNetworkImage(

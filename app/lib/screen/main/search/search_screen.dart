@@ -43,16 +43,18 @@ class _SearchScreenState extends State<SearchScreen> {
             children: [
               const Gap(8.0),
               Text(
-                  "Hik'Up!",
-                  style: GreenTitleTextStyle,
+                "Hik'Up!",
+                style: GreenTitleTextStyle,
               ),
-              CategoryListView(trailsList: model.trailsList, onTap: (String label) {
-                if (label == "Tout") {
-                  model.filterTrails(filter: "");
-                } else {
-                  model.filterTrails(filter: label);
-                }
-              }),
+              CategoryListView(
+                  trailsList: model.trailsList,
+                  onTap: (String label) {
+                    if (label == "Tout") {
+                      model.filterTrails(filter: "");
+                    } else {
+                      model.filterTrails(filter: label);
+                    }
+                  }),
               Padding(
                 padding: const EdgeInsets.only(
                   top: 8.0,
@@ -71,24 +73,26 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               // RECOMMENDED FIELDS
-              model.filterTrailsList.isNotEmpty ? ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                primary: false,
-                itemCount: model.filterTrailsList.length,
-                itemBuilder: (context, index) => TrailCard(
-                  field: model.filterTrailsList[index],
-                ),
-              ) : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Gap(10.0),
-                  Align(
-                    alignment: Alignment.center,
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
-              ),
+              model.filterTrailsList.isNotEmpty
+                  ? ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: model.filterTrailsList.length,
+                      itemBuilder: (context, index) => TrailCard(
+                        field: model.filterTrailsList[index],
+                      ),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Gap(10.0),
+                        Align(
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator(),
+                        ),
+                      ],
+                    ),
               const Gap(80.0),
             ],
           ),

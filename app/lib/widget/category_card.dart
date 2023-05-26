@@ -9,7 +9,9 @@ typedef void IntCallback(String label);
 class CategoryListView extends StatefulWidget {
   final List<TrailFields> trailsList;
   final IntCallback onTap;
-  const CategoryListView({required this.trailsList, required this.onTap, Key? key}) : super(key: key);
+  const CategoryListView(
+      {required this.trailsList, required this.onTap, Key? key})
+      : super(key: key);
 
   @override
   State<CategoryListView> createState() => _CategoryListViewState();
@@ -35,14 +37,18 @@ class _CategoryListViewState extends State<CategoryListView> {
     ));
     for (int i = 0; i < _trailsList.length; i++) {
       for (int j = 0; j < _trailsList[i].labels.length; j++) {
-        var labelInfos = trailsLabels.firstWhere((card) => card.title == _trailsList[i].labels[j], orElse: () =>
-          RandoCategory(title: "", imageAsset: ""
-        ));
-        var newLabel = CategoryCard(title: labelInfos.title,
+        var labelInfos = trailsLabels.firstWhere(
+            (card) => card.title == _trailsList[i].labels[j],
+            orElse: () => RandoCategory(title: "", imageAsset: ""));
+        var newLabel = CategoryCard(
+          title: labelInfos.title,
           imageAsset: labelInfos.imageAsset,
           onTap: widget.onTap,
         );
-        if (labelInfos.title.length > 0 && categoryList.indexWhere((card) => card.title == _trailsList[i].labels[j]) < 0) {
+        if (labelInfos.title.length > 0 &&
+            categoryList.indexWhere(
+                    (card) => card.title == _trailsList[i].labels[j]) <
+                0) {
           categoryList.add(newLabel);
         }
       }
@@ -91,13 +97,13 @@ class CategoryCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Image.asset(
-                      imageAsset,
-                      //color: primaryColor500,
-                      width: 60,
-                      height: 60,
-                    ),
+                  child: Image.asset(
+                    imageAsset,
+                    //color: primaryColor500,
+                    width: 60,
+                    height: 60,
                   ),
+                ),
                 const SizedBox(
                   height: 8.0,
                 ),

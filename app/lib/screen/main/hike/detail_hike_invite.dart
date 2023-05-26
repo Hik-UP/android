@@ -170,19 +170,24 @@ class DetailHikeInvite extends StatelessWidget {
                   const Gap(10.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: hike.trail.labels.map((label) => Container(
-                      padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-                      margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      child: Text(
-                          "${label}",
-                          style: subTitleTextStyle,
-                        ),
-                      ),
-                    ).toList(),
+                    children: hike.trail.labels
+                        .map(
+                          (label) => Container(
+                            padding:
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            margin:
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Text(
+                              "${label}",
+                              style: subTitleTextStyle,
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ],
               ),
@@ -235,24 +240,24 @@ class DetailHikeInvite extends StatelessWidget {
                         .contains(appState.username) &&
                     hike.status != "DONE",
                 child: CustomBtn(
-                  isLoading: model.loadingDelete,
-                  bgColor: Colors.green,
-                  textColor: Colors.white,
-                  content: "Rejoindre",
-                  onPress: () {
-                    SocketService().connect(
-                      token: appState.token,
-                      userId: appState.id,
-                      userRoles: appState.roles
-                    );
-                    SocketService().joinHike(hike.id);
-                    SocketService().onConnect((_) => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => NavigationScreen(hike: hike),
-                      ),
-                    ));
-                  }
-                ),
+                    isLoading: model.loadingDelete,
+                    bgColor: Colors.green,
+                    textColor: Colors.white,
+                    content: "Rejoindre",
+                    onPress: () {
+                      SocketService().connect(
+                          token: appState.token,
+                          userId: appState.id,
+                          userRoles: appState.roles);
+                      SocketService().joinHike(hike.id);
+                      SocketService()
+                          .onConnect((_) => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      NavigationScreen(hike: hike),
+                                ),
+                              ));
+                    }),
               ),
               const Gap(30.0),
               Visibility(

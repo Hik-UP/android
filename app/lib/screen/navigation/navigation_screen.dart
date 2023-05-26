@@ -67,40 +67,39 @@ class _NavigationScreenState extends State<NavigationScreen> {
           ],
         ),
         bottomNavigationBar: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: const BoxDecoration(
-            color: BlackPrimary,
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, 0),
-                blurRadius: 10,
+            padding: const EdgeInsets.all(16),
+            decoration: const BoxDecoration(
+              color: BlackPrimary,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 0),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: loginButtonColor,
+                borderRadius: BorderRadius.circular(borderRadiusSize),
               ),
-            ],
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: loginButtonColor,
-              borderRadius: BorderRadius.circular(borderRadiusSize),
-            ),
-            constraints: const BoxConstraints(
-              minWidth: 100,
-              minHeight: 45,
-            ),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadiusSize),
+              constraints: const BoxConstraints(
+                minWidth: 100,
+                minHeight: 45,
+              ),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(borderRadiusSize),
+                  ),
+                ),
+                onPressed: () => SocketService().test(),
+                child: Text(
+                  "ok",
+                  style: subTitleTextStyle,
                 ),
               ),
-              onPressed: () => SocketService().test(),
-              child: Text(
-                "ok",
-                style: subTitleTextStyle,
-              ),
-            ),
-          )
-        ),
+            )),
       );
     });
   }

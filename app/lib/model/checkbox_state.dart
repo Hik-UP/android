@@ -3,6 +3,4 @@ class CheckBoxState {
   bool value;
 
   CheckBoxState({required this.title, this.value = false});
-
-
 }

@@ -19,8 +19,9 @@ const env = "DEV";
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
 
-const baseSocketUrl =
-    env == "PROD" ? baseProdSocketUrl : baseDevSocketUrl; //La base_url des sockets
+const baseSocketUrl = env == "PROD"
+    ? baseProdSocketUrl
+    : baseDevSocketUrl; //La base_url des sockets
 
 const urlTemplateMapBoxDay =
     "https://api.mapbox.com/styles/v1/hikupapp/cle0lx80a00j701qqki8kcxqd/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w";

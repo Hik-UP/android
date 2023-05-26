@@ -110,5 +110,4 @@ class LoginPageViewModel extends BaseModel {
     }
   }
   // print(result);
-
 }

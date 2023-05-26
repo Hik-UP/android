@@ -16,10 +16,10 @@ class SocketService {
     required List<dynamic> userRoles,
   }) {
     try {
-      socket = IO.io("$baseSocketUrl", IO.OptionBuilder()
-        .setExtraHeaders({ 'token': token })
-        .setQuery({ 'id': userId, 'roles': userRoles.join(",") })
-        .build());
+      socket = IO.io(
+          "$baseSocketUrl",
+          IO.OptionBuilder().setExtraHeaders({'token': token}).setQuery(
+              {'id': userId, 'roles': userRoles.join(",")}).build());
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,

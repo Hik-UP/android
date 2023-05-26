@@ -29,109 +29,109 @@ class _LoginPageState extends State<LoginPage> {
     return BaseView<LoginPageViewModel>(
       builder: (context, model, child) => SafeArea(
         child: Scaffold(
-          resizeToAvoidBottomInset : false,
+          resizeToAvoidBottomInset: false,
           backgroundColor: const Color.fromARGB(255, 114, 18, 18),
           body: Center(
             child: Stack(
-            children: [
-              Positioned.fill(
-                child: Image.asset(
-                  homeBackgroundDay,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Column(
-                children: [
-                  const Gap(15.0),
-                  Container(
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(logoWhiteNoBg),
-                            scale: 2,
-                            fit: BoxFit.contain)),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          child: Container(
-                              margin: const EdgeInsets.only(top: 170)),
-                        )
-                      ],
-                    ),
+              children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    homeBackgroundDay,
+                    fit: BoxFit.cover,
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width *
-                        0.9, // 50% de la largeur de l'écran
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    child: Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Form(
-                        key: model.loginFormKey,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              CustomTextField(
-                                controller: model.emailController,
-                                hintText: AppMessages.email,
-                                validator: Validation.validEmail,
-                              ),
-                              const Gap(10),
-                              CustomTextField(
-                                controller: model.passwordController,
-                                hintText: AppMessages.password,
-                                typeInput: TypeInput.password,
-                                validator: model.validPassword,
-                                typeOfInput: TypeOfInput.password,
-                              ),
-                              const Gap(10),
-                              CustomBtn(
-                                content: AppMessages.login,
-                                isLoading: model.getState == ViewState.busy,
-                                onPress: () {
-                                  if (model.loginFormKey.currentState!
-                                      .validate()) {
-                                    model.login(
-                                      email: model.emailController.text,
-                                      password: model.passwordController.text,
-                                      appState: context.read<AppState>(),
-                                    );
-                                  }
-                                },
-                                gradient: loginButtonColor,
-                              ),
-                              const Gap(2),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    style: TextButton.styleFrom(
-                                      foregroundColor: const Color.fromARGB(
-                                          255, 23, 255, 119),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                        RegisterPage.routeName,
+                ),
+                Column(
+                  children: [
+                    const Gap(15.0),
+                    Container(
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(logoWhiteNoBg),
+                              scale: 2,
+                              fit: BoxFit.contain)),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            child: Container(
+                                margin: const EdgeInsets.only(top: 170)),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width *
+                          0.9, // 50% de la largeur de l'écran
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Form(
+                          key: model.loginFormKey,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: <Widget>[
+                                CustomTextField(
+                                  controller: model.emailController,
+                                  hintText: AppMessages.email,
+                                  validator: Validation.validEmail,
+                                ),
+                                const Gap(10),
+                                CustomTextField(
+                                  controller: model.passwordController,
+                                  hintText: AppMessages.password,
+                                  typeInput: TypeInput.password,
+                                  validator: model.validPassword,
+                                  typeOfInput: TypeOfInput.password,
+                                ),
+                                const Gap(10),
+                                CustomBtn(
+                                  content: AppMessages.login,
+                                  isLoading: model.getState == ViewState.busy,
+                                  onPress: () {
+                                    if (model.loginFormKey.currentState!
+                                        .validate()) {
+                                      model.login(
+                                        email: model.emailController.text,
+                                        password: model.passwordController.text,
+                                        appState: context.read<AppState>(),
                                       );
-                                    },
-                                    child: Text(
-                                      AppMessages.noAccountYet,
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w400,
+                                    }
+                                  },
+                                  gradient: loginButtonColor,
+                                ),
+                                const Gap(2),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    TextButton(
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: const Color.fromARGB(
+                                            255, 23, 255, 119),
                                       ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
+                                      onPressed: () {
+                                        Navigator.of(context).pushNamed(
+                                          RegisterPage.routeName,
+                                        );
+                                      },
+                                      child: Text(
+                                        AppMessages.noAccountYet,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

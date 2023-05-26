@@ -1,1 +1,1 @@
-enum NotificationStatus {success, failure}
+enum NotificationStatus { success, failure }
