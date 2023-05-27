@@ -244,19 +244,20 @@ class DetailHikeInvite extends StatelessWidget {
                     bgColor: Colors.green,
                     textColor: Colors.white,
                     content: "Rejoindre",
-                    onPress: () {
+                    onPress: () async {
                       SocketService().connect(
                           token: appState.token,
                           userId: appState.id,
                           userRoles: appState.roles);
-                      SocketService().joinHike(hike.id);
-                      SocketService()
-                          .onConnect((_) => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavigationScreen(hike: hike),
-                                ),
-                              ));
+                      await SocketService().joinHike(hike.id);
+                      SocketService().onJoinHikeSuccess(
+                        (data) => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => NavigationScreen(
+                                hike: hike, hikers: json.decode(data)),
+                          ),
+                        ),
+                      );
                     }),
               ),
               const Gap(30.0),

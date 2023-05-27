@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/service/custom_navigation.dart';
+import 'package:geolocator/geolocator.dart';
 
 IO.Socket? socket = null;
 
@@ -42,6 +44,17 @@ class SocketService {
     }
   }
 
+  void onJoinHikeSuccess(Function(dynamic) func) {
+    try {
+      socket?.on('joinHikeSuccess', func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
   void onHikeJoined(Function(dynamic) func) {
     try {
       socket?.on('hikeJoined', func);
@@ -53,9 +66,22 @@ class SocketService {
     }
   }
 
-  void joinHike(String hikeId) {
+  joinHike(String hikeId) async {
     try {
-      socket?.emit('joinHike', hikeId);
+      final Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      final data = [
+        {
+          "data": {
+            "hike": {"id": hikeId},
+            "hiker": {
+              "latitude": position.latitude,
+              "longitude": position.longitude
+            },
+          },
+        }
+      ];
+      socket?.emit('joinHike', data[0]);
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,

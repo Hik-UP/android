@@ -5,6 +5,7 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
+import "package:hikup/utils/constant.dart";
 
 class PlayerSkin extends StatefulWidget {
   final Function(Position? position)? onLocationUpdate;
@@ -14,17 +15,11 @@ class PlayerSkin extends StatefulWidget {
 }
 
 class _PlayerSkinState extends State<PlayerSkin> {
-  final LocationSettings locationSettings = LocationSettings(
-    accuracy: LocationAccuracy.high,
-    distanceFilter: 0,
-  );
-
   @override
   void initState() {
     super.initState();
-    StreamSubscription<Position> positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen(widget.onLocationUpdate);
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen(widget.onLocationUpdate);
   }
 
   @override

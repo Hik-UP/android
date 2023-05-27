@@ -4,6 +4,7 @@ import 'package:hikup/model/skin.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 import 'package:hikup/theme.dart';
+import 'package:geolocator/geolocator.dart';
 import '../model/user.dart';
 import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
@@ -128,3 +129,8 @@ const profilePlaceHoder = "assets/images/user_profile_example.png";
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
 const stopWatchIcon = "assets/icons/stopwatchIcon.svg";
+
+final LocationSettings locationSettings = LocationSettings(
+  accuracy: LocationAccuracy.high,
+  distanceFilter: 0,
+);

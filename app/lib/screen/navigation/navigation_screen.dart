@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:hikup/theme.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -16,10 +17,11 @@ import "package:hikup/model/hike.dart";
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;
-  static String routeName = "/navigation";
+  final List<dynamic> hikers;
   const NavigationScreen({
     Key? key,
     required this.hike,
+    required this.hikers,
   }) : super(key: key);
 
   @override
@@ -27,17 +29,49 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
+  late List<Marker> hikersMarkers;
+
   @override
   void initState() {
     super.initState();
     AppState appState = context.read<AppState>();
-    context.read<AppState>().getUserFcmToken();
+    hikersMarkers = widget.hikers.map((entry) {
+      late latlng.LatLng hikerLatLng = latlng.LatLng(
+          entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
+
+      return Marker(
+        width: 26.0,
+        height: 26.0,
+        point: hikerLatLng,
+        builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
+            color: Colors.blue, size: 24.0),
+      );
+    }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return BaseView<MapViewModel>(builder: (context, model, child) {
-      SocketService().onHikeJoined((data) => print(data));
+      print(hikersMarkers);
+      SocketService().onHikeJoined((data) {
+        dynamic entry = json.decode(data);
+        late latlng.LatLng hikerLatLng = latlng.LatLng(
+            entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
+
+        setState(() {
+          hikersMarkers = [
+            ...hikersMarkers,
+            Marker(
+              width: 26.0,
+              height: 26.0,
+              point: hikerLatLng,
+              builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
+                  color: Colors.blue, size: 24.0),
+            )
+          ];
+        });
+      });
+
       return Scaffold(
         extendBodyBehindAppBar: true,
         body: FlutterMap(
@@ -62,7 +96,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               polylines: model.polylines.isEmpty ? [] : model.polylines,
             ),
             MarkerLayer(
-              markers: model.loading ? [] : model.markers,
+              markers: hikersMarkers.isEmpty ? [] : hikersMarkers,
             ),
           ],
         ),
