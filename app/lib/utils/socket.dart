@@ -66,6 +66,28 @@ class SocketService {
     }
   }
 
+  void onHikeLeaved(Function(dynamic) func) {
+    try {
+      socket?.on('hikeLeaved', func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
+  void onHikerMoved(Function(dynamic) func) {
+    try {
+      socket?.on('hikerMoved', func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
   joinHike(String hikeId) async {
     try {
       final Position position = await Geolocator.getCurrentPosition(
@@ -90,8 +112,32 @@ class SocketService {
     }
   }
 
+  void move(Position position) {
+    try {
+      final data = [
+        {
+          "data": {
+            "hiker": {
+              "latitude": position.latitude,
+              "longitude": position.longitude
+            },
+          },
+        }
+      ];
+      socket?.emit('move', data[0]);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
   void test() {
     try {
+      socket
+        ?..disconnect()
+        ..connect();
       socket?.emit('msg', 'test');
     } catch (e) {
       _navigator.showSnackBack(

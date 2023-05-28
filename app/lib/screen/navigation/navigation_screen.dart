@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:hikup/theme.dart';
@@ -14,6 +15,7 @@ import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/utils/socket.dart';
 import "package:hikup/model/hike.dart";
+import 'package:geolocator/geolocator.dart';
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;
@@ -29,49 +31,89 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
-  late List<Marker> hikersMarkers;
+  String? lastPosition;
+  late List<dynamic> _hikers;
 
   @override
   void initState() {
     super.initState();
     AppState appState = context.read<AppState>();
-    hikersMarkers = widget.hikers.map((entry) {
+    _hikers = widget.hikers.map((entry) {
       late latlng.LatLng hikerLatLng = latlng.LatLng(
           entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
 
-      return Marker(
-        width: 26.0,
-        height: 26.0,
-        point: hikerLatLng,
-        builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
-            color: Colors.blue, size: 24.0),
-      );
+      return {
+        "id": entry["hiker"]["id"],
+        "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
+        "marker": Marker(
+          width: 26.0,
+          height: 26.0,
+          point: hikerLatLng,
+          builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
+              color: Colors.blue, size: 24.0),
+        ),
+      };
     }).toList();
-  }
+    SocketService().onHikeJoined((data) {
+      dynamic entry = json.decode(data);
+      late latlng.LatLng hikerLatLng = latlng.LatLng(
+          entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
 
-  @override
-  Widget build(BuildContext context) {
-    return BaseView<MapViewModel>(builder: (context, model, child) {
-      print(hikersMarkers);
-      SocketService().onHikeJoined((data) {
-        dynamic entry = json.decode(data);
-        late latlng.LatLng hikerLatLng = latlng.LatLng(
-            entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
-
-        setState(() {
-          hikersMarkers = [
-            ...hikersMarkers,
-            Marker(
+      setState(() {
+        _hikers = [
+          ..._hikers,
+          {
+            "id": entry["hiker"]["id"],
+            "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
+            "marker": Marker(
               width: 26.0,
               height: 26.0,
               point: hikerLatLng,
               builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
                   color: Colors.blue, size: 24.0),
-            )
-          ];
-        });
+            ),
+          }
+        ];
       });
+    });
+    SocketService().onHikeLeaved((data) {
+      dynamic entry = json.decode(data);
 
+      setState(() {
+        _hikers.removeWhere((item) => item["id"] == entry["hiker"]["id"]);
+      });
+    });
+    SocketService().onHikerMoved((data) {
+      dynamic entry = json.decode(data);
+      late latlng.LatLng hikerLatLng = latlng.LatLng(
+          entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
+      final newHiker = {
+        "id": entry["hiker"]["id"],
+        "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
+        "marker": Marker(
+          width: 26.0,
+          height: 26.0,
+          point: hikerLatLng,
+          builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
+              color: Colors.blue, size: 24.0),
+        ),
+      };
+      int index =
+          _hikers.indexWhere((item) => item["id"] == entry["hiker"]["id"]);
+
+      if (index >= 0 &&
+          _hikers[index]["LatLng"] != null &&
+          newHiker["LatLng"] != _hikers[index]["LatLng"]) {
+        setState(() {
+          _hikers[index] = newHiker;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseView<MapViewModel>(builder: (context, model, child) {
       return Scaffold(
         extendBodyBehindAppBar: true,
         body: FlutterMap(
@@ -91,12 +133,25 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 'id': idMapBox
               },
             ),
-            const PlayerSkin(),
+            PlayerSkin(
+              onLocationUpdate: (Position? position) {
+                final newPosition =
+                    "${position?.latitude},${position?.longitude}";
+
+                if (position != null && lastPosition == null ||
+                    position != null && lastPosition != newPosition) {
+                  lastPosition = newPosition;
+                  SocketService().move(position);
+                }
+              },
+            ),
             PolylineLayer(
               polylines: model.polylines.isEmpty ? [] : model.polylines,
             ),
             MarkerLayer(
-              markers: hikersMarkers.isEmpty ? [] : hikersMarkers,
+              markers: _hikers.isEmpty
+                  ? []
+                  : _hikers.map((entry) => entry["marker"] as Marker).toList(),
             ),
           ],
         ),

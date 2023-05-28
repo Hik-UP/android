@@ -373,13 +373,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                       'id': idMapBox
                     },
                   ),
-                  PlayerSkin(
-                    onLocationUpdate: (Position? position) {
-                      print(position == null
-                          ? 'Unknown'
-                          : 'Lat: ${position.latitude.toString()}, Lng: ${position.longitude.toString()}');
-                    },
-                  ),
+                  PlayerSkin(),
                   PolylineLayer(
                     polylines: model.polylines.isEmpty ? [] : model.polylines,
                   ),
