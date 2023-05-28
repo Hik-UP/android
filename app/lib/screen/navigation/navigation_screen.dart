@@ -54,6 +54,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
         ),
       };
     }).toList();
+    SocketService().onDisconnect(
+      (data) => Navigator.of(context, rootNavigator: true).pop(),
+    );
+    SocketService().onError((_) => SocketService().disconnect());
     SocketService().onHikeJoined((data) {
       dynamic entry = json.decode(data);
       late latlng.LatLng hikerLatLng = latlng.LatLng(
@@ -182,9 +186,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     borderRadius: BorderRadius.circular(borderRadiusSize),
                   ),
                 ),
-                onPressed: () => SocketService().test(),
+                onPressed: () => SocketService().disconnect(),
                 child: Text(
-                  "ok",
+                  "Leave",
                   style: subTitleTextStyle,
                 ),
               ),

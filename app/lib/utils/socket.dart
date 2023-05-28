@@ -20,12 +20,27 @@ class SocketService {
     try {
       socket = IO.io(
           "$baseSocketUrl",
-          IO.OptionBuilder().setTransports(['websocket']).setQuery({
-            'token': token,
-            'id': userId,
-            'roles': userRoles.join(",")
-          }).build());
+          IO.OptionBuilder()
+              .setTransports(['websocket'])
+              .setQuery(
+                  {'token': token, 'id': userId, 'roles': userRoles.join(",")})
+              .disableAutoConnect()
+              .build());
+      socket?.connect();
     } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
+  void disconnect() {
+    try {
+      socket?.disconnect();
+      socket?.clearListeners();
+    } catch (e) {
+      print(e);
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,
@@ -36,6 +51,28 @@ class SocketService {
   void onConnect(Function(dynamic) func) {
     try {
       socket?.onConnect(func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
+  void onDisconnect(Function(dynamic) func) {
+    try {
+      socket?.onDisconnect(func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
+  void onError(Function(dynamic) func) {
+    try {
+      socket?.onError(func);
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,

@@ -249,6 +249,8 @@ class DetailHikeInvite extends StatelessWidget {
                           token: appState.token,
                           userId: appState.id,
                           userRoles: appState.roles);
+                      SocketService()
+                          .onError((_) => SocketService().disconnect());
                       await SocketService().joinHike(hike.id);
                       SocketService().onJoinHikeSuccess(
                         (data) => Navigator.of(context).push(
