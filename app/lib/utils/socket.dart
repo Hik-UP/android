@@ -5,6 +5,7 @@ import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/model/navigation.dart';
 import 'package:geolocator/geolocator.dart';
 
 IO.Socket? socket = null;
@@ -149,14 +150,19 @@ class SocketService {
     }
   }
 
-  void move(Position position) {
+  void move(Position position, HikerStats stats) {
     try {
       final data = [
         {
           "data": {
             "hiker": {
               "latitude": position.latitude,
-              "longitude": position.longitude
+              "longitude": position.longitude,
+              "stats": {
+                "steps": stats.steps,
+                "distance": stats.distance,
+                "completed": stats.completed
+              }
             },
           },
         }

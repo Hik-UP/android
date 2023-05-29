@@ -75,7 +75,6 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
       }
 
       if (model.loading == true) {
-        model.loading = false;
         model.trails(
           appState: context.read<AppState>(),
           updateScreen: () => setState(

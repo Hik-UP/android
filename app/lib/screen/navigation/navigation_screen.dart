@@ -16,6 +16,8 @@ import 'package:gap/gap.dart';
 import 'package:hikup/utils/socket.dart';
 import "package:hikup/model/hike.dart";
 import 'package:geolocator/geolocator.dart';
+import 'package:hikup/utils/pedometer.dart';
+import 'package:hikup/model/navigation.dart';
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;
@@ -31,13 +33,20 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
+  HikerStats stats = HikerStats(steps: 0, distance: 0, completed: false);
   String? lastPosition;
   late List<dynamic> _hikers;
+  late Stream<StepCount> _stepStream;
 
   @override
   void initState() {
     super.initState();
     AppState appState = context.read<AppState>();
+    _stepStream = Pedometer.stepCountStream;
+    _stepStream
+        .listen((StepCount event) => stats.steps = event.steps)
+        .onError((error) => print(error));
+    ;
     _hikers = widget.hikers.map((entry) {
       late latlng.LatLng hikerLatLng = latlng.LatLng(
           entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
@@ -52,6 +61,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
               color: Colors.blue, size: 24.0),
         ),
+        "stats": entry["hiker"]["stats"]
       };
     }).toList();
     SocketService().onDisconnect(
@@ -76,6 +86,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
                   color: Colors.blue, size: 24.0),
             ),
+            "stats": entry["hiker"]["stats"]
           }
         ];
       });
@@ -101,6 +112,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
               color: Colors.blue, size: 24.0),
         ),
+        "stats": entry["hiker"]["stats"]
       };
       int index =
           _hikers.indexWhere((item) => item["id"] == entry["hiker"]["id"]);
@@ -120,79 +132,84 @@ class _NavigationScreenState extends State<NavigationScreen> {
     return BaseView<MapViewModel>(builder: (context, model, child) {
       return Scaffold(
         extendBodyBehindAppBar: true,
-        body: FlutterMap(
-          mapController: model.mapController,
-          options: MapOptions(
-            pinchZoomThreshold: 69.99999999999991,
-            center: latlng.LatLng(46.227638, 2.213749),
-            zoom: model.zoom,
-            maxBounds: LatLngBounds(
-                latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0)),
-          ),
-          children: [
-            TileLayer(
-              urlTemplate: getMap(),
-              additionalOptions: const {
-                'accessToken': accessTokenMapBox,
-                'id': idMapBox
-              },
-            ),
-            PlayerSkin(
-              onLocationUpdate: (Position? position) {
-                final newPosition =
-                    "${position?.latitude},${position?.longitude}";
-
-                if (position != null && lastPosition == null ||
-                    position != null && lastPosition != newPosition) {
-                  lastPosition = newPosition;
-                  SocketService().move(position);
-                }
-              },
-            ),
-            PolylineLayer(
-              polylines: model.polylines.isEmpty ? [] : model.polylines,
-            ),
-            MarkerLayer(
-              markers: _hikers.isEmpty
-                  ? []
-                  : _hikers.map((entry) => entry["marker"] as Marker).toList(),
-            ),
-          ],
-        ),
-        bottomNavigationBar: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              color: BlackPrimary,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0, 0),
-                  blurRadius: 10,
-                ),
-              ],
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: loginButtonColor,
+        body: SlidingUpPanel(
+          renderPanelSheet: false,
+          minHeight: 100,
+          collapsed: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadiusSize),
               ),
-              constraints: const BoxConstraints(
-                minWidth: 100,
-                minHeight: 45,
+            ),
+            onPressed: () => SocketService().disconnect(),
+            child: Text(
+              "Leave",
+              style: subTitleTextStyle,
+            ),
+          ),
+          panel: Container(
+            decoration: BoxDecoration(
+              color: BlackPrimary,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              children: _hikers
+                  .map((entry) => Container(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text("User:", style: subTitleTextStyle),
+                              Gap(5),
+                              Text(entry["stats"]["steps"].toString(),
+                                  style: subTitleTextStyle)
+                            ]),
+                      ))
+                  .toList(),
+            ),
+          ),
+          body: FlutterMap(
+            mapController: model.mapController,
+            options: MapOptions(
+              pinchZoomThreshold: 69.99999999999991,
+              center: latlng.LatLng(46.227638, 2.213749),
+              zoom: model.zoom,
+              maxBounds: LatLngBounds(
+                  latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0)),
+            ),
+            children: [
+              TileLayer(
+                urlTemplate: getMap(),
+                additionalOptions: const {
+                  'accessToken': accessTokenMapBox,
+                  'id': idMapBox
+                },
               ),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(borderRadiusSize),
-                  ),
-                ),
-                onPressed: () => SocketService().disconnect(),
-                child: Text(
-                  "Leave",
-                  style: subTitleTextStyle,
-                ),
+              PlayerSkin(
+                onLocationUpdate: (Position? position) {
+                  final newPosition =
+                      "${position?.latitude},${position?.longitude}";
+
+                  if (position != null && lastPosition == null ||
+                      position != null && lastPosition != newPosition) {
+                    lastPosition = newPosition;
+                    SocketService().move(position, stats);
+                  }
+                },
               ),
-            )),
+              PolylineLayer(
+                polylines: model.polylines.isEmpty ? [] : model.polylines,
+              ),
+              MarkerLayer(
+                markers: _hikers.isEmpty
+                    ? []
+                    : _hikers
+                        .map((entry) => entry["marker"] as Marker)
+                        .toList(),
+              ),
+            ],
+          ),
+        ),
       );
     });
   }
