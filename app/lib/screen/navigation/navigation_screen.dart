@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' show cos, sqrt, asin;
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -16,7 +17,6 @@ import 'package:gap/gap.dart';
 import 'package:hikup/utils/socket.dart';
 import "package:hikup/model/hike.dart";
 import 'package:geolocator/geolocator.dart';
-import 'package:hikup/utils/pedometer.dart';
 import 'package:hikup/model/navigation.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -36,17 +36,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
   HikerStats stats = HikerStats(steps: 0, distance: 0, completed: false);
   String? lastPosition;
   late List<dynamic> _hikers;
-  late Stream<StepCount> _stepStream;
 
   @override
   void initState() {
     super.initState();
     AppState appState = context.read<AppState>();
-    _stepStream = Pedometer.stepCountStream;
-    _stepStream
-        .listen((StepCount event) => stats.steps = event.steps)
-        .onError((error) => print(error));
-    ;
     _hikers = widget.hikers.map((entry) {
       late latlng.LatLng hikerLatLng = latlng.LatLng(
           entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
@@ -127,6 +121,26 @@ class _NavigationScreenState extends State<NavigationScreen> {
     });
   }
 
+  int calcDistance(String latLng1, String latLng2) {
+    List<double> splitLatLng1 = [
+      double.parse(latLng1.split(',')[0]),
+      double.parse(latLng1.split(',')[1])
+    ];
+    List<double> splitLatLng2 = [
+      double.parse(latLng2.split(',')[0]),
+      double.parse(latLng2.split(',')[1])
+    ];
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((splitLatLng2[0] - splitLatLng1[0]) * p) / 2 +
+        c(splitLatLng1[0] * p) *
+            c(splitLatLng2[0] * p) *
+            (1 - c((splitLatLng2[1] - splitLatLng1[1]) * p)) /
+            2;
+    return ((12742 * asin(sqrt(a))) * 1000).round();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<MapViewModel>(builder: (context, model, child) {
@@ -161,7 +175,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                             children: <Widget>[
                               Text("User:", style: subTitleTextStyle),
                               Gap(5),
-                              Text(entry["stats"]["steps"].toString(),
+                              Text(entry["stats"]["distance"].toString(),
                                   style: subTitleTextStyle)
                             ]),
                       ))
@@ -192,6 +206,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
                   if (position != null && lastPosition == null ||
                       position != null && lastPosition != newPosition) {
+                    stats.distance +=
+                        calcDistance(lastPosition ?? newPosition, newPosition);
                     lastPosition = newPosition;
                     SocketService().move(position, stats);
                   }
