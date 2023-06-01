@@ -252,14 +252,17 @@ class DetailHikeInvite extends StatelessWidget {
                       SocketService()
                           .onError((_) => SocketService().disconnect());
                       await SocketService().joinHike(hike.id);
-                      SocketService().onJoinHikeSuccess(
-                        (data) => Navigator.of(context).push(
+                      SocketService().onJoinHikeSuccess((data) {
+                        dynamic jsonData = json.decode(data);
+                        dynamic stats = jsonData["stats"];
+                        List<dynamic> hikers = jsonData["hikers"];
+                        Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => NavigationScreen(
-                                hike: hike, hikers: json.decode(data)),
+                                hike: hike, stats: stats, hikers: hikers),
                           ),
-                        ),
-                      );
+                        );
+                      });
                     }),
               ),
               const Gap(30.0),

@@ -21,10 +21,12 @@ import 'package:hikup/model/navigation.dart';
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;
+  final dynamic stats;
   final List<dynamic> hikers;
   const NavigationScreen({
     Key? key,
     required this.hike,
+    required this.stats,
     required this.hikers,
   }) : super(key: key);
 
@@ -33,7 +35,7 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
-  HikerStats stats = HikerStats(steps: 0, distance: 0, completed: false);
+  late HikerStats stats;
   String? lastPosition;
   late List<dynamic> _hikers;
 
@@ -41,6 +43,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
   void initState() {
     super.initState();
     AppState appState = context.read<AppState>();
+    stats = HikerStats(
+        steps: widget.stats["steps"],
+        distance: widget.stats["distance"],
+        completed: widget.stats["completed"]);
     _hikers = widget.hikers.map((entry) {
       late latlng.LatLng hikerLatLng = latlng.LatLng(
           entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
