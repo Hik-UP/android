@@ -50,6 +50,22 @@ class CommentCard extends StatelessWidget {
                           profilePlaceHoder,
                         ),
                       ),
+                      IconButton(
+                        color: GreenPrimary,
+                          onPressed: () {
+                                    // myAlert(
+                                    //   context: context,
+                                    //   getImageGallery: () => model.getImage(
+                                    //     ImageSource.gallery,
+                                    //   ),
+                                    //   getImageCamera: () => model.getImage(
+                                    //     ImageSource.camera,
+                                    //   ),
+                                    // );
+                                  },
+                                  icon: const Icon(Icons.menu),
+                                ),
+                      //icon: const Icon(Icons.menu),
                 const Gap(10.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
