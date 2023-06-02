@@ -17,6 +17,7 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Card(
       color: BlackPrimary,
       child: Padding(
@@ -26,6 +27,7 @@ class CommentCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
+              
               children: [
                 comment.author.picture.isNotEmpty
                     ? CachedNetworkImage(

@@ -75,6 +75,32 @@ class _CommunityViewState extends State<CommunityView> {
         );
       },
     );
+    showAlertDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Supprimer?'),
+            content: const Text('Souhaitez vous supprimer ce commetaire?'),
+            actions: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Annuler')),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  onPressed: () {
+                    // suppression
+                  },
+                  child: const Text(
+                    'Confirmer',
+                  )),
+            ],
+          );
+        });
+  }
   }
 
   @override
@@ -129,6 +155,22 @@ class _CommunityViewState extends State<CommunityView> {
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (BuildContext context, index) {
+                                IconButton(
+                                  color: GreenPrimary,
+                                  onPressed: () {
+                                    myAlert(
+                                      context: context,
+                                      getImageGallery: () => model.getImage(
+                                        ImageSource.gallery,
+                                      ),
+                                      getImageCamera: () => model.getImage(
+                                        ImageSource.camera,
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.menu),
+                                );
+                              
                               return Padding(
                                 padding: const EdgeInsets.all(14.0),
                                 child: CommentCard(
@@ -249,6 +291,7 @@ class _CommunityViewState extends State<CommunityView> {
                                   },
                                   icon: const Icon(Icons.camera_alt),
                                 ),
+                                
                               ],
                             ),
                           )
