@@ -23,7 +23,7 @@ class SocketService {
           "$baseSocketUrl",
           IO.OptionBuilder()
               .setTransports(['websocket'])
-              .setQuery(
+              .setAuth(
                   {'token': token, 'id': userId, 'roles': userRoles.join(",")})
               .disableAutoConnect()
               .build());
@@ -82,17 +82,6 @@ class SocketService {
     }
   }
 
-  void onJoinHikeSuccess(Function(dynamic) func) {
-    try {
-      socket?.on('joinHikeSuccess', func);
-    } catch (e) {
-      _navigator.showSnackBack(
-        content: AppMessages.anErrorOcur,
-        isError: true,
-      );
-    }
-  }
-
   void onHikeJoined(Function(dynamic) func) {
     try {
       socket?.on('hikeJoined', func);
@@ -126,7 +115,7 @@ class SocketService {
     }
   }
 
-  joinHike(String hikeId) async {
+  join(String hikeId, Function(dynamic) func) async {
     try {
       final Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
@@ -141,7 +130,8 @@ class SocketService {
           },
         }
       ];
-      socket?.emit('joinHike', data[0]);
+
+      socket?.emitWithAck('join', data[0], ack: func);
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,

@@ -20,7 +20,10 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latlng;
 import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import "package:hikup/screen/navigation/navigation_screen.dart";
+import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/locator.dart';
 import 'package:hikup/utils/socket.dart';
+import 'package:geolocator/geolocator.dart';
 
 class DetailHikeInvite extends StatelessWidget {
   final Hike hike;
@@ -32,6 +35,7 @@ class DetailHikeInvite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _navigator = locator<CustomNavigationService>();
     double maxHeight = MediaQuery.of(context).size.height;
     AppState appState = context.read<AppState>();
     final Marker marker = Marker(
@@ -245,14 +249,26 @@ class DetailHikeInvite extends StatelessWidget {
                     textColor: Colors.white,
                     content: "Rejoindre",
                     onPress: () async {
+                      LocationPermission permission =
+                          await Geolocator.checkPermission();
+
+                      if (permission != LocationPermission.whileInUse &&
+                              permission != LocationPermission.always ||
+                          !(await Geolocator.isLocationServiceEnabled())) {
+                        _navigator.showSnackBack(
+                          content: 'Localisation inaccessible',
+                          isError: true,
+                        );
+                        await Geolocator.requestPermission();
+                        return;
+                      }
                       SocketService().connect(
                           token: appState.token,
                           userId: appState.id,
                           userRoles: appState.roles);
                       SocketService()
                           .onError((_) => SocketService().disconnect());
-                      await SocketService().joinHike(hike.id);
-                      SocketService().onJoinHikeSuccess((data) {
+                      await SocketService().join(hike.id, (data) {
                         dynamic jsonData = json.decode(data);
                         dynamic stats = jsonData["stats"];
                         List<dynamic> hikers = jsonData["hikers"];
