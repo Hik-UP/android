@@ -75,6 +75,47 @@ class _CommunityViewState extends State<CommunityView> {
         );
       },
     );
+        showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: BlackPrimary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          title: const Text('Options', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height / 6,
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    //Navigator.pop(context);
+                    //getImageGallery();
+                  },
+                  child: Row(
+                    children: const [
+                      Icon(Icons.edit),
+                      Text('Éditer'),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                   // Navigator.pop(context);
+                    //getImageCamera();
+                  },
+                  child: Row(
+                    children: const [
+                      Icon(Icons.delete),
+                      Text('Supprimer'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
     showAlertDialog() {
     showDialog(
         context: context,

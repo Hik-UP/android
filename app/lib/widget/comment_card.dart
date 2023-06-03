@@ -53,6 +53,18 @@ class CommentCard extends StatelessWidget {
                       IconButton(
                         color: GreenPrimary,
                           onPressed: () {
+                              itemBuilder: (context) {
+                                return [
+                                PopupMenuItem(
+                                  value: 'edit',
+                                  child: Text('Edit'),
+                                ),
+                                PopupMenuItem(
+                                  value: 'delete',
+                                  child: Text('Delete'),
+                                )
+                                ];
+                              };
                                     // myAlert(
                                     //   context: context,
                                     //   getImageGallery: () => model.getImage(
