@@ -22,7 +22,7 @@ import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import "package:hikup/screen/navigation/navigation_screen.dart";
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/locator.dart';
-import 'package:hikup/utils/socket.dart';
+import 'package:hikup/utils/socket/socket.dart';
 import 'package:geolocator/geolocator.dart';
 
 class DetailHikeInvite extends StatelessWidget {
@@ -268,7 +268,7 @@ class DetailHikeInvite extends StatelessWidget {
                           userRoles: appState.roles);
                       SocketService()
                           .onError((_) => SocketService().disconnect());
-                      await SocketService().join(hike.id, (data) {
+                      await SocketService().hike.join(hike.id, (data) {
                         dynamic jsonData = json.decode(data);
                         dynamic stats = jsonData["stats"];
                         List<dynamic> hikers = jsonData["hikers"];

@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/mapbox/Components/skin.dart';
 import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:gap/gap.dart';
-import 'package:hikup/utils/socket.dart';
+import 'package:hikup/utils/socket/socket.dart';
 import "package:hikup/model/hike.dart";
 import 'package:geolocator/geolocator.dart';
 import 'package:hikup/model/navigation.dart';
@@ -68,7 +68,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       (data) => Navigator.of(context, rootNavigator: true).pop(),
     );
     SocketService().onError((_) => SocketService().disconnect());
-    SocketService().onHikeJoined((data) {
+    SocketService().hike.onJoin((data) {
       dynamic entry = json.decode(data);
       late latlng.LatLng hikerLatLng = latlng.LatLng(
           entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
@@ -91,14 +91,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
         ];
       });
     });
-    SocketService().onHikeLeaved((data) {
+    SocketService().hike.onLeave((data) {
       dynamic entry = json.decode(data);
 
       setState(() {
         _hikers.removeWhere((item) => item["id"] == entry["hiker"]["id"]);
       });
     });
-    SocketService().onHikerMoved((data) {
+    SocketService().hike.onMove((data) {
       dynamic entry = json.decode(data);
       late latlng.LatLng hikerLatLng = latlng.LatLng(
           entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
@@ -215,7 +215,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     stats.distance +=
                         calcDistance(lastPosition ?? newPosition, newPosition);
                     lastPosition = newPosition;
-                    SocketService().move(position, stats);
+                    SocketService().hike.move(position, stats);
                   }
                 },
               ),

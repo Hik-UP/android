@@ -7,11 +7,13 @@ import 'package:hikup/locator.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/model/navigation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hikup/utils/socket/hike.dart';
 
 IO.Socket? socket = null;
 
 class SocketService {
   final _navigator = locator<CustomNavigationService>();
+  final hike = HikeSocket(socket: socket);
 
   void connect({
     required String token,
@@ -74,90 +76,6 @@ class SocketService {
   void onError(Function(dynamic) func) {
     try {
       socket?.onError(func);
-    } catch (e) {
-      _navigator.showSnackBack(
-        content: AppMessages.anErrorOcur,
-        isError: true,
-      );
-    }
-  }
-
-  void onHikeJoined(Function(dynamic) func) {
-    try {
-      socket?.on('hikeJoined', func);
-    } catch (e) {
-      _navigator.showSnackBack(
-        content: AppMessages.anErrorOcur,
-        isError: true,
-      );
-    }
-  }
-
-  void onHikeLeaved(Function(dynamic) func) {
-    try {
-      socket?.on('hikeLeaved', func);
-    } catch (e) {
-      _navigator.showSnackBack(
-        content: AppMessages.anErrorOcur,
-        isError: true,
-      );
-    }
-  }
-
-  void onHikerMoved(Function(dynamic) func) {
-    try {
-      socket?.on('hikerMoved', func);
-    } catch (e) {
-      _navigator.showSnackBack(
-        content: AppMessages.anErrorOcur,
-        isError: true,
-      );
-    }
-  }
-
-  join(String hikeId, Function(dynamic) func) async {
-    try {
-      final Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      final data = [
-        {
-          "data": {
-            "hike": {"id": hikeId},
-            "hiker": {
-              "latitude": position.latitude,
-              "longitude": position.longitude
-            },
-          },
-        }
-      ];
-
-      socket?.emitWithAck('join', data[0], ack: func);
-    } catch (e) {
-      _navigator.showSnackBack(
-        content: AppMessages.anErrorOcur,
-        isError: true,
-      );
-    }
-  }
-
-  void move(Position position, HikerStats stats) {
-    try {
-      final data = [
-        {
-          "data": {
-            "hiker": {
-              "latitude": position.latitude,
-              "longitude": position.longitude,
-              "stats": {
-                "steps": stats.steps,
-                "distance": stats.distance,
-                "completed": stats.completed
-              }
-            },
-          },
-        }
-      ];
-      socket?.emit('move', data[0]);
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,
