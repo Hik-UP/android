@@ -10,9 +10,7 @@ class HikeSocket {
   IO.Socket? socket;
   final _navigator = locator<CustomNavigationService>();
 
-  HikeSocket({
-    required this.socket
-  });
+  HikeSocket({required this.socket});
 
   void onJoin(Function(dynamic) func) {
     try {

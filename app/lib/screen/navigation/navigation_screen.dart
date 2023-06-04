@@ -18,6 +18,10 @@ import 'package:hikup/utils/socket/socket.dart';
 import "package:hikup/model/hike.dart";
 import 'package:geolocator/geolocator.dart';
 import 'package:hikup/model/navigation.dart';
+import 'package:hikup/screen/main/setting/settings_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import "package:hikup/widget/custom_btn.dart";
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;
@@ -53,6 +57,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
       return {
         "id": entry["hiker"]["id"],
+        "username": entry["hiker"]["username"],
+        "picture": entry["hiker"]["picture"],
         "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
         "marker": Marker(
           width: 26.0,
@@ -78,6 +84,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
           ..._hikers,
           {
             "id": entry["hiker"]["id"],
+            "username": entry["hiker"]["username"],
+            "picture": entry["hiker"]["picture"],
             "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
             "marker": Marker(
               width: 26.0,
@@ -104,6 +112,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
           entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
       final newHiker = {
         "id": entry["hiker"]["id"],
+        "username": entry["hiker"]["username"],
+        "picture": entry["hiker"]["picture"],
         "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
         "marker": Marker(
           width: 26.0,
@@ -147,6 +157,46 @@ class _NavigationScreenState extends State<NavigationScreen> {
     return ((12742 * asin(sqrt(a))) * 1000).round();
   }
 
+  CachedNetworkImage loadHikerPicture(double size, String picture) {
+    return CachedNetworkImage(
+      imageUrl: picture,
+      progressIndicatorBuilder: (context, url, progress) => Container(
+        width: size,
+        height: size,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: BlackPrimary,
+        ),
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+      errorWidget: (context, url, error) => Container(
+        width: size,
+        height: size,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: BlackSecondary,
+        ),
+        child: const Icon(
+          FontAwesomeIcons.triangleExclamation,
+        ),
+      ),
+      imageBuilder: (context, imageProvider) => Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: BlackPrimary,
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: imageProvider,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<MapViewModel>(builder: (context, model, child) {
@@ -155,38 +205,78 @@ class _NavigationScreenState extends State<NavigationScreen> {
         body: SlidingUpPanel(
           renderPanelSheet: false,
           minHeight: 100,
-          collapsed: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadiusSize),
+          collapsed: Consumer<AppState>(builder: (context, state, child) {
+            return Container(
+              margin: const EdgeInsets.fromLTRB(0, 15.0, 0, 0),
+              padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 10.0),
+              decoration: BoxDecoration(
+                color: BlackPrimary,
               ),
-            ),
-            onPressed: () => SocketService().disconnect(),
-            child: Text(
-              "Leave",
-              style: subTitleTextStyle,
-            ),
-          ),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    LoadPictureProfil(appState: state, size: 48),
+                    Gap(10),
+                    Text(state.username, style: subTitleTextStyle),
+                    Gap(20),
+                    const Icon(
+                      Icons.hiking_rounded,
+                      color: Colors.white,
+                    ),
+                    Gap(5.0),
+                    Text("${stats.distance}" + " m", style: subTitleTextStyle),
+                    Gap(20),
+                    CustomBtn(
+                        bgColor: Colors.red,
+                        textColor: Colors.white,
+                        content: "X",
+                        onPress: () => SocketService().disconnect()),
+                  ]),
+            );
+          }),
           panel: Container(
             decoration: BoxDecoration(
               color: BlackPrimary,
               borderRadius: BorderRadius.circular(15),
             ),
-            child: Column(
-              children: _hikers
-                  .map((entry) => Container(
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text("User:", style: subTitleTextStyle),
-                              Gap(5),
-                              Text(entry["stats"]["distance"].toString(),
-                                  style: subTitleTextStyle)
-                            ]),
-                      ))
-                  .toList(),
-            ),
+            child: Column(children: <Widget>[
+              Gap(20),
+              Text("Randonneurs", style: subTitleTextStyle),
+              Gap(20),
+              Column(
+                children: _hikers.map((entry) {
+                  int index =
+                      _hikers.indexWhere((item) => item["id"] == entry["id"]);
+
+                  return Container(
+                    margin: const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
+                    padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                    decoration: BoxDecoration(
+                      color: index % 2 == 0
+                          ? Colors.white.withOpacity(0.16)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          loadHikerPicture(48, entry["picture"].toString()),
+                          Gap(10),
+                          Text(entry["username"].toString(),
+                              style: subTitleTextStyle),
+                          Gap(20),
+                          const Icon(
+                            Icons.hiking_rounded,
+                            color: Colors.white,
+                          ),
+                          Gap(5.0),
+                          Text(entry["stats"]["distance"].toString() + " m",
+                              style: subTitleTextStyle)
+                        ]),
+                  );
+                }).toList(),
+              ),
+            ]),
           ),
           body: FlutterMap(
             mapController: model.mapController,
