@@ -42,11 +42,37 @@ class _NavigationScreenState extends State<NavigationScreen> {
   late HikerStats stats;
   String? lastPosition;
   late List<dynamic> _hikers;
+  late Marker marker;
+  late Polyline polyline;
 
   @override
   void initState() {
     super.initState();
     AppState appState = context.read<AppState>();
+    marker = Marker(
+      width: 24.0,
+      height: 24.0,
+      point: latlng.LatLng(
+          widget.hike.trail.latitude, widget.hike.trail.longitude),
+      builder: (ctx) => SizedBox(
+        height: 10,
+        width: 10,
+        child: Image.asset(
+          "assets/icons/flag.png",
+        ),
+      ),
+    );
+    polyline = Polyline(
+      points: json
+          .decode(widget.hike.trail.geoJSON)["features"][0]["geometry"]
+              ["coordinates"]
+          .map<latlng.LatLng>((entry) => latlng.LatLng(entry[1], entry[0]))
+          .toList(),
+      color: Colors.red,
+      strokeWidth: 3.0,
+      borderColor: const Color(0xFF1967D2),
+      borderStrokeWidth: 0.1,
+    );
     stats = HikerStats(
         steps: widget.stats["steps"],
         distance: widget.stats["distance"],
@@ -59,13 +85,33 @@ class _NavigationScreenState extends State<NavigationScreen> {
         "id": entry["hiker"]["id"],
         "username": entry["hiker"]["username"],
         "picture": entry["hiker"]["picture"],
+        "skin": entry["hiker"]["skin"],
         "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
         "marker": Marker(
-          width: 26.0,
-          height: 26.0,
+          width: 56.0,
+          height: 56.0,
           point: hikerLatLng,
-          builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
-              color: Colors.blue, size: 24.0),
+          builder: (ctx) => FittedBox(
+              fit: BoxFit.contain,
+              child: Column(children: <Widget>[
+                CachedNetworkImage(
+                  imageUrl: entry["hiker"]["skin"],
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.warning,
+                    color: Colors.red,
+                  ),
+                ),
+                Container(
+                    padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      entry["hiker"]["username"],
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+              ])),
         ),
         "stats": entry["hiker"]["stats"]
       };
@@ -86,13 +132,33 @@ class _NavigationScreenState extends State<NavigationScreen> {
             "id": entry["hiker"]["id"],
             "username": entry["hiker"]["username"],
             "picture": entry["hiker"]["picture"],
+            "skin": entry["hiker"]["skin"],
             "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
             "marker": Marker(
-              width: 26.0,
-              height: 26.0,
+              width: 56.0,
+              height: 56.0,
               point: hikerLatLng,
-              builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
-                  color: Colors.blue, size: 24.0),
+              builder: (ctx) => FittedBox(
+                  fit: BoxFit.contain,
+                  child: Column(children: <Widget>[
+                    CachedNetworkImage(
+                      imageUrl: entry["hiker"]["skin"],
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.warning,
+                        color: Colors.red,
+                      ),
+                    ),
+                    Container(
+                        padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          entry["hiker"]["username"],
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
+                  ])),
             ),
             "stats": entry["hiker"]["stats"]
           }
@@ -114,13 +180,33 @@ class _NavigationScreenState extends State<NavigationScreen> {
         "id": entry["hiker"]["id"],
         "username": entry["hiker"]["username"],
         "picture": entry["hiker"]["picture"],
+        "skin": entry["hiker"]["skin"],
         "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
         "marker": Marker(
-          width: 26.0,
-          height: 26.0,
+          width: 56.0,
+          height: 56.0,
           point: hikerLatLng,
-          builder: (ctx) => const Icon(Icons.fiber_manual_record_rounded,
-              color: Colors.blue, size: 24.0),
+          builder: (ctx) => FittedBox(
+              fit: BoxFit.contain,
+              child: Column(children: <Widget>[
+                CachedNetworkImage(
+                  imageUrl: entry["hiker"]["skin"],
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.warning,
+                    color: Colors.red,
+                  ),
+                ),
+                Container(
+                    padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      entry["hiker"]["username"],
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+              ])),
         ),
         "stats": entry["hiker"]["stats"]
       };
@@ -283,7 +369,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             options: MapOptions(
               pinchZoomThreshold: 69.99999999999991,
               center: latlng.LatLng(46.227638, 2.213749),
-              zoom: model.zoom,
+              zoom: 18.0,
               maxBounds: LatLngBounds(
                   latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0)),
             ),
@@ -309,15 +395,18 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   }
                 },
               ),
-              PolylineLayer(
-                polylines: model.polylines.isEmpty ? [] : model.polylines,
-              ),
               MarkerLayer(
                 markers: _hikers.isEmpty
                     ? []
                     : _hikers
                         .map((entry) => entry["marker"] as Marker)
                         .toList(),
+              ),
+              MarkerLayer(
+                markers: [marker],
+              ),
+              PolylineLayer(
+                polylines: [polyline],
               ),
             ],
           ),
