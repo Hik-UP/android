@@ -132,5 +132,5 @@ const stopWatchIcon = "assets/icons/stopwatchIcon.svg";
 
 final LocationSettings locationSettings = LocationSettings(
   accuracy: LocationAccuracy.high,
-  distanceFilter: 1,
+  distanceFilter: 0,
 );
