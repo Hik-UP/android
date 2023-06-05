@@ -388,10 +388,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
                   if (position != null && lastPosition == null ||
                       position != null && lastPosition != newPosition) {
-                    stats.distance +=
-                        calcDistance(lastPosition ?? newPosition, newPosition);
                     lastPosition = newPosition;
                     SocketService().hike.move(position, stats);
+                    setState(() {
+                      stats.distance += calcDistance(
+                          lastPosition ?? newPosition, newPosition);
+                    });
                   }
                 },
               ),
