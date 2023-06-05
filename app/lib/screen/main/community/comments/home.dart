@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/comment.dart';
 import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/theme.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
@@ -88,8 +86,6 @@ class _CommunityViewState extends State<CommunityView> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    //Navigator.pop(context);
-                    //getImageGallery();
                   },
                   child: Row(
                     children: const [
@@ -100,8 +96,6 @@ class _CommunityViewState extends State<CommunityView> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                   // Navigator.pop(context);
-                    //getImageCamera();
                   },
                   child: Row(
                     children: const [
@@ -288,13 +282,11 @@ class _CommunityViewState extends State<CommunityView> {
 
                             decoration: const InputDecoration(
                               hintText: 'Écrire un commentaire',
-                              //style: TextStyle(color: Colors.white),
                               border: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               hintStyle: TextStyle(
                                 color: Colors.white,
                               ),
-                              //style: TextStyle(color: Colors.white),
                             ),
                           ),
                           Positioned(
