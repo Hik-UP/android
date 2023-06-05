@@ -285,7 +285,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("ok");
     return BaseView<MapViewModel>(builder: (context, model, child) {
       return Scaffold(
         extendBodyBehindAppBar: true,
@@ -397,7 +396,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                 lastPosition ?? newPosition, newPosition),
                         completed: stats.completed);
                     lastPosition = newPosition;
-                    SocketService().hike.move(position, stats);
+                    SocketService().hike.move(position, newStats);
                     setState(() {
                       stats = newStats;
                     });
