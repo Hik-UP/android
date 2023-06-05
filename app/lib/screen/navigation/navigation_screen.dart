@@ -285,6 +285,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("ok");
     return BaseView<MapViewModel>(builder: (context, model, child) {
       return Scaffold(
         extendBodyBehindAppBar: true,
@@ -383,16 +384,22 @@ class _NavigationScreenState extends State<NavigationScreen> {
               ),
               PlayerSkin(
                 onLocationUpdate: (Position? position) {
+                  var newStats = null;
                   final newPosition =
                       "${position?.latitude},${position?.longitude}";
 
                   if (position != null && lastPosition == null ||
                       position != null && lastPosition != newPosition) {
+                    newStats = HikerStats(
+                        steps: stats.steps,
+                        distance: stats.distance +
+                            calcDistance(
+                                lastPosition ?? newPosition, newPosition),
+                        completed: stats.completed);
                     lastPosition = newPosition;
                     SocketService().hike.move(position, stats);
                     setState(() {
-                      stats.distance += calcDistance(
-                          lastPosition ?? newPosition, newPosition);
+                      stats = newStats;
                     });
                   }
                 },
