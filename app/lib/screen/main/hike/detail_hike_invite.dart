@@ -58,6 +58,7 @@ class DetailHikeInvite extends StatelessWidget {
       borderColor: const Color(0xFF1967D2),
       borderStrokeWidth: 0.1,
     );
+    bool joinInProgress = false;
 
     String durationToString(int minutes) {
       var d = Duration(minutes: minutes);
@@ -262,23 +263,30 @@ class DetailHikeInvite extends StatelessWidget {
                         await Geolocator.requestPermission();
                         return;
                       }
-                      SocketService().connect(
-                          token: appState.token,
-                          userId: appState.id,
-                          userRoles: appState.roles);
-                      SocketService()
-                          .onError((_) => SocketService().disconnect());
-                      await SocketService().hike.join(hike.id, (data) {
-                        dynamic jsonData = json.decode(data);
-                        dynamic stats = jsonData["stats"];
-                        List<dynamic> hikers = jsonData["hikers"];
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => NavigationScreen(
-                                hike: hike, stats: stats, hikers: hikers),
-                          ),
-                        );
-                      });
+                      if (joinInProgress == false) {
+                        joinInProgress = true;
+                        SocketService().connect(
+                            token: appState.token,
+                            userId: appState.id,
+                            userRoles: appState.roles);
+                        SocketService().onError((_) {
+                          joinInProgress = false;
+                          SocketService().disconnect();
+                        });
+                        await SocketService().hike.join(hike.id, (data) {
+                          dynamic jsonData = json.decode(data);
+                          dynamic stats = jsonData["stats"];
+                          List<dynamic> hikers = jsonData["hikers"];
+
+                          joinInProgress = false;
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => NavigationScreen(
+                                  hike: hike, stats: stats, hikers: hikers),
+                            ),
+                          );
+                        });
+                      }
                     }),
               ),
               const Gap(30.0),

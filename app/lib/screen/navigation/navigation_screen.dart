@@ -121,7 +121,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
     SocketService().onDisconnect((data) {
       positionStream.cancel();
     });
-    SocketService().onError((_) => SocketService().disconnect());
     SocketService().hike.onJoin((data) {
       dynamic entry = json.decode(data);
       late latlng.LatLng hikerLatLng = latlng.LatLng(
