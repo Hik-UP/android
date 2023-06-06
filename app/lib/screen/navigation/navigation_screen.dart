@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:math' show cos, sqrt, asin;
 import 'package:crypto/crypto.dart';
@@ -44,6 +45,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   late List<dynamic> _hikers;
   late Marker marker;
   late Polyline polyline;
+  late StreamSubscription<Position> positionStream;
 
   @override
   void initState() {
@@ -116,9 +118,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
         "stats": entry["hiker"]["stats"]
       };
     }).toList();
-    SocketService().onDisconnect(
-      (data) => Navigator.of(context, rootNavigator: true).pop(),
-    );
+    SocketService().onDisconnect((data) {
+      positionStream.cancel();
+      Navigator.of(context, rootNavigator: true).pop();
+    });
     SocketService().onError((_) => SocketService().disconnect());
     SocketService().hike.onJoin((data) {
       dynamic entry = json.decode(data);
@@ -221,6 +224,25 @@ class _NavigationScreenState extends State<NavigationScreen> {
         });
       }
     });
+    positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen((Position? position) {
+      final newPosition = "${position?.latitude},${position?.longitude}";
+
+      if (position != null && lastPosition == null ||
+          position != null && lastPosition != newPosition) {
+        final HikerStats newStats = HikerStats(
+            steps: stats.steps,
+            distance: stats.distance +
+                calcDistance(lastPosition ?? newPosition, newPosition),
+            completed: stats.completed);
+        lastPosition = newPosition;
+        SocketService().hike.move(position, newStats);
+        setState(() {
+          stats = newStats;
+        });
+      }
+    });
   }
 
   int calcDistance(String latLng1, String latLng2) {
@@ -285,6 +307,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(_hikers);
     return BaseView<MapViewModel>(builder: (context, model, child) {
       return Scaffold(
         extendBodyBehindAppBar: true,
@@ -381,28 +404,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   'id': idMapBox
                 },
               ),
-              PlayerSkin(
-                onLocationUpdate: (Position? position) {
-                  var newStats = null;
-                  final newPosition =
-                      "${position?.latitude},${position?.longitude}";
-
-                  if (position != null && lastPosition == null ||
-                      position != null && lastPosition != newPosition) {
-                    newStats = HikerStats(
-                        steps: stats.steps,
-                        distance: stats.distance +
-                            calcDistance(
-                                lastPosition ?? newPosition, newPosition),
-                        completed: stats.completed);
-                    lastPosition = newPosition;
-                    SocketService().hike.move(position, newStats);
-                    setState(() {
-                      stats = newStats;
-                    });
-                  }
-                },
-              ),
+              PlayerSkin(),
               MarkerLayer(
                 markers: _hikers.isEmpty
                     ? []

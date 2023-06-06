@@ -8,8 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import "package:hikup/utils/constant.dart";
 
 class PlayerSkin extends StatefulWidget {
-  final Function(Position? position)? onLocationUpdate;
-  const PlayerSkin({Key? key, this.onLocationUpdate}) : super(key: key);
+  const PlayerSkin({Key? key}) : super(key: key);
   @override
   State<PlayerSkin> createState() => _PlayerSkinState();
 }
@@ -18,8 +17,6 @@ class _PlayerSkinState extends State<PlayerSkin> {
   @override
   void initState() {
     super.initState();
-    Geolocator.getPositionStream(locationSettings: locationSettings)
-        .listen(widget.onLocationUpdate);
   }
 
   @override
