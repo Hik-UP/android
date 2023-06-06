@@ -120,7 +120,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
     }).toList();
     SocketService().onDisconnect((data) {
       positionStream.cancel();
-      Navigator.of(context, rootNavigator: true).pop();
     });
     SocketService().onError((_) => SocketService().disconnect());
     SocketService().hike.onJoin((data) {
@@ -245,6 +244,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    SocketService().disconnect();
+    super.dispose();
+  }
+
   int calcDistance(String latLng1, String latLng2) {
     List<double> splitLatLng1 = [
       double.parse(latLng1.split(',')[0]),
@@ -338,7 +343,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
                         bgColor: Colors.red,
                         textColor: Colors.white,
                         content: "X",
-                        onPress: () => SocketService().disconnect()),
+                        onPress: () {
+                          SocketService().disconnect();
+                          Navigator.of(context, rootNavigator: true).pop();
+                        }),
                   ]),
             );
           }),
