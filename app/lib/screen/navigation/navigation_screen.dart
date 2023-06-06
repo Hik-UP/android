@@ -307,7 +307,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_hikers);
     return BaseView<MapViewModel>(builder: (context, model, child) {
       return Scaffold(
         extendBodyBehindAppBar: true,
