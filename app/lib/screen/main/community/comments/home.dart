@@ -73,69 +73,69 @@ class _CommunityViewState extends State<CommunityView> {
         );
       },
     );
-        showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: BlackPrimary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          title: const Text('Options', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height / 6,
-            child: Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                  },
-                  child: Row(
-                    children: const [
-                      Icon(Icons.edit),
-                      Text('Éditer'),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                  },
-                  child: Row(
-                    children: const [
-                      Icon(Icons.delete),
-                      Text('Supprimer'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-    showAlertDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Supprimer?'),
-            content: const Text('Souhaitez vous supprimer ce commetaire?'),
-            actions: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Annuler')),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  onPressed: () {
-                    // suppression
-                  },
-                  child: const Text(
-                    'Confirmer',
-                  )),
-            ],
-          );
-        });
-  }
+    //     showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(
+    //       backgroundColor: BlackPrimary,
+    //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    //       title: const Text('Options', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
+    //       content: SizedBox(
+    //         height: MediaQuery.of(context).size.height / 6,
+    //         child: Column(
+    //           children: [
+    //             ElevatedButton(
+    //               onPressed: () {
+    //               },
+    //               child: Row(
+    //                 children: const [
+    //                   Icon(Icons.edit),
+    //                   Text('Éditer'),
+    //                 ],
+    //               ),
+    //             ),
+    //             ElevatedButton(
+    //               onPressed: () {
+    //               },
+    //               child: Row(
+    //                 children: const [
+    //                   Icon(Icons.delete),
+    //                   Text('Supprimer'),
+    //                 ],
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
+  //   showAlertDialog() {
+  //   showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: const Text('Supprimer?'),
+  //           content: const Text('Souhaitez vous supprimer ce commetaire?'),
+  //           actions: [
+  //             ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+  //                 onPressed: () {
+  //                   Navigator.pop(context);
+  //                 },
+  //                 child: const Text('Annuler')),
+  //             ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+  //                 onPressed: () {
+  //                   // suppression
+  //                 },
+  //                 child: const Text(
+  //                   'Confirmer',
+  //                 )),
+  //           ],
+  //         );
+  //       });
+  // }
   }
 
   @override
@@ -261,6 +261,76 @@ class _CommunityViewState extends State<CommunityView> {
                           action: () => model.closeThumbmail(),
                         ),
                       ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      decoration: BoxDecoration(
+                        color: BlackPrimary,
+                        //color: const Color(0xffEDEDED),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      // child: Stack(
+                      //   children: [
+                      //     TextFormField(
+                      //       //keyboardType: TextInputType.text,
+                      //       maxLines: 2,
+                      //       controller: model.textController,
+                      //                       keyboardType: TextInputType.text,
+                      //                 style: TextStyle(
+                      //               color: Colors.white
+                      //               ),
+
+                      //       decoration: const InputDecoration(
+                      //         hintText: 'Écrire un commentaire',
+                      //         border: InputBorder.none,
+                      //         focusedBorder: InputBorder.none,
+                      //         hintStyle: TextStyle(
+                      //           color: Colors.white,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     Positioned(
+                      //       bottom: 0,
+                      //       right: 0,
+                      //       child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         mainAxisSize: MainAxisSize.min,
+                      //         children: [
+                      //           IconButton(
+                      //             color: GreenPrimary,
+                      //             onPressed: () => model.submitMessage(
+                      //               appState: appState,
+                      //               trailId: widget.trailId,
+                      //               update: () {
+                      //                 setState(() {});
+                      //               },
+                      //             ),
+                      //             icon: const Icon(
+                      //               Icons.send_outlined,
+                      //             ),
+                      //           ),
+                      //           IconButton(
+                      //             color: GreenPrimary,
+                      //             onPressed: () {
+                      //               myAlert(
+                      //                 context: context,
+                      //                 getImageGallery: () => model.getImage(
+                      //                   ImageSource.gallery,
+                      //                 ),
+                      //                 getImageCamera: () => model.getImage(
+                      //                   ImageSource.camera,
+                      //                 ),
+                      //               );
+                      //             },
+                      //             icon: const Icon(Icons.camera_alt),
+                      //           ),
+                                
+                      //         ],
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
+                    ),
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(horizontal: 15),

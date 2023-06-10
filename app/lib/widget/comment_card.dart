@@ -138,6 +138,7 @@ class CommentCard extends StatelessWidget {
                 ],
               ),
             ),
+            
                                   IconButton(
                         color: GreenPrimary,
                           onPressed: () {
@@ -163,7 +164,7 @@ class CommentCard extends StatelessWidget {
                                     //   ),
                                     // );
                                   },
-                                  icon: const Icon(Icons.menu),
+                                  icon: const Icon(Icons.edit),
                                 ),
           ],
         ),
