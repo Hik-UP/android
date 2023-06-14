@@ -18,10 +18,7 @@ typedef void IntCallback(int id);
 class MapBox extends StatefulWidget {
   final PanelController panelController;
 
-  const MapBox({
-      required this.panelController,
-      Key? key
-    }) : super(key: key);
+  const MapBox({required this.panelController, Key? key}) : super(key: key);
 
   @override
   State<MapBox> createState() => _MapBoxState();
@@ -57,7 +54,7 @@ class _MapBoxState extends State<MapBox> {
         if (!model.polylines.isEmpty) {
           _pc.show();
         } else {
-           _pc.hide();
+          _pc.hide();
         }
         if (model.loading) {
           model.trails(

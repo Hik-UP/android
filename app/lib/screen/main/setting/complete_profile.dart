@@ -50,9 +50,9 @@ class CompleteProfile extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-          AppMessages.completeProfil,
-          style: titleTextStyleWhite,
-        ),
+            AppMessages.completeProfil,
+            style: titleTextStyleWhite,
+          ),
           iconTheme: IconThemeData(
             color: GreenPrimary, // Couleur de la flèche retour
           ),

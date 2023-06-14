@@ -88,7 +88,6 @@ class DioService {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': token,
-           
           },
         ),
         data: body,

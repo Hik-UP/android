@@ -70,7 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '952779681389',
     projectId: 'hikup-app',
     storageBucket: 'hikup-app.appspot.com',
-    iosClientId: '952779681389-q9d7o4bahn7l8ilcv852s4ae7176ulqi.apps.googleusercontent.com',
+    iosClientId:
+        '952779681389-q9d7o4bahn7l8ilcv852s4ae7176ulqi.apps.googleusercontent.com',
     iosBundleId: 'com.example.app',
   );
 }

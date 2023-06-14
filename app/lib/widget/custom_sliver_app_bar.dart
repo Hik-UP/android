@@ -45,13 +45,13 @@ class CustomSliverAppBar extends StatelessWidget {
         ),
         background: CarouselSlider(
           options: CarouselOptions(
-            autoPlay: true,
-            viewportFraction: 1,
-            height: MediaQuery.of(context).size.height
-          ),
+              autoPlay: true,
+              viewportFraction: 1,
+              height: MediaQuery.of(context).size.height),
           items: field.pictures.map((picture) {
             return CachedNetworkImage(
-              fit: BoxFit.cover, width: 1000.0,
+              fit: BoxFit.cover,
+              width: 1000.0,
               imageUrl: picture,
               errorWidget: (context, url, error) => const Icon(
                 Icons.warning,

@@ -15,6 +15,7 @@ import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/community/comments/home.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
@@ -27,7 +28,6 @@ class MapBoxScreen extends StatefulWidget {
 
 class _MapBoxScreenState extends State<MapBoxScreen> {
   final PanelController _pc = PanelController();
-  bool contentPanel = false;
 
   //_pc.hide();
   @override
@@ -73,7 +73,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
         _pc.hide();
       }
 
-      if (model.loading) {
+      if (model.loading == true) {
         model.trails(
           appState: context.read<AppState>(),
           updateScreen: () => setState(
@@ -88,25 +88,34 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
           body: SlidingUpPanel(
               controller: _pc,
               renderPanelSheet: false,
-              minHeight: 120,
-              /*onPanelSlide: (position) {
-                if (contentPanel == false) {
-                  setState(
-                    () {
-                      contentPanel = true;
-                    },
-                  );
-                }
-              },
-              onPanelClosed: () {
-                if (contentPanel == true) {
-                  setState(
-                    () {
-                      contentPanel = false;
-                    },
-                  );
-                }
-              },*/
+              minHeight: 110,
+
+              /* COLLAPSED PANEL */
+              collapsed: Container(
+                margin: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 0),
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                decoration: BoxDecoration(
+                  color: BlackPrimary,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(children: <Widget>[
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                      child: Text(
+                        model.trailsList.isEmpty
+                            ? ""
+                            : model.trailsList[0].name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
 
               /* PANEL */
               panel: Container(
@@ -121,35 +130,33 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                         margin: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
                         child: Column(
                           children: <Widget>[
-                            FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Container(
-                                margin: const EdgeInsets.fromLTRB(
-                                    20.0, 0.0, 20.0, 0.0),
-                                child: Text(
-                                  model.trailsList.isEmpty
-                                      ? ""
-                                      : model.trailsList[0].name,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            contentPanel == false ? const Gap(100.0) : Container(
-                              margin: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                               child: Column(
                                 children: <Widget>[
-                                  const Gap(10.0),
+                                  SizedBox(
+                                    height: 90,
+                                    child: Center(
+                                      child: Text(
+                                        model.trailsList.isEmpty
+                                            ? ""
+                                            : model.trailsList[0].name,
+                                        maxLines: 2,
+                                        style: subTitleTextStyle,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ),
+                                  ),
+                                  const Gap(10),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Container(
                                         decoration: BoxDecoration(
                                           gradient: loginButtonColor,
-                                          borderRadius:
-                                              BorderRadius.circular(borderRadiusSize),
+                                          borderRadius: BorderRadius.circular(
+                                              borderRadiusSize),
                                         ),
                                         constraints: const BoxConstraints(
                                           minWidth: 70,
@@ -159,8 +166,9 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.transparent,
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(
-                                                  borderRadiusSize),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      borderRadiusSize),
                                             ),
                                           ),
                                           onPressed: () {
@@ -179,8 +187,8 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                       Container(
                                         decoration: BoxDecoration(
                                           gradient: loginButtonColor,
-                                          borderRadius:
-                                              BorderRadius.circular(borderRadiusSize),
+                                          borderRadius: BorderRadius.circular(
+                                              borderRadiusSize),
                                         ),
                                         constraints: const BoxConstraints(
                                           minWidth: 70,
@@ -190,13 +198,16 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.transparent,
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(
-                                                  borderRadiusSize),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      borderRadiusSize),
                                             ),
                                           ),
-                                          onPressed: () => Navigator.of(context).push(
+                                          onPressed: () =>
+                                              Navigator.of(context).push(
                                             MaterialPageRoute(
-                                              builder: (context) => CommunityView(
+                                              builder: (context) =>
+                                                  CommunityView(
                                                 trailId: model.trailsList[0].id,
                                               ),
                                             ),
@@ -219,20 +230,28 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                       ),
                                       const Gap(10.0),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: model.trailsList[0].labels.map((label) => Container(
-                                          padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-                                          margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-                                          decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius: BorderRadius.circular(4.0),
-                                          ),
-                                          child: Text(
-                                              "${label}",
-                                              style: subTitleTextStyle,
-                                            ),
-                                          ),
-                                        ).toList(),
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: model.trailsList[0].labels
+                                            .map(
+                                              (label) => Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 5.0, right: 5.0),
+                                                margin: const EdgeInsets.only(
+                                                    left: 5.0, right: 5.0),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.0),
+                                                ),
+                                                child: Text(
+                                                  "${label}",
+                                                  style: subTitleTextStyle,
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
                                       ),
                                     ],
                                   ),
@@ -337,7 +356,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                       'id': idMapBox
                     },
                   ),
-                  const PlayerSkin(),
+                  PlayerSkin(),
                   PolylineLayer(
                     polylines: model.polylines.isEmpty ? [] : model.polylines,
                   ),

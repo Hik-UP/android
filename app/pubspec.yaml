@@ -66,6 +66,7 @@ dependencies:
   flutter_svg:
   sliding_up_panel: ^2.0.0+1
   any_link_preview: ^3.0.0
+  socket_io_client: ^2.0.2
 
 dev_dependencies:
   flutter_test:

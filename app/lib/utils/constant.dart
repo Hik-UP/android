@@ -4,6 +4,7 @@ import 'package:hikup/model/skin.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 import 'package:hikup/theme.dart';
+import 'package:geolocator/geolocator.dart';
 import '../model/user.dart';
 import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
@@ -14,10 +15,14 @@ enum TypeOfHike { organized, guest, attendee }
 
 enum TypeOfInput { text, password }
 
-const env = "PROD";
+const env = "DEV";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
+
+const baseSocketUrl = env == "PROD"
+    ? baseProdSocketUrl
+    : baseDevSocketUrl; //La base_url des sockets
 
 const urlTemplateMapBoxDay =
     "https://api.mapbox.com/styles/v1/hikupapp/cle0lx80a00j701qqki8kcxqd/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w";
@@ -37,6 +42,8 @@ const msg =
 
 const baseProdApiUrl = "https://pro-hikup.westeurope.cloudapp.azure.com/api";
 const baseDevApiUrl = "https://dev-hikup.westeurope.cloudapp.azure.com/api";
+const baseProdSocketUrl = "https://pro-hikup.westeurope.cloudapp.azure.com";
+const baseDevSocketUrl = "https://dev-hikup.westeurope.cloudapp.azure.com";
 const loginPath = "/auth/login";
 const getTrailsPath = "/trail/retrieve";
 const getProfilePath = "/user/profile";
@@ -122,3 +129,8 @@ const profilePlaceHoder = "assets/images/user_profile_example.png";
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
 const stopWatchIcon = "assets/icons/stopwatchIcon.svg";
+
+final LocationSettings locationSettings = LocationSettings(
+  accuracy: LocationAccuracy.high,
+  distanceFilter: 1,
+);

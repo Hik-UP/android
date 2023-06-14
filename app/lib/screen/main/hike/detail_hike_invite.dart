@@ -19,6 +19,11 @@ import "package:provider/provider.dart";
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latlng;
 import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
+import "package:hikup/screen/navigation/navigation_screen.dart";
+import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/locator.dart';
+import 'package:hikup/utils/socket/socket.dart';
+import 'package:geolocator/geolocator.dart';
 
 class DetailHikeInvite extends StatelessWidget {
   final Hike hike;
@@ -30,6 +35,7 @@ class DetailHikeInvite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _navigator = locator<CustomNavigationService>();
     double maxHeight = MediaQuery.of(context).size.height;
     AppState appState = context.read<AppState>();
     final Marker marker = Marker(
@@ -52,6 +58,7 @@ class DetailHikeInvite extends StatelessWidget {
       borderColor: const Color(0xFF1967D2),
       borderStrokeWidth: 0.1,
     );
+    bool joinInProgress = false;
 
     String durationToString(int minutes) {
       var d = Duration(minutes: minutes);
@@ -168,19 +175,24 @@ class DetailHikeInvite extends StatelessWidget {
                   const Gap(10.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: hike.trail.labels.map((label) => Container(
-                      padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-                      margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      child: Text(
-                          "${label}",
-                          style: subTitleTextStyle,
-                        ),
-                      ),
-                    ).toList(),
+                    children: hike.trail.labels
+                        .map(
+                          (label) => Container(
+                            padding:
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            margin:
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Text(
+                              "${label}",
+                              style: subTitleTextStyle,
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ],
               ),
@@ -225,6 +237,58 @@ class DetailHikeInvite extends StatelessWidget {
                   : EmptyLabel(
                       label: AppMessages.noAttended,
                     ),
+              const Gap(30.0),
+              Visibility(
+                visible: hike.attendee
+                        .map((e) => e.username)
+                        .toList()
+                        .contains(appState.username) &&
+                    hike.status != "DONE",
+                child: CustomBtn(
+                    isLoading: model.loadingDelete,
+                    bgColor: Colors.green,
+                    textColor: Colors.white,
+                    content: "Rejoindre",
+                    onPress: () async {
+                      LocationPermission permission =
+                          await Geolocator.checkPermission();
+
+                      if (permission != LocationPermission.whileInUse &&
+                              permission != LocationPermission.always ||
+                          !(await Geolocator.isLocationServiceEnabled())) {
+                        _navigator.showSnackBack(
+                          content: 'Localisation inaccessible',
+                          isError: true,
+                        );
+                        await Geolocator.requestPermission();
+                        return;
+                      }
+                      if (joinInProgress == false) {
+                        joinInProgress = true;
+                        SocketService().connect(
+                            token: appState.token,
+                            userId: appState.id,
+                            userRoles: appState.roles);
+                        SocketService().onError((_) {
+                          joinInProgress = false;
+                          SocketService().disconnect();
+                        });
+                        await SocketService().hike.join(hike.id, (data) {
+                          dynamic jsonData = json.decode(data);
+                          dynamic stats = jsonData["stats"];
+                          List<dynamic> hikers = jsonData["hikers"];
+
+                          joinInProgress = false;
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => NavigationScreen(
+                                  hike: hike, stats: stats, hikers: hikers),
+                            ),
+                          );
+                        });
+                      }
+                    }),
+              ),
               const Gap(30.0),
               Visibility(
                 visible: hike.attendee

@@ -67,7 +67,7 @@ class DetailScreenViewModel extends BaseModel {
       setState(ViewState.retrieved);
     }
   }
-  
+
   int timeStampOrNull() {
     var dateSplit = timeCtrl.text.split(':');
     String minute =

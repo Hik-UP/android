@@ -29,9 +29,9 @@ class _HomePageState extends State<ComePage> {
   late String? name = "";
   late FToast fToast;
   String emoticon = "129489";
-  
+
   var appState;
-  
+
   get model => null;
 
   @override
@@ -389,10 +389,9 @@ class _HomePageState extends State<ComePage> {
         //               })
         //         ]))),
         Column(children: [
-          
           Container(
-              padding:
-                  const EdgeInsets.only(left: 20, top: 1, bottom: 20, right: 20),
+              padding: const EdgeInsets.only(
+                  left: 20, top: 1, bottom: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -449,7 +448,8 @@ class _HomePageState extends State<ComePage> {
                                 controller: addChecklistController,
                                 decoration: InputDecoration(
                                   labelText: 'Enter your event',
-                                  labelStyle: const TextStyle(color: Colors.black),
+                                  labelStyle:
+                                      const TextStyle(color: Colors.black),
                                   //hintStyle: TextStyle(color: Colors.black),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),

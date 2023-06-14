@@ -27,14 +27,15 @@ class TrailCard extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
-              color: BlackPrimary,
-              /*boxShadow: [
+            borderRadius: BorderRadius.circular(16.0),
+            color: BlackPrimary,
+            /*boxShadow: [
                 BoxShadow(
                   color: primaryColor500.withOpacity(0.1),
                   blurRadius: 20,
                 )
-              ]*/),
+              ]*/
+          ),
           child: Column(
             children: [
               ClipRRect(
@@ -44,7 +45,8 @@ class TrailCard extends StatelessWidget {
                   options: CarouselOptions(autoPlay: true, viewportFraction: 1),
                   items: field.pictures.map((picture) {
                     return CachedNetworkImage(
-                      fit: BoxFit.cover, width: 1000.0,
+                      fit: BoxFit.cover,
+                      width: 1000.0,
                       imageUrl: picture,
                       errorWidget: (context, url, error) => const Icon(
                         Icons.warning,
@@ -55,7 +57,8 @@ class TrailCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(right: 15, left: 15, top: 10.0, bottom: 15.0),
+                padding: EdgeInsets.only(
+                    right: 15, left: 15, top: 10.0, bottom: 15.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,

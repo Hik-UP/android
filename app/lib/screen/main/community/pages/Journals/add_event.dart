@@ -307,8 +307,7 @@ class _AddPageState extends State<AddPage> {
                 child: TextFormField(
                   controller: titleController,
                   decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Enter the event"),
+                      border: InputBorder.none, hintText: "Enter the event"),
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -319,8 +318,7 @@ class _AddPageState extends State<AddPage> {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: const InputDecoration(
-                    hintText: "Add a comment",
-                    border: InputBorder.none),
+                    hintText: "Add a comment", border: InputBorder.none),
               )),
             ],
           ),

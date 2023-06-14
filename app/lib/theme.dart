@@ -27,7 +27,6 @@ const Color HOPA = Color.fromARGB(255, 255, 0, 0);
 const Color HOPABLUE = Color.fromARGB(255, 55, 0, 255);
 TextStyle HOPASTYLE = GoogleFonts.poppins(color: Colors.red);
 
-
 const greenColor = Color.fromARGB(255, 255, 94, 0);
 
 const double borderRadiusSize = 16.0;
@@ -56,29 +55,32 @@ TextStyle GreenSubTitleTextStyle = GoogleFonts.poppins(
 TextStyle GreenAddressTextStyle = GoogleFonts.poppins(
     fontSize: 14, fontWeight: FontWeight.w400, color: GreenPrimary);
 
-
-
-
-
-
-
 TextStyle linkTextStyle = GoogleFonts.poppins(color: GreenPrimary);
 
 TextStyle titleTextStyleWhite = GoogleFonts.poppins(
-    fontSize: 18, fontWeight: FontWeight.w700, color: Color.fromARGB(255, 255, 255, 255));
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: Color.fromARGB(255, 255, 255, 255));
 
 TextStyle descTextStyleWhite = GoogleFonts.poppins(
-    fontSize: 14, fontWeight: FontWeight.w400, color: Color.fromARGB(255, 255, 255, 255));
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: Color.fromARGB(255, 255, 255, 255));
 
 TextStyle addressTextStyleWhite = GoogleFonts.poppins(
-    fontSize: 14, fontWeight: FontWeight.w400, color: Color.fromARGB(255, 255, 255, 255));
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: Color.fromARGB(255, 255, 255, 255));
 
 TextStyle facilityTextStyleWhite = GoogleFonts.poppins(
-    fontSize: 13, fontWeight: FontWeight.w500, color: Color.fromARGB(255, 255, 255, 255));
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    color: Color.fromARGB(255, 255, 255, 255));
 
 TextStyle priceTextStyleWhite = GoogleFonts.poppins(
-    fontSize: 16, fontWeight: FontWeight.w700, color: Color.fromARGB(255, 255, 255, 255));
-
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: Color.fromARGB(255, 255, 255, 255));
 
 /*
 TextStyle normalTextStyle = GoogleFonts.poppins(color: darkBlue500);
@@ -101,10 +103,6 @@ TextStyle facilityTextStyle = GoogleFonts.poppins(
 TextStyle priceTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w700, color: darkBlue500);
 */
-
-
-
-
 
 TextStyle buttonTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white);

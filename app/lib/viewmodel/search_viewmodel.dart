@@ -9,11 +9,14 @@ class SearchViewModel extends BaseModel {
   List<TrailFields> trailsList = [];
   List<TrailFields> filterTrailsList = [];
 
-  filterTrails({ required String filter }) {
+  filterTrails({required String filter}) {
     if (filter == "") {
       filterTrailsList = trailsList;
     } else {
-      filterTrailsList = trailsList.where((trail) => trail.labels.indexWhere((label) => label == filter) >= 0).toList();
+      filterTrailsList = trailsList
+          .where((trail) =>
+              trail.labels.indexWhere((label) => label == filter) >= 0)
+          .toList();
     }
     notifyListeners();
   }

@@ -13,7 +13,6 @@ import 'package:hikup/widget/thumbail_img.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-
 class CommunityView extends StatefulWidget {
   final String trailId;
   static String routeName = "/community";
@@ -38,7 +37,10 @@ class _CommunityViewState extends State<CommunityView> {
         return AlertDialog(
           backgroundColor: BlackPrimary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          title: const Text('Sélectionner le média', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
+          title: const Text(
+            'Sélectionner le média',
+            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+          ),
           content: SizedBox(
             height: MediaQuery.of(context).size.height / 6,
             child: Column(
@@ -243,7 +245,7 @@ class _CommunityViewState extends State<CommunityView> {
                   );
                 },
               ),
-                Padding(
+              Padding(
                 padding: const EdgeInsets.only(
                   left: 12.0,
                   right: 12.0,
@@ -345,10 +347,8 @@ class _CommunityViewState extends State<CommunityView> {
                             //keyboardType: TextInputType.text,
                             maxLines: 2,
                             controller: model.textController,
-                                            keyboardType: TextInputType.text,
-                                      style: TextStyle(
-                                    color: Colors.white
-                                    ),
+                            keyboardType: TextInputType.text,
+                            style: TextStyle(color: Colors.white),
 
                             decoration: const InputDecoration(
                               hintText: 'Écrire un commentaire',
