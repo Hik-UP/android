@@ -9,6 +9,7 @@ import "package:hikup/widget/custom_loader.dart";
 import "package:hikup/widget/warning_error_img.dart";
 
 class CommentCard extends StatelessWidget {
+  
   final Comment comment;
   const CommentCard({
     Key? key,
@@ -17,6 +18,7 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Card(
       color: BlackPrimary,
       child: Padding(
@@ -26,6 +28,7 @@ class CommentCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
+              
               children: [
                 comment.author.picture.isNotEmpty
                     ? CachedNetworkImage(
@@ -34,6 +37,7 @@ class CommentCard extends StatelessWidget {
                             ShowAvatarContainer(
                           backgroundImage: imageProvider,
                         ),
+                        
                         errorWidget: (context, url, error) =>
                             const ShowAvatarContainer(
                           child: WarmingErrorImg(),
@@ -48,7 +52,36 @@ class CommentCard extends StatelessWidget {
                           profilePlaceHoder,
                         ),
                       ),
+                      // IconButton(
+                      //   color: GreenPrimary,
+                      //     onPressed: () {
+                      //         itemBuilder: (context) {
+                      //           return [
+                      //           PopupMenuItem(
+                      //             value: 'edit',
+                      //             child: Text('Edit'),
+                      //           ),
+                      //           PopupMenuItem(
+                      //             value: 'delete',
+                      //             child: Text('Delete'),
+                      //           )
+                      //           ];
+                      //         };
+                      //               // myAlert(
+                      //               //   context: context,
+                      //               //   getImageGallery: () => model.getImage(
+                      //               //     ImageSource.gallery,
+                      //               //   ),
+                      //               //   getImageCamera: () => model.getImage(
+                      //               //     ImageSource.camera,
+                      //               //   ),
+                      //               // );
+                      //             },
+                      //             icon: const Icon(Icons.menu),
+                      //           ),
+                      //icon: const Icon(Icons.menu),
                 const Gap(10.0),
+                
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -56,6 +89,7 @@ class CommentCard extends StatelessWidget {
                       comment.author.username,
                       style: subTitleTextStyle,
                     ),
+                    
                     Text(
                       comment.date.toString().split(' ')[0].replaceAll(
                             RegExp(r'-'),
@@ -82,6 +116,7 @@ class CommentCard extends StatelessWidget {
                   ),
                   if (comment.pictures.isNotEmpty &&
                       comment.pictures.first.isNotEmpty)
+
                     CachedNetworkImage(
                       imageUrl: comment.pictures[0],
                       errorWidget: (context, url, error) =>
@@ -103,6 +138,34 @@ class CommentCard extends StatelessWidget {
                 ],
               ),
             ),
+            
+                                  IconButton(
+                        color: GreenPrimary,
+                          onPressed: () {
+                              itemBuilder: (context) {
+                                return [
+                                PopupMenuItem(
+                                  value: 'edit',
+                                  child: Text('Edit'),
+                                ),
+                                PopupMenuItem(
+                                  value: 'delete',
+                                  child: Text('Delete'),
+                                )
+                                ];
+                              };
+                                    // myAlert(
+                                    //   context: context,
+                                    //   getImageGallery: () => model.getImage(
+                                    //     ImageSource.gallery,
+                                    //   ),
+                                    //   getImageCamera: () => model.getImage(
+                                    //     ImageSource.camera,
+                                    //   ),
+                                    // );
+                                  },
+                                  icon: const Icon(Icons.edit),
+                                ),
           ],
         ),
       ),
@@ -153,3 +216,18 @@ class ShowAvatarContainer extends StatelessWidget {
     );
   }
 }
+
+  void setState(Null Function() param0) {
+  }
+
+  void updateTextControllers(Comment user) {
+    setState(() {
+
+    });
+  }
+
+    void deleteTextControllers(Comment user) {
+    setState(() {
+
+    });
+  }
