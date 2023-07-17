@@ -87,4 +87,10 @@ class AppMessages {
   static String inProgress = "En cours";
   static String scheduled = "Programmé";
   static String doneLabel = "Terminé";
+  static String eventNameLabel = "Titre de l'évènement";
+  static String eventDescription = "Description";
+  static String dateOfEvent = "Date de déroulement";
+  static String localisationLabel = "Localisation";
+  static String visibilityOfTheEvent = "Visibilité";
+  static String validateLabel = "Valider";
 }

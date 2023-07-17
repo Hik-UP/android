@@ -8,6 +8,7 @@ import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
+import 'package:hikup/screen/event/create_event_view.dart';
 import 'package:hikup/screen/main/community/community_history_screen.dart';
 import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/screen/main/search/notification.dart';
@@ -79,7 +80,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: createMaterialColor(Colors.white),
         scaffoldBackgroundColor: BlackSecondary,
       ),
-      initialRoute: getTheRightInitialRoute(context: context),
+      // initialRoute: getTheRightInitialRoute(context: context),
+      initialRoute: CreateEventView.routeName,
       routes: {
         LoginPage.routeName: (_) => const LoginPage(),
         NotificationView.routeName: (_) => const NotificationView(),
@@ -91,6 +93,7 @@ class MyApp extends StatelessWidget {
         CompleteProfile.routeName: (_) => const CompleteProfile(),
         HikesCreate.routeName: (_) => const HikesCreate(),
         CommunityHistoryScreen.routeName: (_) => const CommunityHistoryScreen(),
+        CreateEventView.routeName: (_) => const CreateEventView(),
       },
     );
   }

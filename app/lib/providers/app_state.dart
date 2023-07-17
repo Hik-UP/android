@@ -18,6 +18,7 @@ final Box<String> boxtrailId = Hive.box('trailId');
 
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
+  String comment = "";
 
   final _hiveService = locator<HiveService>();
   bool isFirstDownload = true;
