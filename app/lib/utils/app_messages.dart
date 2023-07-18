@@ -1,3 +1,5 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class AppMessages {
   static String email = "Email";
   static String password = "Mot de passe";

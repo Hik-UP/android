@@ -11,6 +11,7 @@ import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = "/login";
@@ -26,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    var _i18n = AppLocalizations.of(context)!;
     return BaseView<LoginPageViewModel>(
       builder: (context, model, child) => SafeArea(
         child: Scaffold(
@@ -72,20 +74,20 @@ class _LoginPageState extends State<LoginPage> {
                               children: <Widget>[
                                 CustomTextField(
                                   controller: model.emailController,
-                                  hintText: AppMessages.email,
+                                  hintText: _i18n.email,
                                   validator: Validation.validEmail,
                                 ),
                                 const Gap(10),
                                 CustomTextField(
                                   controller: model.passwordController,
-                                  hintText: AppMessages.password,
+                                  hintText: _i18n.password,
                                   typeInput: TypeInput.password,
                                   validator: model.validPassword,
                                   typeOfInput: TypeOfInput.password,
                                 ),
                                 const Gap(10),
                                 CustomBtn(
-                                  content: AppMessages.login,
+                                  content: _i18n.login,
                                   isLoading: model.getState == ViewState.busy,
                                   onPress: () {
                                     if (model.loginFormKey.currentState!
@@ -114,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                         );
                                       },
                                       child: Text(
-                                        AppMessages.noAccountYet,
+                                        _i18n.noAccountYet,
                                         style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w400,
                                         ),
