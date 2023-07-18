@@ -93,4 +93,5 @@ class AppMessages {
   static String localisationLabel = "Localisation";
   static String visibilityOfTheEvent = "Visibilité";
   static String validateLabel = "Valider";
+  static String addTagEvent = "Ajouter des tags relié au sujet de l'évènement";
 }

@@ -1,10 +1,15 @@
 import "package:flutter/material.dart";
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:hikup/model/event.dart";
+import "package:hikup/providers/app_state.dart";
 import "package:hikup/theme.dart";
 import "package:hikup/utils/app_messages.dart";
 import "package:hikup/widget/custom_btn.dart";
 import "package:hikup/widget/custom_text_field.dart";
+import "package:hikup/widget/email_invite_card.dart";
+import "package:hikup/widget/invite_friend_cmp.dart";
+import "package:provider/provider.dart";
 
 const spaceBetweenWidget = Gap(10.0);
 
@@ -19,9 +24,16 @@ class CreateEventView extends StatefulWidget {
 class _CreateEventViewState extends State<CreateEventView> {
   List<String> visibilityType = ["Privée", "Public"];
   String currentVisibility = "Privée";
+  List<String> tagEvent = [];
+  TextEditingController eventNameCtrl = TextEditingController();
+  TextEditingController eventDescriptionCtrl = TextEditingController();
+  TextEditingController eventLocalisationCtrl = TextEditingController();
+  TextEditingController tagCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    AppState appState = context.read<AppState>();
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -35,21 +47,26 @@ class _CreateEventViewState extends State<CreateEventView> {
                 AppMessages.eventNameLabel,
                 style: subTitleTextStyle,
               ),
-             const CustomTextField(),
+              CustomTextField(
+                controller: eventNameCtrl,
+              ),
               spaceBetweenWidget,
               Text(
                 AppMessages.eventDescription,
                 style: subTitleTextStyle,
               ),
-             const CustomTextField(
+              CustomTextField(
                 maxLine: 3,
+                controller: eventDescriptionCtrl,
               ),
               spaceBetweenWidget,
               Text(
                 AppMessages.localisationLabel,
                 style: subTitleTextStyle,
               ),
-              const CustomTextField(),
+              CustomTextField(
+                controller: eventLocalisationCtrl,
+              ),
               spaceBetweenWidget,
               Text(
                 AppMessages.visibilityOfTheEvent,
@@ -80,8 +97,68 @@ class _CreateEventViewState extends State<CreateEventView> {
                     )
                     .toList(),
               ),
+              Text(
+                AppMessages.addTagEvent,
+                style: subTitleTextStyle,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextField(
+                      controller: tagCtrl,
+                      hintText: "Tag",
+                    ),
+                  ),
+                  const Gap(8.0),
+                  CustomBtn(
+                    content: "Ajouter",
+                    onPress: () {
+                      tagEvent.add(tagCtrl.text);
+                      tagCtrl.clear();
+                      setState(() {});
+                    },
+                    bgColor: Colors.blue,
+                  ),
+                ],
+              ),
+              const Gap(8.0),
+              tagEvent.isEmpty
+                  ? Text(
+                      "Aucun tag ajouté",
+                      style: GoogleFonts.poppins(color: Colors.grey),
+                    )
+                  : Row(
+                      children: tagEvent
+                          .map<Widget>(
+                            (e) => Padding(
+                              padding: const EdgeInsets.only(right: 4.0),
+                              child: EmailInviteCard(
+                                email: e,
+                                action: () {},
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+              const Gap(8.0),
               const Gap(70.0),
-              CustomBtn(content: AppMessages.validateLabel, onPress: () {}, bgColor: Colors.green,),
+              CustomBtn(
+                content: AppMessages.validateLabel,
+                onPress: () {
+                  appState.addNewEvent(
+                    EventModel(
+                      name: eventNameCtrl.text,
+                      description: eventDescriptionCtrl.text,
+                      localisation: eventLocalisationCtrl.text,
+                      visibilty: "",
+                      tags: tagEvent,
+                    ),
+                  );
+
+                  Navigator.of(context).pop();
+                },
+                bgColor: Colors.green,
+              ),
             ],
           ),
         ),

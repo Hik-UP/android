@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hikup/locator.dart';
+import 'package:hikup/model/event.dart';
 import 'package:hikup/model/other_data.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
@@ -31,6 +32,12 @@ class AppState extends ChangeNotifier {
   List<dynamic> roles = [];
   Skin skin = emptySkin;
   SensibleUserData sensibleUserData = emptySensibleUserData;
+  List<EventModel> events = [];
+
+  void addNewEvent(EventModel event) {
+    events.add(event);
+    notifyListeners();
+  }
 
   void setIsFirstDownload({required bool value}) async {
     isFirstDownload = value;
