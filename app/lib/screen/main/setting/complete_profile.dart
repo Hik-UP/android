@@ -12,6 +12,7 @@ import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_drop_down.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HeadPlaceHolder extends StatelessWidget {
   final String label;
@@ -45,12 +46,14 @@ class CompleteProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _i18n = AppLocalizations.of(context)!;
+
     return BaseView<CompleteProfileViewModel>(builder: (context, model, child) {
       model.initializeInputForm(appState: context.read<AppState>());
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            AppMessages.completeProfil,
+            _i18n.completeProfil,
             style: titleTextStyleWhite,
           ),
           iconTheme: IconThemeData(
@@ -90,11 +93,11 @@ class CompleteProfile extends StatelessWidget {
                     const Gap(8.0),
                     Expanded(
                       child: HeadPlaceHolder(
-                        label: AppMessages.weightPlaceHolder,
+                        label: _i18n.weightPlaceHolder,
                         child: CustomTextField(
                           controller: model.weightCtrl,
                           keyBoardType: TextInputType.number,
-                          hintText: AppMessages.weight,
+                          hintText: _i18n.weight,
                           validator: model.requiredField,
                           inputsFormatter: [
                             FilteringTextInputFormatter.digitsOnly,
@@ -107,7 +110,7 @@ class CompleteProfile extends StatelessWidget {
                 ),
                 const Gap(20.0),
                 HeadPlaceHolder(
-                  label: AppMessages.gender,
+                  label: _i18n.gender,
                   child: CustomDropDown(
                     getSelectedGender: (String gender) {
                       model.setGenderValue(value: gender);
@@ -118,7 +121,7 @@ class CompleteProfile extends StatelessWidget {
                     onTap: () {
                       model.setDropDownIsActive(value: !model.dropDownIsActive);
                     },
-                    hintText: AppMessages.selectSex,
+                    hintText: _i18n.selectSex,
                     content: const ["H", "F"],
                   ),
                 ),
@@ -131,7 +134,7 @@ class CompleteProfile extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          AppMessages.selectSex,
+                          _i18n.selectSex,
                           style: const TextStyle(
                             color: Color.fromARGB(255, 255, 0, 0),
                             fontSize: 12.0,
@@ -143,11 +146,11 @@ class CompleteProfile extends StatelessWidget {
                 ),
                 const Gap(20.0),
                 HeadPlaceHolder(
-                  label: AppMessages.height,
+                  label: _i18n.height,
                   child: CustomTextField(
                     controller: model.tallCtrl,
                     keyBoardType: TextInputType.number,
-                    hintText: AppMessages.addHeight,
+                    hintText: _i18n.addHeight,
                     validator: model.requiredField,
                     inputsFormatter: [
                       FilteringTextInputFormatter.digitsOnly,
@@ -158,7 +161,7 @@ class CompleteProfile extends StatelessWidget {
                 const Gap(20.0),
                 CustomBtn(
                   gradient: loginButtonColor,
-                  content: AppMessages.save,
+                  content: _i18n.save,
                   isLoading: model.getState == ViewState.busy,
                   onPress: () {
                     model.genderNotNull();

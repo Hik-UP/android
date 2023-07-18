@@ -5,6 +5,7 @@ import 'package:hikup/viewmodel/hikes_create_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/utils/app_messages.dart';
 import '../../../theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HikesCreate extends StatelessWidget {
   static String routeName = "/hikes-create";
@@ -12,12 +13,13 @@ class HikesCreate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _i18n = AppLocalizations.of(context)!;
     return BaseView<HikeCreateViewModel>(
       builder: (context, model, child) => Scaffold(
         backgroundColor: BlackSecondary,
         appBar: AppBar(
           title: Text(
-            AppMessages.myHike,
+            _i18n.myHike,
             style: titleTextStyleWhite,
           ),
           centerTitle: true,

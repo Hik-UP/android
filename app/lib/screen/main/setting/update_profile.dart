@@ -16,6 +16,7 @@ import 'package:hikup/widget/upload_picture.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../theme.dart';
 import '../../../utils/constant.dart';
@@ -27,6 +28,7 @@ class UpdateProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
+    var _i18n = AppLocalizations.of(context)!;
 
     return BaseView<UpdateProfilModel>(builder: (context, model, child) {
       model.emailCtrl.text = appState.email;
@@ -36,7 +38,7 @@ class UpdateProfile extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: kTextTabBarHeight,
           title: Text(
-            AppMessages.modifprofilTxt,
+            _i18n.modifprofilTxt,
             style: titleTextStyleWhite,
           ),
           iconTheme: const IconThemeData(
@@ -132,7 +134,7 @@ class UpdateProfile extends StatelessWidget {
                   ),
                   const Gap(20.0),
                   CustomBtn(
-                    content: AppMessages.updateTxt,
+                    content: _i18n.updateTxt,
                     isLoading: model.getState == ViewState.busy,
                     onPress: () {
                       if (!model.formKey.currentState!.validate()) {
@@ -140,7 +142,7 @@ class UpdateProfile extends StatelessWidget {
                       }
                       if (appState.picture.isEmpty && model.userImage == null) {
                         locator<CustomNavigationService>().showSnackBack(
-                          content: AppMessages.needAPicture,
+                          content: _i18n.needAPicture,
                           isError: true,
                         );
                         return;
@@ -156,7 +158,7 @@ class UpdateProfile extends StatelessWidget {
                   ),
                   const Gap(70.0),
                   // CustomBtn(
-                  //   content: AppMessages.deleteaccount,
+                  //   content: _i18n.deleteaccount,
                   //   onPress: () {},
                   //   gradient: deleteButtonColor,
                   // ),
@@ -167,18 +169,18 @@ class UpdateProfile extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(AppMessages.askUserWantToDelete),
+                            title: Text(_i18n.askUserWantToDelete),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(false),
-                                child: Text(AppMessages.cancel),
+                                child: Text(_i18n.cancel),
                               ),
                               TextButton(
                                 onPressed: () {
                                   //WrapperApi().logout(isLogout: true);
                                 },
-                                child: Text(AppMessages.delete),
+                                child: Text(_i18n.delete),
                               ),
                             ],
                           );
@@ -196,7 +198,7 @@ class UpdateProfile extends StatelessWidget {
                         ),
                         //const Gap(4.0),
                         // Text(
-                        //   AppMessages.delete,
+                        //   _i18n.delete,
                         //   style: normalTextStyle,
                         // ),
                       ],

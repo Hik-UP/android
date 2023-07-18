@@ -11,6 +11,7 @@ import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/widget/custom_btn.dart';
 
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../providers/app_state.dart';
 import '../../../theme.dart';
@@ -75,12 +76,13 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
+    var _i18n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: kTextTabBarHeight,
         title: Text(
-          AppMessages.settingTxt,
+          _i18n.settingTxt,
           style: titleTextStyleWhite,
         ),
         iconTheme: IconThemeData(
@@ -97,7 +99,7 @@ class SettingsScreen extends StatelessWidget {
             children: [
               const Gap(20.0),
               Text(
-                AppMessages.account,
+                _i18n.account,
                 style: subTitleTextStyle,
               ),
               const SizedBox(
@@ -154,7 +156,7 @@ class SettingsScreen extends StatelessWidget {
                             ),
                             const Gap(6.0),
                             CustomBtn(
-                              content: AppMessages.updateProfil,
+                              content: _i18n.updateProfil,
                               height: 50,
                               onPress: () {
                                 Navigator.of(context).pushNamed(
@@ -172,7 +174,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               const Gap(40),
               Text(
-                AppMessages.infoMessage,
+                _i18n.infoMessage,
                 style: subTitleTextStyle,
               ),
               InkWell(
@@ -194,19 +196,19 @@ class SettingsScreen extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      AppMessages.addExtraData,
+                      _i18n.addExtraData,
                       style: linkTextStyle,
                     ),
                   ],
                 ),
               ),
               const Gap(30.0),
-              Text(AppMessages.aboutApp, style: subTitleTextStyle),
+              Text(_i18n.aboutApp, style: subTitleTextStyle),
               InkWell(
                 onTap: () {
                   _showSnackBar(
                     context,
-                    AppMessages.newestVersion,
+                    _i18n.newestVersion,
                   );
                 },
                 child: Row(
@@ -258,19 +260,19 @@ class SettingsScreen extends StatelessWidget {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         backgroundColor: BlackPrimary,
-                        title: Text(AppMessages.askIfUserWantToLogout,
+                        title: Text(_i18n.askIfUserWantToLogout,
                             style: subTitleTextStyle),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(false),
-                            child: Text(AppMessages.cancel,
+                            child: Text(_i18n.cancel,
                                 style: GreenAddressTextStyle),
                           ),
                           TextButton(
                             onPressed: () {
                               WrapperApi().logout(isLogout: true);
                             },
-                            child: Text(AppMessages.logOut,
+                            child: Text(_i18n.logOut,
                                 style: GreenAddressTextStyle),
                           ),
                         ],
@@ -289,7 +291,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     const Gap(4.0),
                     Text(
-                      AppMessages.logout,
+                      _i18n.logout,
                       style: linkTextStyle,
                     ),
                   ],

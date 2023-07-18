@@ -10,6 +10,7 @@ import 'package:hikup/viewmodel/register_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../widget/custom_btn.dart';
 //import 'package:hik_up/api/api.dart';
@@ -28,6 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
+    var _i18n = AppLocalizations.of(context)!;
 
     return BaseView<RegisterPageViewModel>(
       builder: (context, model, child) => Scaffold(
@@ -73,20 +75,20 @@ class _RegisterPageState extends State<RegisterPage> {
                             child: Column(
                               children: <Widget>[
                                 CustomTextField(
-                                  hintText: AppMessages.usernameHintText,
+                                  hintText: _i18n.usernameHintText,
                                   controller: model.usernameController,
                                   validator: Validation.validateUsername,
                                 ),
                                 const Gap(10.0),
                                 CustomTextField(
                                   controller: model.emailController,
-                                  hintText: AppMessages.email,
+                                  hintText: _i18n.email,
                                   validator: model.validateEmail,
                                 ),
                                 const Gap(10.0),
                                 CustomTextField(
                                   controller: model.passwordController,
-                                  hintText: AppMessages.password,
+                                  hintText: _i18n.password,
                                   typeInput: TypeInput.password,
                                   validator: model.validatePassword,
                                   typeOfInput: TypeOfInput.password,
@@ -94,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 const Gap(10),
                                 CustomBtn(
                                   isLoading: model.getState == ViewState.busy,
-                                  content: AppMessages.registerButtonText,
+                                  content: _i18n.registerButtonText,
                                   onPress: () {
                                     if (model.loginFormKey.currentState!
                                         .validate()) {
@@ -122,7 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         );
                                       },
                                       child: Text(
-                                        AppMessages.alreadyHaveAccount,
+                                        _i18n.alreadyHaveAccount,
                                         style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w400,
                                         ),

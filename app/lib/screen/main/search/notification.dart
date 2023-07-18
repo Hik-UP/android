@@ -10,6 +10,8 @@ import 'package:hikup/widget/notification_card.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:provider/provider.dart';
 import '../../../theme.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotificationView extends StatefulWidget {
   static String routeName = "/notification";
@@ -37,13 +39,13 @@ class _NotificationViewState extends State<NotificationView> {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
-
+    var _i18n = AppLocalizations.of(context)!;
     return BaseView<NotificationViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           toolbarHeight: kTextTabBarHeight,
           title: Text(
-            AppMessages.notificationText,
+            _i18n.notificationText,
             style: titleTextStyleWhite,
           ),
           iconTheme: const IconThemeData(
@@ -64,7 +66,7 @@ class _NotificationViewState extends State<NotificationView> {
                   if (snapshot.hasError) {
                     return Center(
                       child: Text(
-                        AppMessages.anErrorOcur,
+                        _i18n.anErrorOcur,
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w400,
                           fontSize: 12.0,
@@ -80,7 +82,7 @@ class _NotificationViewState extends State<NotificationView> {
                         height: MediaQuery.of(context).size.height - 200,
                         child: Center(
                           child: Text(
-                            AppMessages.noNotificationLabel,
+                            _i18n.noNotificationLabel,
                             style: subErrorTitleTextStyle,
                           ),
                         ),
