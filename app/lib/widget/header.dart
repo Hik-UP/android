@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:hikup/screen/achievement/achievement_view.dart';
 import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/theme.dart';
@@ -77,6 +78,14 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       actions: <Widget>[
         Row(
           children: [
+            InkWell(
+              onTap: () =>
+                  Navigator.of(context).pushNamed(AchievementView.routeName),
+              child: const Icon(
+                FontAwesomeIcons.star,
+              ),
+            ),
+            const Gap(20.0),
             GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(
                 HikesCreate.routeName,
@@ -86,7 +95,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             const Gap(20.0),
-            GestureDetector(
+            InkWell(
               onTap: () => Navigator.of(context).pushNamed(
                 NotificationView.routeName,
               ),
@@ -106,14 +115,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                         color: Color.fromARGB(255, 23, 255, 119),
                         shape: BoxShape.circle,
                       ),
-                      // child: const Text(
-                      //   "3",
-                      //   style: TextStyle(
-                      //     color: Colors.white,
-                      //     fontWeight: FontWeight.bold,
-                      //     fontSize: 8.0,
-                      //   ),
-                      // ),
                     ),
                   ),
                 ],
@@ -122,54 +123,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             const Gap(16.0)
           ],
         ),
-        // Row(
-        //   children: [
-        //     // GestureDetector(
-        //     //   // onTap: () => Navigator.of(context).pushNamed(
-        //     //   //   HikesCreate.routeName,
-        //     //   // ),
-        //     //   child: const Icon(
-        //     //     FontAwesomeIcons.book,
-        //     //   ),
-        //     // ),
-        //     const Gap(20.0),
-        //     GestureDetector(
-        //       onTap: () => Navigator.of(context).pushNamed(
-        //         CommunityHistoryScreen.routeName,
-        //         //NotificationView.routeName,
-        //       ),
-        //       child: Stack(
-        //         clipBehavior: Clip.none,
-        //         children: [
-        //           const Icon(
-        //             FontAwesomeIcons.book,
-        //             size: 23,
-        //           ),
-        //           Positioned(
-        //             right: 0,
-        //             top: -5,
-        //             child: Container(
-        //               padding: const EdgeInsets.all(3.0),
-        //               decoration: const BoxDecoration(
-        //                 color: Color.fromARGB(255, 23, 255, 119),
-        //                 shape: BoxShape.circle,
-        //               ),
-        //               child: const Text(
-        //                 "3",
-        //                 style: TextStyle(
-        //                   color: Colors.white,
-        //                   fontWeight: FontWeight.bold,
-        //                   fontSize: 8.0,
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     const Gap(16.0)
-        //   ],
-        // )
       ],
     );
   }

@@ -6,6 +6,7 @@ import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/screen/achievement/achievement_view.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
 import 'package:hikup/screen/event/all_event_view.dart';
@@ -81,8 +82,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: createMaterialColor(Colors.white),
         scaffoldBackgroundColor: BlackSecondary,
       ),
-      // initialRoute: getTheRightInitialRoute(context: context),
-      initialRoute: AllEventView.routeName,
+      initialRoute: getTheRightInitialRoute(context: context),
       routes: {
         LoginPage.routeName: (_) => const LoginPage(),
         NotificationView.routeName: (_) => const NotificationView(),
@@ -96,6 +96,7 @@ class MyApp extends StatelessWidget {
         CommunityHistoryScreen.routeName: (_) => const CommunityHistoryScreen(),
         AllEventView.routeName: (_) => const AllEventView(),
         CreateEventView.routeName: (_) => const CreateEventView(),
+        AchievementView.routeName: (_) => const AchievementView(),
       },
     );
   }

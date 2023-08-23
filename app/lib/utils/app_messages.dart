@@ -10,7 +10,7 @@ class AppMessages {
   static String registerButtonText = "Créer un compte";
   static String usernameHintText = "Nom utilisateur";
   static String loginError = "Email ou mot de passe incorrect";
-  static String anErrorOcur = "Une erreur s'est prduite, réessayer";
+  static String anErrorOcur = "Une erreur s'est produite, réessayer";
   static String usernameinvalid = "Le prénom est incorrecte";
   static String updateProfil = "Mettre à jour le profile";
   static String updateTxt = "Mettre à jour";
@@ -94,4 +94,5 @@ class AppMessages {
   static String visibilityOfTheEvent = "Visibilité";
   static String validateLabel = "Valider";
   static String addTagEvent = "Ajouter des tags relié au sujet de l'évènement";
+  static String successLabel = 'Success';
 }

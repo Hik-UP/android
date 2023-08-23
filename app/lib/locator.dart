@@ -7,6 +7,7 @@ import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/viewmodel/complete_profile_viewmodel.dart';
 import 'package:hikup/viewmodel/detail_hike_invite.dart';
 import 'package:hikup/viewmodel/detail_screen_viewmodel.dart';
+import 'package:hikup/viewmodel/example_viewmodel.dart';
 import 'package:hikup/viewmodel/hike_card_viewmodel.dart';
 import 'package:hikup/viewmodel/hikes_create_viewmodel.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';

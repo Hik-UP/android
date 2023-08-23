@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:hikup/model/achievement.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ enum TypeOfHike { organized, guest, attendee }
 
 enum TypeOfInput { text, password }
 
-const env = "PROD";
+const env = "DEV";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
@@ -77,6 +78,37 @@ const unFilledIconNavBar = [
 ];
 const labelNavBar = ["Accueil", "Recherche", "Réglages"];
 
+const iconUserRunning = "assets/icons/achievements/iconUserRunning.png";
+const iconUserShoes = "assets/icons/achievements/iconUserShoes.png";
+const iconWindBlowing = 'assets/icons/achievements/iconWindBlowing.png';
+
+const achievementSampleData = [
+  Achievement(
+    icon: iconUserRunning,
+    title: '1000 KM pour 1000 sourires',
+    description: 'A l’aide de vos jambes, marcher 1000 km en souriant',
+    smallDescription: '( 1000km / 1000km )',
+    progress: 100,
+    state: 'FINISH',
+  ),
+  Achievement(
+    icon: iconUserShoes,
+    title: 'Quelle belle chaussure !',
+    description: 'Utilisez 1 an la même chaussure',
+    smallDescription: '( 365j / 365j )',
+    progress: 100,
+    state: 'FINISH',
+  ),
+  Achievement(
+    icon: iconWindBlowing,
+    title: 'Le souffle du vent',
+    description: 'Parler avec 4 arbres',
+    smallDescription: '( 1 / 4 )',
+    progress: 50,
+    state: 'IN_PROGRESS',
+  ),
+];
+
 User emptyUser = User(
   id: "",
   name: "",
@@ -130,7 +162,7 @@ const githubLink = "assets/icons/github.png";
 const githubName = "Github";
 const stopWatchIcon = "assets/icons/stopwatchIcon.svg";
 
-final LocationSettings locationSettings = LocationSettings(
+const LocationSettings locationSettings = LocationSettings(
   accuracy: LocationAccuracy.high,
   distanceFilter: 1,
 );
