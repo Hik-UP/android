@@ -57,8 +57,12 @@ class TrailCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(
-                    right: 15, left: 15, top: 10.0, bottom: 15.0),
+                padding: const EdgeInsets.only(
+                  right: 15,
+                  left: 15,
+                  top: 10.0,
+                  bottom: 15.0,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,

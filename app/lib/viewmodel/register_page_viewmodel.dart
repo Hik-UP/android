@@ -56,7 +56,6 @@ class RegisterPageViewModel extends BaseModel {
           "password": password,
         }
       });
-      print(response);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseLogin = await _dioService.post(path: '/auth/login', body: {

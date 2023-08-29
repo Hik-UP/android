@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
+import 'package:hikup/utils/constant.dart';
+import 'package:hikup/widget/achievement_card.dart';
 
 class AchievementView extends StatelessWidget {
   static String routeName = "/achievement";
@@ -22,7 +25,16 @@ class AchievementView extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: [],
+        children: [
+          const Gap(14.0),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: achievementSampleData.length,
+            itemBuilder: (context, index) => AchievementCard(
+              achievement: achievementSampleData[index],
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -81,6 +81,7 @@ const labelNavBar = ["Accueil", "Recherche", "Réglages"];
 const iconUserRunning = "assets/icons/achievements/iconUserRunning.png";
 const iconUserShoes = "assets/icons/achievements/iconUserShoes.png";
 const iconWindBlowing = 'assets/icons/achievements/iconWindBlowing.png';
+const customArrowIcon = 'assets/icons/achievements/customArrowIcon.png';
 
 const achievementSampleData = [
   Achievement(

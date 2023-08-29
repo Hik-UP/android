@@ -10,8 +10,6 @@ import 'package:provider/provider.dart';
 import 'skin.dart';
 import 'map_over_time.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:hikup/model/trail_fields.dart';
-import 'package:hikup/model/comment.dart';
 
 typedef void IntCallback(int id);
 

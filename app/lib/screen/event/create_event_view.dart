@@ -8,7 +8,7 @@ import "package:hikup/utils/app_messages.dart";
 import "package:hikup/widget/custom_btn.dart";
 import "package:hikup/widget/custom_text_field.dart";
 import "package:hikup/widget/email_invite_card.dart";
-import "package:hikup/widget/invite_friend_cmp.dart";
+
 import "package:provider/provider.dart";
 
 const spaceBetweenWidget = Gap(10.0);
