@@ -4,6 +4,7 @@ import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/widget/achievement_card.dart';
+import 'package:hikup/widget/state_achievement_card.dart';
 
 class AchievementView extends StatelessWidget {
   static String routeName = "/achievement";
@@ -11,6 +12,11 @@ class AchievementView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const stateFilter = [
+      {'state': 'FINISH', 'label': 'Achever'},
+      {'state': 'IN_PROGRESS', 'label': 'En cours'},
+    ];
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: kTextTabBarHeight,
@@ -26,6 +32,20 @@ class AchievementView extends StatelessWidget {
       ),
       body: Column(
         children: [
+          const Gap(14.0),
+          Row(
+            children: stateFilter
+                .map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: StateAchievementCard(
+                      label: e['label']!,
+                      state: e['state']!,
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
           const Gap(14.0),
           ListView.builder(
             shrinkWrap: true,
