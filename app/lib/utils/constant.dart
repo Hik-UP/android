@@ -4,6 +4,7 @@ import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
+import 'package:hikup/screen/shop/shop_view.dart';
 import 'package:hikup/theme.dart';
 import 'package:geolocator/geolocator.dart';
 import '../model/user.dart';
@@ -76,7 +77,7 @@ const unFilledIconNavBar = [
   "assets/icons/settings_outlined.png",
   "assets/icons/accessibility_outlined.png"
 ];
-const labelNavBar = ["Accueil", "Recherche", "Réglages"];
+const labelNavBar = ["Accueil", "Recherche", "Réglages", "Boutique"];
 
 const iconUserRunning = "assets/icons/achievements/iconUserRunning.png";
 const iconUserShoes = "assets/icons/achievements/iconUserShoes.png";
@@ -153,7 +154,8 @@ dynamic logoutButtonColor = const LinearGradient(colors: [
 final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
-  const SettingsScreen()
+  const SettingsScreen(),
+  const ShopView(),
 ];
 
 enum TypeInput { text, password }
