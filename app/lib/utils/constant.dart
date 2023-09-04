@@ -164,6 +164,8 @@ const profilePlaceHoder = "assets/images/user_profile_example.png";
 const githubLink = "assets/icons/github.png";
 const githubName = "Github";
 const stopWatchIcon = "assets/icons/stopwatchIcon.svg";
+const targetSkin = "assets/images/target_skin.png";
+const coinIcon = "assets/icons/coin.png";
 
 const LocationSettings locationSettings = LocationSettings(
   accuracy: LocationAccuracy.high,

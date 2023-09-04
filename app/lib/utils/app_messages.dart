@@ -95,4 +95,5 @@ class AppMessages {
   static String validateLabel = "Valider";
   static String addTagEvent = "Ajouter des tags relié au sujet de l'évènement";
   static String successLabel = 'Success';
+  static String shopLabel = 'Boutique';
 }
