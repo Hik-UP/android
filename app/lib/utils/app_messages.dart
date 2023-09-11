@@ -96,4 +96,6 @@ class AppMessages {
   static String addTagEvent = "Ajouter des tags relié au sujet de l'évènement";
   static String successLabel = 'Success';
   static String shopLabel = 'Boutique';
+  static String buyLabel = 'Acheter';
+  static String changeLabel = 'Changer';
 }
