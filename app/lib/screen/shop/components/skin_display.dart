@@ -25,7 +25,7 @@ class SkinDisplay extends StatelessWidget {
     return BaseView<SkinDisplayViewModel>(
       builder: (context, model, child) => SizedBox(
         child: InkWell(
-          onTap: () => model.openDialog(),
+          onTap: () => model.openDialog(skin: skin),
           child: Card(
             shape: RoundedRectangleBorder(
               side: BorderSide(
@@ -38,12 +38,14 @@ class SkinDisplay extends StatelessWidget {
             child: Column(
               children: [
                 const Gap(3.0),
-                const SkinTarget(),
+                SkinTarget(
+                  skinUrlImage: skin.pictures[0],
+                ),
                 Visibility(
-                  visible: skin.price > 0 &&
-                      !isAPartOfOwner(
-                          ownerId: context.watch<AppState>().id,
-                          owners: skin.owners),
+                  visible: !isAPartOfOwner(
+                    ownerId: context.watch<AppState>().id,
+                    owners: skin.owners,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
