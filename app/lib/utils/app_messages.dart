@@ -98,4 +98,5 @@ class AppMessages {
   static String shopLabel = 'Boutique';
   static String buyLabel = 'Acheter';
   static String changeLabel = 'Changer';
+  static String noSkinLabel = 'Oops, no skin to show';
 }

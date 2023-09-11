@@ -12,6 +12,7 @@ import 'package:hikup/viewmodel/hikes_create_viewmodel.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/viewmodel/notification_viewmodel.dart';
 import 'package:hikup/viewmodel/register_page_viewmodel.dart';
+import 'package:hikup/viewmodel/shop_viewmodel.dart';
 import 'package:hikup/viewmodel/skin_display_viewmodel.dart';
 import 'package:hikup/viewmodel/update_profil_viewmodel.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
@@ -41,4 +42,5 @@ void setupLocator() {
   locator.registerFactory(() => DetailHikeInviteViewModel());
   locator.registerFactory(() => CommunityPageViewModel());
   locator.registerFactory(() => SkinDisplayViewModel());
+  locator.registerFactory(() => ShopViewModel());
 }

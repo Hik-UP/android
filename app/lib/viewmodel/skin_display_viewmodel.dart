@@ -6,7 +6,7 @@ import 'package:hikup/viewmodel/base_model.dart';
 class SkinDisplayViewModel extends BaseModel {
   final navigator = locator<CustomNavigationService>();
 
-  openDialog() {
+  openDialog({required SkinDisplayViewModel}) {
     navigator.showDialogue(content: const DialogContent());
   }
 }
