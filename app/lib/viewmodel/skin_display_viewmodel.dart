@@ -7,10 +7,12 @@ import 'package:hikup/viewmodel/base_model.dart';
 class SkinDisplayViewModel extends BaseModel {
   final navigator = locator<CustomNavigationService>();
 
-  openDialog({required SkinWithOwner skin}) {
+  openDialog({required SkinWithOwner skin, required Function() action}) {
     navigator.showDialogue(
-        content: DialogContent(
-      skin: skin,
-    ));
+      action: action,
+      content: DialogContent(
+        skin: skin,
+      ),
+    );
   }
 }

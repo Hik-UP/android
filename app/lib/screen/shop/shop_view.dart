@@ -10,9 +10,14 @@ import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
-class ShopView extends StatelessWidget {
+class ShopView extends StatefulWidget {
   const ShopView({Key? key}) : super(key: key);
 
+  @override
+  State<ShopView> createState() => _ShopViewState();
+}
+
+class _ShopViewState extends State<ShopView> {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.watch<AppState>();
@@ -63,6 +68,7 @@ class ShopView extends StatelessWidget {
                           appState: appState,
                           skin: snapshot.data![index],
                         ),
+                        updateScreen: () => {setState(() {})},
                       ),
                     );
                   }

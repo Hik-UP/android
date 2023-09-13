@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
-import 'package:hikup/model/owner_skin.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/dio_service.dart';
@@ -26,7 +25,7 @@ class ShopViewModel extends BaseModel {
         },
         token: "Bearer ${appState.token}",
       );
-      print(response);
+
       (response.data['skins'] as List)
           .map(
             (e) => skins.add(
@@ -39,7 +38,6 @@ class ShopViewModel extends BaseModel {
           .toList();
       return skins;
     } catch (e) {
-      print(e);
       return [];
     }
   }

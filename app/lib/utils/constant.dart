@@ -61,6 +61,7 @@ const retrieveNotificationPath = "/user/notification/retrieve";
 const notifUpdatePath = "/user/notification/update";
 const organzierUpdatePath = "/user/hike/organizer/update";
 const getSkinPath = "/skin/retrieve";
+const updateCurrentSkinPath = "/skin/update-current-skin";
 
 const pinIcon = "assets/icons/pin.png";
 const idHikeIcon = "assets/icons/information.png";

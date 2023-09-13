@@ -33,7 +33,7 @@ class CustomNavigationService {
     ).showSnackBar();
   }
 
-  showDialogue({required Widget content}) {
+  showDialogue({required Widget content, required Function() action}) {
     showDialog(
       context: navigatorKey.currentContext!,
       builder: (_) => Dialog(
@@ -41,6 +41,6 @@ class CustomNavigationService {
         elevation: 8.0,
         child: content,
       ),
-    );
+    ).then((value) => action());
   }
 }

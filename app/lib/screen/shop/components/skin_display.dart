@@ -13,19 +13,24 @@ import 'package:provider/provider.dart';
 class SkinDisplay extends StatelessWidget {
   final SkinWithOwner skin;
   final Color borderColor;
+  final Function() updateScreen;
 
-  const SkinDisplay(
-      {Key? key,
-      required this.skin,
-      this.borderColor = const Color(0xff000000)})
-      : super(key: key);
+  const SkinDisplay({
+    Key? key,
+    required this.skin,
+    this.borderColor = const Color(0xff000000),
+    required this.updateScreen,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BaseView<SkinDisplayViewModel>(
       builder: (context, model, child) => SizedBox(
         child: InkWell(
-          onTap: () => model.openDialog(skin: skin),
+          onTap: () => model.openDialog(
+            skin: skin,
+            action: updateScreen,
+          ),
           child: Card(
             shape: RoundedRectangleBorder(
               side: BorderSide(
