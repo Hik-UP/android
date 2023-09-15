@@ -42,14 +42,15 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     List<Widget> navBarItems = [];
 
     for (int i = 0; i < screens.length; i++) {
-      navBarItems.add(bottomNavBarItem(
-          _selectedItemIcon[i], _unselectedItemIcon[i], _label[i], i));
+      navBarItems.add(Expanded(
+        child: bottomNavBarItem(
+            _selectedItemIcon[i], _unselectedItemIcon[i], _label[i], i),
+      ));
     }
     return Container(
       decoration: BoxDecoration(
           color: BlackPrimary, borderRadius: BorderRadius.circular(15)),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: navBarItems,
       ),
@@ -64,31 +65,26 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           _selectedIndex = index;
         });
       },
-      child: Container(
+      child: SizedBox(
         height: kBottomNavigationBarHeight,
         width: MediaQuery.of(context).size.width / _selectedItemIcon.length,
         child: Padding(
           padding: const EdgeInsets.all(0.0),
           child: _selectedIndex == index
-              ? Container(
-/*                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 43, 43, 43),
-                      borderRadius: BorderRadius.circular(10)),*/
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Image.asset(
-                        activeIcon,
-                        width: 25,
-                        height: 25,
-                        color: GreenPrimary,
-                      ),
-                      Text(
-                        label,
-                        style: bottomNavTextStyle,
-                      )
-                    ],
-                  ),
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset(
+                      activeIcon,
+                      width: 25,
+                      height: 25,
+                      color: GreenPrimary,
+                    ),
+                    Text(
+                      label,
+                      style: bottomNavTextStyle,
+                    )
+                  ],
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,

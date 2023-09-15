@@ -8,6 +8,7 @@ import 'package:hikup/screen/main/setting/update_profile.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
+import 'package:hikup/widget/custom_app_bar.dart';
 import 'package:hikup/widget/custom_btn.dart';
 
 import 'package:provider/provider.dart';
@@ -91,6 +92,7 @@ class SettingsScreen extends StatelessWidget {
         backgroundColor: BlackPrimary,
         centerTitle: true,
       ),
+      appBar: CustomAppBar(label: AppMessages.settingTxt),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),

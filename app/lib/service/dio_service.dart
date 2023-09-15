@@ -6,7 +6,15 @@ import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 
 class DioService {
-  final _dio = Dio();
+  final _dio = Dio(
+    BaseOptions(
+      baseUrl: baseUrl,
+      receiveDataWhenStatusError: true,
+      connectTimeout: const Duration(seconds: 60),
+      receiveTimeout: const Duration(seconds: 60),
+    ),
+  );
+
   final _navigator = locator<CustomNavigationService>();
 
   addInterceptors() {
@@ -18,6 +26,7 @@ class DioService {
     required Map<String, dynamic> body,
     String token = "",
   }) async {
+    print(baseUrl);
     print(path);
     try {
       var result = await _dio.post(
@@ -33,6 +42,7 @@ class DioService {
       print(result.statusCode);
       return result;
     } on DioError catch (e) {
+      print(e);
       if (e.response == null) {
         _navigator.showSnackBack(
           content: AppMessages.anErrorOcur,

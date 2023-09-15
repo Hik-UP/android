@@ -12,7 +12,7 @@ class AppMessages {
   static String registerButtonText = "Créer un compte";
   static String usernameHintText = "Nom utilisateur";
   static String loginError = "Email ou mot de passe incorrect";
-  static String anErrorOcur = "Une erreur s'est prduite, réessayer";
+  static String anErrorOcur = "Une erreur s'est produite, réessayer";
   static String usernameinvalid = "Le prénom est incorrecte";
   static String updateProfil = "Mettre à jour le profile";
   static String updateTxt = "Mettre à jour";
@@ -89,4 +89,17 @@ class AppMessages {
   static String inProgress = "En cours";
   static String scheduled = "Programmé";
   static String doneLabel = "Terminé";
+  static String eventNameLabel = "Titre de l'évènement";
+  static String eventDescription = "Description";
+  static String dateOfEvent = "Date de déroulement";
+  static String localisationLabel = "Localisation";
+  static String visibilityOfTheEvent = "Visibilité";
+  static String validateLabel = "Valider";
+  static String addTagEvent = "Ajouter des tags relié au sujet de l'évènement";
+  static String successLabel = 'Success';
+  static String shopLabel = 'Boutique';
+  static String buyLabel = 'Acheter';
+  static String changeLabel = 'Changer';
+  static String noSkinLabel = 'Oops, no skin to show';
+  static String currentSkinLabel = 'This is your current profile skin';
 }

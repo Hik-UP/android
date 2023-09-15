@@ -84,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                                   typeInput: TypeInput.password,
                                   validator: model.validPassword,
                                   typeOfInput: TypeOfInput.password,
+                                  maxLine: 1,
                                 ),
                                 const Gap(10),
                                 CustomBtn(

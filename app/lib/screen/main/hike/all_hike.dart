@@ -77,9 +77,9 @@ class _AllHikeState extends State<AllHike> {
           }
         }
 
-        return Column(
+        return const Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             CircularProgressIndicator(),
           ],
         );
