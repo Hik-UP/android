@@ -22,7 +22,6 @@ class _PlayerSkinState extends State<PlayerSkin> {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
-    print(appState.skin.pictures[0]);
 
     return CurrentLocationLayer(
       positionStream:
