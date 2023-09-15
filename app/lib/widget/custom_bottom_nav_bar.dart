@@ -74,8 +74,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 children: [
                   Image.asset(
                     activeIcon,
-                    width: 20,
-                    height: 20,
+                    width: 22,
+                    height: 22,
                     color: GreenPrimary,
                   ),
                   Text(
@@ -89,8 +89,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 children: [
                   Image.asset(
                     inactiveIcon,
-                    width: 20,
-                    height: 20,
+                    width: 22,
+                    height: 22,
                     color: BlackTertiary,
                   ),
                 ],

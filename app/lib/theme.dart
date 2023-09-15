@@ -108,7 +108,7 @@ TextStyle buttonTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white);
 
 TextStyle bottomNavTextStyle = GoogleFonts.poppins(
-    fontSize: 12, fontWeight: FontWeight.w500, color: GreenPrimary);
+    fontSize: 11, fontWeight: FontWeight.w500, color: GreenPrimary);
 
 TextStyle tabBarTextStyle =
     GoogleFonts.poppins(fontWeight: FontWeight.w500, color: GreenPrimary);
