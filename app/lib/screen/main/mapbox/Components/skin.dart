@@ -25,7 +25,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
 
     return CurrentLocationLayer(
       positionStream:
-          LocationMarkerDataStreamFactory().fromGeolocatorPositionStream(
+          const LocationMarkerDataStreamFactory().fromGeolocatorPositionStream(
         stream: Geolocator.getPositionStream(locationSettings: locationSettings)
             .asBroadcastStream(),
       ),
@@ -34,7 +34,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
       style: LocationMarkerStyle(
         marker: appState.skin.pictures.isNotEmpty
             ? CachedNetworkImage(
-                imageUrl: appState.skin.model,
+                imageUrl: appState.skin.pictures[0],
                 errorWidget: (context, url, error) => const Icon(
                   Icons.warning,
                   color: Colors.red,
