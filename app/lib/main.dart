@@ -6,8 +6,11 @@ import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/screen/achievement/achievement_view.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
+import 'package:hikup/screen/event/all_event_view.dart';
+import 'package:hikup/screen/event/create_event_view.dart';
 import 'package:hikup/screen/main/community/community_history_screen.dart';
 import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/screen/main/search/notification.dart';
@@ -22,7 +25,6 @@ import 'package:hikup/theme.dart';
 import 'firebase_options.dart';
 import 'screen/main/setting/update_profile.dart';
 import 'screen/main/setting/settings_screen.dart';
-import "package:hikup/screen/navigation/navigation_screen.dart";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -91,6 +93,9 @@ class MyApp extends StatelessWidget {
         CompleteProfile.routeName: (_) => const CompleteProfile(),
         HikesCreate.routeName: (_) => const HikesCreate(),
         CommunityHistoryScreen.routeName: (_) => const CommunityHistoryScreen(),
+        AllEventView.routeName: (_) => const AllEventView(),
+        CreateEventView.routeName: (_) => const CreateEventView(),
+        AchievementView.routeName: (_) => const AchievementView(),
       },
     );
   }

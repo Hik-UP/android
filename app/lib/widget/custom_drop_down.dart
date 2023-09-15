@@ -76,11 +76,11 @@ class CustomDropDown extends StatelessWidget {
                                 Visibility(
                                   visible:
                                       content.indexOf(e) != content.length - 1,
-                                  child: Column(
+                                  child: const Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
-                                    children: const [
+                                    children: [
                                       Divider(),
                                     ],
                                   ),

@@ -45,7 +45,7 @@ class _CategoryListViewState extends State<CategoryListView> {
           imageAsset: labelInfos.imageAsset,
           onTap: widget.onTap,
         );
-        if (labelInfos.title.length > 0 &&
+        if (labelInfos.title.isNotEmpty &&
             categoryList.indexWhere(
                     (card) => card.title == _trailsList[i].labels[j]) <
                 0) {

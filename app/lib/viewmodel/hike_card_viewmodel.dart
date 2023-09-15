@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/guest.dart';
 import 'package:hikup/providers/app_state.dart';

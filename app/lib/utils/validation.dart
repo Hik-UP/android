@@ -36,7 +36,6 @@ class Validation {
   }
 
   static String? validateUsername(String? username) {
-    print(username);
     if (username == null || username.isEmpty) {
       return AppMessages.usernameRequired;
     }
