@@ -26,8 +26,6 @@ class DioService {
     required Map<String, dynamic> body,
     String token = "",
   }) async {
-    print(baseUrl);
-    print(path);
     try {
       var result = await _dio.post(
         "$baseUrl$path",

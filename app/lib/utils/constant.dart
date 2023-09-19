@@ -67,6 +67,11 @@ const pinIcon = "assets/icons/pin.png";
 const idHikeIcon = "assets/icons/information.png";
 const calendarIcon = "assets/icons/appointment.png";
 
+const stripeSecret =
+    "sk_test_51NrvZiAitfOvvPVLJfL8jxdCYnFjdo0J6dUHLCsYwLodGd7WYyQVTEMvcE44iRizSV5GECh4zoLCQt4dIW6SgN5d000XPeZR2S";
+const stripePublic =
+    "pk_test_51NrvZiAitfOvvPVLHjNCe1YchJk6zqtItsHUul1QuahkHNhF4QpFkNAF8niXZu8uRFO0Zw0lKyHJ9Lmb1Pk2dFax000fY2X14L";
+
 const filledIconNavBar = [
   "assets/icons/HomeFull.png",
   "assets/icons/search.png",

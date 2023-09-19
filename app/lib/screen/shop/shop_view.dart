@@ -19,8 +19,14 @@ class ShopView extends StatefulWidget {
 
 class _ShopViewState extends State<ShopView> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     AppState appState = context.watch<AppState>();
+    context.read<AppState>().updateIfSkinHasChanged();
 
     return BaseView<ShopViewModel>(
       builder: (context, model, child) => Scaffold(
@@ -68,7 +74,9 @@ class _ShopViewState extends State<ShopView> {
                           appState: appState,
                           skin: snapshot.data![index],
                         ),
-                        updateScreen: () => {setState(() {})},
+                        updateScreen: () {
+                          setState(() {});
+                        },
                       ),
                     );
                   }

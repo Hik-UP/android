@@ -25,7 +25,7 @@ class CustomSnackBar {
   }) {
     return SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: isError ? HOPA : greenColor,
+      backgroundColor: isError ? HOPA : Colors.green,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),

@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/imdadadelabou/development/flutter
-FLUTTER_APPLICATION_PATH=/Users/imdadadelabou/Downloads/android/app
+FLUTTER_ROOT=/Users/imdadadelabou/Downloads/flutter
+FLUTTER_APPLICATION_PATH=/Users/imdadadelabou/Dev/EIP/android/app
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0

@@ -6,6 +6,7 @@ import 'package:hikup/model/other_data.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
+import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
@@ -19,6 +20,7 @@ final Box<String> boxtrailId = Hive.box('trailId');
 
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
+  final _dioService = locator<DioService>();
   String comment = "";
 
   final _hiveService = locator<HiveService>();
@@ -98,6 +100,21 @@ class AppState extends ChangeNotifier {
   void updateSkinState({required Skin value}) {
     skin = value;
     notifyListeners();
+  }
+
+  void updateIfSkinHasChanged() async {
+    var response = await WrapperApi().getProfile(
+      id: id,
+      roles: roles,
+      token: token,
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Skin newSkin = Skin.fromMap(data: response.data['user']['skin']);
+      if (newSkin.id != skin.id) {
+        updateSkinState(value: newSkin);
+        Skin.addSkinOnHive(skin: newSkin, skinBox: skinUserBox);
+      }
+    }
   }
 
   void updateSensibleDataState({required SensibleUserData value}) {
