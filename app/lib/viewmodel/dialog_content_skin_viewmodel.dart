@@ -88,24 +88,42 @@ class DialogContentSkinViewModel extends BaseModel {
     }
   }
 
-  displayPaymentSheet() async {
+  displayPaymentSheet({
+    required AppState appState,
+    required String skinId,
+  }) async {
     try {
-      await Stripe.instance.presentPaymentSheet().then((value) {
+      await Stripe.instance.presentPaymentSheet().then((value) async {
         //Clear paymentIntent variable after successful payment
         paymentIntent = null;
+        setState(ViewState.busy);
+        await dioService.put(
+          path: skinUnlockPath,
+          body: {
+            "user": {
+              "id": appState.id,
+              "roles": appState.roles,
+            },
+            "skin": {
+              "id": skinId,
+            }
+          },
+          token: 'Bearer ${appState.token}',
+        );
+        setState(ViewState.retrieved);
         navigationService.goBack();
         navigationService.showSnackBack(
           content: AppMessages.successLabel,
-          
         );
       }).onError((error, stackTrace) {
         throw Exception(error);
       });
     } on StripeException catch (e) {
-      print('Error is:---> $e');
-    } catch (e) {
-      print('$e');
-    }
+      navigationService.showSnackBack(
+        content: AppMessages.stripeError,
+        isError: true,
+      );
+    } catch (e) {}
   }
 
   Future<void> buySkin({
@@ -126,7 +144,10 @@ class DialogContentSkinViewModel extends BaseModel {
         ),
       );
 
-      displayPaymentSheet();
+      displayPaymentSheet(
+        appState: appState,
+        skinId: skin.id,
+      );
     } catch (err) {
       print(err);
       navigationService.showSnackBack(

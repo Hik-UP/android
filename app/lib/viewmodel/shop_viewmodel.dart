@@ -25,7 +25,7 @@ class ShopViewModel extends BaseModel {
         },
         token: "Bearer ${appState.token}",
       );
-      print(response.data);
+
       (response.data['skins'] as List)
           .map(
             (e) => skins.add(
@@ -38,7 +38,6 @@ class ShopViewModel extends BaseModel {
           .toList();
       return skins;
     } catch (e) {
-      print(e);
       return [];
     }
   }

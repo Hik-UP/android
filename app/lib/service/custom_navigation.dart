@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hikup/widget/snack_bar.dart';
 
 class CustomNavigationService {
@@ -41,6 +40,8 @@ class CustomNavigationService {
         elevation: 8.0,
         child: content,
       ),
-    ).then((value) => action());
+    ).then(
+      (value) => action(),
+    );
   }
 }

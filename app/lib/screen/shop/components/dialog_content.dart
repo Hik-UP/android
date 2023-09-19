@@ -67,6 +67,7 @@ class DialogContent extends StatelessWidget {
                     child: CustomBtn(
                       bgColor: const Color(0xff15FF78),
                       content: AppMessages.buyLabel,
+                      isLoading: model.getState == ViewState.busy,
                       onPress: () => model.buySkin(
                         appState: appState,
                         skin: skin,
