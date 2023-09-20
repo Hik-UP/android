@@ -488,7 +488,7 @@ class _HomePageState extends State<ComePage> {
                     borderRadius: BorderRadius.circular(10)),
                 margin: const EdgeInsets.fromLTRB(5, 8, 5, 10),
                 padding: const EdgeInsets.all(14),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -598,10 +598,10 @@ class _HomePageState extends State<ComePage> {
             );
             setState(() {});
           },
-          label: const Row(
+          label: Row(
             children: [
-              Icon(Icons.share),
-              SizedBox(
+              const Icon(Icons.share),
+              const SizedBox(
                 width: 5,
               ),
               Text(

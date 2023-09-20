@@ -22,7 +22,6 @@ class _PlayerSkinState extends State<PlayerSkin> {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
-    print(appState.skin.pictures[0]);
 
     return CurrentLocationLayer(
       positionStream:
@@ -35,7 +34,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
       style: LocationMarkerStyle(
         marker: appState.skin.pictures.isNotEmpty
             ? CachedNetworkImage(
-                imageUrl: appState.skin.pictures[0],
+                imageUrl: appState.skin.model,
                 errorWidget: (context, url, error) => const Icon(
                   Icons.warning,
                   color: Colors.red,

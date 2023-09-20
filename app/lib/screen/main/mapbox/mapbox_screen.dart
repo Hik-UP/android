@@ -356,7 +356,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                       'id': idMapBox
                     },
                   ),
-                  PlayerSkin(),
+                  const PlayerSkin(),
                   PolylineLayer(
                     polylines: model.polylines.isEmpty ? [] : model.polylines,
                   ),
