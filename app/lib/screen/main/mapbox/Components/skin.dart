@@ -34,7 +34,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
       style: LocationMarkerStyle(
         marker: appState.skin.pictures.isNotEmpty
             ? CachedNetworkImage(
-                imageUrl: appState.skin.pictures[0],
+                imageUrl: appState.skin.model,
                 errorWidget: (context, url, error) => const Icon(
                   Icons.warning,
                   color: Colors.red,
