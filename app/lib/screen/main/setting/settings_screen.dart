@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:hikup/screen/event/all_event_view.dart';
 import 'package:hikup/screen/main/setting/complete_profile.dart';
 import 'package:hikup/screen/main/setting/update_profile.dart';
 import 'package:hikup/utils/app_messages.dart';
@@ -236,6 +237,29 @@ class SettingsScreen extends StatelessWidget {
                     const Gap(4.0),
                     Text(
                       githubName,
+                      style: linkTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AllEventView.routeName),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      padding: const EdgeInsets.all(12.0),
+                      child: const Icon(
+                        FontAwesomeIcons.calendarCheck,
+                        color: BlackTertiary,
+                      ),
+                    ),
+                    const Gap(4.0),
+                    Text(
+                      AppMessages.eventLabel,
                       style: linkTextStyle,
                     ),
                   ],

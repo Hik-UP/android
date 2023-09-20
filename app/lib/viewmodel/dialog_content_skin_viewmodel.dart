@@ -68,7 +68,6 @@ class DialogContentSkinViewModel extends BaseModel {
         'amount': amount,
         'currency': currency,
       };
-      print(body);
 
       var response = await dio.post(
         'https://api.stripe.com/v1/payment_intents',
@@ -149,7 +148,6 @@ class DialogContentSkinViewModel extends BaseModel {
         skinId: skin.id,
       );
     } catch (err) {
-      print(err);
       navigationService.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,

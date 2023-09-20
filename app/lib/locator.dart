@@ -5,6 +5,7 @@ import 'package:hikup/service/firebase_storage.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/viewmodel/complete_profile_viewmodel.dart';
+import 'package:hikup/viewmodel/create_event_viewmodel.dart';
 import 'package:hikup/viewmodel/detail_hike_invite.dart';
 import 'package:hikup/viewmodel/detail_screen_viewmodel.dart';
 import 'package:hikup/viewmodel/dialog_content_skin_viewmodel.dart';
@@ -45,4 +46,5 @@ void setupLocator() {
   locator.registerFactory(() => SkinDisplayViewModel());
   locator.registerFactory(() => ShopViewModel());
   locator.registerFactory(() => DialogContentSkinViewModel());
+  locator.registerFactory(() => CreateEventViewModel());
 }
