@@ -80,18 +80,6 @@ class SettingsScreen extends StatelessWidget {
     var _i18n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: kTextTabBarHeight,
-        title: Text(
-          _i18n.settingTxt,
-          style: titleTextStyleWhite,
-        ),
-        iconTheme: IconThemeData(
-          color: GreenPrimary, // Couleur de la flèche retour
-        ),
-        backgroundColor: BlackPrimary,
-        centerTitle: true,
-      ),
       appBar: CustomAppBar(label: AppMessages.settingTxt),
       body: SingleChildScrollView(
         child: Padding(
