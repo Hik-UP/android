@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   animated_text_kit: ^4.2.1
   google_fonts: ^4.0.3
-  intl: ^0.17.0
+  intl: ^0.18.1
   url_launcher: ^6.1.10
   shared_preferences: ^2.0.12
   flutter_map: ^3.1.0
@@ -70,9 +70,6 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   any_link_preview: ^3.0.0
   socket_io_client: ^2.0.2
-
-dependency_overrides:
-  intl: any 
 
 dev_dependencies:
   flutter_test:
