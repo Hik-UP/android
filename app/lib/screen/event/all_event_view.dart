@@ -43,6 +43,7 @@ class AllEventView extends StatelessWidget {
                           localisation: appState.events[index].localisation,
                           visibilty: "",
                           tags: appState.events[index].tags,
+                          participants: [],
                         ),
                       ),
                     ),

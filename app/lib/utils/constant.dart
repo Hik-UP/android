@@ -63,6 +63,7 @@ const organzierUpdatePath = "/user/hike/organizer/update";
 const getSkinPath = "/skin/retrieve";
 const updateCurrentSkinPath = "/skin/update-current-skin";
 const skinUnlockPath = "/skin/unlock";
+const eventCreatePath = "/event/create";
 
 const pinIcon = "assets/icons/pin.png";
 const idHikeIcon = "assets/icons/information.png";

@@ -103,4 +103,5 @@ class AppMessages {
   static String stripeError = "Le paiement a échoué";
   static String eventLabel = "Events";
   static String addACover4Event = "Ajouter une image de publicité";
+  static String inviteFriendLabel = "Inviter des amis";
 }

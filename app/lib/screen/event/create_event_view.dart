@@ -165,6 +165,35 @@ class _CreateEventViewState extends State<CreateEventView> {
                     height: 100,
                     fit: BoxFit.contain,
                   ),
+                const Gap(8.0),
+                Visibility(
+                  visible: selectedTypeOfEvent == "Groupe",
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppMessages.inviteFriendLabel,
+                        style: subTitleTextStyle,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              controller: tagCtrl,
+                              hintText: "email",
+                            ),
+                          ),
+                          const Gap(8.0),
+                          CustomBtn(
+                            content: "Inviter",
+                            onPress: () {},
+                            bgColor: Colors.blue,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
                 const Gap(70.0),
                 CustomBtn(
                   content: AppMessages.validateLabel,
@@ -176,6 +205,7 @@ class _CreateEventViewState extends State<CreateEventView> {
                         localisation: eventLocalisationCtrl.text,
                         visibilty: "",
                         tags: tagEvent,
+                        participants: [],
                       ),
                     );
 
