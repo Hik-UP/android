@@ -210,13 +210,3 @@ class ShowAvatarContainer extends StatelessWidget {
     );
   }
 }
-
-void setState(Null Function() param0) {}
-
-void updateTextControllers(Comment user) {
-  setState(() {});
-}
-
-void deleteTextControllers(Comment user) {
-  setState(() {});
-}

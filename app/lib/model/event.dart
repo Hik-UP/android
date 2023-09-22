@@ -21,21 +21,30 @@ class EventModel {
     required this.participants,
   });
 
-  static createEvent(
-      {required String title,
-      required String description,
-      required String coverUrl,
-      required List<String> invitedUser,
-      required List<String> tags,
-      required String localisation,
-      required int nbrParticipants,
-      required String token}) async {
+  static createEvent({
+    required String title,
+    required String description,
+    required String coverUrl,
+    required List<String> invitedUser,
+    required List<String> tags,
+    required String localisation,
+    required int nbrParticipants,
+    required String token,
+  }) async {
     DioService dioService = locator<DioService>();
 
     var response = await dioService.post(
       path: eventCreatePath,
       body: {
-        "user": {},
+        "user": {
+          "title": title,
+          "description": description,
+          "coverUrl": coverUrl,
+          "invitedUser": [],
+          "tags": tags,
+          "localisation": localisation,
+          "nbrParticipants": nbrParticipants
+        },
       },
       token: 'Bearer $token',
     );

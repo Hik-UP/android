@@ -170,6 +170,7 @@ class _CommunityViewState extends State<CommunityView> {
                       child: Stack(
                         children: [
                           TextFormField(
+                            focusNode: model.inputFocus,
                             //keyboardType: TextInputType.text,
                             maxLines: 2,
                             controller: model.textController,
@@ -198,7 +199,10 @@ class _CommunityViewState extends State<CommunityView> {
                                     appState: appState,
                                     trailId: widget.trailId,
                                     update: () {
-                                      setState(() {});
+                                      Future.delayed(
+                                        const Duration(seconds: 3),
+                                        () => setState(() {}),
+                                      );
                                     },
                                   ),
                                   icon: const Icon(

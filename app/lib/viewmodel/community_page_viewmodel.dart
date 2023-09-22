@@ -17,6 +17,7 @@ class CommunityPageViewModel extends BaseModel {
   final custonNavigationService = locator<CustomNavigationService>();
   final TextEditingController textController = TextEditingController();
   final firebaseStorage = locator<FirebaseStorageService>();
+  FocusNode inputFocus = FocusNode();
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
@@ -102,6 +103,8 @@ class CommunityPageViewModel extends BaseModel {
       );
     }
     textController.clear();
+    inputFocus.unfocus();
+
     image = null;
 
     update();
