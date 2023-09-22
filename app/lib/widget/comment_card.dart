@@ -2,21 +2,40 @@ import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:hikup/locator.dart";
 import "package:hikup/model/comment.dart";
+import "package:hikup/providers/app_state.dart";
+import "package:hikup/service/custom_navigation.dart";
+import "package:hikup/service/dio_service.dart";
 import "package:hikup/theme.dart";
 import "package:hikup/utils/constant.dart";
+import "package:hikup/widget/custom_btn.dart";
 import "package:hikup/widget/custom_loader.dart";
+import "package:hikup/widget/custom_text_field.dart";
 import "package:hikup/widget/warning_error_img.dart";
+import "package:provider/provider.dart";
 
-class CommentCard extends StatelessWidget {
+class CommentCard extends StatefulWidget {
   final Comment comment;
+  final Function update;
   const CommentCard({
     Key? key,
     required this.comment,
+    required this.update,
   }) : super(key: key);
 
   @override
+  State<CommentCard> createState() => _CommentCardState();
+}
+
+class _CommentCardState extends State<CommentCard> {
+  final TextEditingController newCommentCtrl = TextEditingController();
+  bool isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
+    AppState appState = context.read<AppState>();
+
     return Card(
       color: BlackPrimary,
       child: Padding(
@@ -27,9 +46,9 @@ class CommentCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                comment.author.picture.isNotEmpty
+                widget.comment.author.picture.isNotEmpty
                     ? CachedNetworkImage(
-                        imageUrl: comment.author.picture,
+                        imageUrl: widget.comment.author.picture,
                         imageBuilder: (context, imageProvider) =>
                             ShowAvatarContainer(
                           backgroundImage: imageProvider,
@@ -48,45 +67,16 @@ class CommentCard extends StatelessWidget {
                           profilePlaceHoder,
                         ),
                       ),
-                // IconButton(
-                //   color: GreenPrimary,
-                //     onPressed: () {
-                //         itemBuilder: (context) {
-                //           return [
-                //           PopupMenuItem(
-                //             value: 'edit',
-                //             child: Text('Edit'),
-                //           ),
-                //           PopupMenuItem(
-                //             value: 'delete',
-                //             child: Text('Delete'),
-                //           )
-                //           ];
-                //         };
-                //               // myAlert(
-                //               //   context: context,
-                //               //   getImageGallery: () => model.getImage(
-                //               //     ImageSource.gallery,
-                //               //   ),
-                //               //   getImageCamera: () => model.getImage(
-                //               //     ImageSource.camera,
-                //               //   ),
-                //               // );
-                //             },
-                //             icon: const Icon(Icons.menu),
-                //           ),
-                //icon: const Icon(Icons.menu),
                 const Gap(10.0),
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      comment.author.username,
+                      widget.comment.author.username,
                       style: subTitleTextStyle,
                     ),
                     Text(
-                      comment.date.toString().split(' ')[0].replaceAll(
+                      widget.comment.date.toString().split(' ')[0].replaceAll(
                             RegExp(r'-'),
                             "/",
                           ),
@@ -106,13 +96,13 @@ class CommentCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    comment.body,
+                    widget.comment.body,
                     style: WhiteAddressTextStyle,
                   ),
-                  if (comment.pictures.isNotEmpty &&
-                      comment.pictures.first.isNotEmpty)
+                  if (widget.comment.pictures.isNotEmpty &&
+                      widget.comment.pictures.first.isNotEmpty)
                     CachedNetworkImage(
-                      imageUrl: comment.pictures[0],
+                      imageUrl: widget.comment.pictures[0],
                       errorWidget: (context, url, error) =>
                           const ContainerPicture(
                         child: WarmingErrorImg(),
@@ -135,28 +125,55 @@ class CommentCard extends StatelessWidget {
             IconButton(
               color: GreenPrimary,
               onPressed: () {
-                itemBuilder:
-                (context) {
-                  return const [
-                    PopupMenuItem(
-                      value: 'edit',
-                      child: Text('Edit'),
-                    ),
-                    PopupMenuItem(
-                      value: 'delete',
-                      child: Text('Delete'),
-                    )
-                  ];
-                };
-                // myAlert(
-                //   context: context,
-                //   getImageGallery: () => model.getImage(
-                //     ImageSource.gallery,
-                //   ),
-                //   getImageCamera: () => model.getImage(
-                //     ImageSource.camera,
-                //   ),
-                // );
+                locator<CustomNavigationService>().showDialogue(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Nouveau commentaire",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Gap(4.0),
+                      CustomTextField(
+                        controller: newCommentCtrl,
+                      ),
+                      const Gap(4.0),
+                      CustomBtn(
+                        isLoading: isLoading,
+                        content: "Modifier",
+                        bgColor: Colors.green,
+                        onPress: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          await locator<DioService>().put(
+                            path: updateCommentPath,
+                            body: {
+                              "user": {
+                                "id": appState.id,
+                                "roles": appState.roles,
+                              },
+                              "comment": {
+                                "id": widget.comment.id,
+                                "body": newCommentCtrl.text
+                              },
+                            },
+                            token: 'Bearer ${appState.token}',
+                          );
+
+                          setState(() {
+                            isLoading = false;
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                  action: () {
+                    widget.update();
+                  },
+                );
               },
               icon: const Icon(Icons.edit),
             ),

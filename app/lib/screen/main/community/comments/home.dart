@@ -99,6 +99,7 @@ class _CommunityViewState extends State<CommunityView> {
                                 padding: const EdgeInsets.all(14.0),
                                 child: CommentCard(
                                   comment: snapshot.data![index],
+                                  update: () => setState(() {}),
                                 ),
                               );
                             },

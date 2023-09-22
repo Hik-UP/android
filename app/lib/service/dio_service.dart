@@ -103,6 +103,7 @@ class DioService {
 
       return result;
     } on DioError catch (e) {
+      print(e);
       return e.response!;
     }
   }

@@ -324,21 +324,26 @@ class _NavigationScreenState extends State<NavigationScreen> {
               decoration: BoxDecoration(
                 color: BlackPrimary,
               ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    LoadPictureProfil(appState: state, size: 48),
-                    Gap(10),
-                    Text(state.username, style: subTitleTextStyle),
-                    Gap(20),
-                    const Icon(
-                      Icons.hiking_rounded,
-                      color: Colors.white,
-                    ),
-                    Gap(5.0),
-                    Text("${stats.distance}" + " m", style: subTitleTextStyle),
-                    Gap(20),
-                    CustomBtn(
+              child: Column(
+                children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        LoadPictureProfil(appState: state, size: 48),
+                        Gap(10),
+                        Text(state.username, style: subTitleTextStyle),
+                        Gap(20),
+                        const Icon(
+                          Icons.hiking_rounded,
+                          color: Colors.white,
+                        ),
+                        Gap(5.0),
+                        Text("${stats.distance}" + " m",
+                            style: subTitleTextStyle),
+                        Gap(20),
+                      ]),
+                  Expanded(
+                    child: CustomBtn(
                         bgColor: Colors.red,
                         textColor: Colors.white,
                         content: "X",
@@ -346,7 +351,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
                           SocketService().disconnect();
                           Navigator.of(context, rootNavigator: true).pop();
                         }),
-                  ]),
+                  )
+                ],
+              ),
             );
           }),
           panel: Container(
