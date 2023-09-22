@@ -7,6 +7,7 @@ import "package:hikup/model/event.dart";
 import "package:hikup/providers/app_state.dart";
 import "package:hikup/theme.dart";
 import "package:hikup/utils/app_messages.dart";
+import "package:hikup/utils/constant.dart";
 import "package:hikup/viewmodel/create_event_viewmodel.dart";
 import "package:hikup/widget/base_view.dart";
 import "package:hikup/widget/checkbox_builder.dart";
@@ -196,20 +197,16 @@ class _CreateEventViewState extends State<CreateEventView> {
                 ),
                 const Gap(70.0),
                 CustomBtn(
+                  isLoading: model.getState == ViewState.busy,
                   content: AppMessages.validateLabel,
                   onPress: () {
-                    appState.addNewEvent(
-                      EventModel(
-                        name: eventNameCtrl.text,
-                        description: eventDescriptionCtrl.text,
-                        localisation: eventLocalisationCtrl.text,
-                        visibilty: "",
-                        tags: tagEvent,
-                        participants: [],
-                      ),
+                    model.createEvent(
+                      appState: appState,
+                      title: eventNameCtrl.text,
+                      description: eventDescriptionCtrl.text,
+                      tags: tagEvent,
+                      localisation: eventLocalisationCtrl.text,
                     );
-
-                    Navigator.of(context).pop();
                   },
                   bgColor: Colors.green,
                 ),
