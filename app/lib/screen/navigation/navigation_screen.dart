@@ -10,7 +10,7 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
-import 'package:latlong2/latlong.dart' as latlng;
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/utils/socket/socket.dart';
@@ -48,12 +48,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   void initState() {
     super.initState();
-    AppState appState = context.read<AppState>();
+
     marker = Marker(
       width: 24.0,
       height: 24.0,
-      point: latlng.LatLng(
-          widget.hike.trail.latitude, widget.hike.trail.longitude),
+      point: LatLng(widget.hike.trail.latitude, widget.hike.trail.longitude),
       builder: (ctx) => SizedBox(
         height: 10,
         width: 10,
@@ -66,7 +65,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       points: json
           .decode(widget.hike.trail.geoJSON)["features"][0]["geometry"]
               ["coordinates"]
-          .map<latlng.LatLng>((entry) => latlng.LatLng(entry[1], entry[0]))
+          .map<LatLng>((entry) => LatLng(entry[1], entry[0]))
           .toList(),
       color: Colors.red,
       strokeWidth: 3.0,
@@ -78,8 +77,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
         distance: widget.stats["distance"],
         completed: widget.stats["completed"]);
     _hikers = widget.hikers.map((entry) {
-      late latlng.LatLng hikerLatLng = latlng.LatLng(
-          entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
+      late LatLng hikerLatLng =
+          LatLng(entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
 
       return {
         "id": entry["hiker"]["id"],
@@ -121,8 +120,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
     });
     SocketService().hike.onJoin((data) {
       dynamic entry = json.decode(data);
-      late latlng.LatLng hikerLatLng = latlng.LatLng(
-          entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
+      late LatLng hikerLatLng =
+          LatLng(entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
 
       setState(() {
         _hikers = [
@@ -173,8 +172,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
     });
     SocketService().hike.onMove((data) {
       dynamic entry = json.decode(data);
-      late latlng.LatLng hikerLatLng = latlng.LatLng(
-          entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
+      late LatLng hikerLatLng =
+          LatLng(entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
       final newHiker = {
         "id": entry["hiker"]["id"],
         "username": entry["hiker"]["username"],

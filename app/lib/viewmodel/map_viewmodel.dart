@@ -4,7 +4,7 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
-import 'package:latlong2/latlong.dart' as latlng;
+import 'package:latlong2/latlong.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/comment.dart';
 
@@ -33,8 +33,7 @@ class MapViewModel extends BaseModel {
 
     if (trailList.statusCode == 200 || trailList.statusCode == 201) {
       trailList.data["trails"].forEach((entry) {
-        late latlng.LatLng trailLatLng =
-            latlng.LatLng(entry["latitude"], entry["longitude"]);
+        late LatLng trailLatLng = LatLng(entry["latitude"], entry["longitude"]);
         var geoJSON = json.decode(entry["geoJSON"]);
 
         markers.add(
@@ -44,7 +43,7 @@ class MapViewModel extends BaseModel {
             point: trailLatLng,
             builder: (ctx) => GestureDetector(
               onTap: () {
-                final List<latlng.LatLng> points = [];
+                final List<LatLng> points = [];
 
                 trailsList.clear();
                 trailsList.add(TrailFields(
@@ -82,7 +81,7 @@ class MapViewModel extends BaseModel {
                 ));
                 geoJSON["features"][0]["geometry"]["coordinates"]
                     .forEach((entry) {
-                  points.add(latlng.LatLng(entry[1], entry[0]));
+                  points.add(LatLng(entry[1], entry[0]));
                 });
 
                 mapController.move(trailLatLng, 18.0);

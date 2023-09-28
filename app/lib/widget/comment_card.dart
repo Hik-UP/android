@@ -132,34 +132,6 @@ class CommentCard extends StatelessWidget {
                 ],
               ),
             ),
-            IconButton(
-              color: GreenPrimary,
-              onPressed: () {
-                itemBuilder:
-                (context) {
-                  return [
-                    const PopupMenuItem(
-                      value: 'edit',
-                      child: Text('Edit'),
-                    ),
-                    const PopupMenuItem(
-                      value: 'delete',
-                      child: Text('Delete'),
-                    )
-                  ];
-                };
-                // myAlert(
-                //   context: context,
-                //   getImageGallery: () => model.getImage(
-                //     ImageSource.gallery,
-                //   ),
-                //   getImageCamera: () => model.getImage(
-                //     ImageSource.camera,
-                //   ),
-                // );
-              },
-              icon: const Icon(Icons.edit),
-            ),
           ],
         ),
       ),

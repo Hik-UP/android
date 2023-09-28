@@ -17,7 +17,7 @@ import "package:hikup/widget/display_detail_trails.dart";
 import "package:hikup/widget/guest_cmp.dart";
 import "package:provider/provider.dart";
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart' as latlng;
+import 'package:latlong2/latlong.dart';
 import "package:hikup/screen/navigation/navigation_screen.dart";
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/locator.dart';
@@ -40,7 +40,7 @@ class DetailHikeInvite extends StatelessWidget {
     final Marker marker = Marker(
       width: 50.0,
       height: 50.0,
-      point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
+      point: LatLng(hike.trail.latitude, hike.trail.longitude),
       builder: (ctx) => const Icon(
         Icons.fiber_manual_record_rounded,
         color: Colors.blue,
@@ -50,7 +50,7 @@ class DetailHikeInvite extends StatelessWidget {
     final Polyline polyline = Polyline(
       points: json
           .decode(hike.trail.geoJSON)["features"][0]["geometry"]["coordinates"]
-          .map<latlng.LatLng>((entry) => latlng.LatLng(entry[1], entry[0]))
+          .map<LatLng>((entry) => LatLng(entry[1], entry[0]))
           .toList(),
       color: Colors.red,
       strokeWidth: 3.0,
@@ -68,7 +68,7 @@ class DetailHikeInvite extends StatelessWidget {
     Marker(
       width: 50.0,
       height: 50.0,
-      point: latlng.LatLng(hike.trail.latitude, hike.trail.longitude),
+      point: LatLng(hike.trail.latitude, hike.trail.longitude),
       builder: (ctx) => const Icon(
         Icons.fiber_manual_record_rounded,
         color: Colors.blue,
@@ -109,8 +109,8 @@ class DetailHikeInvite extends StatelessWidget {
                         interactiveFlags: InteractiveFlag.none,
                         enableScrollWheel: false,
                         zoom: 13,
-                        center: latlng.LatLng(
-                            hike.trail.latitude, hike.trail.longitude),
+                        center:
+                            LatLng(hike.trail.latitude, hike.trail.longitude),
                         showSkin: false,
                         polylines: [polyline],
                         markers: [marker],
