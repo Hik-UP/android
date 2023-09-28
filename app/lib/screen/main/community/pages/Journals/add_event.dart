@@ -212,7 +212,7 @@ class _AddPageState extends State<AddPage> {
                   handleSubmit();
                 },
                 tooltip: 'Add',
-                label: Row(children: const [
+                label: const Row(children: [
                   Icon(Icons.add),
                   SizedBox(width: 5),
                   Text("Send")

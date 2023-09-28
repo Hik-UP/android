@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hikup/screen/main/mapbox/Components/map.dart';
 import 'package:hikup/widget/header.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:hikup/theme.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
-import 'package:latlong2/latlong.dart' as latlng;
 import 'package:provider/provider.dart';
-import 'package:hikup/screen/main/mapbox/Components/skin.dart';
-import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/community/comments/home.dart';
-import 'package:geolocator/geolocator.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
@@ -61,13 +57,13 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
       }
 
       model.mapController.mapEventStream.listen((event) {
-        if (!model.polylines.isEmpty && model.mapController.zoom <= 12) {
+        if (model.polylines.isNotEmpty && model.mapController.zoom <= 12) {
           model.polylines.clear();
           _pc.hide();
         }
       });
 
-      if (_pc.isAttached && !model.trailsList.isEmpty) {
+      if (_pc.isAttached && model.trailsList.isNotEmpty) {
         _pc.show();
       } else if (_pc.isAttached) {
         _pc.hide();
@@ -172,7 +168,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                             ),
                                           ),
                                           onPressed: () {
-                                            if (!model.trailsList.isEmpty) {
+                                            if (model.trailsList.isNotEmpty) {
                                               _launchUrl(
                                                   "https://maps.google.com/?q=${model.trailsList[0].latitude},${model.trailsList[0].longitude}");
                                             }
@@ -246,7 +242,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                                           4.0),
                                                 ),
                                                 child: Text(
-                                                  "${label}",
+                                                  label,
                                                   style: subTitleTextStyle,
                                                 ),
                                               ),
@@ -295,7 +291,8 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                       ),
                                       const Gap(10.0),
                                       Text(
-                                        "${durationToString(model.trailsList[0].duration)}",
+                                        durationToString(
+                                            model.trailsList[0].duration),
                                         style: subTitleTextStyle,
                                       ),
                                     ],
@@ -339,31 +336,11 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
               ),
 
               /* MAP */
-              body: FlutterMap(
+              body: MapBox(
                 mapController: model.mapController,
-                options: MapOptions(
-                  pinchZoomThreshold: 69.99999999999991,
-                  center: latlng.LatLng(46.227638, 2.213749),
-                  zoom: model.zoom,
-                  maxBounds: LatLngBounds(
-                      latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0)),
-                ),
-                children: [
-                  TileLayer(
-                    urlTemplate: getMap(),
-                    additionalOptions: const {
-                      'accessToken': accessTokenMapBox,
-                      'id': idMapBox
-                    },
-                  ),
-                  PlayerSkin(),
-                  PolylineLayer(
-                    polylines: model.polylines.isEmpty ? [] : model.polylines,
-                  ),
-                  MarkerLayer(
-                    markers: model.loading ? [] : model.markers,
-                  ),
-                ],
+                zoom: model.zoom,
+                polylines: model.polylines,
+                markers: model.markers,
               )));
     });
   }

@@ -185,9 +185,9 @@ class UpdateProfile extends StatelessWidget {
                         },
                       )
                     },
-                    child: Row(
+                    child: const Row(
                       children: [
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.all(12.0),
                           // child: Icon(
                           //   FontAwesomeIcons.deleteLeft,

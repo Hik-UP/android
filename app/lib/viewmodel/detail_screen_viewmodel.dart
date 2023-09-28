@@ -7,7 +7,6 @@ import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/base_model.dart';
-import 'package:hikup/theme.dart';
 
 class DetailScreenViewModel extends BaseModel {
   final TextEditingController dateCtrl = TextEditingController();

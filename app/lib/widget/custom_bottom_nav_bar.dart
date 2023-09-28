@@ -64,7 +64,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           _selectedIndex = index;
         });
       },
-      child: Container(
+      child: SizedBox(
         height: kBottomNavigationBarHeight,
         width: MediaQuery.of(context).size.width / _selectedItemIcon.length,
         child: Padding(

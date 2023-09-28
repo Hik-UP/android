@@ -244,7 +244,7 @@ class _FolderPageState extends State<FolderPage> {
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
+                                                                .only(
                                                                 right: 15.0),
                                                         child: GestureDetector(
                                                             onTap: () async {
@@ -349,7 +349,7 @@ class _FolderPageState extends State<FolderPage> {
           });
         },
         tooltip: 'Add',
-        label: Row(children: const [
+        label: const Row(children: [
           Icon(Icons.add),
           SizedBox(
             width: 5,

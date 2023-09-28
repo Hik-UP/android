@@ -11,7 +11,7 @@ class AppInterceptors extends Interceptor {
       //When we execute a request, a 401 is for UnAuthorised (Token is expired), using Interceptor we verify if the status code of the reponse
       // Of the request is equal to 401
       // If is equal to 401, then we will code or call the function logout user inside this brackets
-      print("Bad Token");
+
       await WrapperApi().logout(isLogout: false);
     }
     return err;

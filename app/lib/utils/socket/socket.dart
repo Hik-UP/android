@@ -1,15 +1,11 @@
-import 'dart:convert';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/service/custom_navigation.dart';
-import 'package:hikup/model/navigation.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hikup/utils/socket/hike.dart';
 
-IO.Socket? socket = null;
+IO.Socket? socket;
 
 class SocketService {
   final _navigator = locator<CustomNavigationService>();
@@ -22,7 +18,7 @@ class SocketService {
   }) {
     try {
       socket = IO.io(
-          "$baseSocketUrl",
+          baseSocketUrl,
           IO.OptionBuilder()
               .setTransports(['websocket'])
               .setAuth(
@@ -43,7 +39,6 @@ class SocketService {
       socket?.disconnect();
       socket?.clearListeners();
     } catch (e) {
-      print(e);
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,

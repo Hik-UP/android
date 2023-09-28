@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:math' show cos, sqrt, asin;
-import 'package:crypto/crypto.dart';
 import 'dart:convert';
+import 'package:hikup/screen/main/mapbox/Components/map.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:hikup/theme.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -12,8 +12,6 @@ import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:latlong2/latlong.dart' as latlng;
 import 'package:provider/provider.dart';
-import 'package:hikup/screen/main/mapbox/Components/skin.dart';
-import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/utils/socket/socket.dart';
 import "package:hikup/model/hike.dart";
@@ -111,7 +109,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     ),
                     child: Text(
                       entry["hiker"]["username"],
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     )),
               ])),
         ),
@@ -157,7 +155,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                         ),
                         child: Text(
                           entry["hiker"]["username"],
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         )),
                   ])),
             ),
@@ -205,7 +203,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     ),
                     child: Text(
                       entry["hiker"]["username"],
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     )),
               ])),
         ),
@@ -315,118 +313,91 @@ class _NavigationScreenState extends State<NavigationScreen> {
       return Scaffold(
         extendBodyBehindAppBar: true,
         body: SlidingUpPanel(
-          renderPanelSheet: false,
-          minHeight: 100,
-          collapsed: Consumer<AppState>(builder: (context, state, child) {
-            return Container(
-              margin: const EdgeInsets.fromLTRB(0, 15.0, 0, 0),
-              padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 10.0),
+            renderPanelSheet: false,
+            minHeight: 100,
+            collapsed: Consumer<AppState>(builder: (context, state, child) {
+              return Container(
+                margin: const EdgeInsets.fromLTRB(0, 15.0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 10.0),
+                decoration: const BoxDecoration(
+                  color: BlackPrimary,
+                ),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      LoadPictureProfil(appState: state, size: 48),
+                      const Gap(10),
+                      Text(state.username, style: subTitleTextStyle),
+                      const Gap(20),
+                      const Icon(
+                        Icons.hiking_rounded,
+                        color: Colors.white,
+                      ),
+                      const Gap(5.0),
+                      Text("${stats.distance}" " m", style: subTitleTextStyle),
+                      const Gap(20),
+                      CustomBtn(
+                          bgColor: Colors.red,
+                          textColor: Colors.white,
+                          content: "X",
+                          onPress: () {
+                            SocketService().disconnect();
+                            Navigator.of(context, rootNavigator: true).pop();
+                          }),
+                    ]),
+              );
+            }),
+            panel: Container(
               decoration: BoxDecoration(
                 color: BlackPrimary,
+                borderRadius: BorderRadius.circular(15),
               ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    LoadPictureProfil(appState: state, size: 48),
-                    Gap(10),
-                    Text(state.username, style: subTitleTextStyle),
-                    Gap(20),
-                    const Icon(
-                      Icons.hiking_rounded,
-                      color: Colors.white,
-                    ),
-                    Gap(5.0),
-                    Text("${stats.distance}" + " m", style: subTitleTextStyle),
-                    Gap(20),
-                    CustomBtn(
-                        bgColor: Colors.red,
-                        textColor: Colors.white,
-                        content: "X",
-                        onPress: () {
-                          SocketService().disconnect();
-                          Navigator.of(context, rootNavigator: true).pop();
-                        }),
-                  ]),
-            );
-          }),
-          panel: Container(
-            decoration: BoxDecoration(
-              color: BlackPrimary,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(children: <Widget>[
-              Gap(20),
-              Text("Randonneurs", style: subTitleTextStyle),
-              Gap(20),
-              Column(
-                children: _hikers.map((entry) {
-                  int index =
-                      _hikers.indexWhere((item) => item["id"] == entry["id"]);
+              child: Column(children: <Widget>[
+                const Gap(20),
+                Text("Randonneurs", style: subTitleTextStyle),
+                const Gap(20),
+                Column(
+                  children: _hikers.map((entry) {
+                    int index =
+                        _hikers.indexWhere((item) => item["id"] == entry["id"]);
 
-                  return Container(
-                    margin: const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
-                    padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                    decoration: BoxDecoration(
-                      color: index % 2 == 0
-                          ? Colors.white.withOpacity(0.16)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          loadHikerPicture(48, entry["picture"].toString()),
-                          Gap(10),
-                          Text(entry["username"].toString(),
-                              style: subTitleTextStyle),
-                          Gap(20),
-                          const Icon(
-                            Icons.hiking_rounded,
-                            color: Colors.white,
-                          ),
-                          Gap(5.0),
-                          Text(entry["stats"]["distance"].toString() + " m",
-                              style: subTitleTextStyle)
-                        ]),
-                  );
-                }).toList(),
-              ),
-            ]),
-          ),
-          body: FlutterMap(
-            mapController: model.mapController,
-            options: MapOptions(
-              pinchZoomThreshold: 69.99999999999991,
-              center: latlng.LatLng(46.227638, 2.213749),
-              zoom: 18.0,
-              maxBounds: LatLngBounds(
-                  latlng.LatLng(-90, -180.0), latlng.LatLng(90.0, 180.0)),
+                    return Container(
+                      margin: const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
+                      padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                      decoration: BoxDecoration(
+                        color: index % 2 == 0
+                            ? Colors.white.withOpacity(0.16)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            loadHikerPicture(48, entry["picture"].toString()),
+                            const Gap(10),
+                            Text(entry["username"].toString(),
+                                style: subTitleTextStyle),
+                            const Gap(20),
+                            const Icon(
+                              Icons.hiking_rounded,
+                              color: Colors.white,
+                            ),
+                            const Gap(5.0),
+                            Text("${entry["stats"]["distance"]} m",
+                                style: subTitleTextStyle)
+                          ]),
+                    );
+                  }).toList(),
+                ),
+              ]),
             ),
-            children: [
-              TileLayer(
-                urlTemplate: getMap(),
-                additionalOptions: const {
-                  'accessToken': accessTokenMapBox,
-                  'id': idMapBox
-                },
-              ),
-              PlayerSkin(),
-              MarkerLayer(
-                markers: _hikers.isEmpty
-                    ? []
-                    : _hikers
-                        .map((entry) => entry["marker"] as Marker)
-                        .toList(),
-              ),
-              MarkerLayer(
-                markers: [marker],
-              ),
-              PolylineLayer(
+            body: MapBox(
+                mapController: model.mapController,
+                zoom: 17,
                 polylines: [polyline],
-              ),
-            ],
-          ),
-        ),
+                markers: _hikers
+                    .map((entry) => entry["marker"] as Marker)
+                    .toList())),
       );
     });
   }

@@ -28,7 +28,7 @@ showToast(
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(0, 10, 15, 10),
-            child: Row(
+            child: const Row(
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.center,
                 // children: [

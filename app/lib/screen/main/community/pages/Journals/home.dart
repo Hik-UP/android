@@ -3,14 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hikup/screen/main/community/pages/Journals/all_checklists.dart';
 import 'package:hikup/screen/main/community/shared_preferences.dart';
-import '../../../../../model/trail_fields.dart';
-import '../../../../../utils/app_messages.dart';
-import '../../../../../widget/trail_card.dart';
 import '../../utils/enums.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../Notifications/ftoast_style.dart';
 import 'add_event.dart';
-import 'edit_page.dart';
 
 class ComePage extends StatefulWidget {
   static String routeName = "/community";
@@ -495,9 +490,9 @@ class _HomePageState extends State<ComePage> {
                     borderRadius: BorderRadius.circular(10)),
                 margin: const EdgeInsets.fromLTRB(5, 8, 5, 10),
                 padding: const EdgeInsets.all(14),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       "Add event",
                       style: TextStyle(
@@ -605,8 +600,8 @@ class _HomePageState extends State<ComePage> {
             );
             setState(() {});
           },
-          label: Row(
-            children: const [
+          label: const Row(
+            children: [
               Icon(Icons.share),
               SizedBox(
                 width: 5,

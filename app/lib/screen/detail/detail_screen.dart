@@ -75,7 +75,7 @@ class DetailScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   child: Text(
-                                    "${label}",
+                                    label,
                                     style: subTitleTextStyle,
                                   ),
                                 ),
@@ -103,7 +103,7 @@ class DetailScreen extends StatelessWidget {
                     const Gap(10.0),
                     DisplayDetailTrails(
                       trailId: field.id,
-                      duration: "${durationToString(field.duration)}",
+                      duration: durationToString(field.duration),
                       upHill: "${field.uphill} m",
                       downHill: "${field.downhill} m",
                       tools: field.tools,

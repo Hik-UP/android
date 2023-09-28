@@ -74,9 +74,6 @@ class AppState extends ChangeNotifier {
 
   void setFcmToken({required String value}) {
     fcmUserToken = value;
-
-    print("Tpken");
-    print(value);
     WrapperApi().sendFcmToken(
       id: id,
       roles: roles,

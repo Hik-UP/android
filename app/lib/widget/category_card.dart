@@ -4,7 +4,7 @@ import 'package:hikup/model/rando_category.dart';
 import 'package:hikup/utils/dummy_data.dart';
 import 'package:hikup/theme.dart';
 
-typedef void IntCallback(String label);
+typedef IntCallback = void Function(String label);
 
 class CategoryListView extends StatefulWidget {
   final List<TrailFields> trailsList;
@@ -45,7 +45,7 @@ class _CategoryListViewState extends State<CategoryListView> {
           imageAsset: labelInfos.imageAsset,
           onTap: widget.onTap,
         );
-        if (labelInfos.title.length > 0 &&
+        if (labelInfos.title.isNotEmpty &&
             categoryList.indexWhere(
                     (card) => card.title == _trailsList[i].labels[j]) <
                 0) {

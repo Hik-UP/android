@@ -109,5 +109,4 @@ class LoginPageViewModel extends BaseModel {
       setState(ViewState.retrieved);
     }
   }
-  // print(result);
 }

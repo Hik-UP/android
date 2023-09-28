@@ -34,7 +34,7 @@ class HikesCreate extends StatelessWidget {
                 length: model.tabs.length,
                 child: Builder(builder: (context) {
                   final TabController tabController =
-                      DefaultTabController.of(context)!;
+                      DefaultTabController.of(context);
 
                   tabController.addListener(() {
                     if (!tabController.indexIsChanging) {

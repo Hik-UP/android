@@ -50,8 +50,8 @@ class _CommunityViewState extends State<CommunityView> {
                     Navigator.pop(context);
                     getImageGallery();
                   },
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.image),
                       Text('À partir de la gallerie'),
                     ],
@@ -62,8 +62,8 @@ class _CommunityViewState extends State<CommunityView> {
                     Navigator.pop(context);
                     getImageCamera();
                   },
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.camera),
                       Text('À partir de la caméra'),
                     ],
@@ -112,32 +112,32 @@ class _CommunityViewState extends State<CommunityView> {
     //     );
     //   },
     // );
-  //   showAlertDialog() {
-  //   showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text('Supprimer?'),
-  //           content: const Text('Souhaitez vous supprimer ce commetaire?'),
-  //           actions: [
-  //             ElevatedButton(
-  //                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-  //                 onPressed: () {
-  //                   Navigator.pop(context);
-  //                 },
-  //                 child: const Text('Annuler')),
-  //             ElevatedButton(
-  //                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-  //                 onPressed: () {
-  //                   // suppression
-  //                 },
-  //                 child: const Text(
-  //                   'Confirmer',
-  //                 )),
-  //           ],
-  //         );
-  //       });
-  // }
+    //   showAlertDialog() {
+    //   showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return AlertDialog(
+    //           title: const Text('Supprimer?'),
+    //           content: const Text('Souhaitez vous supprimer ce commetaire?'),
+    //           actions: [
+    //             ElevatedButton(
+    //                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+    //                 onPressed: () {
+    //                   Navigator.pop(context);
+    //                 },
+    //                 child: const Text('Annuler')),
+    //             ElevatedButton(
+    //                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+    //                 onPressed: () {
+    //                   // suppression
+    //                 },
+    //                 child: const Text(
+    //                   'Confirmer',
+    //                 )),
+    //           ],
+    //         );
+    //       });
+    // }
   }
 
   @override
@@ -192,22 +192,22 @@ class _CommunityViewState extends State<CommunityView> {
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (BuildContext context, index) {
-                                IconButton(
-                                  color: GreenPrimary,
-                                  onPressed: () {
-                                    myAlert(
-                                      context: context,
-                                      getImageGallery: () => model.getImage(
-                                        ImageSource.gallery,
-                                      ),
-                                      getImageCamera: () => model.getImage(
-                                        ImageSource.camera,
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(Icons.menu),
-                                );
-                              
+                              IconButton(
+                                color: GreenPrimary,
+                                onPressed: () {
+                                  myAlert(
+                                    context: context,
+                                    getImageGallery: () => model.getImage(
+                                      ImageSource.gallery,
+                                    ),
+                                    getImageCamera: () => model.getImage(
+                                      ImageSource.camera,
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.menu),
+                              );
+
                               return Padding(
                                 padding: const EdgeInsets.all(14.0),
                                 child: CommentCard(
@@ -326,7 +326,7 @@ class _CommunityViewState extends State<CommunityView> {
                       //             },
                       //             icon: const Icon(Icons.camera_alt),
                       //           ),
-                                
+
                       //         ],
                       //       ),
                       //     )
@@ -348,7 +348,7 @@ class _CommunityViewState extends State<CommunityView> {
                             maxLines: 2,
                             controller: model.textController,
                             keyboardType: TextInputType.text,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
 
                             decoration: const InputDecoration(
                               hintText: 'Écrire un commentaire',
@@ -394,7 +394,6 @@ class _CommunityViewState extends State<CommunityView> {
                                   },
                                   icon: const Icon(Icons.camera_alt),
                                 ),
-                                
                               ],
                             ),
                           )

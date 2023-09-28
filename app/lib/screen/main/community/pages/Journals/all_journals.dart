@@ -152,7 +152,7 @@ class _AllJournalsState extends State<AllJournals> {
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
+                                                                .only(
                                                                 bottom: 6.0,
                                                                 top: 2.0),
                                                         child: ClipRRect(
@@ -199,7 +199,7 @@ class _AllJournalsState extends State<AllJournals> {
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
+                                                                .only(
                                                                 right: 15.0),
                                                         child: GestureDetector(
                                                             onTap: () {

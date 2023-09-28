@@ -15,7 +15,7 @@ enum TypeOfHike { organized, guest, attendee }
 
 enum TypeOfInput { text, password }
 
-const env = "DEV";
+const env = "PROD";
 
 const baseUrl =
     env == "PROD" ? baseProdApiUrl : baseDevApiUrl; //La base_url de l'api
@@ -24,12 +24,13 @@ const baseSocketUrl = env == "PROD"
     ? baseProdSocketUrl
     : baseDevSocketUrl; //La base_url des sockets
 
-const urlTemplateMapBoxDay =
-    "https://api.mapbox.com/styles/v1/hikupapp/cle0lx80a00j701qqki8kcxqd/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w";
-const urlTemplateMapBoxNight =
-    "https://api.mapbox.com/styles/v1/hikupapp/cle6pe8m0005101qmp8irwrda/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w";
-const urlTemplateMapBoxCrepu =
-    "https://api.mapbox.com/styles/v1/hikupapp/cle6pea5c002z01q92yuxzzw0/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w";
+//const mapUrl =
+//    "https://api.mapbox.com/styles/v1/hikupapp/{id}/tiles/512/{z}/{x}/{y}{r}?access_token={accessToken}";
+const mapUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+const mapIdDay = "cle0lx80a00j701qqki8kcxqd";
+const mapIdNight = "cle6pe8m0005101qmp8irwrda";
+const mapIdSunset = "cle6pea5c002z01q92yuxzzw0";
 
 const accessTokenMapBox =
     'pk.eyJ1IjoiaGlrdXBhcHAiLCJhIjoiY2w4Mm5lM2l4MDMxbjN1a3A4MXVvNG0wZCJ9.BxVDSc16oILvNK7X5gWF5w';
@@ -130,7 +131,7 @@ const githubLink = "assets/icons/github.png";
 const githubName = "Github";
 const stopWatchIcon = "assets/icons/stopwatchIcon.svg";
 
-final LocationSettings locationSettings = LocationSettings(
-  accuracy: LocationAccuracy.high,
-  distanceFilter: 1,
-);
+const LocationSettings locationSettings = LocationSettings(
+    accuracy: LocationAccuracy.high,
+    distanceFilter: 1,
+    timeLimit: Duration(seconds: 5));

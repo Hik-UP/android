@@ -6,9 +6,9 @@ import "package:google_fonts/google_fonts.dart";
 import "package:hikup/model/guest.dart";
 import "package:hikup/model/hike.dart";
 import "package:hikup/providers/app_state.dart";
+import "package:hikup/screen/main/mapbox/Components/map.dart";
 import "package:hikup/theme.dart";
 import "package:hikup/utils/app_messages.dart";
-import "package:hikup/utils/constant.dart";
 import "package:hikup/viewmodel/detail_hike_invite.dart";
 import "package:hikup/widget/base_view.dart";
 import "package:hikup/widget/custom_btn.dart";
@@ -18,7 +18,6 @@ import "package:hikup/widget/guest_cmp.dart";
 import "package:provider/provider.dart";
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latlng;
-import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import "package:hikup/screen/navigation/navigation_screen.dart";
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/locator.dart';
@@ -35,7 +34,7 @@ class DetailHikeInvite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _navigator = locator<CustomNavigationService>();
+    final navigator = locator<CustomNavigationService>();
     double maxHeight = MediaQuery.of(context).size.height;
     AppState appState = context.read<AppState>();
     final Marker marker = Marker(
@@ -100,38 +99,22 @@ class DetailHikeInvite extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    width: double.infinity,
-                    height: maxHeight * .4,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    child: FlutterMap(
-                      options: MapOptions(
-                          enableScrollWheel: false,
-                          interactiveFlags: InteractiveFlag.none,
-                          center: latlng.LatLng(
-                              hike.trail.latitude, hike.trail.longitude),
-                          zoom: 13,
-                          maxBounds: LatLngBounds(latlng.LatLng(-90, -180.0),
-                              latlng.LatLng(90.0, 180.0))),
-                      children: [
-                        TileLayer(
-                          urlTemplate: getMap(),
-                          additionalOptions: const {
-                            'accessToken': accessTokenMapBox,
-                            'id': idMapBox
-                          },
-                        ),
-                        MarkerLayer(
-                          markers: [marker],
-                        ),
-                        PolylineLayer(
-                          polylines: [polyline],
-                        )
-                      ],
-                    ),
-                  ),
+                      width: double.infinity,
+                      height: maxHeight * .4,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                      child: MapBox(
+                        interactiveFlags: InteractiveFlag.none,
+                        enableScrollWheel: false,
+                        zoom: 13,
+                        center: latlng.LatLng(
+                            hike.trail.latitude, hike.trail.longitude),
+                        showSkin: false,
+                        polylines: [polyline],
+                        markers: [marker],
+                      )),
                   // Positioned(
                   //   bottom: 10,
                   //   right: 20,
@@ -187,7 +170,7 @@ class DetailHikeInvite extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             child: Text(
-                              "${label}",
+                              label,
                               style: subTitleTextStyle,
                             ),
                           ),
@@ -256,7 +239,7 @@ class DetailHikeInvite extends StatelessWidget {
                       if (permission != LocationPermission.whileInUse &&
                               permission != LocationPermission.always ||
                           !(await Geolocator.isLocationServiceEnabled())) {
-                        _navigator.showSnackBack(
+                        navigator.showSnackBack(
                           content: 'Localisation inaccessible',
                           isError: true,
                         );

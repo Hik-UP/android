@@ -60,27 +60,27 @@ TextStyle linkTextStyle = GoogleFonts.poppins(color: GreenPrimary);
 TextStyle titleTextStyleWhite = GoogleFonts.poppins(
     fontSize: 18,
     fontWeight: FontWeight.w700,
-    color: Color.fromARGB(255, 255, 255, 255));
+    color: const Color.fromARGB(255, 255, 255, 255));
 
 TextStyle descTextStyleWhite = GoogleFonts.poppins(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: Color.fromARGB(255, 255, 255, 255));
+    color: const Color.fromARGB(255, 255, 255, 255));
 
 TextStyle addressTextStyleWhite = GoogleFonts.poppins(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: Color.fromARGB(255, 255, 255, 255));
+    color: const Color.fromARGB(255, 255, 255, 255));
 
 TextStyle facilityTextStyleWhite = GoogleFonts.poppins(
     fontSize: 13,
     fontWeight: FontWeight.w500,
-    color: Color.fromARGB(255, 255, 255, 255));
+    color: const Color.fromARGB(255, 255, 255, 255));
 
 TextStyle priceTextStyleWhite = GoogleFonts.poppins(
     fontSize: 16,
     fontWeight: FontWeight.w700,
-    color: Color.fromARGB(255, 255, 255, 255));
+    color: const Color.fromARGB(255, 255, 255, 255));
 
 /*
 TextStyle normalTextStyle = GoogleFonts.poppins(color: darkBlue500);

@@ -5,7 +5,6 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 import 'package:latlong2/latlong.dart' as latlng;
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/comment.dart';
 

@@ -53,7 +53,7 @@ class CompleteProfile extends StatelessWidget {
             AppMessages.completeProfil,
             style: titleTextStyleWhite,
           ),
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: GreenPrimary, // Couleur de la flèche retour
           ),
           toolbarHeight: kToolbarHeight,

@@ -113,9 +113,9 @@ class DisplayDetailTrails extends StatelessWidget {
                 ],
               );
             }
-            return Column(
+            return const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 SizedBox(
                   width: 18,
                   height: 18,
@@ -174,7 +174,7 @@ class DisplayDetailTrails extends StatelessWidget {
               width: 16.0,
             ),
             Text(
-              "${difficulty} / 5",
+              "$difficulty / 5",
               textAlign: TextAlign.justify,
               style: WhiteAddressTextStyle,
             ),

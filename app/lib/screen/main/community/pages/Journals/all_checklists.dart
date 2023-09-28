@@ -184,9 +184,9 @@ class _AllChecklistState extends State<AllChecklist> {
                     ),
                     margin: const EdgeInsets.fromLTRB(5, 8, 5, 10),
                     padding: const EdgeInsets.all(7),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text(
                           "Ajouter événements",
                           style: TextStyle(

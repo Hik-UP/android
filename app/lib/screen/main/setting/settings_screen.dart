@@ -83,7 +83,7 @@ class SettingsScreen extends StatelessWidget {
           AppMessages.settingTxt,
           style: titleTextStyleWhite,
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: GreenPrimary, // Couleur de la flèche retour
         ),
         backgroundColor: BlackPrimary,
