@@ -109,9 +109,11 @@ class _LoginPageState extends State<LoginPage> {
                                             255, 23, 255, 119),
                                       ),
                                       onPressed: () {
-                                        Navigator.of(context).pushNamed(
-                                          RegisterPage.routeName,
-                                        );
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RegisterPage(),
+                                        ));
                                       },
                                       child: Text(
                                         AppMessages.noAccountYet,

@@ -22,7 +22,7 @@ class MapBoxScreen extends StatefulWidget {
   State<MapBoxScreen> createState() => _MapBoxScreenState();
 }
 
-class _MapBoxScreenState extends State<MapBoxScreen> {
+class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
   final PanelController _pc = PanelController();
 
   //_pc.hide();

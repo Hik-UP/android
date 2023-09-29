@@ -47,8 +47,7 @@ class HikeSocket {
 
   Future<void> join(String hikeId, Function(dynamic) func) async {
     try {
-      final Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+      final Position position = await Geolocator.getCurrentPosition();
       final data = [
         {
           "data": {

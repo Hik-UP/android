@@ -246,6 +246,7 @@ class DetailHikeInvite extends StatelessWidget {
                         await Geolocator.requestPermission();
                         return;
                       }
+
                       if (joinInProgress == false) {
                         joinInProgress = true;
                         SocketService().connect(
@@ -256,18 +257,19 @@ class DetailHikeInvite extends StatelessWidget {
                           joinInProgress = false;
                           SocketService().disconnect();
                         });
+
                         await SocketService().hike.join(hike.id, (data) {
                           dynamic jsonData = json.decode(data);
                           dynamic stats = jsonData["stats"];
                           List<dynamic> hikers = jsonData["hikers"];
 
                           joinInProgress = false;
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => NavigationScreen(
-                                  hike: hike, stats: stats, hikers: hikers),
-                            ),
-                          );
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) => NavigationScreen(
+                                    hike: hike, stats: stats, hikers: hikers),
+                              ),
+                              (r) => false);
                         });
                       }
                     }),

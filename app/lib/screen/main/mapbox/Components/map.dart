@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:hikup/utils/constant.dart';
 import 'skin.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MapBox extends StatefulWidget {
   final MapController? mapController;
@@ -13,6 +14,7 @@ class MapBox extends StatefulWidget {
   final bool? showSkin;
   final List<Polyline>? polylines;
   final List<Marker>? markers;
+  final Function(Position)? onPositionChange;
   const MapBox(
       {Key? key,
       this.mapController,
@@ -22,7 +24,8 @@ class MapBox extends StatefulWidget {
       this.center,
       this.showSkin,
       this.polylines,
-      this.markers})
+      this.markers,
+      this.onPositionChange})
       : super(key: key);
 
   @override
@@ -57,7 +60,9 @@ class _MapBoxState extends State<MapBox> {
                       'id': getMapId()
                     },*/
             ),
-        Visibility(visible: widget.showSkin ?? true, child: const PlayerSkin()),
+        Visibility(
+            visible: widget.showSkin ?? true,
+            child: PlayerSkin(onPositionChange: widget.onPositionChange)),
         PolylineLayer(
           polylines: widget.polylines ?? [],
         ),

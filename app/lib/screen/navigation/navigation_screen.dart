@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:hikup/screen/main/main_screen.dart';
 import 'dart:math' show cos, sqrt, asin;
 import 'dart:convert';
 import 'package:hikup/screen/main/mapbox/Components/map.dart';
@@ -7,7 +7,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:hikup/theme.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:latlong2/latlong.dart';
@@ -21,6 +20,8 @@ import 'package:hikup/screen/main/setting/settings_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:hikup/widget/custom_btn.dart";
+import 'package:hikup/locator.dart';
+import 'package:hikup/service/custom_navigation.dart';
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;
@@ -38,12 +39,12 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
+  final _navigationService = locator<CustomNavigationService>();
   late HikerStats stats;
   String? lastPosition;
   late List<dynamic> _hikers;
   late Marker marker;
   late Polyline polyline;
-  late StreamSubscription<Position> positionStream;
 
   @override
   void initState() {
@@ -115,9 +116,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
         "stats": entry["hiker"]["stats"]
       };
     }).toList();
-    SocketService().onDisconnect((data) {
-      positionStream.cancel();
-    });
     SocketService().hike.onJoin((data) {
       dynamic entry = json.decode(data);
       late LatLng hikerLatLng =
@@ -216,25 +214,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
           newHiker["LatLng"] != _hikers[index]["LatLng"]) {
         setState(() {
           _hikers[index] = newHiker;
-        });
-      }
-    });
-    positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen((Position? position) {
-      final newPosition = "${position?.latitude},${position?.longitude}";
-
-      if (position != null && lastPosition == null ||
-          position != null && lastPosition != newPosition) {
-        final HikerStats newStats = HikerStats(
-            steps: stats.steps,
-            distance: stats.distance +
-                calcDistance(lastPosition ?? newPosition, newPosition),
-            completed: stats.completed);
-        lastPosition = newPosition;
-        SocketService().hike.move(position, newStats);
-        setState(() {
-          stats = newStats;
         });
       }
     });
@@ -341,7 +320,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                           content: "X",
                           onPress: () {
                             SocketService().disconnect();
-                            Navigator.of(context, rootNavigator: true).pop();
+                            _navigationService
+                                .navigateToAndRemoveUntil(MainScreen.routeName);
                           }),
                     ]),
               );
@@ -391,12 +371,30 @@ class _NavigationScreenState extends State<NavigationScreen> {
               ]),
             ),
             body: MapBox(
-                mapController: model.mapController,
-                zoom: 17,
-                polylines: [polyline],
-                markers: _hikers
-                    .map((entry) => entry["marker"] as Marker)
-                    .toList())),
+              mapController: model.mapController,
+              zoom: 17,
+              polylines: [polyline],
+              markers:
+                  _hikers.map((entry) => entry["marker"] as Marker).toList(),
+              onPositionChange: (Position position) {
+                final newPosition =
+                    "${position.latitude},${position.longitude}";
+
+                if (lastPosition == null || lastPosition != newPosition) {
+                  final HikerStats newStats = HikerStats(
+                      steps: stats.steps,
+                      distance: stats.distance +
+                          calcDistance(
+                              lastPosition ?? newPosition, newPosition),
+                      completed: stats.completed);
+                  lastPosition = newPosition;
+                  SocketService().hike.move(position, newStats);
+                  setState(() {
+                    stats = newStats;
+                  });
+                }
+              },
+            )),
       );
     });
   }
