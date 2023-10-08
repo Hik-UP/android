@@ -1,4 +1,4 @@
-FROM cirrusci/flutter:stable
+FROM ghcr.io/cirruslabs/flutter:stable
 
 WORKDIR /usr/app
 
