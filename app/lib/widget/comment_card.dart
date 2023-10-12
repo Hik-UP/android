@@ -35,11 +35,13 @@ class _CommentCardState extends State<CommentCard> {
 
     return BaseView<CommentCardViewModel>(
       builder: (context, model, child) => InkWell(
-        onLongPress: () => model.updateComment(
-          update: widget.update,
-          appState: appState,
-          comment: widget.comment,
-        ),
+        onLongPress: () => widget.comment.author.username == appState.username
+            ? model.updateComment(
+                update: widget.update,
+                appState: appState,
+                comment: widget.comment,
+              )
+            : null,
         child: Card(
           color: BlackPrimary,
           child: Padding(

@@ -105,8 +105,7 @@ class CommunityPageViewModel extends BaseModel {
     textController.clear();
     inputFocus.unfocus();
 
-    image = null;
-
     update();
+    closeThumbmail();
   }
 }

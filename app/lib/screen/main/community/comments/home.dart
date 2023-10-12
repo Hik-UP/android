@@ -172,12 +172,10 @@ class _CommunityViewState extends State<CommunityView> {
                         children: [
                           TextFormField(
                             focusNode: model.inputFocus,
-                            //keyboardType: TextInputType.text,
                             maxLines: 2,
                             controller: model.textController,
                             keyboardType: TextInputType.text,
                             style: const TextStyle(color: Colors.white),
-
                             decoration: const InputDecoration(
                               hintText: 'Écrire un commentaire',
                               border: InputBorder.none,
