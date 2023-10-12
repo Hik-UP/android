@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/community/comments/home.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
