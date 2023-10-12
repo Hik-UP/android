@@ -14,6 +14,7 @@ import 'package:hikup/viewmodel/event_card_viewmodel.dart';
 import 'package:hikup/viewmodel/hike_card_viewmodel.dart';
 import 'package:hikup/viewmodel/hikes_create_viewmodel.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
+import 'package:hikup/viewmodel/notif_viewmodel.dart';
 import 'package:hikup/viewmodel/notification_viewmodel.dart';
 import 'package:hikup/viewmodel/register_page_viewmodel.dart';
 import 'package:hikup/viewmodel/shop_viewmodel.dart';
@@ -51,4 +52,5 @@ void setupLocator() {
   locator.registerFactory(() => CreateEventViewModel());
   locator.registerFactory(() => AllEventViewModel());
   locator.registerFactory(() => EventCardViewModel());
+  locator.registerFactory(() => NotifyViewModel());
 }

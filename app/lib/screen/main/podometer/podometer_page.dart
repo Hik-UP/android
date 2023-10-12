@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:io';
-import 'package:hikup/widget/header.dart';
+import 'package:hikup/widget/Header/header.dart';
 import 'package:hikup/utils/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -94,13 +93,13 @@ class PedometerPageState extends State<PedometerPage> {
                       ? Image.asset("assets/icons/pedometer_stopped.png")
                       : Image.asset("assets/icons/pedometer_stopped.png"),
             ),
-            Padding(padding: EdgeInsets.all(26.0)),
+            const Padding(padding: EdgeInsets.all(26.0)),
             Center(
               child: Text(
                 _status,
                 style: _status == 'walking' || _status == 'stopped'
-                    ? TextStyle(fontSize: 30)
-                    : TextStyle(fontSize: 0),
+                    ? const TextStyle(fontSize: 30)
+                    : const TextStyle(fontSize: 0),
               ),
             )
           ],

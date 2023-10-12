@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
-import 'package:hikup/utils/app_messages.dart';
-import 'package:hikup/widget/header.dart';
+import 'package:hikup/widget/Header/header.dart';
 import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
@@ -83,9 +80,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         field: model.filterTrailsList[index],
                       ),
                     )
-                  : Column(
+                  : const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Gap(10.0),
                         Align(
                           alignment: Alignment.center,

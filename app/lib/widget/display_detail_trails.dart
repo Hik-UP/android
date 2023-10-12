@@ -113,7 +113,7 @@ class DisplayDetailTrails extends StatelessWidget {
                 ],
               );
             }
-            return Column(
+            return const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(

@@ -99,64 +99,59 @@ class SettingsScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Consumer<AppState>(builder: (context, state, child) {
-                    return Row(
-                      children: [
-                        state.picture.isEmpty
-                            ? Container(
-                                width: 75,
-                                height: 75,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: BlackPrimary,
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage(
-                                      profilePlaceHoder,
+                    return InkWell(
+                      onTap: () => Navigator.of(context).pushNamed(
+                        UpdateProfile.routeName,
+                      ),
+                      child: Row(
+                        children: [
+                          state.picture.isEmpty
+                              ? Container(
+                                  width: 75,
+                                  height: 75,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: BlackPrimary,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: AssetImage(
+                                        profilePlaceHoder,
+                                      ),
                                     ),
                                   ),
+                                )
+                              : LoadPictureProfil(
+                                  appState: state,
                                 ),
-                              )
-                            : LoadPictureProfil(
-                                appState: state,
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                appState.username.isNotEmpty
+                                    ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
+                                    : "",
+                                style: subTitleTextStyle,
                               ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              appState.username.isNotEmpty
-                                  ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
-                                  : "",
-                              style: subTitleTextStyle,
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * .6,
-                              padding: const EdgeInsets.all(2),
-                              child: Text(
-                                appState.email,
-                                style: descTextStyleWhite,
-                                maxLines: 1,
+                              const SizedBox(
+                                height: 8,
                               ),
-                            ),
-                            const Gap(6.0),
-                            CustomBtn(
-                              content: AppMessages.updateProfil,
-                              height: 50,
-                              onPress: () {
-                                Navigator.of(context).pushNamed(
-                                  UpdateProfile.routeName,
-                                );
-                              },
-                              gradient: loginButtonColor,
-                            ),
-                          ],
-                        ),
-                      ],
+                              Container(
+                                width: MediaQuery.of(context).size.width * .6,
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  appState.email,
+                                  style: descTextStyleWhite,
+                                  maxLines: 1,
+                                ),
+                              ),
+                              const Gap(6.0),
+                            ],
+                          ),
+                        ],
+                      ),
                     );
                   }),
                 ),

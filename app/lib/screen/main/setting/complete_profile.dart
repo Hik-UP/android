@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
@@ -45,6 +47,7 @@ class CompleteProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double maxWidth = MediaQuery.of(context).size.width;
     return BaseView<CompleteProfileViewModel>(builder: (context, model, child) {
       model.initializeInputForm(appState: context.read<AppState>());
       return Scaffold(
@@ -53,7 +56,7 @@ class CompleteProfile extends StatelessWidget {
             AppMessages.completeProfil,
             style: titleTextStyleWhite,
           ),
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: GreenPrimary, // Couleur de la flèche retour
           ),
           toolbarHeight: kToolbarHeight,
@@ -70,6 +73,27 @@ class CompleteProfile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Gap(20),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      FontAwesomeIcons.circleInfo,
+                      color: Colors.grey,
+                    ),
+                    const Gap(8.0),
+                    SizedBox(
+                      width: maxWidth * .8,
+                      child: Text(
+                        AppMessages.infoFillProfile,
+                        style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: BlackTertiary),
+                      ),
+                    )
+                  ],
+                ),
+                const Gap(20.0),
                 Row(
                   children: [
                     Expanded(

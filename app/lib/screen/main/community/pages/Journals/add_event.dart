@@ -212,11 +212,9 @@ class _AddPageState extends State<AddPage> {
                   handleSubmit();
                 },
                 tooltip: 'Add',
-                label: Row(children: const [
-                  Icon(Icons.add),
-                  SizedBox(width: 5),
-                  Text("Send")
-                ]),
+                label: const Row(
+                  children: [Icon(Icons.add), SizedBox(width: 5), Text("Send")],
+                ),
               ),
         body: Container(
           padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
@@ -235,12 +233,6 @@ class _AddPageState extends State<AddPage> {
                               bottom: 2.0, top: 2.0, left: 5.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
-                            // child: Container(
-                            //   height: 60.0,
-                            //   width: 60.0,
-                            //   color: Colors.white,
-                            //   //hild: profileIcon,
-                            // ),
                           ),
                         ),
                         Column(

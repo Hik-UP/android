@@ -7,6 +7,7 @@ import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/widget/Header/notif_bell.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 
@@ -95,31 +96,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             const Gap(20.0),
-            InkWell(
-              onTap: () => Navigator.of(context).pushNamed(
-                NotificationView.routeName,
-              ),
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  const Icon(
-                    FontAwesomeIcons.bell,
-                    size: 23,
-                  ),
-                  Positioned(
-                    right: 0,
-                    top: -5,
-                    child: Container(
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 23, 255, 119),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const NotifBell(),
             const Gap(16.0)
           ],
         ),

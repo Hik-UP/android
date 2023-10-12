@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/shop/components/skin_display.dart';
+import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/shop_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
@@ -50,10 +51,10 @@ class _ShopViewState extends State<ShopView> {
                     );
                   }
                   if (snapshot.hasData && snapshot.data!.isEmpty) {
-                    return Text(
-                      AppMessages.noSkinLabel,
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w400,
+                    return Center(
+                      child: Text(
+                        AppMessages.noSkinLabel,
+                        style: subErrorTitleTextStyle,
                       ),
                     );
                   }

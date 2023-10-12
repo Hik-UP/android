@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hikup/widget/header.dart';
+import 'package:hikup/widget/Header/header.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:hikup/theme.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -15,7 +15,7 @@ import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/community/comments/home.dart';
-import 'package:geolocator/geolocator.dart';
+
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({

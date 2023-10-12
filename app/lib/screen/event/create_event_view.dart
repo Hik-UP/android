@@ -1,9 +1,7 @@
 import "dart:io";
-
 import "package:flutter/material.dart";
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
-import "package:hikup/model/event.dart";
 import "package:hikup/providers/app_state.dart";
 import "package:hikup/theme.dart";
 import "package:hikup/utils/app_messages.dart";

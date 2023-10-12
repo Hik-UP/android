@@ -6,7 +6,6 @@ import 'package:hikup/model/other_data.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/user.dart';
-import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
@@ -20,7 +19,7 @@ final Box<String> boxtrailId = Hive.box('trailId');
 
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
-  final _dioService = locator<DioService>();
+
   String comment = "";
 
   final _hiveService = locator<HiveService>();
@@ -85,8 +84,6 @@ class AppState extends ChangeNotifier {
   void setFcmToken({required String value}) {
     fcmUserToken = value;
 
-    print("Tpken");
-    print(value);
     WrapperApi().sendFcmToken(
       id: id,
       roles: roles,

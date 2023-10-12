@@ -1,8 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/theme.dart';
-import 'package:hikup/utils/app_messages.dart';
 
 class ShowBurnCalories extends StatelessWidget {
   final int calories;
