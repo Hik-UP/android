@@ -116,6 +116,7 @@ class RegisterPageViewModel extends BaseModel {
       }
       setState(ViewState.retrieved);
     } catch (e) {
+      print(e);
       setState(ViewState.retrieved);
     }
   }

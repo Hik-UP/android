@@ -74,6 +74,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 }),
                 child: Icon(
                   obsureText ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
+                  color: Colors.green,
                 ),
               ),
       ),

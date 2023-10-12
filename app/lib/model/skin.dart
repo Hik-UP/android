@@ -43,7 +43,7 @@ class Skin {
       description: data["description"] ?? "",
       pictures: skinString,
       model: data["model"] ?? "",
-      price: data["price"].toDouble() ?? 0,
+      price: data["price"] != null ? data["price"].toDouble() : 0,
     );
   }
 
