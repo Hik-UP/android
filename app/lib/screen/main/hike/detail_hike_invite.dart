@@ -132,35 +132,6 @@ class DetailHikeInvite extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Positioned(
-                  //   bottom: 10,
-                  //   right: 20,
-                  //   child: Container(
-                  //     padding: const EdgeInsets.all(8.0),
-                  //     decoration: BoxDecoration(
-                  //       gradient: loginButtonColor,
-                  //       borderRadius: BorderRadius.circular(30.0),
-                  //     ),
-                  //     child: Row(
-                  //       mainAxisSize: MainAxisSize.min,
-                  //       children: [
-                  //         const Icon(
-                  //           FontAwesomeIcons.locationArrow,
-                  //           color: Colors.white,
-                  //         ),
-                  //         const Gap(8.0),
-                  //         Text(
-                  //           AppMessages.seeAll,
-                  //           style: GoogleFonts.poppins(
-                  //             fontWeight: FontWeight.bold,
-                  //             fontSize: 14.0,
-                  //             color: Colors.white,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // )
                 ],
               ),
               const Gap(20.0),
@@ -168,11 +139,6 @@ class DetailHikeInvite extends StatelessWidget {
               const Gap(16.0),
               Row(
                 children: <Widget>[
-                  Text(
-                    "Labels:",
-                    style: subTitleTextStyle,
-                  ),
-                  const Gap(10.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: hike.trail.labels
@@ -187,7 +153,7 @@ class DetailHikeInvite extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             child: Text(
-                              "${label}",
+                              label,
                               style: subTitleTextStyle,
                             ),
                           ),

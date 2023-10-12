@@ -1,6 +1,7 @@
 class AppMessages {
   static String email = "Email";
   static String password = "Mot de passe";
+  static String confirmPassword = "Confirmer le mot de passe";
   static String login = "Se connecter";
   static String requiredField = "Email obligatoire";
   static String wrongEmail = "Email invalide";

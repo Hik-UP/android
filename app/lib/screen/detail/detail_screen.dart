@@ -41,26 +41,8 @@ class DetailScreen extends StatelessWidget {
                   [
                     DisplayAddress(address: field.address),
                     const Gap(16),
-                    /*Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          CupertinoIcons.money_dollar_circle_fill,
-                          color: GreenPrimary,
-                        ),
-                        SizedBox(
-                          width: 16.0,
-                        ),
-                      ],
-                    ),
-                    const Gap(10.0),*/
                     Row(
                       children: <Widget>[
-                        Text(
-                          "Labels:",
-                          style: subTitleTextStyle,
-                        ),
-                        const Gap(10.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: field.labels

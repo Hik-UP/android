@@ -18,6 +18,7 @@ class RegisterPageViewModel extends BaseModel {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordControllerConfirm = TextEditingController();
   final _customNavigationService = locator<CustomNavigationService>();
   final _dioService = locator<DioService>();
 
@@ -48,6 +49,11 @@ class RegisterPageViewModel extends BaseModel {
     required AppState appState,
   }) async {
     try {
+      if (passwordController.text != passwordControllerConfirm.text) {
+        _customNavigationService.showSnackBack(
+            content: "Mots de passe non conforme", isError: true);
+        return;
+      }
       setState(ViewState.busy);
       var response = await _dioService.post(path: '/auth/signup', body: {
         "user": {

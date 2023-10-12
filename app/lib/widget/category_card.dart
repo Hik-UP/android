@@ -100,8 +100,8 @@ class CategoryCard extends StatelessWidget {
                   child: Image.asset(
                     imageAsset,
                     //color: primaryColor500,
-                    width: 60,
-                    height: 60,
+                    width: 30,
+                    height: 30,
                   ),
                 ),
                 const SizedBox(
