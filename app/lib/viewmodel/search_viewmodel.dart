@@ -1,4 +1,6 @@
+import 'package:hikup/locator.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 import 'package:hikup/model/trail_fields.dart';
@@ -7,6 +9,7 @@ class SearchViewModel extends BaseModel {
   bool loading = true;
   List<TrailFields> trailsList = [];
   List<TrailFields> filterTrailsList = [];
+  final HiveService _hiveService = locator<HiveService>();
 
   filterTrails({required String filter}) {
     if (filter == "") {
@@ -23,19 +26,31 @@ class SearchViewModel extends BaseModel {
   trails({
     required AppState appState,
   }) async {
-    var trailList = await WrapperApi().getTrail(
-      id: appState.id,
-      roles: appState.roles,
-      token: appState.token,
-    );
+    var trailList;
+    List<TrailFields> result = [];
 
-    if (trailList.statusCode == 200 || trailList.statusCode == 201) {
-      trailList.data["trails"].forEach((entry) {
-        trailsList.add(
-          TrailFields.fromMap(entry),
-        );
-      });
+    var existingTrail = _hiveService.getData<TrailList>(boxTrails, "trails");
+    print(existingTrail);
+    if (existingTrail != null && existingTrail.trails.isNotEmpty) {
+      trailsList = existingTrail.trails;
+    } else {
+      trailList = await WrapperApi().getTrail(
+        id: appState.id,
+        roles: appState.roles,
+        token: appState.token,
+      );
+
+      if (trailList.statusCode == 200 || trailList.statusCode == 201) {
+        trailList.data["trails"].forEach((entry) {
+          trailsList.add(
+            TrailFields.fromMap(entry),
+          );
+          result.add(TrailFields.fromMap(entry));
+        });
+        await TrailFields.storeTrailListInHive(result);
+      }
     }
+
     filterTrailsList = trailsList;
     notifyListeners();
   }

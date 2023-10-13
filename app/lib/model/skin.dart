@@ -16,7 +16,7 @@ class Skin {
   final List<String> pictures;
   @HiveField(4)
   final String model;
-  @HiveField(5)
+
   final double price;
 
   const Skin({
@@ -25,7 +25,7 @@ class Skin {
     required this.description,
     required this.pictures,
     required this.model,
-    this.price = 0,
+    this.price = 0.0,
   });
 
   static Skin fromMap({required Map<String, dynamic> data}) {

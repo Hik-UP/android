@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/locator.dart';
+import 'package:hikup/model/comment.dart';
 import 'package:hikup/model/other_data.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
+import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/achievement/achievement_view.dart';
@@ -36,12 +38,18 @@ Future<void> main() async {
   Hive.registerAdapter(OtherDataAdapter());
   Hive.registerAdapter(SkinAdapter());
   Hive.registerAdapter(SensibleUserDataAdapter());
+  Hive.registerAdapter(TrailFieldsAdapter());
+  Hive.registerAdapter(TrailListAdapter());
+  Hive.registerAdapter(CommentAdapter());
+  Hive.registerAdapter(AuthorAdapter());
 
   await Hive.openBox<User>("userBox");
   await Hive.openBox<OtherData>("otherData");
-  await Hive.openBox<Skin>("skinBox");
   await Hive.openBox<SensibleUserData>("sensibleUserDataBox");
   await Hive.openBox<String>("trailId");
+  await Hive.openBox<TrailList>("trails");
+  await Hive.openBox<Skin>("skinBox");
+
   await LocalNotification().init();
 
   Stripe.publishableKey = stripePublic;

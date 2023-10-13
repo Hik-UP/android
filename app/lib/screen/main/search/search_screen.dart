@@ -31,8 +31,6 @@ class _SearchScreenState extends State<SearchScreen> {
         model.trails(appState: appState);
       }
 
-      model.genTrailLabel();
-
       return Scaffold(
         backgroundColor: BlackSecondary,
         appBar: const Header(),
@@ -48,7 +46,6 @@ class _SearchScreenState extends State<SearchScreen> {
               CategoryListView(
                 labels: model.genTrailLabel(),
                 onTap: (String label) {
-                  print(label);
                   if (label == "Tout") {
                     model.filterTrails(filter: "");
                   } else {

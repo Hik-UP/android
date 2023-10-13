@@ -5,6 +5,7 @@ import 'package:hikup/model/event.dart';
 import 'package:hikup/model/other_data.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
+import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/constant.dart';
@@ -16,6 +17,7 @@ final Box<Skin> skinUserBox = Hive.box("skinBox");
 final Box<SensibleUserData> sensibleUserDataBox =
     Hive.box("sensibleUserDataBox");
 final Box<String> boxtrailId = Hive.box('trailId');
+final Box<TrailList> boxTrails = Hive.box("trails");
 
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
