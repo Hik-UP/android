@@ -46,4 +46,40 @@ class TrailFields {
     required this.openTime,
     required this.closeTime,
   });
+
+  static TrailFields fromMap(Map<String, dynamic> entry) {
+    return TrailFields(
+      id: entry["id"],
+      name: entry["name"],
+      address: entry["address"],
+      description: entry["description"],
+      pictures: entry["pictures"].cast<String>(),
+      latitude: entry["latitude"].toDouble(),
+      longitude: entry["longitude"].toDouble(),
+      difficulty: entry["difficulty"],
+      duration: entry["duration"],
+      distance: entry["distance"],
+      uphill: entry["uphill"],
+      downhill: entry["downhill"],
+      tools: entry["tools"].cast<String>(),
+      relatedArticles: entry["relatedArticles"].cast<String>(),
+      labels: entry["labels"].cast<String>(),
+      geoJSON: entry["geoJSON"],
+      comments: entry["comments"]
+          .map((value) => Comment(
+              id: value["id"],
+              author: Author(
+                  username: value["author"]["username"],
+                  picture: value["author"]["picture"]),
+              body: value["body"],
+              pictures: value["pictures"].cast<String>(),
+              date: DateTime.parse(value["date"])))
+          .toList()
+          .cast<Comment>(),
+      imageAsset: "",
+      price: 0,
+      openTime: "",
+      closeTime: "",
+    );
+  }
 }

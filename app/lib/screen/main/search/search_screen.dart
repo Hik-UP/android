@@ -31,6 +31,8 @@ class _SearchScreenState extends State<SearchScreen> {
         model.trails(appState: appState);
       }
 
+      model.genTrailLabel();
+
       return Scaffold(
         backgroundColor: BlackSecondary,
         appBar: const Header(),
@@ -44,14 +46,16 @@ class _SearchScreenState extends State<SearchScreen> {
                 style: GreenTitleTextStyle,
               ),
               CategoryListView(
-                  trailsList: model.trailsList,
-                  onTap: (String label) {
-                    if (label == "Tout") {
-                      model.filterTrails(filter: "");
-                    } else {
-                      model.filterTrails(filter: label);
-                    }
-                  }),
+                labels: model.genTrailLabel(),
+                onTap: (String label) {
+                  print(label);
+                  if (label == "Tout") {
+                    model.filterTrails(filter: "");
+                  } else {
+                    model.filterTrails(filter: label);
+                  }
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                   top: 8.0,
