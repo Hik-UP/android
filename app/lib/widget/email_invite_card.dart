@@ -6,10 +6,12 @@ import 'package:hikup/theme.dart';
 class EmailInviteCard extends StatelessWidget {
   final String email;
   final Function() action;
+  final bool showIcon;
   const EmailInviteCard({
     Key? key,
     required this.email,
     required this.action,
+    this.showIcon = true,
   }) : super(key: key);
 
   @override
@@ -28,10 +30,13 @@ class EmailInviteCard extends StatelessWidget {
             style: HOPASTYLE,
           ),
           const Gap(10.0),
-          GestureDetector(
-            onTap: action,
-            child: const Icon(
-              FontAwesomeIcons.circleXmark,
+          Visibility(
+            visible: showIcon,
+            child: GestureDetector(
+              onTap: action,
+              child: const Icon(
+                FontAwesomeIcons.circleXmark,
+              ),
             ),
           ),
         ],

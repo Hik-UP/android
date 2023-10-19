@@ -3,11 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:hikup/screen/event/all_event_view.dart';
 import 'package:hikup/screen/main/setting/complete_profile.dart';
 import 'package:hikup/screen/main/setting/update_profile.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
+import 'package:hikup/widget/custom_app_bar.dart';
 import 'package:hikup/widget/custom_btn.dart';
 
 import 'package:provider/provider.dart';
@@ -77,18 +79,7 @@ class SettingsScreen extends StatelessWidget {
     AppState appState = context.read<AppState>();
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: kTextTabBarHeight,
-        title: Text(
-          AppMessages.settingTxt,
-          style: titleTextStyleWhite,
-        ),
-        iconTheme: const IconThemeData(
-          color: GreenPrimary, // Couleur de la flèche retour
-        ),
-        backgroundColor: BlackPrimary,
-        centerTitle: true,
-      ),
+      appBar: CustomAppBar(label: AppMessages.settingTxt),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
@@ -108,64 +99,59 @@ class SettingsScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Consumer<AppState>(builder: (context, state, child) {
-                    return Row(
-                      children: [
-                        state.picture.isEmpty
-                            ? Container(
-                                width: 75,
-                                height: 75,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: BlackPrimary,
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage(
-                                      profilePlaceHoder,
+                    return InkWell(
+                      onTap: () => Navigator.of(context).pushNamed(
+                        UpdateProfile.routeName,
+                      ),
+                      child: Row(
+                        children: [
+                          state.picture.isEmpty
+                              ? Container(
+                                  width: 75,
+                                  height: 75,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: BlackPrimary,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: AssetImage(
+                                        profilePlaceHoder,
+                                      ),
                                     ),
                                   ),
+                                )
+                              : LoadPictureProfil(
+                                  appState: state,
                                 ),
-                              )
-                            : LoadPictureProfil(
-                                appState: state,
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                appState.username.isNotEmpty
+                                    ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
+                                    : "",
+                                style: subTitleTextStyle,
                               ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              appState.username.isNotEmpty
-                                  ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
-                                  : "",
-                              style: subTitleTextStyle,
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * .6,
-                              padding: const EdgeInsets.all(2),
-                              child: Text(
-                                appState.email,
-                                style: descTextStyleWhite,
-                                maxLines: 1,
+                              const SizedBox(
+                                height: 8,
                               ),
-                            ),
-                            const Gap(6.0),
-                            CustomBtn(
-                              content: AppMessages.updateProfil,
-                              height: 50,
-                              onPress: () {
-                                Navigator.of(context).pushNamed(
-                                  UpdateProfile.routeName,
-                                );
-                              },
-                              gradient: loginButtonColor,
-                            ),
-                          ],
-                        ),
-                      ],
+                              Container(
+                                width: MediaQuery.of(context).size.width * .6,
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  appState.email,
+                                  style: descTextStyleWhite,
+                                  maxLines: 1,
+                                ),
+                              ),
+                              const Gap(6.0),
+                            ],
+                          ),
+                        ],
+                      ),
                     );
                   }),
                 ),
@@ -246,6 +232,29 @@ class SettingsScreen extends StatelessWidget {
                     const Gap(4.0),
                     Text(
                       githubName,
+                      style: linkTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AllEventView.routeName),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      padding: const EdgeInsets.all(12.0),
+                      child: const Icon(
+                        FontAwesomeIcons.calendarCheck,
+                        color: BlackTertiary,
+                      ),
+                    ),
+                    const Gap(4.0),
+                    Text(
+                      AppMessages.eventLabel,
                       style: linkTextStyle,
                     ),
                   ],

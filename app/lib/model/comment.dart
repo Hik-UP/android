@@ -1,5 +1,11 @@
+import 'package:hive_flutter/hive_flutter.dart';
+part 'comment.g.dart';
+
+@HiveType(typeId: 7)
 class Author {
+  @HiveField(0)
   String username;
+  @HiveField(1)
   String picture;
 
   Author({
@@ -15,11 +21,17 @@ class Author {
   }
 }
 
+@HiveType(typeId: 6)
 class Comment {
+  @HiveField(0)
   String id;
+  @HiveField(1)
   Author author;
+  @HiveField(2)
   String body;
+  @HiveField(3)
   List<String> pictures;
+  @HiveField(4)
   DateTime date;
 
   Comment({

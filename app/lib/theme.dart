@@ -25,7 +25,7 @@ const Color BlackTertiary = Color.fromARGB(255, 156, 156, 156);
 //USE THIS IF YOU DON'T KNOW THE CORRECT COLOR OR STYLE TO USE
 const Color HOPA = Color.fromARGB(255, 255, 0, 0);
 const Color HOPABLUE = Color.fromARGB(255, 55, 0, 255);
-TextStyle HOPASTYLE = GoogleFonts.poppins(color: Colors.red);
+TextStyle HOPASTYLE = GoogleFonts.poppins(color: Colors.white);
 
 const greenColor = Color.fromARGB(255, 255, 94, 0);
 
@@ -108,7 +108,7 @@ TextStyle buttonTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white);
 
 TextStyle bottomNavTextStyle = GoogleFonts.poppins(
-    fontSize: 12, fontWeight: FontWeight.w500, color: GreenPrimary);
+    fontSize: 11, fontWeight: FontWeight.w500, color: GreenPrimary);
 
 TextStyle tabBarTextStyle =
     GoogleFonts.poppins(fontWeight: FontWeight.w500, color: GreenPrimary);

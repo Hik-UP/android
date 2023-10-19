@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
-import 'package:hikup/widget/header.dart';
+import 'package:hikup/widget/Header/header.dart';
 import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
@@ -44,14 +44,15 @@ class _SearchScreenState extends State<SearchScreen> {
                 style: GreenTitleTextStyle,
               ),
               CategoryListView(
-                  trailsList: model.trailsList,
-                  onTap: (String label) {
-                    if (label == "Tout") {
-                      model.filterTrails(filter: "");
-                    } else {
-                      model.filterTrails(filter: label);
-                    }
-                  }),
+                labels: model.genTrailLabel(),
+                onTap: (String label) {
+                  if (label == "Tout") {
+                    model.filterTrails(filter: "");
+                  } else {
+                    model.filterTrails(filter: label);
+                  }
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                   top: 8.0,

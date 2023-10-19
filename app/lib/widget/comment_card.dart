@@ -3,136 +3,138 @@ import "package:flutter/material.dart";
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:hikup/model/comment.dart";
+import "package:hikup/providers/app_state.dart";
 import "package:hikup/theme.dart";
 import "package:hikup/utils/constant.dart";
+import "package:hikup/viewmodel/comment_card_viewmodel.dart";
+import "package:hikup/widget/base_view.dart";
 import "package:hikup/widget/custom_loader.dart";
 import "package:hikup/widget/warning_error_img.dart";
+import "package:provider/provider.dart";
 
-class CommentCard extends StatelessWidget {
+class CommentCard extends StatefulWidget {
   final Comment comment;
+  final Function() update;
   const CommentCard({
     Key? key,
     required this.comment,
+    required this.update,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: BlackPrimary,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                comment.author.picture.isNotEmpty
-                    ? CachedNetworkImage(
-                        imageUrl: comment.author.picture,
-                        imageBuilder: (context, imageProvider) =>
-                            ShowAvatarContainer(
-                          backgroundImage: imageProvider,
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const ShowAvatarContainer(
-                          child: WarmingErrorImg(),
-                        ),
-                        progressIndicatorBuilder: (context, url, progress) =>
-                            const ShowAvatarContainer(
-                          child: CustomLoader(),
-                        ),
-                      )
-                    : const ShowAvatarContainer(
-                        backgroundImage: AssetImage(
-                          profilePlaceHoder,
-                        ),
-                      ),
-                // IconButton(
-                //   color: GreenPrimary,
-                //     onPressed: () {
-                //         itemBuilder: (context) {
-                //           return [
-                //           PopupMenuItem(
-                //             value: 'edit',
-                //             child: Text('Edit'),
-                //           ),
-                //           PopupMenuItem(
-                //             value: 'delete',
-                //             child: Text('Delete'),
-                //           )
-                //           ];
-                //         };
-                //               // myAlert(
-                //               //   context: context,
-                //               //   getImageGallery: () => model.getImage(
-                //               //     ImageSource.gallery,
-                //               //   ),
-                //               //   getImageCamera: () => model.getImage(
-                //               //     ImageSource.camera,
-                //               //   ),
-                //               // );
-                //             },
-                //             icon: const Icon(Icons.menu),
-                //           ),
-                //icon: const Icon(Icons.menu),
-                const Gap(10.0),
+  State<CommentCard> createState() => _CommentCardState();
+}
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+class _CommentCardState extends State<CommentCard> {
+  final TextEditingController newCommentCtrl = TextEditingController();
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    AppState appState = context.read<AppState>();
+
+    return BaseView<CommentCardViewModel>(
+      builder: (context, model, child) => InkWell(
+        onLongPress: () => widget.comment.author.username == appState.username
+            ? model.updateComment(
+                update: widget.update,
+                appState: appState,
+                comment: widget.comment,
+              )
+            : null,
+        child: Card(
+          color: BlackPrimary,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
                   children: [
-                    Text(
-                      comment.author.username,
-                      style: subTitleTextStyle,
-                    ),
-                    Text(
-                      comment.date.toString().split(' ')[0].replaceAll(
-                            RegExp(r'-'),
-                            "/",
+                    widget.comment.author.picture.isNotEmpty
+                        ? CachedNetworkImage(
+                            imageUrl: widget.comment.author.picture,
+                            imageBuilder: (context, imageProvider) =>
+                                ShowAvatarContainer(
+                              backgroundImage: imageProvider,
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const ShowAvatarContainer(
+                              child: WarmingErrorImg(),
+                            ),
+                            progressIndicatorBuilder:
+                                (context, url, progress) =>
+                                    const ShowAvatarContainer(
+                              child: CustomLoader(),
+                            ),
+                          )
+                        : const ShowAvatarContainer(
+                            backgroundImage: AssetImage(
+                              profilePlaceHoder,
+                            ),
                           ),
-                      style: GoogleFonts.poppins(
-                        fontSize: 10.0,
-                        color: Colors.grey,
-                      ),
+                    const Gap(10.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.comment.author.username,
+                          style: subTitleTextStyle,
+                        ),
+                        Text(
+                          widget.comment.date
+                              .toString()
+                              .split(' ')[0]
+                              .replaceAll(
+                                RegExp(r'-'),
+                                "/",
+                              ),
+                          style: GoogleFonts.poppins(
+                            fontSize: 10.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
+                const Gap(18.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.comment.body,
+                        style: WhiteAddressTextStyle,
+                      ),
+                      if (widget.comment.pictures.isNotEmpty &&
+                          widget.comment.pictures.first.isNotEmpty)
+                        CachedNetworkImage(
+                          imageUrl: widget.comment.pictures[0],
+                          errorWidget: (context, url, error) =>
+                              const ContainerPicture(
+                            child: WarmingErrorImg(),
+                          ),
+                          imageBuilder: (context, imageProvider) =>
+                              ContainerPicture(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          progressIndicatorBuilder: (context, url, progress) =>
+                              const ContainerPicture(
+                            child: CustomLoader(),
+                          ),
+                        )
+                    ],
+                  ),
+                ),
               ],
             ),
-            const Gap(18.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    comment.body,
-                    style: WhiteAddressTextStyle,
-                  ),
-                  if (comment.pictures.isNotEmpty &&
-                      comment.pictures.first.isNotEmpty)
-                    CachedNetworkImage(
-                      imageUrl: comment.pictures[0],
-                      errorWidget: (context, url, error) =>
-                          const ContainerPicture(
-                        child: WarmingErrorImg(),
-                      ),
-                      imageBuilder: (context, imageProvider) =>
-                          ContainerPicture(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      progressIndicatorBuilder: (context, url, progress) =>
-                          const ContainerPicture(
-                        child: CustomLoader(),
-                      ),
-                    )
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -181,14 +183,4 @@ class ShowAvatarContainer extends StatelessWidget {
       child: child,
     );
   }
-}
-
-void setState(Null Function() param0) {}
-
-void updateTextControllers(Comment user) {
-  setState(() {});
-}
-
-void deleteTextControllers(Comment user) {
-  setState(() {});
 }

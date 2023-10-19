@@ -25,8 +25,6 @@ class _HomePageState extends State<ComePage> {
   late FToast fToast;
   String emoticon = "129489";
 
-  var appState;
-
   get model => null;
 
   @override
@@ -492,6 +490,7 @@ class _HomePageState extends State<ComePage> {
                 padding: const EdgeInsets.all(14),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
                   children: [
                     Text(
                       "Add event",

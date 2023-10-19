@@ -109,6 +109,39 @@ class DisplayDetailTrails extends StatelessWidget {
                     ],
                   ),
                   const Gap(16.0),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.escalator,
+                        color: GreenPrimary,
+                      ),
+                      const SizedBox(
+                        width: 16.0,
+                      ),
+                      Text(
+                        upHill,
+                        style: WhiteAddressTextStyle,
+                      ),
+                      const Gap(16.0),
+                      Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.rotationY(math.pi),
+                        child: const Icon(
+                          Icons.escalator,
+                          color: GreenPrimary,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16.0,
+                      ),
+                      Text(
+                        downHill,
+                        style: WhiteAddressTextStyle,
+                      ),
+                    ],
+                  ),
+                  const Gap(16.0),
                   ShowBurnCalories(calories: data.calories),
                 ],
               );
@@ -125,38 +158,7 @@ class DisplayDetailTrails extends StatelessWidget {
             );
           },
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.escalator,
-              color: GreenPrimary,
-            ),
-            const SizedBox(
-              width: 16.0,
-            ),
-            Text(
-              upHill,
-              style: WhiteAddressTextStyle,
-            ),
-            const Gap(16.0),
-            Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.rotationY(math.pi),
-              child: const Icon(
-                Icons.escalator,
-                color: GreenPrimary,
-              ),
-            ),
-            const SizedBox(
-              width: 16.0,
-            ),
-            Text(
-              downHill,
-              style: WhiteAddressTextStyle,
-            ),
-          ],
-        ),
+
         const Gap(10.0),
         Text(
           "Difficulté",
@@ -210,60 +212,60 @@ class DisplayDetailTrails extends StatelessWidget {
         ),
         const Gap(10.0),
         Text(
-          "Équipements",
+          "Équipements conseiller",
           style: subTitleTextStyle,
         ),
         const Gap(10.0),
         WrapperApi().showTools(
           toolsBack: tools,
         ),
-        const Gap(10.0),
-        Text(
-          "Articles",
-          style: subTitleTextStyle,
-        ),
-        const Gap(8.0),
-        SizedBox(
-          height: 200,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: articles.length,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: AnyLinkPreview(
-                link: articles[index],
-                displayDirection: UIDirection.uiDirectionVertical,
-                showMultimedia: true,
-                bodyMaxLines: 2,
-                bodyTextOverflow: TextOverflow.ellipsis,
-                titleStyle: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-                bodyStyle: GoogleFonts.poppins(
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
-                errorBody: 'Show my custom error body',
-                errorTitle: 'Show my custom error title',
-                errorWidget: Container(
-                  color: Colors.grey[300],
-                  child: const Text('Oops!'),
-                ),
-                errorImage: "https://google.com/",
-                cache: const Duration(days: 7),
-                backgroundColor: Colors.grey[300],
-                borderRadius: 12,
-                removeElevation: false,
-                boxShadow: const [
-                  BoxShadow(blurRadius: 3, color: Colors.grey),
-                ],
-              ),
-            ),
-          ),
-        ),
-        const Gap(10.0),
+        // const Gap(10.0),
+        // Text(
+        //   "Articles",
+        //   style: subTitleTextStyle,
+        // ),
+        // const Gap(8.0),
+        // SizedBox(
+        //   height: 200,
+        //   child: ListView.builder(
+        //     shrinkWrap: true,
+        //     itemCount: articles.length,
+        //     itemBuilder: (context, index) => Padding(
+        //       padding: const EdgeInsets.only(right: 8.0),
+        //       child: AnyLinkPreview(
+        //         link: articles[index],
+        //         displayDirection: UIDirection.uiDirectionVertical,
+        //         showMultimedia: true,
+        //         bodyMaxLines: 2,
+        //         bodyTextOverflow: TextOverflow.ellipsis,
+        //         titleStyle: GoogleFonts.poppins(
+        //           color: Colors.black,
+        //           fontWeight: FontWeight.bold,
+        //           fontSize: 15,
+        //         ),
+        //         bodyStyle: GoogleFonts.poppins(
+        //           color: Colors.grey,
+        //           fontSize: 12,
+        //         ),
+        //         errorBody: 'Show my custom error body',
+        //         errorTitle: 'Show my custom error title',
+        //         errorWidget: Container(
+        //           color: Colors.grey[300],
+        //           child: const Text('Oops!'),
+        //         ),
+        //         errorImage: "https://google.com/",
+        //         cache: const Duration(days: 7),
+        //         backgroundColor: Colors.grey[300],
+        //         borderRadius: 12,
+        //         removeElevation: false,
+        //         boxShadow: const [
+        //           BoxShadow(blurRadius: 3, color: Colors.grey),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // const Gap(10.0),
       ],
     );
   }

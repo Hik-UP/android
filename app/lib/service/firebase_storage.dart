@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/service/custom_navigation.dart';

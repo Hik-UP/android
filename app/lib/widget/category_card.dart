@@ -4,61 +4,52 @@ import 'package:hikup/model/rando_category.dart';
 import 'package:hikup/utils/dummy_data.dart';
 import 'package:hikup/theme.dart';
 
-typedef IntCallback = void Function(String label);
-
 class CategoryListView extends StatefulWidget {
-  final List<TrailFields> trailsList;
-  final IntCallback onTap;
-  const CategoryListView(
-      {required this.trailsList, required this.onTap, Key? key})
-      : super(key: key);
+  final List<String> labels;
+  final Function(String label) onTap;
+  const CategoryListView({
+    required this.labels,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CategoryListView> createState() => _CategoryListViewState();
 }
 
 class _CategoryListViewState extends State<CategoryListView> {
-  List<TrailFields> _trailsList = [];
+  String selectedValue = "";
 
   @override
   void initState() {
     super.initState();
-    _trailsList = widget.trailsList;
+    selectedValue = widget.labels[0];
   }
 
   @override
   Widget build(BuildContext context) {
-    List<CategoryCard> categoryList = [];
-
-    categoryList.add(CategoryCard(
-      title: trailsLabels[0].title,
-      imageAsset: trailsLabels[0].imageAsset,
-      onTap: widget.onTap,
-    ));
-    for (int i = 0; i < _trailsList.length; i++) {
-      for (int j = 0; j < _trailsList[i].labels.length; j++) {
-        var labelInfos = trailsLabels.firstWhere(
-            (card) => card.title == _trailsList[i].labels[j],
-            orElse: () => RandoCategory(title: "", imageAsset: ""));
-        var newLabel = CategoryCard(
-          title: labelInfos.title,
-          imageAsset: labelInfos.imageAsset,
-          onTap: widget.onTap,
-        );
-        if (labelInfos.title.isNotEmpty &&
-            categoryList.indexWhere(
-                    (card) => card.title == _trailsList[i].labels[j]) <
-                0) {
-          categoryList.add(newLabel);
-        }
-      }
-    }
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
-          children: categoryList,
+          children: widget.labels
+              .map<Widget>(
+                (e) => CategoryCard(
+                  isSelect: selectedValue == e,
+                  title: e,
+                  imageAsset: trailsLabels
+                      .firstWhere((element) => element.title == e)
+                      .imageAsset,
+                  onTap: (String value) {
+                    setState(() {
+                      selectedValue = value;
+                    });
+                    widget.onTap(value);
+                  },
+                ),
+              )
+              .toList(),
         ),
       ),
     );
@@ -68,12 +59,14 @@ class _CategoryListViewState extends State<CategoryListView> {
 class CategoryCard extends StatelessWidget {
   final String title;
   final String imageAsset;
-  final IntCallback onTap;
+  final bool isSelect;
+  final Function(String label) onTap;
 
   const CategoryCard({
     required this.title,
     required this.imageAsset,
     required this.onTap,
+    this.isSelect = false,
     Key? key,
   }) : super(key: key);
 
@@ -84,7 +77,12 @@ class CategoryCard extends StatelessWidget {
       child: Material(
         color: BlackPrimary,
         elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: isSelect
+              ? const BorderSide(color: Colors.white)
+              : BorderSide.none,
+        ),
         child: InkWell(
           //highlightColor: primaryColor500.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16),
@@ -100,8 +98,8 @@ class CategoryCard extends StatelessWidget {
                   child: Image.asset(
                     imageAsset,
                     //color: primaryColor500,
-                    width: 60,
-                    height: 60,
+                    width: 30,
+                    height: 30,
                   ),
                 ),
                 const SizedBox(

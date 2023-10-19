@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/mapbox/Components/map.dart';
-import 'package:hikup/widget/header.dart';
+import 'package:hikup/widget/Header/header.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/providers/app_state.dart';

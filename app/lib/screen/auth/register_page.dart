@@ -39,7 +39,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 Positioned.fill(
                   child: Image.asset(
                     homeBackgroundDay,
-                    fit: BoxFit.cover,
+                    width: 70,
+                    height: 70,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Column(
@@ -55,7 +57,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: <Widget>[
                           Positioned(
                             child: Container(
-                                margin: const EdgeInsets.only(top: 165)),
+                              margin: const EdgeInsets.only(top: 165),
+                            ),
                           )
                         ],
                       ),
@@ -66,50 +69,61 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: Padding(
                         padding: const EdgeInsets.all(25.0),
-                        child: Form(
-                          key: model.loginFormKey,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: <Widget>[
-                                CustomTextField(
-                                  hintText: AppMessages.usernameHintText,
-                                  controller: model.usernameController,
-                                  validator: Validation.validateUsername,
-                                ),
-                                const Gap(10.0),
-                                CustomTextField(
-                                  controller: model.emailController,
-                                  hintText: AppMessages.email,
-                                  validator: model.validateEmail,
-                                ),
-                                const Gap(10.0),
-                                CustomTextField(
-                                  controller: model.passwordController,
-                                  hintText: AppMessages.password,
-                                  typeInput: TypeInput.password,
-                                  validator: model.validatePassword,
-                                  typeOfInput: TypeOfInput.password,
-                                ),
-                                const Gap(10),
-                                CustomBtn(
-                                  isLoading: model.getState == ViewState.busy,
-                                  content: AppMessages.registerButtonText,
-                                  onPress: () {
-                                    if (model.loginFormKey.currentState!
-                                        .validate()) {
-                                      model.register(
-                                        username: model.usernameController.text,
-                                        email: model.emailController.text,
-                                        password: model.passwordController.text,
-                                        appState: appState,
-                                      );
-                                    }
-                                  },
-                                  gradient: loginButtonColor,
-                                ),
-                                const Gap(2.0),
-                                Align(
+                        child: SingleChildScrollView(
+                          child: Form(
+                            key: model.loginFormKey,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: <Widget>[
+                                  CustomTextField(
+                                    hintText: AppMessages.usernameHintText,
+                                    controller: model.usernameController,
+                                    validator: Validation.validateUsername,
+                                  ),
+                                  const Gap(10.0),
+                                  CustomTextField(
+                                    controller: model.emailController,
+                                    hintText: AppMessages.email,
+                                    validator: model.validateEmail,
+                                  ),
+                                  const Gap(10.0),
+                                  CustomTextField(
+                                    controller: model.passwordController,
+                                    hintText: AppMessages.password,
+                                    typeInput: TypeInput.password,
+                                    validator: model.validatePassword,
+                                    typeOfInput: TypeOfInput.password,
+                                  ),
+                                  const Gap(10),
+                                  CustomTextField(
+                                    controller: model.passwordControllerConfirm,
+                                    hintText: AppMessages.confirmPassword,
+                                    typeInput: TypeInput.password,
+                                    validator: model.validatePassword,
+                                    typeOfInput: TypeOfInput.password,
+                                  ),
+                                  const Gap(10.0),
+                                  CustomBtn(
+                                    isLoading: model.getState == ViewState.busy,
+                                    content: AppMessages.registerButtonText,
+                                    onPress: () {
+                                      if (model.loginFormKey.currentState!
+                                          .validate()) {
+                                        model.register(
+                                          username:
+                                              model.usernameController.text,
+                                          email: model.emailController.text,
+                                          password:
+                                              model.passwordController.text,
+                                          appState: appState,
+                                        );
+                                      }
+                                    },
+                                    gradient: loginButtonColor,
+                                  ),
+                                  const Gap(2.0),
+                                  Align(
                                     alignment: Alignment.topRight,
                                     child: TextButton(
                                       style: TextButton.styleFrom(
@@ -127,8 +141,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                    )),
-                              ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

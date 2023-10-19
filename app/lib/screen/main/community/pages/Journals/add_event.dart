@@ -235,12 +235,6 @@ class _AddPageState extends State<AddPage> {
                               bottom: 2.0, top: 2.0, left: 5.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
-                            // child: Container(
-                            //   height: 60.0,
-                            //   width: 60.0,
-                            //   color: Colors.white,
-                            //   //hild: profileIcon,
-                            // ),
                           ),
                         ),
                         Column(

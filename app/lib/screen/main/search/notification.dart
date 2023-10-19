@@ -114,4 +114,9 @@ class _NotificationViewState extends State<NotificationView> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }

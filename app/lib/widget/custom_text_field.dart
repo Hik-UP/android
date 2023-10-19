@@ -16,6 +16,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final Function()? onTap;
   final Function(String)? onChange;
+  final int maxLine;
   const CustomTextField({
     Key? key,
     this.hintText = "",
@@ -30,6 +31,7 @@ class CustomTextField extends StatefulWidget {
     this.prefixIcon,
     this.onTap,
     this.onChange,
+    this.maxLine = 1,
   }) : super(key: key);
 
   @override
@@ -42,6 +44,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: widget.maxLine,
       onChanged: widget.onChange,
       onTap: widget.onTap,
       readOnly: widget.readOnly,
@@ -71,6 +74,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 }),
                 child: Icon(
                   obsureText ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
+                  color: Colors.green,
                 ),
               ),
       ),

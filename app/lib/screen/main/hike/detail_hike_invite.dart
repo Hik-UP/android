@@ -151,11 +151,6 @@ class DetailHikeInvite extends StatelessWidget {
               const Gap(16.0),
               Row(
                 children: <Widget>[
-                  Text(
-                    "Labels:",
-                    style: subTitleTextStyle,
-                  ),
-                  const Gap(10.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: hike.trail.labels
@@ -170,6 +165,7 @@ class DetailHikeInvite extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             child: Text(
+                              label,
                               label,
                               style: subTitleTextStyle,
                             ),

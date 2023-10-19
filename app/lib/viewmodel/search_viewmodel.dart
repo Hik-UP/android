@@ -1,13 +1,15 @@
+import 'package:hikup/locator.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 import 'package:hikup/model/trail_fields.dart';
-import 'package:hikup/model/comment.dart';
 
 class SearchViewModel extends BaseModel {
   bool loading = true;
   List<TrailFields> trailsList = [];
   List<TrailFields> filterTrailsList = [];
+  final HiveService _hiveService = locator<HiveService>();
 
   filterTrails({required String filter}) {
     if (filter == "") {
@@ -24,52 +26,47 @@ class SearchViewModel extends BaseModel {
   trails({
     required AppState appState,
   }) async {
-    var trailList = await WrapperApi().getTrail(
-      id: appState.id,
-      roles: appState.roles,
-      token: appState.token,
-    );
+    var trailList;
+    List<TrailFields> result = [];
 
-    if (trailList.statusCode == 200 || trailList.statusCode == 201) {
-      trailList.data["trails"].forEach((entry) {
-        trailsList.add(
-          TrailFields(
-            id: entry["id"],
-            name: entry["name"],
-            address: entry["address"],
-            description: entry["description"],
-            pictures: entry["pictures"].cast<String>(),
-            latitude: entry["latitude"],
-            longitude: entry["longitude"],
-            difficulty: entry["difficulty"],
-            duration: entry["duration"],
-            distance: entry["distance"],
-            uphill: entry["uphill"],
-            downhill: entry["downhill"],
-            tools: entry["tools"].cast<String>(),
-            relatedArticles: entry["relatedArticles"].cast<String>(),
-            labels: entry["labels"].cast<String>(),
-            geoJSON: entry["geoJSON"],
-            comments: entry["comments"]
-                .map((value) => Comment(
-                    id: value["id"],
-                    author: Author(
-                        username: value["author"]["username"],
-                        picture: value["author"]["picture"]),
-                    body: value["body"],
-                    pictures: value["pictures"].cast<String>(),
-                    date: DateTime.parse(value["date"])))
-                .toList()
-                .cast<Comment>(),
-            imageAsset: "",
-            price: 0,
-            openTime: "",
-            closeTime: "",
-          ),
-        );
-      });
+    var existingTrail = _hiveService.getData<TrailList>(boxTrails, "trails");
+    print(existingTrail);
+    if (existingTrail != null && existingTrail.trails.isNotEmpty) {
+      trailsList = existingTrail.trails;
+    } else {
+      trailList = await WrapperApi().getTrail(
+        id: appState.id,
+        roles: appState.roles,
+        token: appState.token,
+      );
+
+      if (trailList.statusCode == 200 || trailList.statusCode == 201) {
+        trailList.data["trails"].forEach((entry) {
+          trailsList.add(
+            TrailFields.fromMap(entry),
+          );
+          result.add(TrailFields.fromMap(entry));
+        });
+        await TrailFields.storeTrailListInHive(result);
+      }
     }
+
     filterTrailsList = trailsList;
     notifyListeners();
+  }
+
+  List<String> genTrailLabel() {
+    List<String> labels = ["Tout"];
+    for (int i = 0; i < trailsList.length; i++) {
+      for (int j = 0; j < trailsList[i].labels.length; j++) {
+        trailsList[i].labels.map((e) {
+          if (!labels.contains(e)) {
+            labels.add(e);
+          }
+        }).toList();
+      }
+    }
+
+    return labels;
   }
 }
