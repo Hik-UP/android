@@ -10,6 +10,7 @@ import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/validation.dart';
 import 'package:hikup/utils/wrapper_api.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'base_model.dart';
 
@@ -64,6 +65,11 @@ class RegisterPageViewModel extends BaseModel {
       });
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        await FirebaseAnalytics.instance.logEvent(
+          name: "signup",
+          parameters: {"email": email},
+        );
+
         var responseLogin = await _dioService.post(path: '/auth/login', body: {
           "user": {
             "email": email,
