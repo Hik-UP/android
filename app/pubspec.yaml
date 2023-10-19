@@ -41,7 +41,7 @@ dependencies:
   flutter_map: ^5.0.0
   geolocator: ^10.1.0
   auto_size_text: ^3.0.0
-  pinput: ^3.0.1 
+  pinput: ^3.0.1
   fluttertoast: ^8.0.9
   provider:
   get_it:
@@ -56,7 +56,7 @@ dependencies:
   firebase_core_platform_interface: ^4.5.3
   firebase_messaging: ^14.2.4
   image_picker: ^1.0.4
-  firebase_storage: 
+  firebase_storage:
   cached_network_image: ^3.2.3
   flutter_map_geojson: ^1.0.1
   flutter_map_location_marker: ^7.0.5
