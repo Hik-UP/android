@@ -1,3 +1,4 @@
+import 'package:dio/src/response.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/hive_service.dart';
@@ -26,7 +27,7 @@ class SearchViewModel extends BaseModel {
   trails({
     required AppState appState,
   }) async {
-    var trailList;
+    Response trailList;
     List<TrailFields> result = [];
 
     var existingTrail = _hiveService.getData<TrailList>(boxTrails, "trails");

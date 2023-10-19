@@ -6,6 +6,8 @@ import 'package:permission_handler/permission_handler.dart';
 
 class PedometerPage extends StatefulWidget {
   static String routeName = "/pedometer";
+
+  const PedometerPage({super.key});
   @override
   PedometerPageState createState() => PedometerPageState();
 }
@@ -68,21 +70,21 @@ class PedometerPageState extends State<PedometerPage> {
         appBar: const Header(),
         body: Column(
           children: <Widget>[
-            Padding(padding: EdgeInsets.all(56.0)),
-            Text(
+            const Padding(padding: EdgeInsets.all(56.0)),
+            const Text(
               'Steps taken:',
               style: TextStyle(fontSize: 30),
             ),
             Text(
               _steps,
-              style: TextStyle(fontSize: 60),
+              style: const TextStyle(fontSize: 60),
             ),
-            Divider(
+            const Divider(
               height: 60,
               thickness: 0,
               color: Colors.white,
             ),
-            Text(
+            const Text(
               '',
               style: TextStyle(fontSize: 30),
             ),

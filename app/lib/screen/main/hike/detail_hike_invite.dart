@@ -166,7 +166,6 @@ class DetailHikeInvite extends StatelessWidget {
                             ),
                             child: Text(
                               label,
-                              label,
                               style: subTitleTextStyle,
                             ),
                           ),

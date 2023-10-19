@@ -9,6 +9,7 @@ import 'package:hikup/theme.dart';
 import '../model/user.dart';
 import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
+import 'package:geolocator/geolocator.dart';
 
 enum ViewState { idle, busy, retrieved }
 

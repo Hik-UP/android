@@ -117,12 +117,12 @@ class DialogContentSkinViewModel extends BaseModel {
       }).onError((error, stackTrace) {
         throw Exception(error);
       });
-    } on StripeException catch (e) {
+    } on StripeException {
       navigationService.showSnackBack(
         content: AppMessages.stripeError,
         isError: true,
       );
-    } catch (e) {}
+    }
   }
 
   Future<void> buySkin({

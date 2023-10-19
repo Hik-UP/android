@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hikup/model/trail_fields.dart';
-import 'package:hikup/model/rando_category.dart';
 import 'package:hikup/utils/dummy_data.dart';
 import 'package:hikup/theme.dart';
 

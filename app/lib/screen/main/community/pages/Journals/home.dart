@@ -491,7 +491,6 @@ class _HomePageState extends State<ComePage> {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  children: [
                     Text(
                       "Add event",
                       style: TextStyle(
