@@ -9,6 +9,7 @@ import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'base_model.dart';
 
@@ -93,6 +94,11 @@ class LoginPageViewModel extends BaseModel {
           Skin.addSkinOnHive(skin: skin, skinBox: skinUserBox);
           appState.updateSkinState(value: skin);
           await appState.storeInHive(user: newUser);
+
+          await FirebaseAnalytics.instance.logEvent(
+            name: "login",
+            parameters: {"email": email},
+          );
 
           _navigationService.navigateTo(MainScreen.routeName);
           return;

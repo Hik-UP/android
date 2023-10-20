@@ -26,16 +26,18 @@ class ShopViewModel extends BaseModel {
         token: "Bearer ${appState.token}",
       );
 
-      (response.data['skins'] as List)
-          .map(
-            (e) => skins.add(
-              SkinWithOwner.fromMap(
-                skin: Skin.fromMap(data: e),
-                ownersList: e['owners'],
-              ),
+      (response.data['skins'] as List).map((e) {
+        var skin = Skin.fromMap(data: e);
+
+        if (skin.pictures.isNotEmpty) {
+          skins.add(
+            SkinWithOwner.fromMap(
+              skin: skin,
+              ownersList: e['owners'],
             ),
-          )
-          .toList();
+          );
+        }
+      }).toList();
       return skins;
     } catch (e) {
       return [];

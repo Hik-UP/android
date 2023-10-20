@@ -5,6 +5,7 @@ import 'package:hikup/screen/achievement/achievement_view.dart';
 import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/utils/constant.dart';
 import 'package:hikup/widget/Header/notif_bell.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
@@ -45,18 +46,10 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                   return Row(
                     children: [
                       state.picture.isEmpty
-                          ? Container(
-                              width: 30,
-                              height: 30,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: BlackPrimary,
-                                // image: DecorationImage(
-                                //   fit: BoxFit.fill,
-                                //   image: AssetImage(
-                                //     profilePlaceHoder,
-                                //   ),
-                                // ),
+                          ? const CircleAvatar(
+                              radius: 20.0,
+                              backgroundImage: AssetImage(
+                                profilePlaceHoder,
                               ),
                             )
                           : LoadPictureProfil(

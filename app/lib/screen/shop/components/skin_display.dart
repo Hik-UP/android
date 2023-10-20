@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/skin.dart';
@@ -24,6 +25,7 @@ class SkinDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(skin);
     return BaseView<SkinDisplayViewModel>(
       builder: (context, model, child) => SizedBox(
         child: InkWell(

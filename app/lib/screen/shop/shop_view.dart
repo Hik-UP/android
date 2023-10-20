@@ -50,7 +50,9 @@ class _ShopViewState extends State<ShopView> {
                       ),
                     );
                   }
-                  if (snapshot.hasData && snapshot.data!.isEmpty) {
+                  if (snapshot.hasData &&
+                      snapshot.data != null &&
+                      snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
                         AppMessages.noSkinLabel,
@@ -58,7 +60,9 @@ class _ShopViewState extends State<ShopView> {
                       ),
                     );
                   }
-                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                  if (snapshot.hasData &&
+                      snapshot.data != null &&
+                      snapshot.data!.isNotEmpty) {
                     return GridView.builder(
                       shrinkWrap: true,
                       gridDelegate:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hikup/utils/constant.dart';
 
 class SkinTarget extends StatelessWidget {
@@ -21,12 +22,16 @@ class SkinTarget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: Center(
-            child: Image.network(
-              skinUrlImage,
-              width: 30.0,
-              height: 40.0,
-              fit: BoxFit.fill,
-            ),
+            child: skinUrlImage.isEmpty
+                ? Icon(
+                    FontAwesomeIcons.triangleExclamation,
+                  )
+                : Image.network(
+                    skinUrlImage,
+                    width: 30.0,
+                    height: 40.0,
+                    fit: BoxFit.fill,
+                  ),
           ),
         ),
       ],
