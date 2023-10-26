@@ -54,7 +54,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       width: 24.0,
       height: 24.0,
       point: LatLng(widget.hike.trail.latitude, widget.hike.trail.longitude),
-      builder: (ctx) => SizedBox(
+      child: SizedBox(
         height: 10,
         width: 10,
         child: Image.asset(
@@ -91,7 +91,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           width: 56.0,
           height: 56.0,
           point: hikerLatLng,
-          builder: (ctx) => FittedBox(
+          child: FittedBox(
               fit: BoxFit.contain,
               child: Column(children: <Widget>[
                 CachedNetworkImage(
@@ -134,7 +134,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               width: 56.0,
               height: 56.0,
               point: hikerLatLng,
-              builder: (ctx) => FittedBox(
+              child: FittedBox(
                   fit: BoxFit.contain,
                   child: Column(children: <Widget>[
                     CachedNetworkImage(
@@ -182,7 +182,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           width: 56.0,
           height: 56.0,
           point: hikerLatLng,
-          builder: (ctx) => FittedBox(
+          child: FittedBox(
               fit: BoxFit.contain,
               child: Column(children: <Widget>[
                 CachedNetworkImage(

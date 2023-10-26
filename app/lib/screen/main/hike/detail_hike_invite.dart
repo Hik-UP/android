@@ -41,7 +41,7 @@ class DetailHikeInvite extends StatelessWidget {
       width: 50.0,
       height: 50.0,
       point: LatLng(hike.trail.latitude, hike.trail.longitude),
-      builder: (ctx) => const Icon(
+      child: const Icon(
         Icons.fiber_manual_record_rounded,
         color: Colors.blue,
         size: 24.0,
@@ -69,7 +69,7 @@ class DetailHikeInvite extends StatelessWidget {
       width: 50.0,
       height: 50.0,
       point: LatLng(hike.trail.latitude, hike.trail.longitude),
-      builder: (ctx) => const Icon(
+      child: const Icon(
         Icons.fiber_manual_record_rounded,
         color: Colors.blue,
         size: 24.0,

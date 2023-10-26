@@ -26,9 +26,8 @@ const baseSocketUrl = env == "PROD"
     ? baseProdSocketUrl
     : baseDevSocketUrl; //La base_url des sockets
 
-//const mapUrl =
-//    "https://api.mapbox.com/styles/v1/hikupapp/{id}/tiles/512/{z}/{x}/{y}{r}?access_token={accessToken}";
-const mapUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+const mapUrl =
+    "https://api.mapbox.com/styles/v1/hikupapp/{id}/tiles/512/{z}/{x}/{y}{r}?access_token={accessToken}";
 
 const mapIdDay = "cle0lx80a00j701qqki8kcxqd";
 const mapIdNight = "cle6pe8m0005101qmp8irwrda";

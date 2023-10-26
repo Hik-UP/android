@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/plugin_api.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
@@ -41,7 +41,7 @@ class MapViewModel extends BaseModel {
             width: 26.0,
             height: 26.0,
             point: trailLatLng,
-            builder: (ctx) => GestureDetector(
+            child: GestureDetector(
               onTap: () {
                 final List<LatLng> points = [];
 
