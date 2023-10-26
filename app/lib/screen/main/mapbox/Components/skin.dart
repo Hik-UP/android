@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -17,6 +19,7 @@ class PlayerSkin extends StatefulWidget {
 class _PlayerSkinState extends State<PlayerSkin> {
   StreamSubscription<Position>? _positionStream;
   late final StreamController<LocationMarkerPosition> _positionStreamController;
+  var firstCameraMove = false;
 
   @override
   void initState() {
@@ -41,6 +44,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
+    print(appState.skin.model);
 
     return VisibilityDetector(
         key: const Key('mapSkin'),
@@ -58,6 +62,11 @@ class _PlayerSkinState extends State<PlayerSkin> {
                           distanceFilter: 1,
                           timeLimit: Duration(seconds: 5)))
                   .listen((Position position) {
+                if (firstCameraMove == false) {
+                  MapController.of(context)
+                      .move(LatLng(position.latitude, position.longitude), 18);
+                  firstCameraMove = true;
+                }
                 _positionStreamController.add(
                   LocationMarkerPosition(
                     latitude: position.latitude,
@@ -74,7 +83,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
           followOnLocationUpdate: FollowOnLocationUpdate.once,
           turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
           style: LocationMarkerStyle(
-            marker: appState.skin.pictures.isNotEmpty
+            marker: appState.skin.model.isNotEmpty
                 ? CachedNetworkImage(
                     imageUrl: appState.skin.model,
                     errorWidget: (context, url, error) => const Icon(
@@ -83,7 +92,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
                     ),
                   )
                 : const DefaultLocationMarker(),
-            markerSize: const Size(40, 40),
+            markerSize: const Size(20, 20),
             markerDirection: MarkerDirection.heading,
           ),
         ));

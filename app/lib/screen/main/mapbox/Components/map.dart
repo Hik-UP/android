@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:hikup/utils/constant.dart';
 import 'skin.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter_map_cache/flutter_map_cache.dart';
+import 'package:path_provider/path_provider.dart';
+
+Future<String> getMapCachePath() async {
+  final cacheDirectory = await getTemporaryDirectory();
+  return cacheDirectory.path;
+}
 
 class MapBox extends StatefulWidget {
   final MapController? mapController;
@@ -16,7 +26,7 @@ class MapBox extends StatefulWidget {
   final List<Marker>? markers;
   final Function(Position)? onPositionChange;
   const MapBox(
-      {Key? key,
+      {super.key,
       this.mapController,
       this.interactiveFlags,
       this.enableScrollWheel,
@@ -25,8 +35,7 @@ class MapBox extends StatefulWidget {
       this.showSkin,
       this.polylines,
       this.markers,
-      this.onPositionChange})
-      : super(key: key);
+      this.onPositionChange});
 
   @override
   State<MapBox> createState() => _MapBoxState();
@@ -38,38 +47,76 @@ class _MapBoxState extends State<MapBox> {
     super.initState();
   }
 
+  final Future<String> _mapCachePath = getMapCachePath();
+
+  static Future<String> getMapCachePath() async {
+    late String mapCachePath;
+
+    if (kIsWeb) {
+      mapCachePath = 'HiveCacheStore';
+    } else {
+      mapCachePath = (await getTemporaryDirectory()).path;
+    }
+    return mapCachePath;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FlutterMap(
-      mapController: widget.mapController,
-      options: MapOptions(
-        interactiveFlags: widget.interactiveFlags ?? InteractiveFlag.all,
-        enableScrollWheel: widget.enableScrollWheel ?? true,
-        zoom: widget.zoom ?? 18,
-        //center: const LatLng(46.227638, 2.213749),
-        center: widget.center,
-        maxZoom: 17,
-        maxBounds:
-            LatLngBounds(const LatLng(-90, -180.0), const LatLng(90.0, 180.0)),
-        pinchZoomThreshold: 69.99999999999991,
-      ),
-      children: [
-        TileLayer(urlTemplate: mapUrl, retinaMode: true, maxZoom: 18
-            /*additionalOptions: {
-                      'accessToken': accessTokenMapBox,
-                      'id': getMapId()
-                    },*/
-            ),
-        Visibility(
-            visible: widget.showSkin ?? true,
-            child: PlayerSkin(onPositionChange: widget.onPositionChange)),
-        PolylineLayer(
-          polylines: widget.polylines ?? [],
-        ),
-        MarkerLayer(
-          markers: widget.markers ?? [],
-        ),
-      ],
-    );
+    return FutureBuilder<String>(
+        future: _mapCachePath,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final mapCachePath = snapshot.data!;
+            return FlutterMap(
+              mapController: widget.mapController,
+              options: MapOptions(
+                interactionOptions: InteractionOptions(
+                    enableScrollWheel: widget.enableScrollWheel ?? true,
+                    flags: widget.interactiveFlags ?? InteractiveFlag.all,
+                    pinchZoomThreshold: 69.99999999999991),
+                initialZoom: widget.zoom ?? 18,
+                initialCenter: widget.center ?? const LatLng(0, 0),
+                maxZoom: 17,
+                cameraConstraint: CameraConstraint.contain(
+                  bounds: LatLngBounds(
+                      const LatLng(-90, -180.0), const LatLng(90.0, 180.0)),
+                ),
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate: mapUrl,
+                  userAgentPackageName: 'hikup.flutter.com',
+                  retinaMode: true,
+                  maxZoom: 18,
+                  additionalOptions: {
+                    'accessToken': accessTokenMapBox,
+                    'id': getMapId()
+                  },
+                  tileProvider: CachedTileProvider(
+                    maxStale: const Duration(days: 30),
+                    store: HiveCacheStore(
+                      mapCachePath,
+                      hiveBoxName: 'HiveCacheStore',
+                    ),
+                  ),
+                ),
+                Visibility(
+                    visible: widget.showSkin ?? true,
+                    child:
+                        PlayerSkin(onPositionChange: widget.onPositionChange)),
+                PolylineLayer(
+                  polylines: widget.polylines ?? [],
+                ),
+                MarkerLayer(
+                  markers: widget.markers ?? [],
+                ),
+              ],
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
   }
 }
