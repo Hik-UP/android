@@ -9,6 +9,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 Future<String> getMapCachePath() async {
   final cacheDirectory = await getTemporaryDirectory();
@@ -76,7 +77,7 @@ class _MapBoxState extends State<MapBox> {
                     pinchZoomThreshold: 69.99999999999991),
                 initialZoom: widget.zoom ?? 18,
                 initialCenter: widget.center ?? const LatLng(0, 0),
-                maxZoom: 17,
+                maxZoom: 18,
                 cameraConstraint: CameraConstraint.contain(
                   bounds: LatLngBounds(
                       const LatLng(-90, -180.0), const LatLng(90.0, 180.0)),
@@ -93,6 +94,12 @@ class _MapBoxState extends State<MapBox> {
                     'id': getMapId()
                   },
                   tileProvider: CachedTileProvider(
+                    keyBuilder: (request) {
+                      return const Uuid().v5(
+                        Uuid.NAMESPACE_URL,
+                        request.uri.replace(queryParameters: {}).toString(),
+                      );
+                    },
                     maxStale: const Duration(days: 30),
                     store: HiveCacheStore(
                       mapCachePath,

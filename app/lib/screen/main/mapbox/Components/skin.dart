@@ -27,8 +27,8 @@ class _PlayerSkinState extends State<PlayerSkin> {
     _positionStreamController = StreamController()
       ..add(
         LocationMarkerPosition(
-          latitude: 0,
-          longitude: 0,
+          latitude: 46.71109,
+          longitude: 1.7191036,
           accuracy: 0,
         ),
       );
@@ -44,7 +44,6 @@ class _PlayerSkinState extends State<PlayerSkin> {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
-    print(appState.skin.model);
 
     return VisibilityDetector(
         key: const Key('mapSkin'),
@@ -65,7 +64,9 @@ class _PlayerSkinState extends State<PlayerSkin> {
                 if (firstCameraMove == false) {
                   MapController.of(context)
                       .move(LatLng(position.latitude, position.longitude), 18);
-                  firstCameraMove = true;
+                  setState(() {
+                    firstCameraMove = true;
+                  });
                 }
                 _positionStreamController.add(
                   LocationMarkerPosition(
@@ -84,15 +85,45 @@ class _PlayerSkinState extends State<PlayerSkin> {
           turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
           style: LocationMarkerStyle(
             marker: appState.skin.model.isNotEmpty
-                ? CachedNetworkImage(
-                    imageUrl: appState.skin.model,
-                    errorWidget: (context, url, error) => const Icon(
-                      Icons.warning,
-                      color: Colors.red,
-                    ),
-                  )
-                : const DefaultLocationMarker(),
-            markerSize: const Size(20, 20),
+                ? firstCameraMove
+                    ? CachedNetworkImage(
+                        imageUrl: appState.skin.model,
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.warning,
+                          color: Colors.red,
+                        ),
+                      )
+                    : ColorFiltered(
+                        colorFilter: const ColorFilter.mode(
+                          Colors.grey,
+                          BlendMode.saturation,
+                        ),
+                        child: CachedNetworkImage(
+                          imageUrl: appState.skin.model,
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.warning,
+                            color: Colors.red,
+                          ),
+                        ),
+                      )
+                : firstCameraMove
+                    ? const Image(
+                        image: AssetImage(
+                          'assets/images/skin.png',
+                        ),
+                      )
+                    : const ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          Colors.grey,
+                          BlendMode.saturation,
+                        ),
+                        child: Image(
+                          image: AssetImage(
+                            'assets/images/skin.png',
+                          ),
+                        ),
+                      ),
+            markerSize: const Size(40, 40),
             markerDirection: MarkerDirection.heading,
           ),
         ));
