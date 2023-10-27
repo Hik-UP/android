@@ -18,7 +18,7 @@ class CustomTextField extends StatefulWidget {
   final Function(String)? onChange;
   final int maxLine;
   const CustomTextField({
-    Key? key,
+    super.key,
     this.hintText = "",
     this.validator,
     this.controller,
@@ -32,7 +32,7 @@ class CustomTextField extends StatefulWidget {
     this.onTap,
     this.onChange,
     this.maxLine = 1,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();

@@ -5,9 +5,9 @@ import "package:hikup/utils/constant.dart";
 class DisplayAddress extends StatelessWidget {
   final String address;
   const DisplayAddress({
-    Key? key,
+    super.key,
     required this.address,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

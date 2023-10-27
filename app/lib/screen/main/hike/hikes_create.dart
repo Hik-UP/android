@@ -8,7 +8,7 @@ import '../../../theme.dart';
 
 class HikesCreate extends StatelessWidget {
   static String routeName = "/hikes-create";
-  const HikesCreate({Key? key}) : super(key: key);
+  const HikesCreate({super.key});
 
   @override
   Widget build(BuildContext context) {

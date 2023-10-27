@@ -59,20 +59,13 @@ class SkinWithOwner extends Skin {
   final List<OwnerSkin> owners;
   const SkinWithOwner({
     required this.owners,
-    required String description,
-    required String id,
-    required String name,
-    required List<String> pictures,
-    required String model,
-    required double price,
-  }) : super(
-          description: description,
-          id: id,
-          name: name,
-          pictures: pictures,
-          model: model,
-          price: price,
-        );
+    required super.description,
+    required super.id,
+    required super.name,
+    required super.pictures,
+    required super.model,
+    required super.price,
+  });
 
   static SkinWithOwner fromMap({
     required Skin skin,

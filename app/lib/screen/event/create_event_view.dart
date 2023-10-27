@@ -21,7 +21,7 @@ const spaceBetweenWidget = Gap(10.0);
 
 class CreateEventView extends StatefulWidget {
   static String routeName = "/create-event-view";
-  const CreateEventView({Key? key}) : super(key: key);
+  const CreateEventView({super.key});
 
   @override
   State<CreateEventView> createState() => _CreateEventViewState();

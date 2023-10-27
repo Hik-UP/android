@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 
 class DetailScreen extends StatelessWidget {
   final TrailFields field;
-  const DetailScreen({required this.field, Key? key}) : super(key: key);
+  const DetailScreen({required this.field, super.key});
 
   @override
   Widget build(BuildContext context) {

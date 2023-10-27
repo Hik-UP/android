@@ -4,9 +4,9 @@ import 'package:hikup/theme.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String label;
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.label,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

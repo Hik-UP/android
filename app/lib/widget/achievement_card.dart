@@ -11,9 +11,9 @@ const inProgressColor = Color(0xffFFAE31);
 class AchievementCard extends StatelessWidget {
   final Achievement achievement;
   const AchievementCard({
-    Key? key,
+    super.key,
     required this.achievement,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import "package:hikup/viewmodel/example_viewmodel.dart";
 import "package:hikup/widget/base_view.dart";
 
 class Example extends StatelessWidget {
-  const Example({Key? key}) : super(key: key);
+  const Example({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -15,10 +15,10 @@ class EventCard extends StatelessWidget {
   final EventModel event;
   final Function update;
   const EventCard({
-    Key? key,
+    super.key,
     required this.event,
     required this.update,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

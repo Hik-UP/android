@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hikup/theme.dart';
 
 class BackIcon extends StatelessWidget {
-  const BackIcon({Key? key}) : super(key: key);
+  const BackIcon({super.key});
 
   @override
   Widget build(BuildContext context) {

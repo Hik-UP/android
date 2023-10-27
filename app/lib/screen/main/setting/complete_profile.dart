@@ -19,10 +19,10 @@ class HeadPlaceHolder extends StatelessWidget {
   final String label;
   final Widget child;
   const HeadPlaceHolder({
-    Key? key,
+    super.key,
     required this.label,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class HeadPlaceHolder extends StatelessWidget {
 
 class CompleteProfile extends StatelessWidget {
   static String routeName = "/complete-profile";
-  const CompleteProfile({Key? key}) : super(key: key);
+  const CompleteProfile({super.key});
 
   @override
   Widget build(BuildContext context) {

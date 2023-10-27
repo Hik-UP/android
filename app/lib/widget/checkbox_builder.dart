@@ -5,10 +5,10 @@ class CheckBoxBuilder extends StatefulWidget {
   final List<String> values;
   final Function(String value) getCurrentValue;
   const CheckBoxBuilder({
-    Key? key,
+    super.key,
     required this.values,
     required this.getCurrentValue,
-  }) : super(key: key);
+  });
 
   @override
   State<CheckBoxBuilder> createState() => _CheckBoxBuilderState();

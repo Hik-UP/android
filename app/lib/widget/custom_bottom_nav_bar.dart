@@ -15,8 +15,7 @@ class CustomBottomNavBar extends StatefulWidget {
       required this.unselectedItemIcon,
       required this.label,
       required this.onChange,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();

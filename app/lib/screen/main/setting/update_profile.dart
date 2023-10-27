@@ -22,7 +22,7 @@ import '../../../utils/constant.dart';
 
 class UpdateProfile extends StatelessWidget {
   static String routeName = "/update-profile";
-  const UpdateProfile({Key? key}) : super(key: key);
+  const UpdateProfile({super.key});
 
   @override
   Widget build(BuildContext context) {

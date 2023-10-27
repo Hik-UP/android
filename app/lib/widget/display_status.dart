@@ -5,10 +5,10 @@ class DisplayStatus extends StatelessWidget {
   final Color? bgClor;
   final String status;
   const DisplayStatus({
-    Key? key,
+    super.key,
     required this.status,
     this.bgClor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

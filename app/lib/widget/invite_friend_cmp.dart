@@ -8,9 +8,9 @@ import 'package:hikup/widget/custom_text_field.dart';
 class InviteFriendCmp extends StatefulWidget {
   final Function(String data) value;
   const InviteFriendCmp({
-    Key? key,
+    super.key,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   State<InviteFriendCmp> createState() => _InviteFriendCmpState();

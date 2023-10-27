@@ -8,11 +8,11 @@ class EmailInviteCard extends StatelessWidget {
   final Function() action;
   final bool showIcon;
   const EmailInviteCard({
-    Key? key,
+    super.key,
     required this.email,
     required this.action,
     this.showIcon = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

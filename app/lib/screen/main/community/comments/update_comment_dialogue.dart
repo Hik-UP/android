@@ -11,11 +11,11 @@ class UpdateCommentDialogue extends StatelessWidget {
   final Function() action;
 
   const UpdateCommentDialogue({
-    Key? key,
+    super.key,
     required this.controller,
     this.isLoading = false,
     required this.action,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

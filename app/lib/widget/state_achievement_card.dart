@@ -7,10 +7,10 @@ class StateAchievementCard extends StatelessWidget {
   final String label;
   final String state;
   const StateAchievementCard({
-    Key? key,
+    super.key,
     required this.label,
     required this.state,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ import 'package:hikup/widget/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class ShopView extends StatefulWidget {
-  const ShopView({Key? key}) : super(key: key);
+  const ShopView({super.key});
 
   @override
   State<ShopView> createState() => _ShopViewState();

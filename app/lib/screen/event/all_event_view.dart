@@ -13,7 +13,7 @@ import "package:provider/provider.dart";
 
 class AllEventView extends StatefulWidget {
   static String routeName = "all-event";
-  const AllEventView({Key? key}) : super(key: key);
+  const AllEventView({super.key});
 
   @override
   State<AllEventView> createState() => _AllEventViewState();

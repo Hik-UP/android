@@ -6,7 +6,7 @@ import 'package:hikup/theme.dart';
 class TrailCardList extends StatelessWidget {
   final TrailFields field;
 
-  const TrailCardList({required this.field, Key? key}) : super(key: key);
+  const TrailCardList({required this.field, super.key});
 
   @override
   Widget build(BuildContext context) {

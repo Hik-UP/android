@@ -12,9 +12,9 @@ import '../../../theme.dart';
 class AllHike extends StatefulWidget {
   final List<String> targets;
   const AllHike({
-    Key? key,
+    super.key,
     required this.targets,
-  }) : super(key: key);
+  });
 
   @override
   State<AllHike> createState() => _AllHikeState();

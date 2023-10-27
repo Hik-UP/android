@@ -9,7 +9,7 @@ import "package:provider/provider.dart";
 // NotifyViewModel
 
 class NotifBell extends StatelessWidget {
-  const NotifBell({Key? key}) : super(key: key);
+  const NotifBell({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,8 +8,8 @@ class CategoryListView extends StatefulWidget {
   const CategoryListView({
     required this.labels,
     required this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CategoryListView> createState() => _CategoryListViewState();
@@ -65,8 +65,8 @@ class CategoryCard extends StatelessWidget {
     required this.imageAsset,
     required this.onTap,
     this.isSelect = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

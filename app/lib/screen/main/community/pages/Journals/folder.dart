@@ -7,7 +7,7 @@ import '../../utils/enums.dart';
 import '../Notifications/ftoast_style.dart';
 
 class FolderPage extends StatefulWidget {
-  const FolderPage({Key? key}) : super(key: key);
+  const FolderPage({super.key});
 
   @override
   State<FolderPage> createState() => _FolderPageState();

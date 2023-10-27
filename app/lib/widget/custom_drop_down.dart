@@ -11,14 +11,14 @@ class CustomDropDown extends StatelessWidget {
   final bool isVisible;
   final Function(String value) getSelectedGender;
   const CustomDropDown({
-    Key? key,
+    super.key,
     this.hintText = "",
     required this.content,
     required this.onTap,
     required this.isVisible,
     required this.inputController,
     required this.getSelectedGender,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

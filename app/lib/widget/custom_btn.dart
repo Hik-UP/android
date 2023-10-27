@@ -9,7 +9,7 @@ class CustomBtn extends StatelessWidget {
   final Color textColor;
   final Color bgColor;
   const CustomBtn({
-    Key? key,
+    super.key,
     required this.content,
     required this.onPress,
     this.gradient,
@@ -17,7 +17,7 @@ class CustomBtn extends StatelessWidget {
     this.height = 40,
     this.textColor = Colors.white,
     this.bgColor = Colors.transparent,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

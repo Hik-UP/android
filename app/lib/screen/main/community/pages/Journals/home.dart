@@ -9,7 +9,7 @@ import 'add_event.dart';
 
 class ComePage extends StatefulWidget {
   static String routeName = "/community";
-  const ComePage({Key? key}) : super(key: key);
+  const ComePage({super.key});
 
   @override
   State<ComePage> createState() => _HomePageState();

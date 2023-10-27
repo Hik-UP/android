@@ -15,10 +15,10 @@ class HikeCard extends StatelessWidget {
   final Hike hike;
   final Function() update;
   const HikeCard({
-    Key? key,
+    super.key,
     required this.hike,
     required this.update,
-  }) : super(key: key);
+  });
 
   String formatDate() {
     var replaceDate = hike.schedule.replaceAll(RegExp(r'T'), ' ');

@@ -5,9 +5,9 @@ import 'package:hikup/utils/constant.dart';
 class SkinTarget extends StatelessWidget {
   final String skinUrlImage;
   const SkinTarget({
-    Key? key,
+    super.key,
     required this.skinUrlImage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class SkinTarget extends StatelessWidget {
           padding: const EdgeInsets.only(top: 16.0),
           child: Center(
             child: skinUrlImage.isEmpty
-                ? Icon(
+                ? const Icon(
                     FontAwesomeIcons.triangleExclamation,
                   )
                 : Image.network(

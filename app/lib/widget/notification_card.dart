@@ -9,9 +9,9 @@ import 'package:hikup/utils/constant.dart';
 class NotificationCard extends StatelessWidget {
   final NotificationModel notification;
   const NotificationCard({
-    Key? key,
+    super.key,
     required this.notification,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -8,8 +8,8 @@ class FacilityCardList extends StatelessWidget {
 
   const FacilityCardList({
     required this.facilities,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,8 @@ class FacilityCard extends StatefulWidget {
   const FacilityCard({
     required this.imageIcon,
     required this.name,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<FacilityCard> createState() => _FacilityCardState();

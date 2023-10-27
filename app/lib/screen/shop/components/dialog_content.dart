@@ -15,9 +15,9 @@ import "package:provider/provider.dart";
 class DialogContent extends StatelessWidget {
   final SkinWithOwner skin;
   const DialogContent({
-    Key? key,
+    super.key,
     required this.skin,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

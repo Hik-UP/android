@@ -28,9 +28,9 @@ class DetailHikeInvite extends StatelessWidget {
   final Hike hike;
   static String routeName = "/detail-hike-invite";
   const DetailHikeInvite({
-    Key? key,
+    super.key,
     required this.hike,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -310,9 +310,9 @@ class DetailHikeInvite extends StatelessWidget {
 class ListOfGuestOrAttendee extends StatelessWidget {
   final List<Guest> elements;
   const ListOfGuestOrAttendee({
-    Key? key,
+    super.key,
     required this.elements,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -338,9 +338,9 @@ class ListOfGuestOrAttendee extends StatelessWidget {
 class EmptyLabel extends StatelessWidget {
   final String label;
   const EmptyLabel({
-    Key? key,
+    super.key,
     required this.label,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

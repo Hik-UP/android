@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/skin.dart';
@@ -17,11 +16,11 @@ class SkinDisplay extends StatelessWidget {
   final Function() updateScreen;
 
   const SkinDisplay({
-    Key? key,
+    super.key,
     required this.skin,
     this.borderColor = const Color(0xff000000),
     required this.updateScreen,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

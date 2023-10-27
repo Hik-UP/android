@@ -7,10 +7,10 @@ class ThumbailImg extends StatelessWidget {
   final Function() action;
   final File file;
   const ThumbailImg({
-    Key? key,
+    super.key,
     required this.file,
     required this.action,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

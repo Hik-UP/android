@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class BaseView<T extends BaseModel> extends StatelessWidget {
   final Widget Function(BuildContext context, T value, Widget? child)? builder;
 
-  const BaseView({this.builder, Key? key}) : super(key: key);
+  const BaseView({this.builder, super.key});
 
   @override
   Widget build(BuildContext context) {

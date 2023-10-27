@@ -9,8 +9,8 @@ class NoCommunityMessage extends StatelessWidget {
   const NoCommunityMessage({
     required this.messageTitle,
     required this.messageDesc,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

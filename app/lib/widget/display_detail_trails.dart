@@ -21,7 +21,7 @@ class DisplayDetailTrails extends StatelessWidget {
   final List<String> articles;
 
   const DisplayDetailTrails({
-    Key? key,
+    super.key,
     required this.trailId,
     required this.duration,
     required this.upHill,
@@ -29,7 +29,7 @@ class DisplayDetailTrails extends StatelessWidget {
     required this.tools,
     required this.difficulty,
     required this.articles,
-  }) : super(key: key);
+  });
 
   String putZero({required int value}) {
     return value >= 0 && value <= 9 ? "0$value" : value.toString();

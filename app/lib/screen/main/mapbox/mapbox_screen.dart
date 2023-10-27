@@ -15,8 +15,8 @@ import 'package:hikup/screen/main/community/comments/home.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<MapBoxScreen> createState() => _MapBoxScreenState();

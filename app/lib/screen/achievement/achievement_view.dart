@@ -8,7 +8,7 @@ import 'package:hikup/widget/state_achievement_card.dart';
 
 class AchievementView extends StatelessWidget {
   static String routeName = "/achievement";
-  const AchievementView({Key? key}) : super(key: key);
+  const AchievementView({super.key});
 
   @override
   Widget build(BuildContext context) {

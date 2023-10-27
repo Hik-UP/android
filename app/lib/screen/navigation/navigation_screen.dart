@@ -28,11 +28,11 @@ class NavigationScreen extends StatefulWidget {
   final dynamic stats;
   final List<dynamic> hikers;
   const NavigationScreen({
-    Key? key,
+    super.key,
     required this.hike,
     required this.stats,
     required this.hikers,
-  }) : super(key: key);
+  });
 
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
