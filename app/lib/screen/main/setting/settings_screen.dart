@@ -11,6 +11,7 @@ import 'package:hikup/screen/main/setting/update_profile.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
+import 'package:hikup/viewmodel/skin_display_viewmodel.dart';
 import 'package:hikup/widget/custom_app_bar.dart';
 import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 
