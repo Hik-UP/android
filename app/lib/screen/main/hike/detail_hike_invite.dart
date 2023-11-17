@@ -41,10 +41,12 @@ class DetailHikeInvite extends StatelessWidget {
       width: 50.0,
       height: 50.0,
       point: LatLng(hike.trail.latitude, hike.trail.longitude),
-      child: const Icon(
-        Icons.fiber_manual_record_rounded,
-        color: Colors.blue,
-        size: 24.0,
+      child: SizedBox(
+        height: 10,
+        width: 10,
+        child: Image.asset(
+          "assets/icons/start/start-${hike.trail.difficulty}.png",
+        ),
       ),
     );
     final Polyline polyline = Polyline(
@@ -52,7 +54,17 @@ class DetailHikeInvite extends StatelessWidget {
           .decode(hike.trail.geoJSON)["features"][0]["geometry"]["coordinates"]
           .map<LatLng>((entry) => LatLng(entry[1], entry[0]))
           .toList(),
-      color: Colors.red,
+      color: hike.trail.difficulty == 1
+          ? const Color.fromRGBO(87, 252, 255, 1)
+          : hike.trail.difficulty == 2
+              ? const Color.fromRGBO(72, 255, 201, 1)
+              : hike.trail.difficulty == 3
+                  ? const Color.fromRGBO(194, 283, 255, 1)
+                  : hike.trail.difficulty == 4
+                      ? const Color.fromRGBO(87, 252, 255, 1)
+                      : hike.trail.difficulty == 5
+                          ? const Color.fromRGBO(87, 252, 255, 1)
+                          : Colors.transparent,
       strokeWidth: 3.0,
       borderColor: const Color(0xFF1967D2),
       borderStrokeWidth: 0.1,
@@ -69,10 +81,12 @@ class DetailHikeInvite extends StatelessWidget {
       width: 50.0,
       height: 50.0,
       point: LatLng(hike.trail.latitude, hike.trail.longitude),
-      child: const Icon(
-        Icons.fiber_manual_record_rounded,
-        color: Colors.blue,
-        size: 24.0,
+      child: SizedBox(
+        height: 10,
+        width: 10,
+        child: Image.asset(
+          "assets/icons/start/start-${hike.trail.difficulty}.png",
+        ),
       ),
     );
 

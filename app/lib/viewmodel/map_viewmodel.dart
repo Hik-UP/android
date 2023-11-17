@@ -87,7 +87,17 @@ class MapViewModel extends BaseModel {
                 mapController.move(trailLatLng, 18.0);
                 polylines.add(Polyline(
                   points: points,
-                  color: Colors.red,
+                  color: entry["difficulty"] == 1
+                      ? const Color.fromRGBO(87, 252, 255, 1)
+                      : entry["difficulty"] == 2
+                          ? const Color.fromRGBO(72, 255, 201, 1)
+                          : entry["difficulty"] == 3
+                              ? const Color.fromRGBO(194, 283, 255, 1)
+                              : entry["difficulty"] == 4
+                                  ? const Color.fromRGBO(87, 252, 255, 1)
+                                  : entry["difficulty"] == 5
+                                      ? const Color.fromRGBO(87, 252, 255, 1)
+                                      : Colors.transparent,
                   strokeWidth: 3.0,
                   borderColor: const Color(0xFF1967D2),
                   borderStrokeWidth: 0.1,
@@ -98,7 +108,7 @@ class MapViewModel extends BaseModel {
                 height: 10,
                 width: 10,
                 child: Image.asset(
-                  "assets/icons/flag.png",
+                  "assets/icons/start/start-${entry["difficulty"]}.png",
                 ),
               ),
             ),
