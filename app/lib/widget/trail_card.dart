@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -78,6 +79,7 @@ class TrailCard extends StatelessWidget {
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Image.asset(
                           "assets/icons/pin.png",
@@ -95,6 +97,11 @@ class TrailCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: GreenAddressTextStyle,
                           ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          "Difficulty ${field.difficulty}/5",
+                          style: GreenAddressTextStyle,
                         ),
                       ],
                     ),

@@ -30,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
       if (model.trailsList.isEmpty) {
         model.trails(appState: appState);
       }
-      SearchController controller;
+      SearchController controller = SearchController();
 
       return Scaffold(
         backgroundColor: BlackSecondary,
@@ -40,7 +40,27 @@ class _SearchScreenState extends State<SearchScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Gap(8.0),
-              SearchBar(),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.92,
+                  child: SearchBar(
+                    controller: controller,
+                    backgroundColor: MaterialStateProperty.all(BlackPrimary),
+                    hintText: "Rechercher un sentier",
+                    shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
+                      (Set<MaterialState> states) {
+                        return const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        );
+                      },
+                    ),
+                    hintStyle: MaterialStateProperty.all(
+                        const TextStyle(color: Colors.grey)),
+                    //shadowColor: MaterialStateProperty.all(GreenPrimary),
+                    padding: const MaterialStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 16.0),
+                    ),
+                    leading: const Icon(Icons.search, color: Colors.grey),
+                  )),
               const Gap(32.0),
               // RECOMMENDED FIELDS
               model.filterTrailsList.isNotEmpty
