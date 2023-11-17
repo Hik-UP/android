@@ -21,9 +21,9 @@ class AppMessages {
   static String tokenExpiredMessage = "Votre token est expiré";
   static String succesfulLogout = "Déconnexion";
   static String inexistantUser = "Oops, Cette utilisateur n'existe pas.";
-  static String infoMessage = "Info";
-  static String addExtraData = "Completer votre profile";
-  static String aboutApp = "À propos Hik'UP";
+  static String infoMessage = "Informations";
+  static String addExtraData = "Completer mon profile";
+  static String aboutApp = "À propos de Hik'UP";
   static String settingTxt = "Réglages";
   static String modifprofilTxt = "Modifier profile";
   static String askIfUserWantToLogout = "Souhaitez-vous vous déconnectez ?";

@@ -11,38 +11,7 @@ import 'package:hikup/widget/achievement_card.dart';
 class ShopViewModel extends BaseModel {
   final dioService = locator<DioService>();
 
-  Future<List<SkinWithOwner>> getAllSkin({required AppState appState}) async {
-    List<SkinWithOwner> skins = [];
-
-    try {
-      var response = await dioService.post(
-        path: getSkinPath,
-        body: {
-          'user': {
-            'id': appState.id,
-            'roles': appState.roles,
-          }
-        },
-        token: "Bearer ${appState.token}",
-      );
-
-      (response.data['skins'] as List).map((e) {
-        var skin = Skin.fromMap(data: e);
-
-        if (skin.pictures.isNotEmpty) {
-          skins.add(
-            SkinWithOwner.fromMap(
-              skin: skin,
-              ownersList: e['owners'],
-            ),
-          );
-        }
-      }).toList();
-      return skins;
-    } catch (e) {
-      return [];
-    }
-  }
+  
 
   Color getBorderColor({
     required AppState appState,

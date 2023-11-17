@@ -82,6 +82,11 @@ TextStyle priceTextStyleWhite = GoogleFonts.poppins(
     fontWeight: FontWeight.w700,
     color: const Color.fromARGB(255, 255, 255, 255));
 
+TextStyle textLinkProfileStyle = GoogleFonts.poppins(
+  fontWeight: FontWeight.w700,
+  color: const Color(0xff00FFFF),
+  fontStyle: FontStyle.italic,
+);
 /*
 TextStyle normalTextStyle = GoogleFonts.poppins(color: darkBlue500);
 
