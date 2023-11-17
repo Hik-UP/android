@@ -17,7 +17,7 @@ class TrailCard extends StatelessWidget {
       padding:
           const EdgeInsets.only(right: 16, left: 16, top: 8.0, bottom: 16.0),
       child: InkWell(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(10),
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return DetailScreen(
@@ -27,35 +27,38 @@ class TrailCard extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16.0),
-            color: BlackPrimary,
-            /*boxShadow: [
-                BoxShadow(
-                  color: primaryColor500.withOpacity(0.1),
-                  blurRadius: 20,
-                )
-              ]*/
+            border: Border.all(width: 1, color: Colors.white.withOpacity(0.4)),
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.white.withOpacity(0.1),
           ),
           child: Column(
             children: [
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(borderRadiusSize)),
-                child: CarouselSlider(
-                  options: CarouselOptions(autoPlay: true, viewportFraction: 1),
-                  items: field.pictures.map((picture) {
-                    return CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      width: 1000.0,
-                      imageUrl: picture,
-                      errorWidget: (context, url, error) => const Icon(
-                        Icons.warning,
-                        color: HOPA,
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(10)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                            color: Colors.white.withOpacity(0.4), width: 1),
                       ),
-                    );
-                  }).toList(),
-                ),
-              ),
+                    ),
+                    child: CarouselSlider(
+                      options:
+                          CarouselOptions(autoPlay: false, viewportFraction: 1),
+                      items: field.pictures.map((picture) {
+                        return CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          width: 1000.0,
+                          imageUrl: picture,
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.warning,
+                            color: HOPA,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  )),
               Container(
                 padding: const EdgeInsets.only(
                     right: 15, left: 15, top: 10.0, bottom: 15.0),
@@ -78,9 +81,9 @@ class TrailCard extends StatelessWidget {
                       children: [
                         Image.asset(
                           "assets/icons/pin.png",
-                          width: 20,
-                          height: 20,
-                          color: GreenPrimary,
+                          width: 16,
+                          height: 16,
+                          color: Colors.white,
                         ),
                         const SizedBox(
                           width: 8.0,

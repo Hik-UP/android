@@ -115,7 +115,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
                     : const ColorFiltered(
                         colorFilter: ColorFilter.mode(
                           Colors.grey,
-                          BlendMode.saturation,
+                          BlendMode.modulate,
                         ),
                         child: Image(
                           image: AssetImage(

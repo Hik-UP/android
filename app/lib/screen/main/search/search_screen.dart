@@ -30,6 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
       if (model.trailsList.isEmpty) {
         model.trails(appState: appState);
       }
+      SearchController controller;
 
       return Scaffold(
         backgroundColor: BlackSecondary,
@@ -39,36 +40,8 @@ class _SearchScreenState extends State<SearchScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Gap(8.0),
-              Text(
-                "Hik'Up!",
-                style: GreenTitleTextStyle,
-              ),
-              CategoryListView(
-                  trailsList: model.trailsList,
-                  onTap: (String label) {
-                    if (label == "Tout") {
-                      model.filterTrails(filter: "");
-                    } else {
-                      model.filterTrails(filter: label);
-                    }
-                  }),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  left: 16.0,
-                  right: 16.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Recommandation",
-                      style: WhiteTitleTextStyle,
-                      //style: subTitleTextStyle,
-                    )
-                  ],
-                ),
-              ),
+              SearchBar(),
+              const Gap(32.0),
               // RECOMMENDED FIELDS
               model.filterTrailsList.isNotEmpty
                   ? ListView.builder(

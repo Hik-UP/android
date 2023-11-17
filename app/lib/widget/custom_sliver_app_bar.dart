@@ -43,7 +43,7 @@ class CustomSliverAppBar extends StatelessWidget {
         ),
         background: CarouselSlider(
           options: CarouselOptions(
-              autoPlay: true,
+              autoPlay: false,
               viewportFraction: 1,
               height: MediaQuery.of(context).size.height),
           items: field.pictures.map((picture) {
