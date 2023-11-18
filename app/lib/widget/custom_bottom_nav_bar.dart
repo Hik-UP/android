@@ -81,7 +81,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                         activeIcon,
                         width: 25,
                         height: 25,
-                        color: GreenPrimary,
+                        color: Colors.white,
                       ),
                       Text(
                         label,

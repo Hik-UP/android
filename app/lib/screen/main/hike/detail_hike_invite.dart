@@ -38,12 +38,12 @@ class DetailHikeInvite extends StatelessWidget {
     double maxHeight = MediaQuery.of(context).size.height;
     AppState appState = context.read<AppState>();
     final Marker marker = Marker(
-      width: 50.0,
-      height: 50.0,
+      width: 35,
+      height: 35,
       point: LatLng(hike.trail.latitude, hike.trail.longitude),
       child: SizedBox(
-        height: 10,
-        width: 10,
+        height: 35,
+        width: 35,
         child: Image.asset(
           "assets/icons/start/start-${hike.trail.difficulty}.png",
         ),
@@ -55,15 +55,15 @@ class DetailHikeInvite extends StatelessWidget {
           .map<LatLng>((entry) => LatLng(entry[1], entry[0]))
           .toList(),
       color: hike.trail.difficulty == 1
-          ? const Color.fromRGBO(87, 252, 255, 1)
+          ? const Color.fromRGBO(87, 252, 255, 0.8)
           : hike.trail.difficulty == 2
-              ? const Color.fromRGBO(72, 255, 201, 1)
+              ? const Color.fromRGBO(72, 255, 201, 0.8)
               : hike.trail.difficulty == 3
-                  ? const Color.fromRGBO(194, 283, 255, 1)
+                  ? const Color.fromRGBO(194, 283, 255, 0.8)
                   : hike.trail.difficulty == 4
-                      ? const Color.fromRGBO(87, 252, 255, 1)
+                      ? const Color.fromRGBO(253, 210, 59, 0.8)
                       : hike.trail.difficulty == 5
-                          ? const Color.fromRGBO(87, 252, 255, 1)
+                          ? const Color.fromRGBO(87, 252, 255, 0.8)
                           : Colors.transparent,
       strokeWidth: 3.0,
       borderColor: const Color(0xFF1967D2),

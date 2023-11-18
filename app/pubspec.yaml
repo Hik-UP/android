@@ -61,7 +61,7 @@ dependencies:
   rename: ^3.0.0
   carousel_slider: ^4.2.1
   permission_handler: ^11.0.0
-  flutter_svg:
+  flutter_svg: ^2.0.9
   sliding_up_panel: ^2.0.0+1
   any_link_preview: ^3.0.0
   socket_io_client: ^2.0.2
@@ -106,6 +106,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/icons/start/
+    - assets/icons/details/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

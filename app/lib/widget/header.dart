@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/hike/hikes_create.dart';
-import 'package:hikup/screen/main/search/notification.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:provider/provider.dart';
@@ -19,56 +19,15 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: const IconThemeData(
         color: Color.fromARGB(255, 156, 156, 156),
       ),
-      title: SizedBox(
-        width: MediaQuery.of(context).size.width / 2 * .9,
-        child: Text(
-          appState.username.isNotEmpty
-              ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
-              : "",
-          style: subTitleTextStyle,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
-      leading: Container(
-        margin: const EdgeInsets.only(left: 10.0),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(
-                //CommunityHistoryScreen.routeName,
-                SettingsScreen.routeName,
-              ),
-              child: Consumer<AppState>(
-                builder: (context, state, child) {
-                  return Row(
-                    children: [
-                      state.picture.isEmpty
-                          ? Container(
-                              width: 30,
-                              height: 30,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: BlackPrimary,
-                                // image: DecorationImage(
-                                //   fit: BoxFit.fill,
-                                //   image: AssetImage(
-                                //     profilePlaceHoder,
-                                //   ),
-                                // ),
-                              ),
-                            )
-                          : LoadPictureProfil(
-                              size: 35,
-                              appState: state,
-                            ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+      title: Text(
+        "HIK'UP",
+        style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+            fontStyle: FontStyle.italic),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
       backgroundColor: const Color.fromARGB(255, 32, 32, 32),
       elevation: 0.0,
@@ -84,41 +43,37 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                 FontAwesomeIcons.personHiking,
               ),
             ),
-            const Gap(20.0),
+            const Gap(10),
             GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(
-                NotificationView.routeName,
+                //CommunityHistoryScreen.routeName,
+                SettingsScreen.routeName,
               ),
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  const Icon(
-                    FontAwesomeIcons.bell,
-                    size: 23,
-                  ),
-                  Positioned(
-                    right: 0,
-                    top: -5,
-                    child: Container(
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 23, 255, 119),
-                        shape: BoxShape.circle,
-                      ),
-                      // child: const Text(
-                      //   "3",
-                      //   style: TextStyle(
-                      //     color: Colors.white,
-                      //     fontWeight: FontWeight.bold,
-                      //     fontSize: 8.0,
-                      //   ),
-                      // ),
-                    ),
-                  ),
-                ],
+              child: Consumer<AppState>(
+                builder: (context, state, child) {
+                  return state.picture.isEmpty
+                      ? Container(
+                          width: 30,
+                          height: 30,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: BlackPrimary,
+                            // image: DecorationImage(
+                            //   fit: BoxFit.fill,
+                            //   image: AssetImage(
+                            //     profilePlaceHoder,
+                            //   ),
+                            // ),
+                          ),
+                        )
+                      : LoadPictureProfil(
+                          size: 35,
+                          appState: state,
+                        );
+                },
               ),
             ),
-            const Gap(16.0)
+            const Gap(16.0),
           ],
         ),
         // Row(

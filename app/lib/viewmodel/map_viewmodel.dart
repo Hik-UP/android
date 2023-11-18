@@ -15,6 +15,7 @@ class MapViewModel extends BaseModel {
   final List<TrailFields> trailsList = [];
   final double zoom = 5.5;
   bool loading = true;
+  bool showPanel = false;
 
   void setLoading(bool value) {
     loading = value;
@@ -38,8 +39,8 @@ class MapViewModel extends BaseModel {
 
         markers.add(
           Marker(
-            width: 26.0,
-            height: 26.0,
+            width: 35,
+            height: 35,
             point: trailLatLng,
             child: GestureDetector(
               onTap: () {
@@ -88,25 +89,26 @@ class MapViewModel extends BaseModel {
                 polylines.add(Polyline(
                   points: points,
                   color: entry["difficulty"] == 1
-                      ? const Color.fromRGBO(87, 252, 255, 1)
+                      ? const Color.fromRGBO(87, 252, 255, 0.8)
                       : entry["difficulty"] == 2
-                          ? const Color.fromRGBO(72, 255, 201, 1)
+                          ? const Color.fromRGBO(72, 255, 201, 0.8)
                           : entry["difficulty"] == 3
-                              ? const Color.fromRGBO(194, 283, 255, 1)
+                              ? const Color.fromRGBO(194, 283, 255, 0.8)
                               : entry["difficulty"] == 4
-                                  ? const Color.fromRGBO(87, 252, 255, 1)
+                                  ? const Color.fromRGBO(253, 210, 59, 0.8)
                                   : entry["difficulty"] == 5
-                                      ? const Color.fromRGBO(87, 252, 255, 1)
+                                      ? const Color.fromRGBO(87, 252, 255, 0.8)
                                       : Colors.transparent,
                   strokeWidth: 3.0,
                   borderColor: const Color(0xFF1967D2),
                   borderStrokeWidth: 0.1,
                 ));
+                showPanel = true;
                 updateScreen();
               },
               child: SizedBox(
-                height: 10,
-                width: 10,
+                height: 35,
+                width: 35,
                 child: Image.asset(
                   "assets/icons/start/start-${entry["difficulty"]}.png",
                 ),

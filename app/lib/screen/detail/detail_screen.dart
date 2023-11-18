@@ -76,7 +76,7 @@ class DetailScreen extends StatelessWidget {
                                   ),
                                   child: Text(
                                     label,
-                                    style: subTitleTextStyle,
+                                    style: WhiteTitleTextStyle,
                                   ),
                                 ),
                               )

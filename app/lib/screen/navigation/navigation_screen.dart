@@ -51,18 +51,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
     super.initState();
 
     marker = Marker(
-      width: 24.0,
-      height: 24.0,
+      width: 35,
+      height: 35,
       point: LatLng(widget.hike.trail.latitude, widget.hike.trail.longitude),
       child: SizedBox(
-        height: 10,
-        width: 10,
-        child: SizedBox(
-          height: 10,
-          width: 10,
-          child: Image.asset(
-            "assets/icons/start/start-${widget.hike.trail.difficulty}.png",
-          ),
+        height: 35,
+        width: 35,
+        child: Image.asset(
+          "assets/icons/start/start-${widget.hike.trail.difficulty}.png",
         ),
       ),
     );
@@ -73,15 +69,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
           .map<LatLng>((entry) => LatLng(entry[1], entry[0]))
           .toList(),
       color: widget.hike.trail.difficulty == 1
-          ? const Color.fromRGBO(87, 252, 255, 1)
+          ? const Color.fromRGBO(87, 252, 255, 0.8)
           : widget.hike.trail.difficulty == 2
-              ? const Color.fromRGBO(72, 255, 201, 1)
+              ? const Color.fromRGBO(72, 255, 201, 0.8)
               : widget.hike.trail.difficulty == 3
-                  ? const Color.fromRGBO(194, 283, 255, 1)
+                  ? const Color.fromRGBO(194, 283, 255, 0.8)
                   : widget.hike.trail.difficulty == 4
-                      ? const Color.fromRGBO(87, 252, 255, 1)
+                      ? const Color.fromRGBO(253, 210, 59, 0.8)
                       : widget.hike.trail.difficulty == 5
-                          ? const Color.fromRGBO(87, 252, 255, 1)
+                          ? const Color.fromRGBO(87, 252, 255, 0.8)
                           : Colors.transparent,
       strokeWidth: 3.0,
       borderColor: const Color(0xFF1967D2),
