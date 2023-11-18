@@ -12,8 +12,10 @@ import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/community/comments/home.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
@@ -63,12 +65,6 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
         }
       }
 
-      String durationToString(int minutes) {
-        var d = Duration(minutes: minutes);
-        List<String> parts = d.toString().split(':');
-        return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
-      }
-
       model.mapController.mapEventStream.listen((event) {
         if (model.polylines.isNotEmpty &&
             model.mapController.camera.zoom <= 12) {
@@ -104,123 +100,101 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
             model.showPanel == true && model.trailsList.isNotEmpty
                 ? Positioned(
                     top: 70,
-                    child: InkWell(
-                        onTap: () => {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return DetailScreen(
-                                  field: model.trailsList[0],
-                                );
-                              }))
-                            },
-                        child: Container(
-                            padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
-                            width: 310,
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    left:
-                                        BorderSide(color: trailColor, width: 2),
-                                    top:
-                                        BorderSide(color: trailColor, width: 2),
-                                    right:
-                                        BorderSide(color: trailColor, width: 2),
-                                    bottom: BorderSide(
-                                        color: trailColor, width: 6)),
-                                borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(0),
-                                    topLeft: Radius.circular(10.0),
-                                    bottomRight: Radius.circular(10.0),
-                                    bottomLeft: Radius.circular(0)),
-                                color: const Color.fromRGBO(0, 0, 0, 0.2)),
-                            child: Row(children: [
-                              Container(
-                                  alignment: Alignment.centerLeft,
-                                  width: 265,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        model.trailsList[0].name,
-                                        style: subTitleTextStyle,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                      ),
-                                      Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                              "assets/icons/details/clock.svg",
-                                              height: 10,
-                                              width: 10,
-                                              colorFilter: ColorFilter.mode(
-                                                  trailColor, BlendMode.srcIn),
-                                              semanticsLabel: 'duration'),
-                                          const Gap(2),
-                                          Text(
-                                              "${durationToString(model.trailsList[0].duration)} h",
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          InkWell(
+                              onTap: () => {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return DetailScreen(
+                                        field: model.trailsList[0],
+                                      );
+                                    }))
+                                  },
+                              child: Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 10, 5, 5),
+                                  width: 310,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          left: BorderSide(
+                                              color: trailColor, width: 2),
+                                          top: BorderSide(
+                                              color: trailColor, width: 2),
+                                          right: BorderSide(
+                                              color: trailColor, width: 2),
+                                          bottom: BorderSide(
+                                              color: trailColor, width: 6)),
+                                      borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(0),
+                                          topLeft: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                          bottomLeft: Radius.circular(0)),
+                                      color:
+                                          const Color.fromRGBO(0, 0, 0, 0.2)),
+                                  child: Row(children: [
+                                    Container(
+                                        alignment: Alignment.centerLeft,
+                                        width: 265,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              model.trailsList[0].name,
                                               style: GoogleFonts.poppins(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: trailColor)),
-                                          const Gap(10),
-                                          SvgPicture.asset(
-                                              "assets/icons/details/shoe.svg",
-                                              height: 11,
-                                              width: 11,
-                                              colorFilter: ColorFilter.mode(
-                                                  trailColor, BlendMode.srcIn),
-                                              semanticsLabel: 'distance'),
-                                          const Gap(2),
-                                          Text(
-                                              "${model.trailsList[0].distance / 1000} km",
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: trailColor)),
-                                          const Gap(10),
-                                          SvgPicture.asset(
-                                              "assets/icons/details/down-arrow.svg",
-                                              height: 8,
-                                              width: 8,
-                                              colorFilter: ColorFilter.mode(
-                                                  trailColor, BlendMode.srcIn),
-                                              semanticsLabel: 'downhill'),
-                                          const Gap(2),
-                                          Text(
-                                              "${model.trailsList[0].downhill} m",
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: trailColor)),
-                                          const Gap(10),
-                                          SvgPicture.asset(
-                                              "assets/icons/details/up-arrow.svg",
-                                              height: 8,
-                                              width: 8,
-                                              colorFilter: ColorFilter.mode(
-                                                  trailColor, BlendMode.srcIn),
-                                              semanticsLabel: 'uphill'),
-                                          const Gap(2),
-                                          Text(
-                                              "${model.trailsList[0].uphill} m",
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: trailColor))
-                                        ],
-                                      )
-                                    ],
-                                  )),
-                              SvgPicture.asset(
-                                  "assets/icons/details/left-arrow.svg",
-                                  height: 25,
-                                  width: 25,
-                                  colorFilter: ColorFilter.mode(
-                                      trailColor, BlendMode.srcIn),
-                                  semanticsLabel: 'select')
-                            ]))),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white,
+                                                  fontStyle: FontStyle.italic,
+                                                  height: 1.2),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.left,
+                                            ),
+                                            const Gap(4),
+                                            DisplayDetailTrails(
+                                              fontSize: 10,
+                                              trailId: model.trailsList[0].id,
+                                              duration:
+                                                  model.trailsList[0].duration,
+                                              distance:
+                                                  model.trailsList[0].distance,
+                                              upHill:
+                                                  model.trailsList[0].uphill,
+                                              downHill:
+                                                  model.trailsList[0].downhill,
+                                              difficulty: model
+                                                  .trailsList[0].difficulty,
+                                            ),
+                                          ],
+                                        )),
+                                    SvgPicture.asset(
+                                        "assets/icons/details/left-arrow.svg",
+                                        height: 25,
+                                        width: 25,
+                                        colorFilter: ColorFilter.mode(
+                                            trailColor, BlendMode.srcIn),
+                                        semanticsLabel: 'select')
+                                  ]))),
+                          const Gap(5.0),
+                          RatingBarIndicator(
+                            rating: model.trailsList[0].difficulty.toDouble(),
+                            itemBuilder: (context, index) => SvgPicture.asset(
+                                "assets/icons/details/lightning.svg",
+                                colorFilter: const ColorFilter.mode(
+                                    Colors.amber, BlendMode.srcIn),
+                                semanticsLabel: 'difficulty'),
+                            itemCount: 5,
+                            itemSize: 20,
+                            unratedColor: Colors.amber.withAlpha(50),
+                            direction: Axis.horizontal,
+                          ),
+                        ]),
                   )
                 : Container()
           ],

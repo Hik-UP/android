@@ -71,12 +71,6 @@ class DetailHikeInvite extends StatelessWidget {
     );
     bool joinInProgress = false;
 
-    String durationToString(int minutes) {
-      var d = Duration(minutes: minutes);
-      List<String> parts = d.toString().split(':');
-      return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
-    }
-
     Marker(
       width: 50.0,
       height: 50.0,
@@ -200,13 +194,13 @@ class DetailHikeInvite extends StatelessWidget {
               ),
               const Gap(10.0),
               DisplayDetailTrails(
+                fontSize: 12,
                 trailId: hike.trail.id,
-                duration: durationToString(hike.trail.duration),
-                upHill: "${hike.trail.uphill} m",
-                downHill: "${hike.trail.downhill} m",
-                tools: hike.trail.tools,
-                difficulty: hike.trail.difficulty.toString(),
-                articles: hike.trail.relatedArticles,
+                duration: hike.trail.duration,
+                distance: hike.trail.distance,
+                upHill: hike.trail.uphill,
+                downHill: hike.trail.downhill,
+                difficulty: hike.trail.difficulty,
               ),
               const Gap(10.0),
               Text(

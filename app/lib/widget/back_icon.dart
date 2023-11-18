@@ -11,7 +11,7 @@ class BackIcon extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: const BoxDecoration(
-          color: BlackPrimary,
+          color: Color.fromRGBO(0, 0, 0, 0.6),
           shape: BoxShape.circle,
         ),
         child: IconButton(
@@ -21,7 +21,7 @@ class BackIcon extends StatelessWidget {
             iconSize: 26,
             icon: const Icon(
               Icons.arrow_back,
-              color: GreenPrimary,
+              color: Colors.white,
             )),
       ),
     );

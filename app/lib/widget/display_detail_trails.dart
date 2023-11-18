@@ -11,259 +11,97 @@ import "package:hikup/utils/app_messages.dart";
 import "package:hikup/utils/wrapper_api.dart";
 import "package:hikup/widget/show_burn_calories.dart";
 import "package:provider/provider.dart";
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DisplayDetailTrails extends StatelessWidget {
+  final double fontSize;
   final String trailId;
-  final String duration;
-  final String upHill;
-  final String downHill;
-  final List<String> tools;
-  final String difficulty;
-  final List<String> articles;
+  final int duration;
+  final int distance;
+  final int upHill;
+  final int downHill;
+  final int difficulty;
 
   const DisplayDetailTrails({
     Key? key,
+    required this.fontSize,
     required this.trailId,
     required this.duration,
+    required this.distance,
     required this.upHill,
     required this.downHill,
-    required this.tools,
     required this.difficulty,
-    required this.articles,
   }) : super(key: key);
 
-  String putZero({required int value}) {
-    return value >= 0 && value <= 9 ? "0$value" : value.toString();
+  String durationToString(int minutes) {
+    var d = Duration(minutes: minutes);
+    List<String> parts = d.toString().split(':');
+    return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    Color trailColor = difficulty == 1
+        ? const Color.fromRGBO(87, 252, 255, 0.8)
+        : difficulty == 2
+            ? const Color.fromRGBO(72, 255, 201, 0.8)
+            : difficulty == 3
+                ? const Color.fromRGBO(194, 283, 255, 0.8)
+                : difficulty == 4
+                    ? const Color.fromRGBO(253, 210, 59, 0.8)
+                    : difficulty == 5
+                        ? const Color.fromRGBO(87, 252, 255, 0.8)
+                        : Colors.transparent;
+
+    return Row(
       children: [
-        FutureBuilder<DetailTrailMode>(
-          future: WrapperApi().getDetailsTrails(
-            appState: context.read<AppState>(),
-            trailId: trailId,
-          ),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  AppMessages.anErrorOcur,
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 10.0,
-                  ),
-                ),
-              );
-            }
-            if (snapshot.hasData) {
-              // boxtrailId.put("trailId", field.id);
-              var data = snapshot.data;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CommunityView(
-                                trailId: trailId,
-                              ),
-                            ),
-                          );
-                        },
-                        child: const Icon(
-                          Icons.add_box,
-                          color: GreenPrimary,
-                          size: 24.0,
-                        ),
-                      ),
-                      const Gap(16.0),
-                      Text(
-                        "Avis",
-                        style: WhiteAddressTextStyle,
-                      ),
-                      const Gap(16.0),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: GreenPrimary,
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: Image.network(
-                          data!.iconTemp,
-                          height: 24.0,
-                        ),
-                      ),
-                      const Gap(16.0),
-                      Text(
-                        "${putZero(value: data.temperature)} °C",
-                        style: WhiteAddressTextStyle,
-                      ),
-                    ],
-                  ),
-                  const Gap(16.0),
-                  ShowBurnCalories(calories: data.calories),
-                ],
-              );
-            }
-            return const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 18,
-                  height: 18,
-                  child: CircularProgressIndicator(),
-                ),
-              ],
-            );
-          },
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.escalator,
-              color: GreenPrimary,
-            ),
-            const SizedBox(
-              width: 16.0,
-            ),
-            Text(
-              upHill,
-              style: WhiteAddressTextStyle,
-            ),
-            const Gap(16.0),
-            Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.rotationY(math.pi),
-              child: const Icon(
-                Icons.escalator,
-                color: GreenPrimary,
-              ),
-            ),
-            const SizedBox(
-              width: 16.0,
-            ),
-            Text(
-              downHill,
-              style: WhiteAddressTextStyle,
-            ),
-          ],
-        ),
-        const Gap(10.0),
-        Text(
-          "Difficulté",
-          style: subTitleTextStyle,
-        ),
-        const Gap(10.0),
-        Row(
-          children: [
-            const Icon(
-              Icons.emoji_events,
-              color: GreenPrimary,
-              size: 24.0,
-            ),
-            const SizedBox(
-              width: 16.0,
-            ),
-            Text(
-              "$difficulty / 5",
-              textAlign: TextAlign.justify,
-              style: WhiteAddressTextStyle,
-            ),
-          ],
-        ),
-        const Gap(10.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Durée",
-              style: subTitleTextStyle,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Row(
-          children: [
-            const Icon(
-              Icons.access_time_rounded,
-              color: GreenPrimary,
-            ),
-            const SizedBox(
-              width: 16.0,
-            ),
-            Text(
-              duration,
-              style: WhiteAddressTextStyle,
-            ),
-          ],
-        ),
-        const Gap(10.0),
-        Text(
-          "Équipements",
-          style: subTitleTextStyle,
-        ),
-        const Gap(10.0),
-        WrapperApi().showTools(
-          toolsBack: tools,
-        ),
-        const Gap(10.0),
-        Text(
-          "Articles",
-          style: subTitleTextStyle,
-        ),
-        const Gap(8.0),
-        SizedBox(
-          height: 200,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: articles.length,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: AnyLinkPreview(
-                link: articles[index],
-                displayDirection: UIDirection.uiDirectionVertical,
-                showMultimedia: true,
-                bodyMaxLines: 2,
-                bodyTextOverflow: TextOverflow.ellipsis,
-                titleStyle: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-                bodyStyle: GoogleFonts.poppins(
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
-                errorBody: 'Show my custom error body',
-                errorTitle: 'Show my custom error title',
-                errorWidget: Container(
-                  color: Colors.grey[300],
-                  child: const Text('Oops!'),
-                ),
-                errorImage: "https://google.com/",
-                cache: const Duration(days: 7),
-                backgroundColor: Colors.grey[300],
-                borderRadius: 12,
-                removeElevation: false,
-                boxShadow: const [
-                  BoxShadow(blurRadius: 3, color: Colors.grey),
-                ],
-              ),
-            ),
-          ),
-        ),
-        const Gap(10.0),
+        SvgPicture.asset("assets/icons/details/clock.svg",
+            height: fontSize,
+            width: fontSize,
+            colorFilter: ColorFilter.mode(trailColor, BlendMode.srcIn),
+            semanticsLabel: 'duration'),
+        const Gap(2),
+        Text("${durationToString(duration)} h",
+            style: GoogleFonts.poppins(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w600,
+                color: Colors.white)),
+        const Gap(10),
+        SvgPicture.asset("assets/icons/details/shoe.svg",
+            height: fontSize + 1,
+            width: fontSize + 1,
+            colorFilter: ColorFilter.mode(trailColor, BlendMode.srcIn),
+            semanticsLabel: 'distance'),
+        const Gap(2),
+        Text("${distance / 1000} km",
+            style: GoogleFonts.poppins(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w600,
+                color: Colors.white)),
+        const Gap(10),
+        SvgPicture.asset("assets/icons/details/down-arrow.svg",
+            height: fontSize - 2,
+            width: fontSize - 2,
+            colorFilter: ColorFilter.mode(trailColor, BlendMode.srcIn),
+            semanticsLabel: 'downhill'),
+        const Gap(2),
+        Text("$downHill m",
+            style: GoogleFonts.poppins(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w600,
+                color: Colors.white)),
+        const Gap(10),
+        SvgPicture.asset("assets/icons/details/up-arrow.svg",
+            height: fontSize - 2,
+            width: fontSize - 2,
+            colorFilter: ColorFilter.mode(trailColor, BlendMode.srcIn),
+            semanticsLabel: 'uphill'),
+        const Gap(2),
+        Text("$upHill m",
+            style: GoogleFonts.poppins(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w600,
+                color: Colors.white))
       ],
     );
   }

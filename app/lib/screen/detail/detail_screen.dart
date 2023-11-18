@@ -5,6 +5,7 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/detail_screen_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_sliver_app_bar.dart';
@@ -14,6 +15,9 @@ import 'package:hikup/widget/email_invite_card.dart';
 import 'package:hikup/widget/invite_friend_cmp.dart';
 import 'package:hikup/widget/plan_component.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailScreen extends StatelessWidget {
   final TrailFields field;
@@ -23,208 +27,114 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
 
-    String durationToString(int minutes) {
-      var d = Duration(minutes: minutes);
-      List<String> parts = d.toString().split(':');
-      return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
-    }
-
     return BaseView<DetailScreenViewModel>(
       builder: (context, model, child) => Scaffold(
         body: CustomScrollView(
           slivers: [
             CustomSliverAppBar(field: field),
             SliverPadding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 40),
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   [
-                    DisplayAddress(address: field.address),
-                    const Gap(16),
-                    /*Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          CupertinoIcons.money_dollar_circle_fill,
-                          color: GreenPrimary,
+                    ElevatedButton(
+                      onPressed: () => print("ok"),
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                          backgroundColor: const Color.fromRGBO(12, 60, 40, 1),
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          side: const BorderSide(
+                            width: 1.0,
+                            color: Color.fromRGBO(21, 255, 120, 1),
+                          )),
+                      child: const Text(
+                        "Planifier",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                        SizedBox(
-                          width: 16.0,
-                        ),
-                      ],
+                      ),
                     ),
-                    const Gap(10.0),*/
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          "Labels:",
-                          style: subTitleTextStyle,
-                        ),
-                        const Gap(10.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: field.labels
-                              .map(
-                                (label) => Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 5.0, right: 5.0),
-                                  margin: const EdgeInsets.only(
-                                      left: 5.0, right: 5.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(4.0),
-                                  ),
-                                  child: Text(
-                                    label,
-                                    style: WhiteTitleTextStyle,
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ],
+                    const Gap(16),
+                    Text(
+                      "Description :",
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontStyle: FontStyle.italic),
                     ),
                     const Gap(10.0),
-                    Text(
-                      "Description",
-                      style: subTitleTextStyle,
-                    ),
-                    const Gap(8.0),
                     Text(
                       field.description.toString(),
                       textAlign: TextAlign.justify,
-                      style: WhiteAddressTextStyle,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey),
+                    ),
+                    const Gap(15.0),
+                    Text(
+                      "Difficulté :",
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontStyle: FontStyle.italic),
                     ),
                     const Gap(10.0),
+                    RatingBarIndicator(
+                      rating: field.difficulty.toDouble(),
+                      itemBuilder: (context, index) => SvgPicture.asset(
+                          "assets/icons/details/lightning.svg",
+                          colorFilter:
+                              ColorFilter.mode(Colors.amber, BlendMode.srcIn),
+                          semanticsLabel: 'difficulty'),
+                      itemCount: 5,
+                      itemSize: 20,
+                      unratedColor: Colors.amber.withAlpha(50),
+                      direction: Axis.horizontal,
+                    ),
+                    const Gap(15.0),
                     Text(
-                      "Détails",
-                      style: subTitleTextStyle,
+                      "Équipements recommandés :",
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontStyle: FontStyle.italic),
+                    ),
+                    const Gap(10.0),
+                    WrapperApi().showTools(
+                      toolsBack: field.tools,
+                    ),
+                    const Gap(15.0),
+                    Text(
+                      "Détails :",
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontStyle: FontStyle.italic),
                     ),
                     const Gap(10.0),
                     DisplayDetailTrails(
+                      fontSize: 12,
                       trailId: field.id,
-                      duration: durationToString(field.duration),
-                      upHill: "${field.uphill} m",
-                      downHill: "${field.downhill} m",
-                      tools: field.tools,
-                      difficulty: field.difficulty.toString(),
-                      articles: field.relatedArticles,
-                    ),
-                    const Gap(10.0),
-                    Text(
-                      AppMessages.inviteFriend,
-                      style: subTitleTextStyle,
-                    ),
-                    const Gap(8.0),
-                    InviteFriendCmp(
-                      value: (data) => model.pushInEmailFirends(
-                        value: data,
-                      ),
-                    ),
-                    const Gap(10.0),
-                    Visibility(
-                      visible: model.emailFriends.isNotEmpty,
-                      child: SizedBox(
-                        height: 40.0,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: model.emailFriends.length,
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.only(right: 4.0),
-                            child: EmailInviteCard(
-                              email: model.emailFriends[index],
-                              action: () {
-                                model.removeInEmailFriends(
-                                  value: model.emailFriends[index],
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Gap(10.0),
-                    Text(
-                      AppMessages.schedule,
-                      style: subTitleTextStyle,
-                    ),
-                    PlanComponent(
-                      dateCtrl: model.dateCtrl,
-                      timeCtrl: model.timeCtrl,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            model.dateCtrl.text = "";
-                            model.timeCtrl.text = "";
-                          },
-                          child: Text(
-                            AppMessages.reset,
-                            style: GreenSubTitleTextStyle,
-                          ),
-                        ),
-                      ],
+                      duration: field.duration,
+                      distance: field.distance,
+                      upHill: field.uphill,
+                      downHill: field.downhill,
+                      difficulty: field.difficulty,
                     ),
                   ],
                 ),
               ),
             )
           ],
-        ),
-        bottomNavigationBar: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: const BoxDecoration(
-            color: BlackPrimary,
-            boxShadow: [
-              BoxShadow(
-                //color: GreenPrimary,
-                offset: Offset(0, 0),
-                blurRadius: 10,
-              ),
-            ],
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: loginButtonColor,
-              borderRadius: BorderRadius.circular(borderRadiusSize),
-            ),
-            constraints: const BoxConstraints(
-              minWidth: 100,
-              minHeight: 45,
-            ),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadiusSize),
-                ),
-              ),
-              onPressed: model.getState == ViewState.busy
-                  ? null
-                  : () {
-                      model.createAHike(
-                        appState: appState,
-                        trailField: field,
-                        timeStamps: model.dateCtrl.text.isNotEmpty &&
-                                model.timeCtrl.text.isNotEmpty
-                            ? model.timeStampOrNull()
-                            : null,
-                        guests: model.emailFriends,
-                      );
-                    },
-              child: model.getState == ViewState.busy
-                  ? const CircularProgressIndicator()
-                  : Text(
-                      model.dateCtrl.text.isEmpty
-                          ? AppMessages.startHike
-                          : AppMessages.scheduleHike,
-                      style: subTitleTextStyle,
-                    ),
-            ),
-          ),
         ),
       ),
     );
