@@ -16,7 +16,11 @@ class DisplayStatus extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       decoration: BoxDecoration(
         color: bgClor,
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(0),
+            topLeft: Radius.circular(4.0),
+            bottomRight: Radius.circular(8),
+            bottomLeft: Radius.circular(0)),
       ),
       child: Text(
         status,

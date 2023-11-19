@@ -135,7 +135,7 @@ class WrapperApi {
     for (int i = 0; i < toolsBack.length; i += 1) {
       tools.add(
         Text(
-          "•  ${toolsBack[i]}",
+          "•  ${toolsBack[i][0].toUpperCase()}${toolsBack[i].substring(1)}",
           style: GoogleFonts.poppins(
               fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey),
         ),

@@ -67,7 +67,7 @@ class DetailScreen extends StatelessWidget {
                           color: Colors.white,
                           fontStyle: FontStyle.italic),
                     ),
-                    const Gap(10.0),
+                    const Gap(5.0),
                     Text(
                       field.description.toString(),
                       textAlign: TextAlign.justify,
@@ -85,7 +85,7 @@ class DetailScreen extends StatelessWidget {
                           color: Colors.white,
                           fontStyle: FontStyle.italic),
                     ),
-                    const Gap(10.0),
+                    const Gap(5.0),
                     RatingBarIndicator(
                       rating: field.difficulty.toDouble(),
                       itemBuilder: (context, index) => SvgPicture.asset(
@@ -107,7 +107,7 @@ class DetailScreen extends StatelessWidget {
                           color: Colors.white,
                           fontStyle: FontStyle.italic),
                     ),
-                    const Gap(10.0),
+                    const Gap(5.0),
                     WrapperApi().showTools(
                       toolsBack: field.tools,
                     ),
@@ -120,7 +120,7 @@ class DetailScreen extends StatelessWidget {
                           color: Colors.white,
                           fontStyle: FontStyle.italic),
                     ),
-                    const Gap(10.0),
+                    const Gap(5.0),
                     DisplayDetailTrails(
                       fontSize: 12,
                       trailId: field.id,
