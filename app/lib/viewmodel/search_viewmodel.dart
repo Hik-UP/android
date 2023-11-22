@@ -9,6 +9,18 @@ class SearchViewModel extends BaseModel {
   List<TrailFields> trailsList = [];
   List<TrailFields> filterTrailsList = [];
 
+  searchFilterTrails({required String filter}) {
+    if (filter == "") {
+      filterTrailsList = trailsList;
+    } else {
+      filterTrailsList = trailsList
+          .where((trail) =>
+              trail.name.toLowerCase().contains(filter.toLowerCase()))
+          .toList();
+    }
+    notifyListeners();
+  }
+
   filterTrails({required String filter}) {
     if (filter == "") {
       filterTrailsList = trailsList;

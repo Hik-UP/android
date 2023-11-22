@@ -6,6 +6,7 @@ import 'package:hikup/widget/header.dart';
 import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
+import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/widget/category_card.dart';
 
@@ -30,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
       if (model.trailsList.isEmpty) {
         model.trails(appState: appState);
       }
-      SearchController controller = SearchController();
+      TextEditingController controller = TextEditingController();
 
       return Scaffold(
         backgroundColor: BlackSecondary,
@@ -53,9 +54,16 @@ class _SearchScreenState extends State<SearchScreen> {
                         );
                       },
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        controller.text = value;
+                        model.searchFilterTrails(filter: value);
+                      });
+                    },
                     hintStyle: MaterialStateProperty.all(
                         const TextStyle(color: Colors.grey)),
-                    //shadowColor: MaterialStateProperty.all(GreenPrimary),
+                    textStyle: MaterialStateProperty.all(
+                        const TextStyle(color: Colors.grey)),
                     padding: const MaterialStatePropertyAll<EdgeInsets>(
                       EdgeInsets.symmetric(horizontal: 16.0),
                     ),
