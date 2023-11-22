@@ -32,6 +32,15 @@ class _SearchScreenState extends State<SearchScreen> {
         model.trails(appState: appState);
       }
       TextEditingController controller = TextEditingController();
+      /* controller.addListener(() {
+        final String value = controller.text.toLowerCase();
+        controller.value = controller.value.copyWith(
+          text: value,
+          selection: TextSelection(
+              baseOffset: value.length, extentOffset: value.length),
+          composing: TextRange.empty,
+        );
+      });*/
 
       return Scaffold(
         backgroundColor: BlackSecondary,
@@ -54,11 +63,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         );
                       },
                     ),
-                    onChanged: (value) {
+                    onSubmitted: (value) {
                       setState(() {
-                        controller.text = value;
+                        //controller.text = value;
                         model.searchFilterTrails(filter: value);
+                        print(value);
                       });
+                      //controller.
                     },
                     hintStyle: MaterialStateProperty.all(
                         const TextStyle(color: Colors.grey)),
