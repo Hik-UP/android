@@ -48,7 +48,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     }
     return Container(
       decoration: BoxDecoration(
-          color: BlackPrimary, borderRadius: BorderRadius.circular(15)),
+          color: Colors.black.withOpacity(0.8),
+          borderRadius: BorderRadius.circular(15)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: navBarItems,
@@ -67,33 +68,41 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       child: SizedBox(
         height: kBottomNavigationBarHeight,
         width: MediaQuery.of(context).size.width / _selectedItemIcon.length,
-        child: _selectedIndex == index
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Image.asset(
-                    activeIcon,
-                    width: 22,
-                    height: 22,
-                    color: GreenPrimary,
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: _selectedIndex == index
+              ? Container(
+/*                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 43, 43, 43),
+                      borderRadius: BorderRadius.circular(10)),*/
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset(
+                        activeIcon,
+                        width: 22,
+                        height: 22,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        label,
+                        style: bottomNavTextStyle,
+                      )
+                    ],
                   ),
-                  Text(
-                    label,
-                    style: bottomNavTextStyle,
-                  )
-                ],
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    inactiveIcon,
-                    width: 22,
-                    height: 22,
-                    color: BlackTertiary,
-                  ),
-                ],
-              ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      inactiveIcon,
+                      width: 22,
+                      height: 22,
+                      color: BlackTertiary,
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }

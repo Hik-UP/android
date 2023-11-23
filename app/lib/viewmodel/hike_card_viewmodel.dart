@@ -61,23 +61,23 @@ class HikeCardViewModel extends BaseModel {
     stop();
   }
 
-  Widget labelStatus({required String status}) {
+  Widget labelStatus({required String status, required Color bgColor}) {
     switch (status) {
       case "IN_PROGRESS":
         return DisplayStatus(
           status: AppMessages.inProgress,
-          bgClor: Colors.red,
+          bgClor: bgColor,
         );
       case "SCHEDULED":
         return DisplayStatus(
           status: AppMessages.scheduled,
-          bgClor: Colors.amber[400],
+          bgClor: bgColor,
         );
       default:
         {
           return DisplayStatus(
             status: AppMessages.doneLabel,
-            bgClor: Colors.green,
+            bgClor: bgColor,
           );
         }
     }

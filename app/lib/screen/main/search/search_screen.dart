@@ -8,7 +8,6 @@ import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
 import 'package:provider/provider.dart';
-import 'package:hikup/widget/category_card.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -31,6 +30,16 @@ class _SearchScreenState extends State<SearchScreen> {
       if (model.trailsList.isEmpty) {
         model.trails(appState: appState);
       }
+      TextEditingController controller = TextEditingController();
+      /* controller.addListener(() {
+        final String value = controller.text.toLowerCase();
+        controller.value = controller.value.copyWith(
+          text: value,
+          selection: TextSelection(
+              baseOffset: value.length, extentOffset: value.length),
+          composing: TextRange.empty,
+        );
+      });*/
 
       return ScaffoldWithCustomBg(
         appBar: const Header(),
@@ -39,37 +48,37 @@ class _SearchScreenState extends State<SearchScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Gap(8.0),
-              Text(
-                "Hik'Up!",
-                style: GreenTitleTextStyle,
-              ),
-              CategoryListView(
-                labels: model.genTrailLabel(),
-                onTap: (String label) {
-                  if (label == "Tout") {
-                    model.filterTrails(filter: "");
-                  } else {
-                    model.filterTrails(filter: label);
-                  }
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  left: 16.0,
-                  right: 16.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Recommandation",
-                      style: WhiteTitleTextStyle,
-                      //style: subTitleTextStyle,
-                    )
-                  ],
-                ),
-              ),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.92,
+                  child: SearchBar(
+                    controller: controller,
+                    backgroundColor: MaterialStateProperty.all(BlackPrimary),
+                    hintText: "Rechercher un sentier",
+                    shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
+                      (Set<MaterialState> states) {
+                        return const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        );
+                      },
+                    ),
+                    onSubmitted: (value) {
+                      setState(() {
+                        //controller.text = value;
+                        model.searchFilterTrails(filter: value);
+                        print(value);
+                      });
+                      //controller.
+                    },
+                    hintStyle: MaterialStateProperty.all(
+                        const TextStyle(color: Colors.grey)),
+                    textStyle: MaterialStateProperty.all(
+                        const TextStyle(color: Colors.grey)),
+                    padding: const MaterialStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 16.0),
+                    ),
+                    leading: const Icon(Icons.search, color: Colors.grey),
+                  )),
+              const Gap(32.0),
               // RECOMMENDED FIELDS
               model.filterTrailsList.isNotEmpty
                   ? ListView.builder(

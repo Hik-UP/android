@@ -68,7 +68,9 @@ Future<void> main() async {
 
   await LocalNotification().init();
 
-  Stripe.publishableKey = stripePublic;
+  if (!kIsWeb) {
+    Stripe.publishableKey = stripePublic;
+  }
   setupLocator();
 
   runApp(

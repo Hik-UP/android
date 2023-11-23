@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/detail_trail_model.dart';
 import 'package:hikup/model/hike.dart';
@@ -10,9 +10,9 @@ import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/service/hive_service.dart';
-import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WrapperApi {
   final _dioService = locator<DioService>();
@@ -135,8 +135,9 @@ class WrapperApi {
     for (int i = 0; i < toolsBack.length; i += 1) {
       tools.add(
         Text(
-          "${i + 1}. ${toolsBack[i]}",
-          style: WhiteAddressTextStyle,
+          "•  ${toolsBack[i][0].toUpperCase()}${toolsBack[i].substring(1)}",
+          style: GoogleFonts.poppins(
+              fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey),
         ),
       );
     }

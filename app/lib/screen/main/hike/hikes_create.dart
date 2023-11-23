@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/screen/main/hike/all_hike.dart';
 import 'package:hikup/viewmodel/hikes_create_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/utils/app_messages.dart';
-import '../../../theme.dart';
 
 class HikesCreate extends StatelessWidget {
   static String routeName = "/hikes-create";
@@ -14,20 +14,24 @@ class HikesCreate extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<HikeCreateViewModel>(
       builder: (context, model, child) => Scaffold(
-        backgroundColor: BlackSecondary,
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: Text(
             AppMessages.myHike,
-            style: titleTextStyleWhite,
+            style: GoogleFonts.poppins(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                fontStyle: FontStyle.italic),
           ),
           centerTitle: true,
           iconTheme: const IconThemeData(
-            color: GreenPrimary, // Couleur de la flèche retour
+            color: Colors.white, // Couleur de la flèche retour
           ),
-          backgroundColor: BlackPrimary,
+          backgroundColor: Colors.black,
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 00.0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
           child: Column(
             children: [
               DefaultTabController(
@@ -45,14 +49,17 @@ class HikesCreate extends StatelessWidget {
                   return Column(
                     children: [
                       TabBar(
-                        labelColor: GreenPrimary,
-                        unselectedLabelColor:
-                            const Color.fromARGB(255, 255, 255, 255),
-                        indicatorColor: GreenPrimary,
+                        labelColor: Colors.white,
+                        labelStyle: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FontStyle.italic),
+                        unselectedLabelColor: Colors.grey,
+                        indicatorColor: Colors.transparent,
                         tabs: model.tabs,
                       ),
-                      const Gap(30.0),
+                      const Gap(10.0),
                       AllHike(
+                        menuIndex: model.currentIndex,
                         targets: model.targets[model.currentIndex],
                       ),
                     ],
