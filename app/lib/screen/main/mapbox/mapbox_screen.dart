@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hikup/screen/detail/detail_screen.dart';
 import 'package:hikup/screen/main/mapbox/Components/map.dart';
-import 'package:hikup/widget/Header/header.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:hikup/theme.dart';
+import 'package:hikup/widget/header.dart';
 import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:gap/gap.dart';
-import 'package:hikup/screen/main/community/comments/home.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/locator.dart';
+import 'package:hikup/screen/main/hike/detail_hike_invite.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
@@ -23,9 +28,6 @@ class MapBoxScreen extends StatefulWidget {
 }
 
 class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
-  final PanelController _pc = PanelController();
-
-  //_pc.hide();
   @override
   void initState() {
     super.initState();
@@ -43,31 +45,40 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    AppState appState = context.read<AppState>();
+    final navigator = locator<CustomNavigationService>();
+    bool joinInProgress = false;
+
     return BaseView<MapViewModel>(builder: (context, model, child) {
+      Color trailColor = model.trailsList.isEmpty
+          ? Colors.transparent
+          : model.trailsList[0].difficulty == 1
+              ? const Color.fromRGBO(87, 252, 255, 0.8)
+              : model.trailsList[0].difficulty == 2
+                  ? const Color.fromRGBO(72, 255, 201, 0.8)
+                  : model.trailsList[0].difficulty == 3
+                      ? const Color.fromRGBO(194, 283, 255, 0.8)
+                      : model.trailsList[0].difficulty == 4
+                          ? const Color.fromRGBO(253, 210, 59, 0.8)
+                          : model.trailsList[0].difficulty == 5
+                              ? const Color.fromRGBO(87, 252, 255, 0.8)
+                              : Colors.transparent;
+
       Future<void> _launchUrl(String url) async {
         if (!await launchUrl(Uri.parse(url))) {
           throw Exception('Could not launch URL');
         }
       }
 
-      String durationToString(int minutes) {
-        var d = Duration(minutes: minutes);
-        List<String> parts = d.toString().split(':');
-        return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
-      }
-
       model.mapController.mapEventStream.listen((event) {
-        if (model.polylines.isNotEmpty && model.mapController.zoom <= 12) {
+        if (model.polylines.isNotEmpty &&
+            model.mapController.camera.zoom <= 12) {
           model.polylines.clear();
-          _pc.hide();
+          setState(() {
+            model.showPanel = false;
+          });
         }
       });
-
-      if (_pc.isAttached && model.trailsList.isNotEmpty) {
-        _pc.show();
-      } else if (_pc.isAttached) {
-        _pc.hide();
-      }
 
       if (model.loading == true) {
         model.trails(
@@ -79,269 +90,166 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
       }
 
       return Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: const Header(),
-          body: SlidingUpPanel(
-              controller: _pc,
-              renderPanelSheet: false,
-              minHeight: 110,
-
-              /* COLLAPSED PANEL */
-              collapsed: Container(
-                margin: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 0),
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                decoration: BoxDecoration(
-                  color: BlackPrimary,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(children: <Widget>[
-                  FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Container(
-                      margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-                      child: Text(
-                        model.trailsList.isEmpty
-                            ? ""
-                            : model.trailsList[0].name,
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ]),
-              ),
-
-              /* PANEL */
-              panel: Container(
-                decoration: BoxDecoration(
-                  color: BlackPrimary,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                margin: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
-                child: model.trailsList.isEmpty
-                    ? null
-                    : Container(
-                        margin: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                              child: Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: 90,
-                                    child: Center(
-                                      child: Text(
-                                        model.trailsList.isEmpty
-                                            ? ""
-                                            : model.trailsList[0].name,
-                                        maxLines: 2,
-                                        style: subTitleTextStyle,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.justify,
-                                      ),
-                                    ),
-                                  ),
-                                  const Gap(10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          gradient: loginButtonColor,
-                                          borderRadius: BorderRadius.circular(
-                                              borderRadiusSize),
-                                        ),
-                                        constraints: const BoxConstraints(
-                                          minWidth: 70,
-                                          minHeight: 25,
-                                        ),
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.transparent,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      borderRadiusSize),
+        extendBodyBehindAppBar: true,
+        appBar: const Header(),
+        body: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.center,
+          children: [
+            MapBox(
+              mapController: model.mapController,
+              zoom: model.zoom,
+              polylines: model.polylines,
+              markers: model.markers,
+              onPositionChange: (Position position) =>
+                  {model.position = position},
+            ),
+            model.showPanel == true && model.trailsList.isNotEmpty
+                ? Positioned(
+                    top: 70,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          InkWell(
+                              onTap: () => {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return DetailScreen(
+                                        field: model.trailsList[0],
+                                      );
+                                    }))
+                                  },
+                              child: Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 10, 5, 5),
+                                  width: 310,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          left: BorderSide(
+                                              color: trailColor, width: 2),
+                                          top: BorderSide(
+                                              color: trailColor, width: 2),
+                                          right: BorderSide(
+                                              color: trailColor, width: 2),
+                                          bottom: BorderSide(
+                                              color: trailColor, width: 6)),
+                                      borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(0),
+                                          topLeft: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                          bottomLeft: Radius.circular(0)),
+                                      color:
+                                          const Color.fromRGBO(0, 0, 0, 0.2)),
+                                  child: Row(children: [
+                                    Container(
+                                        alignment: Alignment.centerLeft,
+                                        width: 265,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              model.trailsList[0].name,
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white,
+                                                  fontStyle: FontStyle.italic,
+                                                  height: 1.2),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.left,
                                             ),
-                                          ),
-                                          onPressed: () {
-                                            if (model.trailsList.isNotEmpty) {
-                                              _launchUrl(
-                                                  "https://maps.google.com/?q=${model.trailsList[0].latitude},${model.trailsList[0].longitude}");
-                                            }
-                                          },
-                                          child: Text(
-                                            "Direction",
-                                            style: subTitleTextStyle,
-                                          ),
-                                        ),
-                                      ),
-                                      const Gap(10.0),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          gradient: loginButtonColor,
-                                          borderRadius: BorderRadius.circular(
-                                              borderRadiusSize),
-                                        ),
-                                        constraints: const BoxConstraints(
-                                          minWidth: 70,
-                                          minHeight: 25,
-                                        ),
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.transparent,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      borderRadiusSize),
+                                            const Gap(4),
+                                            DisplayDetailTrails(
+                                              fontSize: 10,
+                                              trailId: model.trailsList[0].id,
+                                              duration:
+                                                  model.trailsList[0].duration,
+                                              distance:
+                                                  model.trailsList[0].distance,
+                                              upHill:
+                                                  model.trailsList[0].uphill,
+                                              downHill:
+                                                  model.trailsList[0].downhill,
+                                              difficulty: model
+                                                  .trailsList[0].difficulty,
                                             ),
-                                          ),
-                                          onPressed: () =>
-                                              Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CommunityView(
-                                                trailId: model.trailsList[0].id,
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            "Avis",
-                                            style: subTitleTextStyle,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                          ],
+                                        )),
+                                    SvgPicture.asset(
+                                        "assets/icons/details/left-arrow.svg",
+                                        height: 25,
+                                        width: 25,
+                                        colorFilter: ColorFilter.mode(
+                                            trailColor, BlendMode.srcIn),
+                                        semanticsLabel: 'select')
+                                  ]))),
+                          const Gap(5.0),
+                          RatingBarIndicator(
+                            rating: model.trailsList[0].difficulty.toDouble(),
+                            itemBuilder: (context, index) => SvgPicture.asset(
+                                "assets/icons/details/lightning.svg",
+                                colorFilter: const ColorFilter.mode(
+                                    Colors.amber, BlendMode.srcIn),
+                                semanticsLabel: 'difficulty'),
+                            itemCount: 5,
+                            itemSize: 20,
+                            unratedColor: Colors.amber.withAlpha(50),
+                            direction: Axis.horizontal,
+                          ),
+                        ]),
+                  )
+                : Container(),
+            model.showPanel == true &&
+                    model.trailsList.isNotEmpty &&
+                    model.showJoin == true
+                ? Positioned(
+                    bottom: 80,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: 310,
+                            child: ElevatedButton(
+                              onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => DetailHikeInvite(
+                                    hike: model.hike[0],
                                   ),
-                                  const Gap(20.0),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Labels:",
-                                        style: subTitleTextStyle,
-                                      ),
-                                      const Gap(10.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: model.trailsList[0].labels
-                                            .map(
-                                              (label) => Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 5.0, right: 5.0),
-                                                margin: const EdgeInsets.only(
-                                                    left: 5.0, right: 5.0),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.green,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          4.0),
-                                                ),
-                                                child: Text(
-                                                  label,
-                                                  style: subTitleTextStyle,
-                                                ),
-                                              ),
-                                            )
-                                            .toList(),
-                                      ),
-                                    ],
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                                  backgroundColor:
+                                      const Color.fromRGBO(12, 60, 40, 1),
+                                  shadowColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  const Gap(20.0),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Difficulté:",
-                                        style: subTitleTextStyle,
-                                      ),
-                                      const Gap(10.0),
-                                      Text(
-                                        "${model.trailsList[0].difficulty} / 5",
-                                        style: subTitleTextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                  const Gap(10.0),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Distance:",
-                                        style: subTitleTextStyle,
-                                      ),
-                                      const Gap(10.0),
-                                      Text(
-                                        "${model.trailsList[0].distance / 1000} km",
-                                        style: subTitleTextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                  const Gap(10.0),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Durée:",
-                                        style: subTitleTextStyle,
-                                      ),
-                                      const Gap(10.0),
-                                      Text(
-                                        durationToString(
-                                            model.trailsList[0].duration),
-                                        style: subTitleTextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                  const Gap(10.0),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Dénivelé ↗:",
-                                        style: subTitleTextStyle,
-                                      ),
-                                      const Gap(10.0),
-                                      Text(
-                                        "${model.trailsList[0].uphill} m",
-                                        style: subTitleTextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                  const Gap(10.0),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Dénivelé ↘:",
-                                        style: subTitleTextStyle,
-                                      ),
-                                      const Gap(10.0),
-                                      Text(
-                                        "${model.trailsList[0].downhill} m",
-                                        style: subTitleTextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                  side: const BorderSide(
+                                    width: 1.0,
+                                    color: Color.fromRGBO(21, 255, 120, 1),
+                                  )),
+                              child: const Text(
+                                "Participer",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-              ),
-
-              /* MAP */
-              body: MapBox(
-                mapController: model.mapController,
-                zoom: model.zoom,
-                polylines: model.polylines,
-                markers: model.markers,
-              )));
+                          )
+                        ]))
+                : Container()
+          ],
+        ),
+      );
     });
   }
 }

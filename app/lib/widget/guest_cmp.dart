@@ -29,7 +29,7 @@ class GuestCmp extends StatelessWidget {
             ? CachedNetworkImage(
                 imageUrl: picture,
                 errorWidget: (context, url, target) => const CircleAvatar(
-                  radius: 28.0,
+                  radius: 24.0,
                   child: Center(
                     child: Icon(
                       FontAwesomeIcons.triangleExclamation,
@@ -38,26 +38,26 @@ class GuestCmp extends StatelessWidget {
                 ),
                 progressIndicatorBuilder: (context, url, progress) =>
                     const CircleAvatar(
-                  radius: 28.0,
+                  radius: 24.0,
                   child: Center(
                     child: CustomLoader(),
                   ),
                 ),
                 imageBuilder: (context, imageProvider) => CircleAvatar(
-                  radius: 28.0,
+                  radius: 24.0,
                   backgroundImage: imageProvider,
                 ),
               )
             : const CircleAvatar(
-                radius: 28.0,
+                radius: 24.0,
                 backgroundImage: AssetImage(profilePlaceHoder),
               ),
         const Gap(4.0),
         Text(
           appState.username != username ? username : AppMessages.me,
           style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w500,
-            fontSize: 13.0,
+            fontWeight: FontWeight.w400,
+            fontSize: 12.0,
             color: Colors.white,
           ),
         ),

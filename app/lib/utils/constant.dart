@@ -29,7 +29,7 @@ const baseSocketUrl = env == "PROD"
 const mapUrl =
     "https://api.mapbox.com/styles/v1/hikupapp/{id}/tiles/512/{z}/{x}/{y}{r}?access_token={accessToken}";
 
-const mapIdDay = "cle0lx80a00j701qqki8kcxqd";
+const mapIdDay = "clnm5ebhg006601qq82xo7aqa";
 const mapIdNight = "cle6pe8m0005101qmp8irwrda";
 const mapIdSunset = "cle6pea5c002z01q92yuxzzw0";
 

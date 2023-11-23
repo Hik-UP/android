@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 
 class HikeCreateViewModel extends BaseModel {
   int currentIndex = 0;
   List<List<String>> targets = [
-    ["organized"],
     ["attendee"],
-    ["guest"]
+    ["guest"],
+    ["attendee"]
   ];
 
-  // ["organized", "attendee", "guest"],
-
   List<Tab> tabs = <Tab>[
-    Tab(text: AppMessages.creeLabel),
-    Tab(text: AppMessages.attended),
-    Tab(text: AppMessages.guest),
+    const Tab(text: "Randonnées"),
+    const Tab(text: "Invitations"),
+    const Tab(text: "Historique"),
   ];
 
   setCurrentIndex({required int index}) {

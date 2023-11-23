@@ -32,7 +32,7 @@ const greenColor = Color.fromARGB(255, 255, 94, 0);
 const double borderRadiusSize = 16.0;
 
 TextStyle WhiteTitleTextStyle = GoogleFonts.poppins(
-    fontSize: 24, fontWeight: FontWeight.w700, color: Colors.white);
+    fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white);
 
 TextStyle WhiteAddressTextStyle = GoogleFonts.poppins(
     fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white);
@@ -41,7 +41,7 @@ TextStyle greySubTextStyle = GoogleFonts.poppins(
     fontSize: 8, fontWeight: FontWeight.w400, color: BlackTertiary);
 
 TextStyle subTitleTextStyle = GoogleFonts.poppins(
-    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white);
+    fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white);
 
 TextStyle subErrorTitleTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w500, color: BlackTertiary);
@@ -53,7 +53,7 @@ TextStyle GreenSubTitleTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w700, color: GreenPrimary);
 
 TextStyle GreenAddressTextStyle = GoogleFonts.poppins(
-    fontSize: 14, fontWeight: FontWeight.w400, color: GreenPrimary);
+    fontSize: 10, fontWeight: FontWeight.w400, color: Colors.white);
 
 TextStyle linkTextStyle = GoogleFonts.poppins(color: GreenPrimary);
 
@@ -108,7 +108,7 @@ TextStyle buttonTextStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white);
 
 TextStyle bottomNavTextStyle = GoogleFonts.poppins(
-    fontSize: 11, fontWeight: FontWeight.w500, color: GreenPrimary);
+    fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white);
 
 TextStyle tabBarTextStyle =
     GoogleFonts.poppins(fontWeight: FontWeight.w500, color: GreenPrimary);

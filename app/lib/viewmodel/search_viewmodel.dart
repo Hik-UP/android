@@ -12,6 +12,18 @@ class SearchViewModel extends BaseModel {
   List<TrailFields> filterTrailsList = [];
   final HiveService _hiveService = locator<HiveService>();
 
+  searchFilterTrails({required String filter}) {
+    if (filter == "") {
+      filterTrailsList = trailsList;
+    } else {
+      filterTrailsList = trailsList
+          .where((trail) =>
+              trail.name.toLowerCase().contains(filter.toLowerCase()))
+          .toList();
+    }
+    notifyListeners();
+  }
+
   filterTrails({required String filter}) {
     if (filter == "") {
       filterTrailsList = trailsList;
