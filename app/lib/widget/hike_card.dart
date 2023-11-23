@@ -4,11 +4,9 @@ import 'package:hikup/model/hike.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/main/hike/detail_hike_invite.dart';
 import 'package:hikup/theme.dart';
-import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/hike_card_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
-import 'package:hikup/widget/custom_btn.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -20,11 +18,11 @@ class HikeCard extends StatelessWidget {
   final bool guest;
   final Function() update;
   const HikeCard({
-    Key? key,
+    super.key,
     required this.hike,
     required this.guest,
     required this.update,
-  }) : super(key: key);
+  });
 
   String formatDate() {
     var replaceDate = hike.schedule.replaceAll(RegExp(r'T'), ' ');

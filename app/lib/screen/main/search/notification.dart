@@ -13,7 +13,7 @@ import '../../../theme.dart';
 
 class NotificationView extends StatefulWidget {
   static String routeName = "/notification";
-  const NotificationView({Key? key}) : super(key: key);
+  const NotificationView({super.key});
 
   @override
   State<NotificationView> createState() => _NotificationViewState();

@@ -10,9 +10,9 @@ import 'package:latlong2/latlong.dart';
 class CustomSliverAppBar extends StatelessWidget {
   final TrailFields field;
   const CustomSliverAppBar({
-    Key? key,
+    super.key,
     required this.field,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

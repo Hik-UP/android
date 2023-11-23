@@ -8,7 +8,7 @@ import '../../utils/enums.dart';
 import '../Notifications/ftoast_style.dart';
 
 class AddPage extends StatefulWidget {
-  const AddPage({Key? key}) : super(key: key);
+  const AddPage({super.key});
 
   @override
   State<AddPage> createState() => _AddPageState();

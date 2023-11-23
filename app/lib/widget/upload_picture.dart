@@ -6,7 +6,7 @@ import 'package:hikup/service/custom_navigation.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UplaodPicture extends StatefulWidget {
-  const UplaodPicture({Key? key}) : super(key: key);
+  const UplaodPicture({super.key});
 
   @override
   State<UplaodPicture> createState() => _UplaodPictureState();

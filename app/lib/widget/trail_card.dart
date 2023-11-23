@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -10,7 +9,7 @@ import '../theme.dart';
 class TrailCard extends StatelessWidget {
   final TrailFields field;
 
-  const TrailCard({required this.field, Key? key}) : super(key: key);
+  const TrailCard({required this.field, super.key});
 
   @override
   Widget build(BuildContext context) {

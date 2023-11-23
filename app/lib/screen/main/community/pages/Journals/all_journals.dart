@@ -5,7 +5,7 @@ import '../../shared_preferences.dart';
 
 class AllJournals extends StatefulWidget {
   final String tag;
-  const AllJournals({Key? key, required this.tag}) : super(key: key);
+  const AllJournals({super.key, required this.tag});
   @override
   State<AllJournals> createState() => _AllJournalsState();
 }

@@ -20,8 +20,8 @@ import 'package:hikup/screen/main/hike/detail_hike_invite.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<MapBoxScreen> createState() => _MapBoxScreenState();
@@ -213,7 +213,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Container(
+                          SizedBox(
                             width: 310,
                             child: ElevatedButton(
                               onPressed: () => Navigator.of(context).push(

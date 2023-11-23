@@ -4,9 +4,9 @@ import 'package:hikup/theme.dart';
 class ShowBurnCalories extends StatelessWidget {
   final int calories;
   const ShowBurnCalories({
-    Key? key,
+    super.key,
     required this.calories,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

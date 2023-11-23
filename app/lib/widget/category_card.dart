@@ -10,8 +10,7 @@ class CategoryListView extends StatefulWidget {
   final List<TrailFields> trailsList;
   final IntCallback onTap;
   const CategoryListView(
-      {required this.trailsList, required this.onTap, Key? key})
-      : super(key: key);
+      {required this.trailsList, required this.onTap, super.key});
 
   @override
   State<CategoryListView> createState() => _CategoryListViewState();
@@ -74,8 +73,8 @@ class CategoryCard extends StatelessWidget {
     required this.title,
     required this.imageAsset,
     required this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

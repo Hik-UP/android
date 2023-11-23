@@ -13,12 +13,11 @@ class EditPage extends StatefulWidget {
   final String tag;
   final dynamic index;
   const EditPage(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.body,
       required this.tag,
-      required this.index})
-      : super(key: key);
+      required this.index});
 
   @override
   State<EditPage> createState() => _EditPageState();

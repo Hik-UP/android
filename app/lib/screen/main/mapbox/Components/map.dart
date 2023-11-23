@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:flutter/foundation.dart';
-import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:hikup/screen/main/mapbox/Components/map_over_time.dart';
 import 'package:hikup/utils/constant.dart';
 import 'skin.dart';
 import 'package:latlong2/latlong.dart';

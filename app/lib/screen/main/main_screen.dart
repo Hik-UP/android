@@ -9,7 +9,7 @@ import '../../utils/constant.dart';
 
 class MainScreen extends StatefulWidget {
   static String routeName = "/main-screen";
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();

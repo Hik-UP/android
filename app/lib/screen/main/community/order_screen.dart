@@ -6,7 +6,7 @@ import 'package:hikup/widget/no_community_message.dart';
 class OrderScreen extends StatelessWidget {
   final List<FieldOrder> fieldOrderList;
 
-  const OrderScreen({required this.fieldOrderList, Key? key}) : super(key: key);
+  const OrderScreen({required this.fieldOrderList, super.key});
 
   @override
   Widget build(BuildContext context) {

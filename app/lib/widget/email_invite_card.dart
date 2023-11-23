@@ -7,10 +7,10 @@ class EmailInviteCard extends StatelessWidget {
   final String email;
   final Function() action;
   const EmailInviteCard({
-    Key? key,
+    super.key,
     required this.email,
     required this.action,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

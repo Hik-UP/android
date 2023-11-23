@@ -3,7 +3,7 @@ import 'package:hikup/theme.dart';
 import 'package:hikup/widget/no_community_message.dart';
 
 class EventScreen extends StatelessWidget {
-  const EventScreen({Key? key}) : super(key: key);
+  const EventScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,18 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/theme.dart';
-import 'package:hikup/utils/app_messages.dart';
-import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/detail_screen_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_sliver_app_bar.dart';
-import 'package:hikup/widget/display_address.dart';
 import 'package:hikup/widget/display_detail_trails.dart';
-import 'package:hikup/widget/email_invite_card.dart';
-import 'package:hikup/widget/invite_friend_cmp.dart';
-import 'package:hikup/widget/plan_component.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -21,7 +14,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailScreen extends StatelessWidget {
   final TrailFields field;
-  const DetailScreen({required this.field, Key? key}) : super(key: key);
+  const DetailScreen({required this.field, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +83,8 @@ class DetailScreen extends StatelessWidget {
                       rating: field.difficulty.toDouble(),
                       itemBuilder: (context, index) => SvgPicture.asset(
                           "assets/icons/details/lightning.svg",
-                          colorFilter:
-                              ColorFilter.mode(Colors.amber, BlendMode.srcIn),
+                          colorFilter: const ColorFilter.mode(
+                              Colors.amber, BlendMode.srcIn),
                           semanticsLabel: 'difficulty'),
                       itemCount: 5,
                       itemSize: 20,

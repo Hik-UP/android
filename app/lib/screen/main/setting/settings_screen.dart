@@ -19,10 +19,10 @@ class LoadPictureProfil extends StatelessWidget {
   final double size;
   final AppState appState;
   const LoadPictureProfil({
-    Key? key,
+    super.key,
     required this.appState,
     this.size = 75,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class LoadPictureProfil extends StatelessWidget {
 
 class SettingsScreen extends StatelessWidget {
   static String routeName = "/settings";
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   get floatingActionButton => null;
 

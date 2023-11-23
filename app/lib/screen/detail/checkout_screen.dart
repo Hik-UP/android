@@ -11,7 +11,7 @@ import 'package:hikup/utils/dummy_data.dart';
 class CheckoutScreen extends StatefulWidget {
   final TrailFields field;
 
-  const CheckoutScreen({required this.field, Key? key}) : super(key: key);
+  const CheckoutScreen({required this.field, super.key});
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -156,7 +156,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   const SizedBox(
                     height: 8,
                   ),
-                  ...availableBookTime.map(buildSingleCheckBox).toList(),
+                  ...availableBookTime.map(buildSingleCheckBox),
                 ],
               ),
             ])),

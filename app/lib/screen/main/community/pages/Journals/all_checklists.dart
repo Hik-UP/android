@@ -6,7 +6,7 @@ import '../../utils/enums.dart';
 import '../Notifications/ftoast_style.dart';
 
 class AllChecklist extends StatefulWidget {
-  const AllChecklist({Key? key}) : super(key: key);
+  const AllChecklist({super.key});
 
   @override
   State<AllChecklist> createState() => _AllChecklistState();

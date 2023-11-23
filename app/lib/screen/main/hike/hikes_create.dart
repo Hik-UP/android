@@ -5,11 +5,10 @@ import 'package:hikup/screen/main/hike/all_hike.dart';
 import 'package:hikup/viewmodel/hikes_create_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/utils/app_messages.dart';
-import '../../../theme.dart';
 
 class HikesCreate extends StatelessWidget {
   static String routeName = "/hikes-create";
-  const HikesCreate({Key? key}) : super(key: key);
+  const HikesCreate({super.key});
 
   @override
   Widget build(BuildContext context) {

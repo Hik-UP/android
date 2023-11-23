@@ -13,10 +13,10 @@ class GuestCmp extends StatelessWidget {
   final String picture;
   final String username;
   const GuestCmp({
-    Key? key,
+    super.key,
     required this.picture,
     required this.username,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

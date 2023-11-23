@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatelessWidget {
   static String routeName = "/onBoarding";
-  const OnboardingScreen({Key? key}) : super(key: key);
+  const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

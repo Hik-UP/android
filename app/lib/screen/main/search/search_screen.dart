@@ -6,12 +6,10 @@ import 'package:hikup/widget/header.dart';
 import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
-import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:hikup/widget/category_card.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  const SearchScreen({super.key});
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }

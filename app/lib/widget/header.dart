@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
-  const Header({Key? key}) : super(key: key);
+  const Header({super.key});
 
   @override
   Widget build(BuildContext context) {

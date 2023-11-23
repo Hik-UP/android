@@ -4,7 +4,7 @@ import '../Journals/all_checklists.dart';
 import '../Journals/home.dart';
 
 class Navigation extends StatefulWidget {
-  const Navigation({Key? key}) : super(key: key);
+  const Navigation({super.key});
   @override
   State<Navigation> createState() => _NavigationState();
 }

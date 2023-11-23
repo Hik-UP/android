@@ -11,9 +11,9 @@ import "package:hikup/widget/warning_error_img.dart";
 class CommentCard extends StatelessWidget {
   final Comment comment;
   const CommentCard({
-    Key? key,
+    super.key,
     required this.comment,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -143,10 +143,10 @@ class ContainerPicture extends StatelessWidget {
   final Widget? child;
   final DecorationImage? image;
   const ContainerPicture({
-    Key? key,
+    super.key,
     this.image,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -167,10 +167,10 @@ class ShowAvatarContainer extends StatelessWidget {
   final Widget? child;
   final ImageProvider<Object>? backgroundImage;
   const ShowAvatarContainer({
-    Key? key,
+    super.key,
     this.backgroundImage,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

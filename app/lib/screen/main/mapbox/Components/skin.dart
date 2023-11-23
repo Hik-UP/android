@@ -11,7 +11,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class PlayerSkin extends StatefulWidget {
   final Function(Position)? onPositionChange;
-  const PlayerSkin({Key? key, this.onPositionChange}) : super(key: key);
+  const PlayerSkin({super.key, this.onPositionChange});
   @override
   State<PlayerSkin> createState() => _PlayerSkinState();
 }

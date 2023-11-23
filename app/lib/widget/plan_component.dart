@@ -11,10 +11,10 @@ class PlanComponent extends StatefulWidget {
   final TextEditingController dateCtrl;
   final TextEditingController timeCtrl;
   const PlanComponent({
-    Key? key,
+    super.key,
     required this.dateCtrl,
     required this.timeCtrl,
-  }) : super(key: key);
+  });
 
   @override
   State<PlanComponent> createState() => _PlanComponentState();

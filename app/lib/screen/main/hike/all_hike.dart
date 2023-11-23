@@ -7,7 +7,6 @@ import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/widget/hike_card.dart';
 import 'package:provider/provider.dart';
-import '../../../theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
@@ -15,10 +14,10 @@ class AllHike extends StatefulWidget {
   final int menuIndex;
   final List<String> targets;
   const AllHike({
-    Key? key,
+    super.key,
     required this.menuIndex,
     required this.targets,
-  }) : super(key: key);
+  });
 
   @override
   State<AllHike> createState() => _AllHikeState();

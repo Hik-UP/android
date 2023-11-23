@@ -1,16 +1,6 @@
-import "package:any_link_preview/any_link_preview.dart";
 import "package:flutter/material.dart";
-import 'dart:math' as math;
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
-import "package:hikup/model/detail_trail_model.dart";
-import "package:hikup/providers/app_state.dart";
-import "package:hikup/screen/main/community/comments/home.dart";
-import "package:hikup/theme.dart";
-import "package:hikup/utils/app_messages.dart";
-import "package:hikup/utils/wrapper_api.dart";
-import "package:hikup/widget/show_burn_calories.dart";
-import "package:provider/provider.dart";
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DisplayDetailTrails extends StatelessWidget {
@@ -23,7 +13,7 @@ class DisplayDetailTrails extends StatelessWidget {
   final int difficulty;
 
   const DisplayDetailTrails({
-    Key? key,
+    super.key,
     required this.fontSize,
     required this.trailId,
     required this.duration,
@@ -31,7 +21,7 @@ class DisplayDetailTrails extends StatelessWidget {
     required this.upHill,
     required this.downHill,
     required this.difficulty,
-  }) : super(key: key);
+  });
 
   String durationToString(int minutes) {
     var d = Duration(minutes: minutes);

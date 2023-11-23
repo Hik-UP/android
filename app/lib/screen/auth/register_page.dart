@@ -16,7 +16,7 @@ import '../../widget/custom_btn.dart';
 
 class RegisterPage extends StatefulWidget {
   static String routeName = "/register";
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();

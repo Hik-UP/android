@@ -17,9 +17,9 @@ class CommunityView extends StatefulWidget {
   final String trailId;
   static String routeName = "/community";
   const CommunityView({
-    Key? key,
+    super.key,
     required this.trailId,
-  }) : super(key: key);
+  });
 
   @override
   State<CommunityView> createState() => _CommunityViewState();
