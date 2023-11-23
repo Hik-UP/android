@@ -96,7 +96,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
                     : ColorFiltered(
                         colorFilter: const ColorFilter.mode(
                           Colors.grey,
-                          BlendMode.saturation,
+                          BlendMode.modulate,
                         ),
                         child: CachedNetworkImage(
                           imageUrl: appState.skin.model,

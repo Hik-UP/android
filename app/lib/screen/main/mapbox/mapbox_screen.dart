@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/screen/detail/detail_screen.dart';
 import 'package:hikup/screen/main/mapbox/Components/map.dart';
 import 'package:hikup/widget/header.dart';
-import 'package:hikup/theme.dart';
 import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
@@ -14,8 +13,10 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:gap/gap.dart';
-import 'package:hikup/screen/main/community/comments/home.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/locator.dart';
+import 'package:hikup/screen/main/hike/detail_hike_invite.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({
@@ -44,6 +45,10 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    AppState appState = context.read<AppState>();
+    final navigator = locator<CustomNavigationService>();
+    bool joinInProgress = false;
+
     return BaseView<MapViewModel>(builder: (context, model, child) {
       Color trailColor = model.trailsList.isEmpty
           ? Colors.transparent
@@ -96,6 +101,8 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
               zoom: model.zoom,
               polylines: model.polylines,
               markers: model.markers,
+              onPositionChange: (Position position) =>
+                  {model.position = position},
             ),
             model.showPanel == true && model.trailsList.isNotEmpty
                 ? Positioned(
@@ -196,6 +203,49 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                           ),
                         ]),
                   )
+                : Container(),
+            model.showPanel == true &&
+                    model.trailsList.isNotEmpty &&
+                    model.showJoin == true
+                ? Positioned(
+                    bottom: 80,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: 310,
+                            child: ElevatedButton(
+                              onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => DetailHikeInvite(
+                                    hike: model.hike[0],
+                                  ),
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                                  backgroundColor:
+                                      const Color.fromRGBO(12, 60, 40, 1),
+                                  shadowColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  side: const BorderSide(
+                                    width: 1.0,
+                                    color: Color.fromRGBO(21, 255, 120, 1),
+                                  )),
+                              child: const Text(
+                                "Participer",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          )
+                        ]))
                 : Container()
           ],
         ),

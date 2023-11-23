@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:collection/collection.dart';
+import 'dart:math' show cos, sqrt, asin;
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hikup/providers/app_state.dart';
@@ -7,19 +9,65 @@ import 'package:hikup/viewmodel/base_model.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/comment.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:hikup/utils/constant.dart';
+import 'package:hikup/model/hike.dart';
 
 class MapViewModel extends BaseModel {
   final List<Marker> markers = [];
   late MapController mapController = MapController();
+  late List<Hike> hikesList;
+  List<Hike> hike = [];
+  Position position = Position(
+      longitude: 1.7191036,
+      latitude: 46.71109,
+      timestamp: DateTime.now(),
+      accuracy: 0,
+      altitude: 0,
+      altitudeAccuracy: 0,
+      heading: 0,
+      headingAccuracy: 0,
+      speed: 0,
+      speedAccuracy: 0);
   final List<Polyline> polylines = [];
   final List<TrailFields> trailsList = [];
   final double zoom = 5.5;
   bool loading = true;
   bool showPanel = false;
+  bool showJoin = false;
 
   void setLoading(bool value) {
     loading = value;
     notifyListeners();
+  }
+
+  double calculateDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a));
+  }
+
+  void handleJoin(TrailFields trail) {
+    var newHike =
+        hikesList.firstWhereOrNull((element) => element.trail.id == trail.id);
+
+    hike.clear();
+    if (newHike != null) {
+      hike.add(newHike);
+    }
+
+    if (trailsList.isNotEmpty &&
+        hike.isNotEmpty &&
+        calculateDistance(position.latitude, position.longitude,
+                trailsList[0].latitude, trailsList[0].longitude) <
+            0.100) {
+      showJoin = true;
+    } else {
+      showJoin = false;
+    }
   }
 
   trails({
@@ -36,6 +84,39 @@ class MapViewModel extends BaseModel {
       trailList.data["trails"].forEach((entry) {
         late LatLng trailLatLng = LatLng(entry["latitude"], entry["longitude"]);
         var geoJSON = json.decode(entry["geoJSON"]);
+        var trailField = TrailFields(
+          id: entry["id"],
+          name: entry["name"],
+          address: entry["address"],
+          description: entry["description"],
+          pictures: entry["pictures"].cast<String>(),
+          latitude: entry["latitude"],
+          longitude: entry["longitude"],
+          difficulty: entry["difficulty"],
+          duration: entry["duration"],
+          distance: entry["distance"],
+          uphill: entry["uphill"],
+          downhill: entry["downhill"],
+          tools: entry["tools"].cast<String>(),
+          relatedArticles: entry["relatedArticles"].cast<String>(),
+          labels: entry["labels"].cast<String>(),
+          geoJSON: entry["geoJSON"],
+          comments: entry["comments"]
+              .map((value) => Comment(
+                  id: value["id"],
+                  author: Author(
+                      username: value["author"]["username"],
+                      picture: value["author"]["picture"]),
+                  body: value["body"],
+                  pictures: value["pictures"].cast<String>(),
+                  date: DateTime.parse(value["date"])))
+              .toList()
+              .cast<Comment>(),
+          imageAsset: "",
+          price: 0,
+          openTime: "",
+          closeTime: "",
+        );
 
         markers.add(
           Marker(
@@ -43,43 +124,11 @@ class MapViewModel extends BaseModel {
             height: 35,
             point: trailLatLng,
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
                 final List<LatLng> points = [];
 
                 trailsList.clear();
-                trailsList.add(TrailFields(
-                  id: entry["id"],
-                  name: entry["name"],
-                  address: entry["address"],
-                  description: entry["description"],
-                  pictures: entry["pictures"].cast<String>(),
-                  latitude: entry["latitude"],
-                  longitude: entry["longitude"],
-                  difficulty: entry["difficulty"],
-                  duration: entry["duration"],
-                  distance: entry["distance"],
-                  uphill: entry["uphill"],
-                  downhill: entry["downhill"],
-                  tools: entry["tools"].cast<String>(),
-                  relatedArticles: entry["relatedArticles"].cast<String>(),
-                  labels: entry["labels"].cast<String>(),
-                  geoJSON: entry["geoJSON"],
-                  comments: entry["comments"]
-                      .map((value) => Comment(
-                          id: value["id"],
-                          author: Author(
-                              username: value["author"]["username"],
-                              picture: value["author"]["picture"]),
-                          body: value["body"],
-                          pictures: value["pictures"].cast<String>(),
-                          date: DateTime.parse(value["date"])))
-                      .toList()
-                      .cast<Comment>(),
-                  imageAsset: "",
-                  price: 0,
-                  openTime: "",
-                  closeTime: "",
-                ));
+                trailsList.add(trailField);
                 geoJSON["features"][0]["geometry"]["coordinates"]
                     .forEach((entry) {
                   points.add(LatLng(entry[1], entry[0]));
@@ -103,6 +152,12 @@ class MapViewModel extends BaseModel {
                   borderColor: const Color(0xFF1967D2),
                   borderStrokeWidth: 0.1,
                 ));
+                hikesList = await WrapperApi().getAllHike(
+                  path: getHikePath,
+                  appState: appState,
+                  target: ["attendee"],
+                );
+                handleJoin(trailField);
                 showPanel = true;
                 updateScreen();
               },

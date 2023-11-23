@@ -98,29 +98,32 @@ class HikeCard extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.fromLTRB(5, 5, 5, 15),
-                  child: Column(children: [
-                    Text(
-                      hike.trail.name,
-                      maxLines: 2,
-                      style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          fontStyle: FontStyle.italic),
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.justify,
-                    ),
-                    const Gap(5),
-                    DisplayDetailTrails(
-                      fontSize: 12,
-                      trailId: hike.trail.id,
-                      duration: hike.trail.duration,
-                      distance: hike.trail.distance,
-                      upHill: hike.trail.uphill,
-                      downHill: hike.trail.downhill,
-                      difficulty: hike.trail.difficulty,
-                    ),
-                  ]),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          hike.trail.name,
+                          maxLines: 2,
+                          style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic),
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.justify,
+                        ),
+                        const Gap(5),
+                        DisplayDetailTrails(
+                          fontSize: 12,
+                          trailId: hike.trail.id,
+                          duration: hike.trail.duration,
+                          distance: hike.trail.distance,
+                          upHill: hike.trail.uphill,
+                          downHill: hike.trail.downhill,
+                          difficulty: hike.trail.difficulty,
+                        ),
+                      ]),
                 ),
                 Container(
                   padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
