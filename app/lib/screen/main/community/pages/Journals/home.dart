@@ -25,8 +25,6 @@ class _HomePageState extends State<ComePage> {
   late FToast fToast;
   String emoticon = "129489";
 
-  var appState;
-
   get model => null;
 
   @override

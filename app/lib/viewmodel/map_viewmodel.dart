@@ -74,14 +74,15 @@ class MapViewModel extends BaseModel {
     required AppState appState,
     required Function updateScreen,
   }) async {
-    var trailList = await WrapperApi().getTrail(
+    var trailListReq = await WrapperApi().getTrail(
       id: appState.id,
       roles: appState.roles,
       token: appState.token,
     );
+    List<TrailFields> trails = [];
 
-    if (trailList.statusCode == 200 || trailList.statusCode == 201) {
-      trailList.data["trails"].forEach((entry) {
+    if (trailListReq.statusCode == 200 || trailListReq.statusCode == 201) {
+      trailListReq.data["trails"].forEach((entry) {
         late LatLng trailLatLng = LatLng(entry["latitude"], entry["longitude"]);
         var geoJSON = json.decode(entry["geoJSON"]);
         var trailField = TrailFields(

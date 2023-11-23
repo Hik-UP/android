@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:hikup/widget/snack_bar.dart';
 
 class CustomNavigationService {
@@ -30,5 +30,18 @@ class CustomNavigationService {
       context: navigatorKey.currentState!.context,
       isError: isError,
     ).showSnackBar();
+  }
+
+  showDialogue({required Widget content, required Function() action}) {
+    showDialog(
+      context: navigatorKey.currentContext!,
+      builder: (_) => Dialog(
+        backgroundColor: Colors.black,
+        elevation: 8.0,
+        child: content,
+      ),
+    ).then(
+      (value) => action(),
+    );
   }
 }

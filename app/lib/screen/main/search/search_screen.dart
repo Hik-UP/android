@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
-import 'package:hikup/widget/header.dart';
+import 'package:hikup/widget/Header/header.dart';
+import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
@@ -33,46 +34,15 @@ class _SearchScreenState extends State<SearchScreen> {
       }
       TextEditingController controller = TextEditingController();
 
-      return Scaffold(
-          backgroundColor: BlackSecondary,
+      return ScaffoldWithCustomBg(
           appBar: const Header(),
-          body: Column(children: [
-            const Gap(10.0),
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.92,
-                child: SearchBar(
-                  controller: controller,
-                  backgroundColor: MaterialStateProperty.all(BlackPrimary),
-                  hintText: "Rechercher un sentier",
-                  shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
-                    (Set<MaterialState> states) {
-                      return const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                      );
-                    },
-                  ),
-                  onSubmitted: (value) {
-                    setState(() {
-                      //controller.text = value;
-                      model.searchFilterTrails(filter: value);
-                    });
-                    //controller.
-                  },
-                  hintStyle: MaterialStateProperty.all(
-                      const TextStyle(color: Colors.grey)),
-                  textStyle: MaterialStateProperty.all(
-                      const TextStyle(color: Colors.grey)),
-                  padding: const MaterialStatePropertyAll<EdgeInsets>(
-                    EdgeInsets.symmetric(horizontal: 16.0),
-                  ),
-                  leading: const Icon(Icons.search, color: Colors.grey),
-                )),
+          child: Stack(children: [
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Gap(15.0),
+                    const Gap(70.0),
                     // RECOMMENDED FIELDS
                     model.filterTrailsList.isNotEmpty
                         ? ListView.builder(
@@ -98,6 +68,36 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
               ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.93,
+                  child: SearchBar(
+                    controller: controller,
+                    backgroundColor: MaterialStateProperty.all(BlackPrimary),
+                    hintText: "Rechercher un sentier",
+                    shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
+                      (Set<MaterialState> states) {
+                        return const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        );
+                      },
+                    ),
+                    onSubmitted: (value) {
+                      setState(() {
+                        model.searchFilterTrails(filter: value);
+                      });
+                    },
+                    hintStyle: MaterialStateProperty.all(
+                        const TextStyle(color: Colors.grey)),
+                    textStyle: MaterialStateProperty.all(
+                        const TextStyle(color: Colors.grey)),
+                    padding: const MaterialStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 16.0),
+                    ),
+                    leading: const Icon(Icons.search, color: Colors.grey),
+                  )),
             )
           ]));
     });

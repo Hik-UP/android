@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/local_notification.dart';
 import 'package:hikup/theme.dart';
@@ -66,13 +67,23 @@ class _MainScreenState extends State<MainScreen> {
             title: const Text('Quitter'),
             content: const Text('Souhaitez-vous quitter ?'),
             actions: <Widget>[
-              // const SizedBox(height: 16),
               TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Non')),
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text(
+                  'Non',
+                  style: GoogleFonts.poppins(
+                    color: BlackPrimary,
+                  ),
+                ),
+              ),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Oui'),
+                child: Text(
+                  'Oui',
+                  style: GoogleFonts.poppins(
+                    color: Colors.red,
+                  ),
+                ),
               ),
             ],
           ),

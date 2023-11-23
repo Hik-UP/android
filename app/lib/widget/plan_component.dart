@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/widget/custom_text_field.dart';
@@ -27,6 +28,22 @@ class _PlanComponentState extends State<PlanComponent> {
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2030),
+      builder: (context, child) => Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: const ColorScheme.light(
+            primary: BlackPrimary, // <-- SEE HERE
+            onPrimary: Colors.white, // <-- SEE HERE
+            onSurface: Colors.blueAccent, // <-- SEE HERE
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.green,
+              // button text color
+            ),
+          ),
+        ),
+        child: child!,
+      ),
     );
   }
 
@@ -87,9 +104,24 @@ class _PlanComponentState extends State<PlanComponent> {
                 readOnly: true,
                 onTap: () async {
                   var pickHours = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                      builder: (context, child) => Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: const ColorScheme.light(
+                                primary: BlackPrimary, // <-- SEE HERE
+                                onPrimary: Colors.white, // <-- SEE HERE
+                                onSurface: Colors.blueAccent, // <-- SEE HERE
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Colors.green,
+                                  // button text color
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          ));
                   if (pickHours != null) {
                     widget.timeCtrl.text =
                         "${pickHours.hour}:${pickHours.minute}";

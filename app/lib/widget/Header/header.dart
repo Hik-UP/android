@@ -29,7 +29,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      backgroundColor: const Color.fromARGB(255, 32, 32, 32),
+      backgroundColor: Colors.black.withOpacity(0.9),
       elevation: 0.0,
       automaticallyImplyLeading: false,
       actions: <Widget>[

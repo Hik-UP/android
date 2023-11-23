@@ -1,4 +1,5 @@
 import 'package:hikup/locator.dart';
+import 'package:hikup/model/owner_skin.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hive/hive.dart';
 part 'skin.g.dart';
@@ -16,12 +17,15 @@ class Skin {
   @HiveField(4)
   final String model;
 
+  final double price;
+
   const Skin({
     required this.id,
     required this.name,
     required this.description,
     required this.pictures,
     required this.model,
+    this.price = 0.0,
   });
 
   static Skin fromMap({required Map<String, dynamic> data}) {
@@ -39,6 +43,7 @@ class Skin {
       description: data["description"] ?? "",
       pictures: skinString,
       model: data["model"] ?? "",
+      price: data["price"] != null ? data["price"].toDouble() : 0,
     );
   }
 
@@ -47,5 +52,33 @@ class Skin {
     required Box<Skin> skinBox,
   }) async {
     await locator<HiveService>().addOnBoxViaKey(skinBox, "skin", skin);
+  }
+}
+
+class SkinWithOwner extends Skin {
+  final List<OwnerSkin> owners;
+  const SkinWithOwner({
+    required this.owners,
+    required super.description,
+    required super.id,
+    required super.name,
+    required super.pictures,
+    required super.model,
+    required super.price,
+  });
+
+  static SkinWithOwner fromMap({
+    required Skin skin,
+    required dynamic ownersList,
+  }) {
+    return SkinWithOwner(
+      owners: ownersList.map<OwnerSkin>((e) => OwnerSkin.fromMap(e)).toList(),
+      description: skin.description,
+      id: skin.id,
+      name: skin.name,
+      pictures: skin.pictures,
+      model: skin.model,
+      price: skin.price,
+    );
   }
 }

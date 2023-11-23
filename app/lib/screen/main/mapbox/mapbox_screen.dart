@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/screen/detail/detail_screen.dart';
 import 'package:hikup/screen/main/mapbox/Components/map.dart';
-import 'package:hikup/widget/header.dart';
+import 'package:hikup/widget/Header/header.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
@@ -80,14 +80,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
         }
       });
 
-      if (model.loading == true) {
-        model.trails(
-          appState: context.read<AppState>(),
-          updateScreen: () => setState(
-            () {},
-          ),
-        );
-      }
+      model.trails(appState: context.read<AppState>(), updateScreen: () {});
 
       return Scaffold(
         extendBodyBehindAppBar: true,

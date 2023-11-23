@@ -7,21 +7,15 @@ class BackIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Color.fromRGBO(0, 0, 0, 0.6),
-          shape: BoxShape.circle,
-        ),
-        child: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            iconSize: 26,
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
-      ),
+      child: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          iconSize: 26,
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          )),
     );
   }
 }

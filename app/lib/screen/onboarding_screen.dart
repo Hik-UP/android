@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/theme.dart';
@@ -26,6 +27,7 @@ class OnboardingScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
               minimumSize: const Size(100, 50),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadiusSize))),
@@ -35,7 +37,9 @@ class OnboardingScreen extends StatelessWidget {
           },
           child: Text(
             "Explorer",
-            style: buttonTextStyle,
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+            ),
           ),
         ),
       ),

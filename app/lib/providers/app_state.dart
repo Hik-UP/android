@@ -1,9 +1,11 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hikup/locator.dart';
+import 'package:hikup/model/event.dart';
 import 'package:hikup/model/other_data.dart';
 import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/model/skin.dart';
+import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/utils/constant.dart';
@@ -15,9 +17,12 @@ final Box<Skin> skinUserBox = Hive.box("skinBox");
 final Box<SensibleUserData> sensibleUserDataBox =
     Hive.box("sensibleUserDataBox");
 final Box<String> boxtrailId = Hive.box('trailId');
+final Box<TrailList> boxTrails = Hive.box("trails");
 
 class AppState extends ChangeNotifier {
   final Box<OtherData> _boxOtherData = Hive.box("otherData");
+
+  String comment = "";
 
   final _hiveService = locator<HiveService>();
   bool isFirstDownload = true;
@@ -30,6 +35,12 @@ class AppState extends ChangeNotifier {
   List<dynamic> roles = [];
   Skin skin = emptySkin;
   SensibleUserData sensibleUserData = emptySensibleUserData;
+  List<EventModel> events = [];
+
+  void addNewEvent(EventModel event) {
+    events.add(event);
+    notifyListeners();
+  }
 
   void setIsFirstDownload({required bool value}) async {
     isFirstDownload = value;
@@ -74,6 +85,7 @@ class AppState extends ChangeNotifier {
 
   void setFcmToken({required String value}) {
     fcmUserToken = value;
+
     WrapperApi().sendFcmToken(
       id: id,
       roles: roles,
@@ -87,6 +99,21 @@ class AppState extends ChangeNotifier {
   void updateSkinState({required Skin value}) {
     skin = value;
     notifyListeners();
+  }
+
+  void updateIfSkinHasChanged() async {
+    var response = await WrapperApi().getProfile(
+      id: id,
+      roles: roles,
+      token: token,
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Skin newSkin = Skin.fromMap(data: response.data['user']['skin']);
+      if (newSkin.id != skin.id) {
+        updateSkinState(value: newSkin);
+        Skin.addSkinOnHive(skin: newSkin, skinBox: skinUserBox);
+      }
+    }
   }
 
   void updateSensibleDataState({required SensibleUserData value}) {

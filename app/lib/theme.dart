@@ -25,7 +25,7 @@ const Color BlackTertiary = Color.fromARGB(255, 156, 156, 156);
 //USE THIS IF YOU DON'T KNOW THE CORRECT COLOR OR STYLE TO USE
 const Color HOPA = Color.fromARGB(255, 255, 0, 0);
 const Color HOPABLUE = Color.fromARGB(255, 55, 0, 255);
-TextStyle HOPASTYLE = GoogleFonts.poppins(color: Colors.red);
+TextStyle HOPASTYLE = GoogleFonts.poppins(color: Colors.white);
 
 const greenColor = Color.fromARGB(255, 255, 94, 0);
 
@@ -82,6 +82,11 @@ TextStyle priceTextStyleWhite = GoogleFonts.poppins(
     fontWeight: FontWeight.w700,
     color: const Color.fromARGB(255, 255, 255, 255));
 
+TextStyle textLinkProfileStyle = GoogleFonts.poppins(
+  fontWeight: FontWeight.w700,
+  color: const Color(0xff00FFFF),
+  fontStyle: FontStyle.italic,
+);
 /*
 TextStyle normalTextStyle = GoogleFonts.poppins(color: darkBlue500);
 

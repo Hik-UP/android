@@ -1,6 +1,7 @@
 class AppMessages {
   static String email = "Email";
   static String password = "Mot de passe";
+  static String confirmPassword = "Confirmer le mot de passe";
   static String login = "Se connecter";
   static String requiredField = "Email obligatoire";
   static String wrongEmail = "Email invalide";
@@ -10,7 +11,7 @@ class AppMessages {
   static String registerButtonText = "Créer un compte";
   static String usernameHintText = "Nom utilisateur";
   static String loginError = "Email ou mot de passe incorrect";
-  static String anErrorOcur = "Une erreur s'est prduite, réessayer";
+  static String anErrorOcur = "Une erreur s'est produite, réessayer";
   static String usernameinvalid = "Le prénom est incorrecte";
   static String updateProfil = "Mettre à jour le profile";
   static String updateTxt = "Mettre à jour";
@@ -20,9 +21,9 @@ class AppMessages {
   static String tokenExpiredMessage = "Votre token est expiré";
   static String succesfulLogout = "Déconnexion";
   static String inexistantUser = "Oops, Cette utilisateur n'existe pas.";
-  static String infoMessage = "Info";
-  static String addExtraData = "Completer votre profile";
-  static String aboutApp = "À propos Hik'UP";
+  static String infoMessage = "Informations";
+  static String addExtraData = "Completer mon profile";
+  static String aboutApp = "À propos de Hik'UP";
   static String settingTxt = "Réglages";
   static String modifprofilTxt = "Modifier profile";
   static String askIfUserWantToLogout = "Souhaitez-vous vous déconnectez ?";
@@ -87,4 +88,24 @@ class AppMessages {
   static String inProgress = "En cours";
   static String scheduled = "Programmé";
   static String doneLabel = "Terminé";
+  static String eventNameLabel = "Titre de l'évènement";
+  static String eventDescription = "Description";
+  static String dateOfEvent = "Date de déroulement";
+  static String localisationLabel = "Localisation";
+  static String visibilityOfTheEvent = "Visibilité";
+  static String validateLabel = "Valider";
+  static String addTagEvent = "Ajouter des tags relié au sujet de l'évènement";
+  static String successLabel = 'Success';
+  static String shopLabel = 'Boutique';
+  static String buyLabel = 'Acheter';
+  static String changeLabel = 'Changer';
+  static String noSkinLabel = 'Oops, no skin to show';
+  static String currentSkinLabel = 'This is your current profile skin';
+  static String stripeError = "Le paiement a échoué";
+  static String eventLabel = "Events";
+  static String addACover4Event = "Ajouter une image de publicité";
+  static String inviteFriendLabel = "Inviter des amis";
+  static String infoFillProfile =
+      "Les données fournies via ce formulaire seront utilisées pour calculer le nombre de calories brûlé lors d'une randonnée et plus encore.";
+  static String updateCommentLabel = "Modifier";
 }

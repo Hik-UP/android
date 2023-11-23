@@ -9,6 +9,7 @@ import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/comment_card.dart';
+import 'package:hikup/widget/file_upload_cmp.dart';
 import 'package:hikup/widget/thumbail_img.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -195,7 +196,7 @@ class _CommunityViewState extends State<CommunityView> {
                               IconButton(
                                 color: GreenPrimary,
                                 onPressed: () {
-                                  myAlert(
+                                  FileUploadCmp.myAlert(
                                     context: context,
                                     getImageGallery: () => model.getImage(
                                       ImageSource.gallery,
@@ -212,6 +213,7 @@ class _CommunityViewState extends State<CommunityView> {
                                 padding: const EdgeInsets.all(14.0),
                                 child: CommentCard(
                                   comment: snapshot.data![index],
+                                  update: () => setState(() {}),
                                 ),
                               );
                             },
@@ -344,12 +346,11 @@ class _CommunityViewState extends State<CommunityView> {
                       child: Stack(
                         children: [
                           TextFormField(
-                            //keyboardType: TextInputType.text,
+                            focusNode: model.inputFocus,
                             maxLines: 2,
                             controller: model.textController,
                             keyboardType: TextInputType.text,
                             style: const TextStyle(color: Colors.white),
-
                             decoration: const InputDecoration(
                               hintText: 'Écrire un commentaire',
                               border: InputBorder.none,
@@ -372,7 +373,10 @@ class _CommunityViewState extends State<CommunityView> {
                                     appState: appState,
                                     trailId: widget.trailId,
                                     update: () {
-                                      setState(() {});
+                                      Future.delayed(
+                                        const Duration(seconds: 3),
+                                        () => setState(() {}),
+                                      );
                                     },
                                   ),
                                   icon: const Icon(
@@ -382,7 +386,7 @@ class _CommunityViewState extends State<CommunityView> {
                                 IconButton(
                                   color: GreenPrimary,
                                   onPressed: () {
-                                    myAlert(
+                                    FileUploadCmp.myAlert(
                                       context: context,
                                       getImageGallery: () => model.getImage(
                                         ImageSource.gallery,

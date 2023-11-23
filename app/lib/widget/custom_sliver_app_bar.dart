@@ -1,16 +1,19 @@
 import 'dart:convert';
 import "package:flutter/material.dart";
+import 'package:gap/gap.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/screen/main/mapbox/Components/map.dart';
-import 'package:hikup/theme.dart';
 import 'package:hikup/widget/back_icon.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
   final TrailFields field;
+  final String? date;
   const CustomSliverAppBar({
     super.key,
+    this.date,
     required this.field,
   });
 
@@ -51,8 +54,10 @@ class CustomSliverAppBar extends StatelessWidget {
     );
 
     return SliverAppBar(
-      backgroundColor: BlackSecondary,
+      clipBehavior: Clip.none,
+      backgroundColor: Colors.black,
       pinned: true,
+      toolbarHeight: date != null ? 70 : kToolbarHeight,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         expandedTitleScale: 1,
@@ -60,7 +65,7 @@ class CustomSliverAppBar extends StatelessWidget {
         title: Container(
           padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
           width: MediaQuery.of(context).size.width,
-          height: kToolbarHeight,
+          height: date != null ? 70 : kToolbarHeight,
           decoration: BoxDecoration(
             border: Border(
               top: BorderSide(color: trailColor, width: 4),
@@ -69,15 +74,34 @@ class CustomSliverAppBar extends StatelessWidget {
           ),
           child: Center(
             child: Container(
-              margin: const EdgeInsets.fromLTRB(50.0, 4.0, 50.0, 4.0),
-              child: Text(
-                field.name,
-                maxLines: 1,
-                style: subTitleTextStyle,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-              ),
-            ),
+                margin: const EdgeInsets.fromLTRB(50.0, 4.0, 50.0, 4.0),
+                child: Column(children: [
+                  Text(
+                    field.name,
+                    maxLines: 1,
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.white),
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                  date != null ? const Gap(5) : Container(),
+                  date != null
+                      ? Text(
+                          date ?? '',
+                          maxLines: 1,
+                          style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                        )
+                      : Container()
+                ])),
           ),
         ),
         background: MapBox(
@@ -93,7 +117,7 @@ class CustomSliverAppBar extends StatelessWidget {
       ),
       leading: const BackIcon(),
       actions: const [],
-      expandedHeight: 300,
+      expandedHeight: 400,
     );
   }
 }

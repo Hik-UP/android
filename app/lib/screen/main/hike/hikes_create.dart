@@ -31,7 +31,7 @@ class HikesCreate extends StatelessWidget {
           backgroundColor: Colors.black,
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 00.0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
           child: Column(
             children: [
               DefaultTabController(
