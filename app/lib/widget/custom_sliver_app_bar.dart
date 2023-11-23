@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 import 'package:gap/gap.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/screen/main/mapbox/Components/map.dart';
-import 'package:hikup/theme.dart';
 import 'package:hikup/widget/back_icon.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';

@@ -1,18 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hikup/screen/event/all_event_view.dart';
 import 'package:hikup/screen/inventory/inventory_view.dart';
 import 'package:hikup/screen/main/setting/complete_profile.dart';
 import 'package:hikup/screen/main/setting/update_profile.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
-import 'package:hikup/viewmodel/skin_display_viewmodel.dart';
-import 'package:hikup/widget/custom_app_bar.dart';
 import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 
 import 'package:provider/provider.dart';
