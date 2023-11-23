@@ -6,9 +6,12 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/shop/components/skin_display.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/utils/app_messages.dart';
+import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/shop_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_app_bar.dart';
+import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 import 'package:provider/provider.dart';
 
 class ShopView extends StatefulWidget {
@@ -30,17 +33,20 @@ class _ShopViewState extends State<ShopView> {
     context.read<AppState>().updateIfSkinHasChanged();
 
     return BaseView<ShopViewModel>(
-      builder: (context, model, child) => Scaffold(
+      builder: (context, model, child) => ScaffoldWithCustomBg(
         appBar: CustomAppBar(
           label: AppMessages.shopLabel,
         ),
-        body: SingleChildScrollView(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
               const Gap(20.0),
               FutureBuilder<List<SkinWithOwner>>(
-                future: model.getAllSkin(appState: appState),
+                future: WrapperApi().getAllSkin(
+                  appState: appState,
+                  routeName: getSkinPath,
+                ),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Text(

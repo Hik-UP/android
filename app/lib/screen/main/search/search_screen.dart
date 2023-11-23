@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/widget/Header/header.dart';
+import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 import 'package:hikup/widget/trail_card.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/viewmodel/search_viewmodel.dart';
@@ -40,10 +41,9 @@ class _SearchScreenState extends State<SearchScreen> {
         );
       });*/
 
-      return Scaffold(
-        backgroundColor: BlackSecondary,
+      return ScaffoldWithCustomBg(
         appBar: const Header(),
-        body: SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

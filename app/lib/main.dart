@@ -15,6 +15,7 @@ import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
 import 'package:hikup/screen/event/all_event_view.dart';
 import 'package:hikup/screen/event/create_event_view.dart';
+import 'package:hikup/screen/inventory/inventory_view.dart';
 import 'package:hikup/screen/main/community/community_history_screen.dart';
 import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:hikup/screen/main/search/notification.dart';
@@ -124,6 +125,7 @@ class MyApp extends StatelessWidget {
         AllEventView.routeName: (_) => const AllEventView(),
         CreateEventView.routeName: (_) => const CreateEventView(),
         AchievementView.routeName: (_) => const AchievementView(),
+        InventoryView.routeName: (_) => const InventoryView()
       },
     );
   }

@@ -60,7 +60,7 @@ const createCommentPath = "/trail/comment/create";
 const retrieveNotificationPath = "/user/notification/retrieve";
 const notifUpdatePath = "/user/notification/update";
 const organzierUpdatePath = "/user/hike/organizer/update";
-const getSkinPath = "/skin/retrieve";
+const getSkinPath = "/user/skin/locked";
 const updateCurrentSkinPath = "/skin/update-current-skin";
 const skinUnlockPath = "/skin/unlock";
 const eventCreatePath = "/event/create";
@@ -70,6 +70,7 @@ const updateCommentPath = "/trail/comment/update";
 const pinIcon = "assets/icons/pin.png";
 const idHikeIcon = "assets/icons/information.png";
 const calendarIcon = "assets/icons/appointment.png";
+const bgInventoryScreen = "assets/images/bgViewImage.png";
 
 const stripeSecret =
     "sk_test_51NrvZiAitfOvvPVLJfL8jxdCYnFjdo0J6dUHLCsYwLodGd7WYyQVTEMvcE44iRizSV5GECh4zoLCQt4dIW6SgN5d000XPeZR2S";

@@ -3,13 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/screen/event/all_event_view.dart';
+import 'package:hikup/screen/inventory/inventory_view.dart';
 import 'package:hikup/screen/main/setting/complete_profile.dart';
 import 'package:hikup/screen/main/setting/update_profile.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
+import 'package:hikup/viewmodel/skin_display_viewmodel.dart';
 import 'package:hikup/widget/custom_app_bar.dart';
+import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 
 import 'package:provider/provider.dart';
 
@@ -77,22 +81,14 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
 
-    return Scaffold(
-      appBar: CustomAppBar(label: AppMessages.settingTxt),
-      body: SingleChildScrollView(
+    return ScaffoldWithCustomBg(
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Gap(20.0),
-              Text(
-                AppMessages.account,
-                style: subTitleTextStyle,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
               InkWell(
                 onTap: () {},
                 child: Padding(
@@ -155,38 +151,36 @@ class SettingsScreen extends StatelessWidget {
                   }),
                 ),
               ),
-              const Gap(40),
+              const Divider(
+                color: Color(0xff7D7D7D),
+                thickness: 1,
+              ),
+              const Gap(10),
+              const InventoryView(),
+              const Gap(20),
               Text(
                 AppMessages.infoMessage,
                 style: subTitleTextStyle,
               ),
+              const Gap(10.0),
               InkWell(
                 onTap: () =>
                     Navigator.of(context).pushNamed(CompleteProfile.routeName),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      padding: const EdgeInsets.all(12.0),
-                      child: const Icon(
-                        FontAwesomeIcons.clipboardList,
-                        color: BlackTertiary,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 4,
-                    ),
                     Text(
                       AppMessages.addExtraData,
-                      style: linkTextStyle,
+                      style: textLinkProfileStyle,
                     ),
                   ],
                 ),
               ),
+              //InVENTORY BUTTON
+
               const Gap(30.0),
               Text(AppMessages.aboutApp, style: subTitleTextStyle),
+              const Gap(10.0),
               InkWell(
                 onTap: () {
                   _showSnackBar(
@@ -194,71 +188,20 @@ class SettingsScreen extends StatelessWidget {
                     AppMessages.newestVersion,
                   );
                 },
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: Icon(
-                        CupertinoIcons.info_circle_fill,
-                        size: 24,
-                        color: BlackTertiary,
-                      ),
-                    ),
-                    const Gap(4.0),
-                    Text(
-                      "Version Beta",
-                      style: linkTextStyle,
-                    ),
-                  ],
+                child: Text(
+                  "Version Beta",
+                  style: textLinkProfileStyle,
                 ),
               ),
+              const Gap(8.0),
               InkWell(
                 onTap: () => {},
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      padding: const EdgeInsets.all(12.0),
-                      child: Image.asset(
-                        githubLink,
-                        color: BlackTertiary,
-                      ),
-                    ),
-                    const Gap(4.0),
-                    Text(
-                      githubName,
-                      style: linkTextStyle,
-                    ),
-                  ],
+                child: Text(
+                  githubName,
+                  style: textLinkProfileStyle,
                 ),
               ),
-              InkWell(
-                onTap: () =>
-                    Navigator.of(context).pushNamed(AllEventView.routeName),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      padding: const EdgeInsets.all(12.0),
-                      child: const Icon(
-                        FontAwesomeIcons.calendarCheck,
-                        color: BlackTertiary,
-                      ),
-                    ),
-                    const Gap(4.0),
-                    Text(
-                      AppMessages.eventLabel,
-                      style: linkTextStyle,
-                    ),
-                  ],
-                ),
-              ),
+              const Gap(8.0),
               InkWell(
                 onTap: () => {
                   showDialog(
@@ -286,21 +229,13 @@ class SettingsScreen extends StatelessWidget {
                     },
                   )
                 },
-                child: Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Icon(
-                        FontAwesomeIcons.rightFromBracket,
-                        color: BlackTertiary,
-                      ),
-                    ),
-                    const Gap(4.0),
-                    Text(
-                      AppMessages.logout,
-                      style: linkTextStyle,
-                    ),
-                  ],
+                child: Text(
+                  AppMessages.logout,
+                  style: GoogleFonts.poppins(
+                    color: const Color(0xffFF153F),
+                    fontWeight: FontWeight.w700,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ),
             ],
