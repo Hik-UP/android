@@ -46,7 +46,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     }
     return Container(
       decoration: BoxDecoration(
-          color: BlackPrimary, borderRadius: BorderRadius.circular(15)),
+          color: Colors.black.withOpacity(0.8),
+          borderRadius: BorderRadius.circular(15)),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
