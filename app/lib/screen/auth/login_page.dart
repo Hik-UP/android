@@ -30,16 +30,11 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, model, child) => SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: const Color.fromARGB(255, 114, 18, 18),
+          backgroundColor: Colors.black,
           body: Center(
             child: Stack(
+              alignment: Alignment.center,
               children: [
-                Positioned.fill(
-                  child: Image.asset(
-                    homeBackgroundDay,
-                    fit: BoxFit.cover,
-                  ),
-                ),
                 Column(
                   children: [
                     const Gap(15.0),
@@ -63,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                           0.9, // 50% de la largeur de l'écran
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: Padding(
-                        padding: const EdgeInsets.all(25.0),
+                        padding: const EdgeInsets.all(0),
                         child: Form(
                           key: model.loginFormKey,
                           child: Padding(
@@ -75,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                                   hintText: AppMessages.email,
                                   validator: Validation.validEmail,
                                 ),
-                                const Gap(10),
+                                const Gap(20),
                                 CustomTextField(
                                   controller: model.passwordController,
                                   hintText: AppMessages.password,
@@ -84,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                                   typeOfInput: TypeOfInput.password,
                                   maxLine: 1,
                                 ),
-                                const Gap(10),
+                                const Gap(20),
                                 CustomBtn(
                                   content: AppMessages.login,
                                   isLoading: model.getState == ViewState.busy,
@@ -98,32 +93,6 @@ class _LoginPageState extends State<LoginPage> {
                                       );
                                     }
                                   },
-                                  gradient: loginButtonColor,
-                                ),
-                                const Gap(2),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    TextButton(
-                                      style: TextButton.styleFrom(
-                                        foregroundColor: const Color.fromARGB(
-                                            255, 23, 255, 119),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              const RegisterPage(),
-                                        ));
-                                      },
-                                      child: Text(
-                                        AppMessages.noAccountYet,
-                                        style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    )
-                                  ],
                                 ),
                               ],
                             ),
@@ -132,6 +101,32 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     )
                   ],
+                ),
+                Positioned(
+                  bottom: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          foregroundColor:
+                              const Color.fromARGB(255, 23, 255, 119),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const RegisterPage(),
+                          ));
+                        },
+                        child: Text(
+                          "Je n'ai pas encore de compte",
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),

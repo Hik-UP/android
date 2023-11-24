@@ -32,18 +32,11 @@ class _RegisterPageState extends State<RegisterPage> {
     return BaseView<RegisterPageViewModel>(
       builder: (context, model, child) => Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: const Color.fromARGB(255, 114, 18, 18),
+          backgroundColor: Colors.black,
           body: Center(
             child: Stack(
+              alignment: Alignment.center,
               children: [
-                Positioned.fill(
-                  child: Image.asset(
-                    homeBackgroundDay,
-                    width: 70,
-                    height: 70,
-                    fit: BoxFit.fill,
-                  ),
-                ),
                 Column(
                   children: [
                     const Gap(15.0),
@@ -68,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           0.9, // 50% de la largeur de l'écran
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: Padding(
-                        padding: const EdgeInsets.all(25.0),
+                        padding: const EdgeInsets.all(0),
                         child: SingleChildScrollView(
                           child: Form(
                             key: model.loginFormKey,
@@ -81,13 +74,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                     controller: model.usernameController,
                                     validator: Validation.validateUsername,
                                   ),
-                                  const Gap(10.0),
+                                  const Gap(20.0),
                                   CustomTextField(
                                     controller: model.emailController,
                                     hintText: AppMessages.email,
                                     validator: model.validateEmail,
                                   ),
-                                  const Gap(10.0),
+                                  const Gap(20.0),
                                   CustomTextField(
                                     controller: model.passwordController,
                                     hintText: AppMessages.password,
@@ -95,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     validator: model.validatePassword,
                                     typeOfInput: TypeOfInput.password,
                                   ),
-                                  const Gap(10),
+                                  const Gap(20),
                                   CustomTextField(
                                     controller: model.passwordControllerConfirm,
                                     hintText: AppMessages.confirmPassword,
@@ -103,10 +96,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                     validator: model.validatePassword,
                                     typeOfInput: TypeOfInput.password,
                                   ),
-                                  const Gap(10.0),
+                                  const Gap(20.0),
                                   CustomBtn(
                                     isLoading: model.getState == ViewState.busy,
                                     content: AppMessages.registerButtonText,
+                                    bgColor:
+                                        const Color.fromRGBO(59, 44, 26, 1),
+                                    borderColor:
+                                        const Color.fromRGBO(255, 174, 49, 1),
                                     onPress: () {
                                       if (model.loginFormKey.currentState!
                                           .validate()) {
@@ -122,27 +119,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                     },
                                     gradient: loginButtonColor,
                                   ),
-                                  const Gap(2.0),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: TextButton(
-                                      style: TextButton.styleFrom(
-                                        foregroundColor: const Color.fromARGB(
-                                            255, 23, 255, 119),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).pushNamed(
-                                          LoginPage.routeName,
-                                        );
-                                      },
-                                      child: Text(
-                                        AppMessages.alreadyHaveAccount,
-                                        style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -152,6 +128,32 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ],
                 ),
+                Positioned(
+                  bottom: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          foregroundColor:
+                              const Color.fromRGBO(255, 174, 49, 1),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                            LoginPage.routeName,
+                          );
+                        },
+                        child: Text(
+                          "Je possède déjà un compte",
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           )),

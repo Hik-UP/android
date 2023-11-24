@@ -44,6 +44,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: const TextStyle(color: Colors.black, fontSize: 14),
       maxLines: widget.maxLine,
       onChanged: widget.onChange,
       onTap: widget.onTap,
@@ -52,14 +53,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
       inputFormatters: widget.inputsFormatter,
       controller: widget.controller,
       validator: widget.validator,
-      cursorColor: const Color.fromARGB(255, 0, 189, 41),
+      cursorColor: const Color.fromRGBO(0, 0, 0, 1),
       obscureText: widget.typeOfInput == TypeOfInput.text ? false : obsureText,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         hintText: widget.hintText,
-        hintStyle: TextStyle(
-          color: Colors.grey[400],
-        ),
+        hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -74,7 +73,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 }),
                 child: Icon(
                   obsureText ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
-                  color: Colors.green,
+                  color: Colors.grey,
+                  size: 18,
                 ),
               ),
       ),
