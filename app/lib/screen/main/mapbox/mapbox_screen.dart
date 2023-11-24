@@ -218,9 +218,8 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                             child: ElevatedButton(
                               onPressed: () => Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => DetailHikeInvite(
-                                    hike: model.hike[0],
-                                  ),
+                                  builder: (context) =>
+                                      DetailHikeInvite(hike: model.hike[0]),
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(

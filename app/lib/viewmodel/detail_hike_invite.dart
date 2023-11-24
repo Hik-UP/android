@@ -17,14 +17,41 @@ class DetailHikeInviteViewModel extends BaseModel {
     notifyListeners();
   }
 
-  leaveHike({
-    required String hikeId,
-    required AppState appState,
-  }) async {
+  leaveHike(
+      {required String hikeId,
+      required AppState appState,
+      required bool isOrganizer}) async {
     setLoadingDelete(true);
 
     var response = await _dioService.put(
-      path: leaveHikePath,
+      path: isOrganizer == true ? leaveOrganizedHikePath : leaveHikePath,
+      body: {
+        "user": {
+          "id": appState.id,
+          "roles": appState.roles,
+        },
+        "hike": {
+          "id": hikeId,
+        },
+      },
+      token: "Bearer ${appState.token}",
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      _navigatorService.showSnackBack(
+        content: AppMessages.success,
+      );
+      _navigatorService.goBack();
+    }
+  }
+
+  removeHike(
+      {required String hikeId,
+      required AppState appState,
+      required bool isOrganizer}) async {
+    setLoadingDelete(true);
+
+    var response = await _dioService.delete(
+      path: isOrganizer == true ? removeOrganizedHikePath : removeHikePath,
       body: {
         "user": {
           "id": appState.id,

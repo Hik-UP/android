@@ -26,10 +26,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class DetailHikeInvite extends StatelessWidget {
   final Hike hike;
   static String routeName = "/detail-hike-invite";
-  const DetailHikeInvite({
-    super.key,
-    required this.hike,
-  });
+  const DetailHikeInvite({super.key, required this.hike});
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +88,9 @@ class DetailHikeInvite extends StatelessWidget {
         price: 0,
         openTime: "",
         closeTime: "");
+    bool isLeaved = hike.attendee
+        .where(((element) => element.username == appState.username))
+        .isEmpty;
 
     String formatDate() {
       var replaceDate = hike.schedule.replaceAll(RegExp(r'T'), ' ');
@@ -222,109 +222,161 @@ class DetailHikeInvite extends StatelessWidget {
           ],
         ),
         bottomNavigationBar: Container(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 15),
-          decoration: const BoxDecoration(
-            color: Colors.black,
-            boxShadow: [
-              BoxShadow(
-                //color: GreenPrimary,
-                offset: Offset(0, 0),
-                blurRadius: 10,
-              ),
-            ],
-          ),
-          child: Row(children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () async {
-                  LocationPermission permission =
-                      await Geolocator.checkPermission();
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 15),
+            decoration: const BoxDecoration(
+              color: Colors.black,
+              boxShadow: [
+                BoxShadow(
+                  //color: GreenPrimary,
+                  offset: Offset(0, 0),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
+            child: isLeaved == false
+                ? Row(children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          LocationPermission permission =
+                              await Geolocator.checkPermission();
 
-                  if (permission != LocationPermission.whileInUse &&
-                          permission != LocationPermission.always ||
-                      !(await Geolocator.isLocationServiceEnabled())) {
-                    navigator.showSnackBack(
-                      content: 'Localisation inaccessible',
-                      isError: true,
-                    );
-                    await Geolocator.requestPermission();
-                    return;
-                  }
+                          if (permission != LocationPermission.whileInUse &&
+                                  permission != LocationPermission.always ||
+                              !(await Geolocator.isLocationServiceEnabled())) {
+                            navigator.showSnackBack(
+                              content: 'Localisation inaccessible',
+                              isError: true,
+                            );
+                            await Geolocator.requestPermission();
+                            return;
+                          }
 
-                  if (joinInProgress == false) {
-                    joinInProgress = true;
-                    SocketService().connect(
-                        token: appState.token,
-                        userId: appState.id,
-                        userRoles: appState.roles);
-                    SocketService().onError((_) {
-                      joinInProgress = false;
-                      SocketService().disconnect();
-                    });
+                          if (joinInProgress == false) {
+                            joinInProgress = true;
+                            SocketService().connect(
+                                token: appState.token,
+                                userId: appState.id,
+                                userRoles: appState.roles);
+                            SocketService().onError((_) {
+                              joinInProgress = false;
+                              SocketService().disconnect();
+                            });
 
-                    await SocketService().hike.join(hike.id, (data) {
-                      dynamic jsonData = json.decode(data);
-                      dynamic stats = jsonData["stats"];
-                      List<dynamic> hikers = jsonData["hikers"];
+                            await SocketService().hike.join(hike.id, (data) {
+                              dynamic jsonData = json.decode(data);
+                              dynamic stats = jsonData["stats"];
+                              List<dynamic> hikers = jsonData["hikers"];
 
-                      joinInProgress = false;
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                            builder: (context) => NavigationScreen(
-                                hike: hike, stats: stats, hikers: hikers),
+                              joinInProgress = false;
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                    builder: (context) => NavigationScreen(
+                                        hike: hike,
+                                        stats: stats,
+                                        hikers: hikers),
+                                  ),
+                                  (r) => false);
+                            });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                            backgroundColor:
+                                const Color.fromRGBO(12, 60, 40, 1),
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            side: const BorderSide(
+                              width: 1.0,
+                              color: Color.fromRGBO(21, 255, 120, 1),
+                            )),
+                        child: const Text(
+                          "Rejoindre",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
-                          (r) => false);
-                    });
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    backgroundColor: const Color.fromRGBO(12, 60, 40, 1),
-                    shadowColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
                     ),
-                    side: const BorderSide(
-                      width: 1.0,
-                      color: Color.fromRGBO(21, 255, 120, 1),
-                    )),
-                child: const Text(
-                  "Rejoindre",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            const Gap(5.0),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  print("ok");
-                },
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    backgroundColor: const Color.fromRGBO(132, 16, 42, 1),
-                    shadowColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                    const Gap(5.0),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (hike.organizers.username == appState.username) {
+                            model.leaveHike(
+                                hikeId: hike.id,
+                                appState: appState,
+                                isOrganizer: true);
+                          } else {
+                            model.leaveHike(
+                                hikeId: hike.id,
+                                appState: appState,
+                                isOrganizer: false);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                            backgroundColor:
+                                const Color.fromRGBO(132, 16, 42, 1),
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            side: const BorderSide(
+                              width: 1.0,
+                              color: Color.fromRGBO(255, 21, 63, 1),
+                            )),
+                        child: const Text(
+                          "Quitter",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
-                    side: const BorderSide(
-                      width: 1.0,
-                      color: Color.fromRGBO(255, 21, 63, 1),
-                    )),
-                child: const Text(
-                  "Quitter",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ]),
-        ),
+                  ])
+                : Row(children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (hike.organizers.username == appState.username) {
+                            model.removeHike(
+                                hikeId: hike.id,
+                                appState: appState,
+                                isOrganizer: true);
+                          } else {
+                            model.removeHike(
+                                hikeId: hike.id,
+                                appState: appState,
+                                isOrganizer: false);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                            backgroundColor:
+                                const Color.fromRGBO(132, 16, 42, 1),
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            side: const BorderSide(
+                              width: 1.0,
+                              color: Color.fromRGBO(255, 21, 63, 1),
+                            )),
+                        child: const Text(
+                          "Supprimer",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ])),
       ),
     );
   }

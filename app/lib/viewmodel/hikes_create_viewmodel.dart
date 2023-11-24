@@ -6,7 +6,7 @@ class HikeCreateViewModel extends BaseModel {
   List<List<String>> targets = [
     ["attendee"],
     ["guest"],
-    ["attendee"]
+    ["leaved"]
   ];
 
   List<Tab> tabs = <Tab>[

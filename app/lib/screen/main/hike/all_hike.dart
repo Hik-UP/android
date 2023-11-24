@@ -78,27 +78,21 @@ class _AllHikeState extends State<AllHike> {
               primary: false,
               shrinkWrap: true,
               itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) => (widget.menuIndex == 0 &&
-                          snapshot.data![index].status != "DONE") ||
-                      (widget.menuIndex == 1) ||
-                      (widget.menuIndex == 2 &&
-                          snapshot.data![index].status == "DONE")
-                  ? Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 10.0,
-                      ),
-                      child: HikeCard(
-                        hike: snapshot.data![index],
-                        guest: widget.menuIndex == 1,
-                        update: () => Future.delayed(
-                            const Duration(
-                              seconds: 3,
-                            ), () {
-                          setState(() {});
-                        }),
-                      ),
-                    )
-                  : error(),
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 10.0,
+                ),
+                child: HikeCard(
+                  hike: snapshot.data![index],
+                  guest: widget.menuIndex == 1,
+                  update: () => Future.delayed(
+                      const Duration(
+                        seconds: 3,
+                      ), () {
+                    setState(() {});
+                  }),
+                ),
+              ),
             );
           } else {
             return error();
