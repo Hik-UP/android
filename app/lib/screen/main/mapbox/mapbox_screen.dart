@@ -80,7 +80,14 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
         }
       });
 
-      model.trails(appState: context.read<AppState>(), updateScreen: () {});
+      if (model.loading == true) {
+        model.trails(
+          appState: context.read<AppState>(),
+          updateScreen: () => setState(
+            () {},
+          ),
+        );
+      }
 
       return Scaffold(
         extendBodyBehindAppBar: true,

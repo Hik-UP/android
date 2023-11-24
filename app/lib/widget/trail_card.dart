@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:gap/gap.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../model/trail_fields.dart';
 import '../screen/detail/detail_screen.dart';
@@ -69,7 +73,12 @@ class TrailCard extends StatelessWidget {
                     Text(
                       field.name,
                       maxLines: 2,
-                      style: subTitleTextStyle,
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          fontStyle: FontStyle.italic,
+                          height: 1.2),
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.justify,
                     ),
@@ -77,31 +86,54 @@ class TrailCard extends StatelessWidget {
                       height: 8.0,
                     ),
                     Row(
-                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset(
-                          "assets/icons/pin.png",
-                          width: 16,
-                          height: 16,
-                          color: Colors.white,
+                        Row(
+                          children: [
+                            Image.asset(
+                              "assets/icons/pin.png",
+                              width: 12,
+                              height: 12,
+                              color: Colors.white,
+                            ),
+                            const Gap(3),
+                            Text(
+                              field.address,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          width: 8.0,
-                        ),
-                        Flexible(
-                          child: Text(
-                            field.address,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: GreenAddressTextStyle,
-                          ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          "Difficulty ${field.difficulty}/5",
-                          style: GreenAddressTextStyle,
-                        ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              RatingBarIndicator(
+                                rating: 1,
+                                itemBuilder: (context, index) =>
+                                    SvgPicture.asset(
+                                        "assets/icons/details/lightning.svg",
+                                        colorFilter: const ColorFilter.mode(
+                                            Colors.amber, BlendMode.srcIn),
+                                        semanticsLabel: 'difficulty'),
+                                itemCount: 1,
+                                itemSize: 18,
+                                unratedColor: Colors.amber.withAlpha(50),
+                                direction: Axis.horizontal,
+                              ),
+                              const Gap(2),
+                              Text(
+                                "${field.difficulty}",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white),
+                              ),
+                            ]),
                       ],
                     ),
                   ],

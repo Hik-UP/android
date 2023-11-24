@@ -80,16 +80,14 @@ const stripePublic =
 const filledIconNavBar = [
   "assets/icons/HomeFull.png",
   "assets/icons/search.png",
-  "assets/icons/settings_fill.png",
-  "assets/icons/accessibility_fill.png"
+  "assets/icons/settings_fill.png"
 ];
 const unFilledIconNavBar = [
   "assets/icons/Home.png",
   "assets/icons/search.png",
-  "assets/icons/settings_outlined.png",
-  "assets/icons/accessibility_outlined.png"
+  "assets/icons/settings_outlined.png"
 ];
-const labelNavBar = ["Accueil", "Recherche", "Réglages", "Boutique"];
+const labelNavBar = ["Accueil", "Recherche", "Réglages"];
 
 const iconUserRunning = "assets/icons/achievements/iconUserRunning.png";
 const iconUserShoes = "assets/icons/achievements/iconUserShoes.png";
@@ -166,8 +164,7 @@ dynamic logoutButtonColor = const LinearGradient(colors: [
 final screens = [
   const MapBoxScreen(),
   const SearchScreen(),
-  const SettingsScreen(),
-  const ShopView(),
+  const SettingsScreen()
 ];
 
 enum TypeInput { text, password }

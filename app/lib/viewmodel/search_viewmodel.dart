@@ -24,18 +24,6 @@ class SearchViewModel extends BaseModel {
     notifyListeners();
   }
 
-  filterTrails({required String filter}) {
-    if (filter == "") {
-      filterTrailsList = trailsList;
-    } else {
-      filterTrailsList = trailsList
-          .where((trail) =>
-              trail.labels.indexWhere((label) => label == filter) >= 0)
-          .toList();
-    }
-    notifyListeners();
-  }
-
   trails({
     required AppState appState,
   }) async {
@@ -43,7 +31,6 @@ class SearchViewModel extends BaseModel {
     List<TrailFields> result = [];
 
     var existingTrail = _hiveService.getData<TrailList>(boxTrails, "trails");
-    print(existingTrail);
     if (existingTrail != null && existingTrail.trails.isNotEmpty) {
       trailsList = existingTrail.trails;
     } else {

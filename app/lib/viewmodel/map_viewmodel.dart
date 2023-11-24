@@ -79,7 +79,6 @@ class MapViewModel extends BaseModel {
       roles: appState.roles,
       token: appState.token,
     );
-    List<TrailFields> trails = [];
 
     if (trailListReq.statusCode == 200 || trailListReq.statusCode == 201) {
       trailListReq.data["trails"].forEach((entry) {

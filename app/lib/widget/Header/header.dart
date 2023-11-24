@@ -29,8 +29,12 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      backgroundColor: Colors.black.withOpacity(0.9),
+      backgroundColor: Colors.black.withOpacity(0.8),
       elevation: 0.0,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0))),
       automaticallyImplyLeading: false,
       actions: <Widget>[
         Row(
