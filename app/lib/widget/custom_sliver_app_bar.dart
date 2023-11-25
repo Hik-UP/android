@@ -7,6 +7,8 @@ import 'package:hikup/widget/back_icon.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hikup/screen/main/community/comments/home.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
   final TrailFields field;
@@ -74,34 +76,59 @@ class CustomSliverAppBar extends StatelessWidget {
           ),
           child: Center(
             child: Container(
-                margin: const EdgeInsets.fromLTRB(50.0, 4.0, 50.0, 4.0),
-                child: Column(children: [
-                  Text(
-                    field.name,
-                    maxLines: 1,
-                    style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.white),
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                  date != null ? const Gap(5) : Container(),
-                  date != null
-                      ? Text(
-                          date ?? '',
-                          maxLines: 1,
-                          style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white),
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                        )
-                      : Container()
-                ])),
+                margin: const EdgeInsets.fromLTRB(50.0, 4.0, 0.0, 4.0),
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            Text(
+                              field.name,
+                              maxLines: 1,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.white),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                            ),
+                            date != null ? const Gap(5) : Container(),
+                            date != null
+                                ? Text(
+                                    date ?? '',
+                                    maxLines: 1,
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.white),
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                  )
+                                : Container()
+                          ])),
+                      SizedBox(
+                          width: 50,
+                          child: InkWell(
+                              onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => CommunityView(
+                                        trailId: field.id,
+                                      ),
+                                    ),
+                                  ),
+                              child: SvgPicture.asset(
+                                  "assets/icons/details/comments.svg",
+                                  width: 20,
+                                  height: 20,
+                                  colorFilter: ColorFilter.mode(
+                                      trailColor, BlendMode.srcIn),
+                                  semanticsLabel: 'comments')))
+                    ])),
           ),
         ),
         background: MapBox(
