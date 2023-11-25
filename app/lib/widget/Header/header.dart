@@ -19,6 +19,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: const IconThemeData(
         color: Color.fromARGB(255, 156, 156, 156),
       ),
+      centerTitle: true,
       title: Text(
         "HIK'UP",
         style: GoogleFonts.poppins(

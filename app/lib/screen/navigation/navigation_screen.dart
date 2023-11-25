@@ -22,6 +22,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:hikup/widget/custom_btn.dart";
 import 'package:hikup/locator.dart';
 import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/screen/main/hike/detail_hike_invite.dart';
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;
@@ -330,8 +331,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                           content: "X",
                           onPress: () {
                             SocketService().disconnect();
-                            _navigationService
-                                .navigateToAndRemoveUntil(MainScreen.routeName);
+                            Navigator.pop(context);
                           }),
                     ]),
               );

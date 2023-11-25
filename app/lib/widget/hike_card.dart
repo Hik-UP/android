@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hikup/widget/custom_btn.dart';
 
 class HikeCard extends StatelessWidget {
   final Hike hike;
@@ -49,7 +50,7 @@ class HikeCard extends StatelessWidget {
 
     return BaseView<HikeCardViewModel>(
       builder: (context, model, child) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: GestureDetector(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
@@ -105,6 +106,7 @@ class HikeCard extends StatelessWidget {
                           maxLines: 2,
                           style: GoogleFonts.poppins(
                               fontSize: 14,
+                              height: 1.2,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
                               fontStyle: FontStyle.italic),
@@ -188,88 +190,39 @@ class HikeCard extends StatelessWidget {
                         child: Row(
                           children: [
                             Expanded(
-                              child: ElevatedButton(
-                                onPressed: () => {
-                                  model.acceptOrRefuse(
-                                    routeName: acceptInvitePath,
-                                    hikeId: hike.id,
-                                    appState: appState,
-                                    load: () => model.setAcceptLoader(true),
-                                    stop: () {
-                                      model.setAcceptLoader(false);
-                                      update();
-                                    },
-                                  )
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        10, 20, 10, 20),
-                                    backgroundColor:
-                                        const Color.fromRGBO(12, 60, 40, 1),
-                                    shadowColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    side: const BorderSide(
-                                      width: 1.0,
-                                      color: Color.fromRGBO(21, 255, 120, 1),
-                                    )),
-                                child: model.acceptLoader
-                                    ? const SizedBox(
-                                        width: 20.0,
-                                        height: 20.0,
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : const Text(
-                                        "Accepter",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                              child: CustomBtn(
+                                content: "Accepter",
+                                isLoading: model.acceptLoader,
+                                onPress: () => model.acceptOrRefuse(
+                                  routeName: acceptInvitePath,
+                                  hikeId: hike.id,
+                                  appState: appState,
+                                  load: () => model.setAcceptLoader(true),
+                                  stop: () {
+                                    model.setAcceptLoader(false);
+                                    update();
+                                  },
+                                ),
                               ),
                             ),
                             const Gap(5),
                             Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  model.acceptOrRefuse(
-                                    routeName: declineInvitePath,
-                                    hikeId: hike.id,
-                                    appState: appState,
-                                    load: () => model.setDeclineLoader(true),
-                                    stop: () {
-                                      model.setDeclineLoader(false);
-                                      update();
-                                    },
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        10, 20, 10, 20),
-                                    backgroundColor:
-                                        const Color.fromRGBO(132, 16, 42, 1),
-                                    shadowColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    side: const BorderSide(
-                                      width: 1.0,
-                                      color: Color.fromRGBO(255, 21, 63, 1),
-                                    )),
-                                child: model.declineLoader
-                                    ? const SizedBox(
-                                        width: 20.0,
-                                        height: 20.0,
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : const Text(
-                                        "Refuser",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                              child: CustomBtn(
+                                content: "Refuser",
+                                isLoading: model.declineLoader,
+                                bgColor: const Color.fromRGBO(132, 16, 42, 1),
+                                borderColor:
+                                    const Color.fromRGBO(255, 21, 63, 1),
+                                onPress: () => model.acceptOrRefuse(
+                                  routeName: declineInvitePath,
+                                  hikeId: hike.id,
+                                  appState: appState,
+                                  load: () => model.setDeclineLoader(true),
+                                  stop: () {
+                                    model.setDeclineLoader(false);
+                                    update();
+                                  },
+                                ),
                               ),
                             ),
                           ],

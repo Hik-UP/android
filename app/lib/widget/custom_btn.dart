@@ -46,14 +46,16 @@ class CustomBtn extends StatelessWidget {
               ? const SizedBox(
                   width: 20.0,
                   height: 20.0,
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                  ),
                 )
               : Text(
                   content,
                   style: TextStyle(
-                    color: textColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      color: textColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14),
                 ),
         ),
       ),

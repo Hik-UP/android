@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hikup/widget/custom_btn.dart';
 
 class DetailScreen extends StatelessWidget {
   final TrailFields field;
@@ -30,26 +31,9 @@ class DetailScreen extends StatelessWidget {
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   [
-                    ElevatedButton(
-                      onPressed: () => print("ok"),
-                      style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                          backgroundColor: const Color.fromRGBO(12, 60, 40, 1),
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          side: const BorderSide(
-                            width: 1.0,
-                            color: Color.fromRGBO(21, 255, 120, 1),
-                          )),
-                      child: const Text(
-                        "Planifier",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                    CustomBtn(
+                      content: "Planifier",
+                      onPress: () => print("ok"),
                     ),
                     const Gap(16),
                     Text(

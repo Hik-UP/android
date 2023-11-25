@@ -52,13 +52,13 @@ class HikeCardViewModel extends BaseModel {
         },
         token: "Bearer ${appState.token}",
       );
+      stop();
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,
       );
     }
-    stop();
   }
 
   Widget labelStatus({required String status, required Color bgColor}) {

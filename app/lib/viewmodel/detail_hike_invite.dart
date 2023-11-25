@@ -1,28 +1,70 @@
 import 'package:hikup/locator.dart';
+import 'dart:convert';
+import "package:hikup/model/hike.dart";
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/base_model.dart';
+import 'package:hikup/utils/socket/socket.dart';
+import 'package:geolocator/geolocator.dart';
 
 class DetailHikeInviteViewModel extends BaseModel {
   final _dioService = locator<DioService>();
   final _navigatorService = locator<CustomNavigationService>();
   bool loadingDelete = false;
+  final navigator = locator<CustomNavigationService>();
+  bool joinInProgress = false;
+  late dynamic stats;
+  late List<dynamic> hikers;
 
-  setLoadingDelete(bool value) {
-    loadingDelete = value;
+  joinHike(
+      {required AppState appState,
+      required Hike hike,
+      required Function() onComplete}) async {
+    LocationPermission permission = await Geolocator.checkPermission();
 
-    notifyListeners();
+    if (permission != LocationPermission.whileInUse &&
+            permission != LocationPermission.always ||
+        !(await Geolocator.isLocationServiceEnabled())) {
+      navigator.showSnackBack(
+        content: 'Localisation inaccessible',
+        isError: true,
+      );
+      await Geolocator.requestPermission();
+      return;
+    }
+
+    if (joinInProgress == false) {
+      setState(ViewState.join);
+      joinInProgress = true;
+      SocketService().connect(
+          token: appState.token,
+          userId: appState.id,
+          userRoles: appState.roles);
+      SocketService().onError((_) {
+        joinInProgress = false;
+        SocketService().disconnect();
+      });
+
+      await SocketService().hike.join(hike.id, (data) {
+        dynamic jsonData = json.decode(data);
+        stats = jsonData["stats"];
+        hikers = jsonData["hikers"];
+
+        joinInProgress = false;
+        setState(ViewState.retrieved);
+        onComplete();
+      });
+    }
   }
 
   leaveHike(
       {required String hikeId,
       required AppState appState,
       required bool isOrganizer}) async {
-    setLoadingDelete(true);
-
+    setState(ViewState.deletion);
     var response = await _dioService.put(
       path: isOrganizer == true ? leaveOrganizedHikePath : leaveHikePath,
       body: {
@@ -40,6 +82,7 @@ class DetailHikeInviteViewModel extends BaseModel {
       _navigatorService.showSnackBack(
         content: AppMessages.success,
       );
+      setState(ViewState.retrieved);
       _navigatorService.goBack();
     }
   }
@@ -48,8 +91,7 @@ class DetailHikeInviteViewModel extends BaseModel {
       {required String hikeId,
       required AppState appState,
       required bool isOrganizer}) async {
-    setLoadingDelete(true);
-
+    setState(ViewState.busy);
     var response = await _dioService.delete(
       path: isOrganizer == true ? removeOrganizedHikePath : removeHikePath,
       body: {
@@ -67,37 +109,8 @@ class DetailHikeInviteViewModel extends BaseModel {
       _navigatorService.showSnackBack(
         content: AppMessages.success,
       );
+      setState(ViewState.retrieved);
       _navigatorService.goBack();
     }
-  }
-
-  finishByOrganizer({
-    required String hikeId,
-    required AppState appState,
-  }) async {
-    setLoadingDelete(true);
-
-    var response = await _dioService.put(
-      path: organzierUpdatePath,
-      body: {
-        "user": {
-          "id": appState.id,
-          "roles": appState.roles,
-        },
-        "hike": {
-          "id": hikeId,
-          "status": "DONE",
-        },
-      },
-      token: "Bearer ${appState.token}",
-    );
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      _navigatorService.showSnackBack(
-        content: AppMessages.success,
-      );
-      _navigatorService.goBack();
-    }
-
-    setLoadingDelete(false);
   }
 }

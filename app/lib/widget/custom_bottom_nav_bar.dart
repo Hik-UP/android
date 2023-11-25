@@ -71,25 +71,20 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
         child: Padding(
           padding: const EdgeInsets.all(0.0),
           child: _selectedIndex == index
-              ? Container(
-/*                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 43, 43, 43),
-                      borderRadius: BorderRadius.circular(10)),*/
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Image.asset(
-                        activeIcon,
-                        width: 22,
-                        height: 22,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        label,
-                        style: bottomNavTextStyle,
-                      )
-                    ],
-                  ),
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset(
+                      activeIcon,
+                      width: 22,
+                      height: 22,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      label,
+                      style: bottomNavTextStyle,
+                    )
+                  ],
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,

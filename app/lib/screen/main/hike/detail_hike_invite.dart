@@ -1,71 +1,37 @@
 import "package:flutter/material.dart";
-import 'dart:convert';
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:hikup/model/guest.dart";
 import "package:hikup/model/hike.dart";
 import "package:hikup/model/trail_fields.dart";
 import "package:hikup/providers/app_state.dart";
+import "package:hikup/utils/constant.dart";
 import "package:hikup/viewmodel/detail_hike_invite.dart";
 import "package:hikup/widget/base_view.dart";
 import "package:hikup/widget/display_detail_trails.dart";
 import "package:hikup/widget/guest_cmp.dart";
 import "package:provider/provider.dart";
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
-import "package:hikup/screen/navigation/navigation_screen.dart";
-import 'package:hikup/service/custom_navigation.dart';
-import 'package:hikup/locator.dart';
-import 'package:hikup/utils/socket/socket.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:hikup/screen/navigation/navigation_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hikup/widget/custom_sliver_app_bar.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hikup/widget/custom_btn.dart';
 
-class DetailHikeInvite extends StatelessWidget {
-  final Hike hike;
+class DetailHikeInvite extends StatefulWidget {
   static String routeName = "/detail-hike-invite";
+  final Hike hike;
   const DetailHikeInvite({super.key, required this.hike});
 
   @override
+  State<DetailHikeInvite> createState() => _DetailHikeInviteState();
+}
+
+class _DetailHikeInviteState extends State<DetailHikeInvite> {
+  @override
   Widget build(BuildContext context) {
-    final navigator = locator<CustomNavigationService>();
-    double maxHeight = MediaQuery.of(context).size.height;
+    final hike = widget.hike;
     AppState appState = context.read<AppState>();
-    final Marker marker = Marker(
-      width: 35,
-      height: 35,
-      point: LatLng(hike.trail.latitude, hike.trail.longitude),
-      child: SizedBox(
-        height: 35,
-        width: 35,
-        child: Image.asset(
-          "assets/icons/start/start-${hike.trail.difficulty}.png",
-        ),
-      ),
-    );
-    final Polyline polyline = Polyline(
-      points: json
-          .decode(hike.trail.geoJSON)["features"][0]["geometry"]["coordinates"]
-          .map<LatLng>((entry) => LatLng(entry[1], entry[0]))
-          .toList(),
-      color: hike.trail.difficulty == 1
-          ? const Color.fromRGBO(87, 252, 255, 0.8)
-          : hike.trail.difficulty == 2
-              ? const Color.fromRGBO(72, 255, 201, 0.8)
-              : hike.trail.difficulty == 3
-                  ? const Color.fromRGBO(194, 283, 255, 0.8)
-                  : hike.trail.difficulty == 4
-                      ? const Color.fromRGBO(253, 210, 59, 0.8)
-                      : hike.trail.difficulty == 5
-                          ? const Color.fromRGBO(87, 252, 255, 0.8)
-                          : Colors.transparent,
-      strokeWidth: 3.0,
-      borderColor: const Color(0xFF1967D2),
-      borderStrokeWidth: 0.1,
-    );
-    bool joinInProgress = false;
     final trail = TrailFields(
         id: hike.trail.id,
         name: hike.trail.name,
@@ -236,75 +202,28 @@ class DetailHikeInvite extends StatelessWidget {
             child: isLeaved == false
                 ? Row(children: [
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          LocationPermission permission =
-                              await Geolocator.checkPermission();
-
-                          if (permission != LocationPermission.whileInUse &&
-                                  permission != LocationPermission.always ||
-                              !(await Geolocator.isLocationServiceEnabled())) {
-                            navigator.showSnackBack(
-                              content: 'Localisation inaccessible',
-                              isError: true,
-                            );
-                            await Geolocator.requestPermission();
-                            return;
-                          }
-
-                          if (joinInProgress == false) {
-                            joinInProgress = true;
-                            SocketService().connect(
-                                token: appState.token,
-                                userId: appState.id,
-                                userRoles: appState.roles);
-                            SocketService().onError((_) {
-                              joinInProgress = false;
-                              SocketService().disconnect();
-                            });
-
-                            await SocketService().hike.join(hike.id, (data) {
-                              dynamic jsonData = json.decode(data);
-                              dynamic stats = jsonData["stats"];
-                              List<dynamic> hikers = jsonData["hikers"];
-
-                              joinInProgress = false;
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                    builder: (context) => NavigationScreen(
-                                        hike: hike,
-                                        stats: stats,
-                                        hikers: hikers),
-                                  ),
-                                  (r) => false);
-                            });
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                            backgroundColor:
-                                const Color.fromRGBO(12, 60, 40, 1),
-                            shadowColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            side: const BorderSide(
-                              width: 1.0,
-                              color: Color.fromRGBO(21, 255, 120, 1),
-                            )),
-                        child: const Text(
-                          "Rejoindre",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                      child: CustomBtn(
+                        isLoading: model.getState == ViewState.join,
+                        content: "Rejoindre",
+                        onPress: () => model.joinHike(
+                            appState: appState,
+                            hike: hike,
+                            onComplete: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => NavigationScreen(
+                                    hike: hike,
+                                    stats: model.stats,
+                                    hikers: model.hikers),
+                              ));
+                            }),
                       ),
                     ),
                     const Gap(5.0),
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
+                      child: CustomBtn(
+                        isLoading: model.getState == ViewState.deletion,
+                        content: "Quitter",
+                        onPress: () {
                           if (hike.organizers.username == appState.username) {
                             model.leaveHike(
                                 hikeId: hike.id,
@@ -317,32 +236,17 @@ class DetailHikeInvite extends StatelessWidget {
                                 isOrganizer: false);
                           }
                         },
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                            backgroundColor:
-                                const Color.fromRGBO(132, 16, 42, 1),
-                            shadowColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            side: const BorderSide(
-                              width: 1.0,
-                              color: Color.fromRGBO(255, 21, 63, 1),
-                            )),
-                        child: const Text(
-                          "Quitter",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        borderColor: const Color.fromRGBO(255, 21, 63, 1),
+                        bgColor: const Color.fromRGBO(132, 16, 42, 1),
                       ),
                     ),
                   ])
                 : Row(children: [
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
+                      child: CustomBtn(
+                        isLoading: model.getState == ViewState.busy,
+                        content: "Supprimer",
+                        onPress: () {
                           if (hike.organizers.username == appState.username) {
                             model.removeHike(
                                 hikeId: hike.id,
@@ -355,25 +259,8 @@ class DetailHikeInvite extends StatelessWidget {
                                 isOrganizer: false);
                           }
                         },
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                            backgroundColor:
-                                const Color.fromRGBO(132, 16, 42, 1),
-                            shadowColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            side: const BorderSide(
-                              width: 1.0,
-                              color: Color.fromRGBO(255, 21, 63, 1),
-                            )),
-                        child: const Text(
-                          "Supprimer",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        borderColor: const Color.fromRGBO(255, 21, 63, 1),
+                        bgColor: const Color.fromRGBO(132, 16, 42, 1),
                       ),
                     ),
                   ])),

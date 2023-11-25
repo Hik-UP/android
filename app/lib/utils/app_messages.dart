@@ -22,10 +22,10 @@ class AppMessages {
   static String succesfulLogout = "Déconnexion";
   static String inexistantUser = "Oops, Cette utilisateur n'existe pas.";
   static String infoMessage = "Informations";
-  static String addExtraData = "Completer mon profile";
-  static String aboutApp = "À propos de Hik'UP";
+  static String addExtraData = "Compléter mon profil";
+  static String aboutApp = "À propos d'Hik'UP";
   static String settingTxt = "Réglages";
-  static String modifprofilTxt = "Modifier profile";
+  static String modifprofilTxt = "Profil";
   static String askIfUserWantToLogout = "Souhaitez-vous vous déconnectez ?";
   static String askUserWantToDelete = "Do you want to delete your account ?";
   static String cancel = "Annuler";
@@ -68,7 +68,7 @@ class AppMessages {
   static String gender = "Genre";
   static String height = "Taille";
   static String nothingChange = "Nothing to update";
-  static String completeProfil = "Completer Profile";
+  static String completeProfil = "Profil";
   static String save = "Sauvegarder";
   static String myHike = "Mes randonnées";
   static String notificationText = "Notifications";
