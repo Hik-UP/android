@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hikup/screen/main/main_screen.dart';
 import 'dart:math' show cos, sqrt, asin;
 import 'dart:convert';
 import 'package:hikup/screen/main/mapbox/Components/map.dart';
@@ -22,7 +21,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:hikup/widget/custom_btn.dart";
 import 'package:hikup/locator.dart';
 import 'package:hikup/service/custom_navigation.dart';
-import 'package:hikup/screen/main/hike/detail_hike_invite.dart';
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;

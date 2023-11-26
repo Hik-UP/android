@@ -16,21 +16,23 @@ class DetailScreenViewModel extends BaseModel {
   List<String> emailFriends = [];
 
   pushInEmailFirends({required String value}) {
-    emailFriends.add(value);
-    notifyListeners();
+    if (RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(value)) {
+      emailFriends.add(value);
+    }
   }
 
   removeInEmailFriends({required String value}) {
     emailFriends.remove(value);
-    notifyListeners();
   }
 
-  createAHike({
-    required AppState appState,
-    required TrailFields trailField,
-    required int? timeStamps,
-    required List<String> guests,
-  }) async {
+  createAHike(
+      {required AppState appState,
+      required TrailFields trailField,
+      required int? timeStamps,
+      required List<String> guests,
+      required Function() onLoad}) async {
     List guestsObject =
         guests.isNotEmpty ? guests.map((e) => {"email": e}).toList() : [];
     Map<String, dynamic> bodyTosend = {
@@ -61,6 +63,7 @@ class DetailScreenViewModel extends BaseModel {
       if (result.statusCode == 201 || result.statusCode == 200) {
         _navigationService.goBack();
         _navigationService.showSnackBack(content: AppMessages.success);
+        onLoad();
       }
     } catch (e) {
       setState(ViewState.retrieved);

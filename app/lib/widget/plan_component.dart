@@ -1,8 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hikup/theme.dart';
-import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:intl/intl.dart';
@@ -31,13 +29,13 @@ class _PlanComponentState extends State<PlanComponent> {
       builder: (context, child) => Theme(
         data: Theme.of(context).copyWith(
           colorScheme: const ColorScheme.light(
-            primary: BlackPrimary, // <-- SEE HERE
-            onPrimary: Colors.white, // <-- SEE HERE
-            onSurface: Colors.blueAccent, // <-- SEE HERE
-          ),
+              primary: Colors.black, // <-- SEE HERE
+              onPrimary: Colors.white, // <-- SEE HERE
+              onSurface: Colors.black // <-- SEE HERE
+              ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              foregroundColor: Colors.green,
+              foregroundColor: Colors.black,
               // button text color
             ),
           ),
@@ -53,81 +51,81 @@ class _PlanComponentState extends State<PlanComponent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "(${AppMessages.canPlanTheHike})",
+          "Programmez votre randonnée",
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w400,
             fontSize: 12.0,
-            color: const Color(0xff666666),
+            color: Colors.grey,
           ),
         ),
         const Gap(10.0),
-        Row(
+        Column(
           children: [
-            Expanded(
-              child: CustomTextField(
-                controller: widget.dateCtrl,
-                hintText: 'Date',
-                prefixIcon: SizedBox(
-                  width: 20.0,
-                  height: 20.0,
-                  child: SvgPicture.asset(
-                    stopWatchIcon,
-                    width: 14.0,
-                    height: 14.0,
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-                readOnly: true,
-                onTap: () async {
-                  DateTime? pickedDate = await customShowPicker();
-                  if (pickedDate != null) {
-                    String formateDate =
-                        DateFormat('yyyy-MM-dd').format(pickedDate);
-                    setState(() {
-                      widget.dateCtrl.text = formateDate;
-                    });
-                  }
-                },
-              ),
-            ),
-            const SizedBox(width: 7.0),
-            Expanded(
-              child: CustomTextField(
-                hintText: 'Heure',
-                controller: widget.timeCtrl,
-                prefixIcon: SvgPicture.asset(
+            CustomTextField(
+              controller: widget.dateCtrl,
+              hintText: 'Date',
+              prefixIcon: SizedBox(
+                width: 20.0,
+                height: 20.0,
+                child: SvgPicture.asset(
                   stopWatchIcon,
                   width: 14.0,
                   height: 14.0,
                   fit: BoxFit.scaleDown,
+                  colorFilter:
+                      const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
                 ),
-                readOnly: true,
-                onTap: () async {
-                  var pickHours = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                      builder: (context, child) => Theme(
-                            data: Theme.of(context).copyWith(
-                              colorScheme: const ColorScheme.light(
-                                primary: BlackPrimary, // <-- SEE HERE
-                                onPrimary: Colors.white, // <-- SEE HERE
-                                onSurface: Colors.blueAccent, // <-- SEE HERE
-                              ),
-                              textButtonTheme: TextButtonThemeData(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.green,
-                                  // button text color
-                                ),
+              ),
+              readOnly: true,
+              onTap: () async {
+                DateTime? pickedDate = await customShowPicker();
+                if (pickedDate != null) {
+                  String formateDate =
+                      DateFormat('yyyy-MM-dd').format(pickedDate);
+                  setState(() {
+                    widget.dateCtrl.text = formateDate;
+                  });
+                }
+              },
+            ),
+            const Gap(5),
+            CustomTextField(
+              hintText: 'Heure',
+              controller: widget.timeCtrl,
+              prefixIcon: SvgPicture.asset(
+                stopWatchIcon,
+                width: 14.0,
+                height: 14.0,
+                fit: BoxFit.scaleDown,
+                colorFilter:
+                    const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+              ),
+              readOnly: true,
+              onTap: () async {
+                var pickHours = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                    builder: (context, child) => Theme(
+                          data: Theme.of(context).copyWith(
+                            colorScheme: const ColorScheme.light(
+                              primary: Colors.black, // <-- SEE HERE
+                              onPrimary: Colors.black, // <-- SEE HERE
+                              onSurface: Colors.black, // <-- SEE HERE
+                            ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Colors.black,
+                                // button text color
                               ),
                             ),
-                            child: child!,
-                          ));
-                  if (pickHours != null) {
-                    widget.timeCtrl.text =
-                        "${pickHours.hour}:${pickHours.minute}";
-                  }
-                },
-              ),
+                          ),
+                          child: child!,
+                        ));
+                if (pickHours != null) {
+                  widget.timeCtrl.text =
+                      "${pickHours.hour}:${pickHours.minute}";
+                }
+              },
             ),
           ],
         ),
