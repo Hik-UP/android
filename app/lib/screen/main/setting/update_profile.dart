@@ -12,6 +12,7 @@ import 'package:hikup/viewmodel/update_profil_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_text_field.dart';
+import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 import 'package:hikup/widget/upload_picture.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +33,7 @@ class UpdateProfile extends StatelessWidget {
       model.emailCtrl.text = appState.email;
       model.usernameCtrl.text = appState.username;
 
-      return Scaffold(
+      return ScaffoldWithCustomBg(
         appBar: AppBar(
           toolbarHeight: kTextTabBarHeight,
           title: Text(
@@ -45,14 +46,14 @@ class UpdateProfile extends StatelessWidget {
           backgroundColor: BlackPrimary,
           centerTitle: true,
         ),
-        body: SafeArea(
+        child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Form(
               key: model.formKey,
               child: Consumer<AppState>(builder: (context, state, child) {
                 return Column(children: [
-                  const Gap(10.0),
+                  const Gap(20.0),
                   Center(
                     child: Stack(
                       clipBehavior: Clip.none,
