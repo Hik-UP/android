@@ -100,7 +100,7 @@ class AppMessages {
   static String buyLabel = 'Acheter';
   static String changeLabel = 'Changer';
   static String noSkinLabel = 'Oops, no skin to show';
-  static String currentSkinLabel = 'This is your current profile skin';
+  static String currentSkinLabel = 'Ceci est votre skin utilisé';
   static String stripeError = "Le paiement a échoué";
   static String eventLabel = "Events";
   static String addACover4Event = "Ajouter une image de publicité";

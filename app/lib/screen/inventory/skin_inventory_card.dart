@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
 class SkinInventoryCard extends StatelessWidget {
-  final String img;
+  final String? img;
   const SkinInventoryCard({
     super.key,
     required this.img,
@@ -18,7 +18,7 @@ class SkinInventoryCard extends StatelessWidget {
             width: 2.0, color: const Color(0xff7D7D7D).withOpacity(0.5)),
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Image.network(img),
+      child: img != null ? Image.network(img!) : null,
     );
   }
 }

@@ -38,6 +38,10 @@ class CustomNavigationService {
       builder: (_) => Dialog(
         backgroundColor: Colors.black,
         elevation: 8.0,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(4.0),
+        ),
         child: content,
       ),
     ).then(

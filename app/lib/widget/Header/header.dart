@@ -13,8 +13,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppState appState = context.read<AppState>();
-
     return AppBar(
       iconTheme: const IconThemeData(
         color: Color.fromARGB(255, 156, 156, 156),
@@ -32,10 +30,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: Colors.black.withOpacity(0.8),
       elevation: 0.0,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0))),
       automaticallyImplyLeading: false,
       actions: <Widget>[
         Row(

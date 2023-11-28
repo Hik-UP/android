@@ -13,6 +13,7 @@ import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_drop_down.dart';
 import 'package:hikup/widget/custom_text_field.dart';
+import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 import 'package:provider/provider.dart';
 
 class HeadPlaceHolder extends StatelessWidget {
@@ -50,7 +51,7 @@ class CompleteProfile extends StatelessWidget {
     double maxWidth = MediaQuery.of(context).size.width;
     return BaseView<CompleteProfileViewModel>(builder: (context, model, child) {
       model.initializeInputForm(appState: context.read<AppState>());
-      return Scaffold(
+      return ScaffoldWithCustomBg(
         appBar: AppBar(
           title: Text(
             AppMessages.completeProfil,
@@ -63,7 +64,7 @@ class CompleteProfile extends StatelessWidget {
           backgroundColor: BlackSecondary,
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
             horizontal: 20.0,
           ),
