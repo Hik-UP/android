@@ -9,29 +9,28 @@ class CustomBtn extends StatelessWidget {
   final Color textColor;
   final Color bgColor;
   final Color borderColor;
-  const CustomBtn(
-      {super.key,
-      required this.content,
-      required this.onPress,
-      this.gradient,
-      this.isLoading = false,
-      this.height = 40,
-      this.textColor = Colors.white,
-      this.bgColor = const Color.fromRGBO(12, 60, 40, 1),
-      this.borderColor = const Color.fromRGBO(21, 255, 120, 1)});
+  const CustomBtn({
+    super.key,
+    required this.content,
+    required this.onPress,
+    this.gradient,
+    this.isLoading = false,
+    this.height = 40,
+    this.textColor = Colors.white,
+    this.bgColor = const Color.fromRGBO(12, 60, 40, 1),
+    this.borderColor = const Color.fromRGBO(21, 255, 120, 1),
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        gradient: gradient,
       ),
       child: ElevatedButton(
         onPressed: isLoading ? null : onPress,
         style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
             backgroundColor: bgColor,
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(
@@ -53,9 +52,10 @@ class CustomBtn extends StatelessWidget {
               : Text(
                   content,
                   style: TextStyle(
-                      color: textColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14),
+                    color: textColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
         ),
       ),
