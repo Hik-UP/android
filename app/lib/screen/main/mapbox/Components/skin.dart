@@ -94,6 +94,16 @@ class _PlayerSkinState extends State<PlayerSkin> {
               });
               _headingStream ??=
                   FlutterCompass.events?.listen((CompassEvent direction) {
+                if (direction.heading! >= -180 && direction.heading! < -90) {
+                  setState(() {
+                    skinState = 3;
+                  });
+                }
+                if (direction.heading! >= -90 && direction.heading! < 0) {
+                  setState(() {
+                    skinState = 2;
+                  });
+                }
                 if (direction.heading! >= 0 && direction.heading! < 90) {
                   setState(() {
                     skinState = 0;
@@ -102,16 +112,6 @@ class _PlayerSkinState extends State<PlayerSkin> {
                 if (direction.heading! >= 90 && direction.heading! < 180) {
                   setState(() {
                     skinState = 1;
-                  });
-                }
-                if (direction.heading! >= -90 && direction.heading! < 0) {
-                  setState(() {
-                    skinState = 2;
-                  });
-                }
-                if (direction.heading! >= -180 && direction.heading! < -90) {
-                  setState(() {
-                    skinState = 3;
                   });
                 }
               });
