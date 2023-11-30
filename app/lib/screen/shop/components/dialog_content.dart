@@ -30,7 +30,7 @@ class DialogContent extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SkinTarget(
-              skinUrlImage: skin.pictures[0],
+              skinUrlImage: skin.model,
             ),
             const Gap(20.0),
             Row(

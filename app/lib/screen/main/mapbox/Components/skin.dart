@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_compass/flutter_compass.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -18,8 +19,11 @@ class PlayerSkin extends StatefulWidget {
 
 class _PlayerSkinState extends State<PlayerSkin> {
   StreamSubscription<Position>? _positionStream;
+  StreamSubscription<CompassEvent>? _headingStream;
   late final StreamController<LocationMarkerPosition> _positionStreamController;
+  late final StreamController<LocationMarkerHeading> _headingStreamController;
   var firstCameraMove = false;
+  int skinState = 0;
 
   @override
   void initState() {
@@ -32,12 +36,21 @@ class _PlayerSkinState extends State<PlayerSkin> {
           accuracy: 0,
         ),
       );
+    _headingStreamController = StreamController()
+      ..add(
+        LocationMarkerHeading(
+          heading: 0,
+          accuracy: 0,
+        ),
+      );
   }
 
   @override
   void dispose() {
     _positionStream?.cancel();
     _positionStreamController.close();
+    _headingStream?.cancel();
+    _headingStreamController.close();
     super.dispose();
   }
 
@@ -54,6 +67,8 @@ class _PlayerSkinState extends State<PlayerSkin> {
             case 0:
               _positionStream?.cancel();
               _positionStream = null;
+              _headingStream?.cancel();
+              _headingStream = null;
             default:
               _positionStream ??= Geolocator.getPositionStream(
                       locationSettings: const LocationSettings(
@@ -77,17 +92,22 @@ class _PlayerSkinState extends State<PlayerSkin> {
                 );
                 widget.onPositionChange!(position);
               });
+              _headingStream ??=
+                  FlutterCompass.events?.listen((CompassEvent direction) {
+                print(direction.heading);
+              });
           }
         },
         child: CurrentLocationLayer(
           positionStream: _positionStreamController.stream,
+          headingStream: _headingStreamController.stream,
           followOnLocationUpdate: FollowOnLocationUpdate.once,
           turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
           style: LocationMarkerStyle(
             marker: appState.skin.model.isNotEmpty
                 ? firstCameraMove
                     ? CachedNetworkImage(
-                        imageUrl: appState.skin.model,
+                        imageUrl: appState.skin.pictures[skinState],
                         errorWidget: (context, url, error) => const Icon(
                           Icons.warning,
                           color: Colors.red,
@@ -99,7 +119,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
                           BlendMode.modulate,
                         ),
                         child: CachedNetworkImage(
-                          imageUrl: appState.skin.model,
+                          imageUrl: appState.skin.pictures[skinState],
                           errorWidget: (context, url, error) => const Icon(
                             Icons.warning,
                             color: Colors.red,

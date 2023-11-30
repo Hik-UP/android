@@ -25,7 +25,7 @@ class InventoryView extends StatelessWidget {
         child: Column(
           children: [
             Image.network(
-              appState.skin.pictures[0],
+              appState.skin.model,
               scale: 0.7,
             ),
             Text(

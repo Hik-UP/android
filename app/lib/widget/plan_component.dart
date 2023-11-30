@@ -68,7 +68,7 @@ class _PlanComponentState extends State<PlanComponent> {
                 width: 20.0,
                 height: 20.0,
                 child: SvgPicture.asset(
-                  stopWatchIcon,
+                  "assets/icons/calendarIcon.svg",
                   width: 14.0,
                   height: 14.0,
                   fit: BoxFit.scaleDown,

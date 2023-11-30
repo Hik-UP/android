@@ -487,7 +487,7 @@ packages:
     source: hosted
     version: "3.3.1"
   flutter_compass:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_compass
       sha256: be642484f9f6975c1c6edff568281b001f2f1e604de27ecea18d97eebbdef22f

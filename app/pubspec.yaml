@@ -78,6 +78,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   dio_cache_interceptor: ^3.4.4
   collection: ^1.17.2
+  flutter_compass: ^0.8.0
 
 dev_dependencies:
   flutter_test:

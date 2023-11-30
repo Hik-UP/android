@@ -45,7 +45,7 @@ class SkinDisplay extends StatelessWidget {
               children: [
                 const Gap(3.0),
                 SkinTarget(
-                  skinUrlImage: skin.pictures[0],
+                  skinUrlImage: skin.model,
                 ),
                 Visibility(
                   visible: !isAPartOfOwner(

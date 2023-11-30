@@ -39,6 +39,7 @@ class DetailScreen extends StatelessWidget {
                       onPress: () => showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
+                                scrollable: true,
                                 contentPadding:
                                     const EdgeInsets.fromLTRB(10, 15, 10, 10),
                                 backgroundColor: Colors.black.withOpacity(0.9),
