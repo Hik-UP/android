@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/comment.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/theme.dart';
-import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/comment_card.dart';
@@ -13,6 +12,7 @@ import 'package:hikup/widget/thumbail_img.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import "package:gap/gap.dart";
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CommunityView extends StatefulWidget {
   final String trailId;
@@ -118,19 +118,32 @@ class _CommunityViewState extends State<CommunityView> {
                         ),
                       );
                     } else {
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10.0,
-                          ),
-                          child: Text(
-                            AppMessages.noComment,
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 12,
+                      return Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              "assets/icons/cat-error.svg",
+                              height: 64,
+                              width: 64,
+                              colorFilter: const ColorFilter.mode(
+                                Colors.grey,
+                                BlendMode.srcIn,
+                              ),
+                              semanticsLabel: 'error',
                             ),
-                            textAlign: TextAlign.center,
-                          ),
+                            const Gap(20),
+                            Center(
+                              child: Text(
+                                "Aucun avis",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey),
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     }

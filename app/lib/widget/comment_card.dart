@@ -10,6 +10,7 @@ import "package:hikup/widget/base_view.dart";
 import "package:hikup/widget/custom_loader.dart";
 import "package:hikup/widget/warning_error_img.dart";
 import "package:provider/provider.dart";
+import 'package:intl/intl.dart';
 
 class CommentCard extends StatefulWidget {
   final Comment comment;
@@ -88,10 +89,9 @@ class _CommentCardState extends State<CommentCard> {
                         ],
                       ),
                       Text(
-                        widget.comment.date.toString().split(' ')[0].replaceAll(
-                              RegExp(r'-'),
-                              "/",
-                            ),
+                        DateFormat('dd/MM/yyyy hh:mm')
+                            .format(widget.comment.date)
+                            .toString(),
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
