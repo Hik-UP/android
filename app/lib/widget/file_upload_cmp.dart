@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hikup/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
+import "package:gap/gap.dart";
 
 class FileUploadCmp {
   static void myAlert({
@@ -11,37 +12,83 @@ class FileUploadCmp {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: BlackPrimary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          title: const Text(
-            'Sélectionner le média',
-            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: Text("Annuler",
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  )),
+            ),
+          ],
+          backgroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.grey),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          title: Text(
+            'Sélectionnez le média',
+            style: GoogleFonts.poppins(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                fontStyle: FontStyle.italic),
           ),
           content: SizedBox(
             height: MediaQuery.of(context).size.height / 6,
             child: Column(
               children: [
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(0),
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                     getImageGallery();
                   },
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Icon(Icons.image),
-                      Text('À partir de la gallerie'),
+                      const Icon(
+                        Icons.image,
+                        color: Colors.white,
+                      ),
+                      const Gap(5),
+                      Text(
+                          style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic),
+                          'À partir de la gallerie'),
                     ],
                   ),
                 ),
+                const Gap(15),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(0),
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                     getImageCamera();
                   },
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Icon(Icons.camera),
-                      Text('À partir de la caméra'),
+                      const Icon(Icons.camera, color: Colors.white),
+                      const Gap(5),
+                      Text(
+                          style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic),
+                          'À partir de la caméra'),
                     ],
                   ),
                 ),
