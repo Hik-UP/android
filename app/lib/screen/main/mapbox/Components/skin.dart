@@ -93,25 +93,40 @@ class _PlayerSkinState extends State<PlayerSkin> {
                 widget.onPositionChange!(position);
               });
               _headingStream ??=
-                  FlutterCompass.events?.listen((CompassEvent direction) {
-                if (direction.heading! >= -180 && direction.heading! < -90) {
-                  setState(() {
-                    skinState = 3;
-                  });
-                }
-                if (direction.heading! >= -90 && direction.heading! < 0) {
-                  setState(() {
-                    skinState = 2;
-                  });
-                }
-                if (direction.heading! >= 0 && direction.heading! < 90) {
+                  FlutterCompass.events?.listen((CompassEvent event) {
+                double? direction = event.heading! < 0
+                    ? 360 - event.heading!.abs()
+                    : event.heading;
+
+                if (direction != null) {
+                  if (direction >= 315 || direction < 45) {
+                    // UP
+                    setState(() {
+                      skinState = 2;
+                    });
+                  } else if (direction >= 45 && direction < 135) {
+                    // RIGHT
+                    setState(() {
+                      skinState = 3;
+                    });
+                  } else if (direction >= 135 && direction < 225) {
+                    // DOWN
+                    setState(() {
+                      skinState = 0;
+                    });
+                  } else if (direction >= 225 && direction < 315) {
+                    // LEFT
+                    setState(() {
+                      skinState = 1;
+                    });
+                  } else {
+                    setState(() {
+                      skinState = 0;
+                    });
+                  }
+                } else {
                   setState(() {
                     skinState = 0;
-                  });
-                }
-                if (direction.heading! >= 90 && direction.heading! < 180) {
-                  setState(() {
-                    skinState = 1;
                   });
                 }
               });
