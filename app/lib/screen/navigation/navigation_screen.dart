@@ -19,8 +19,6 @@ import 'package:hikup/screen/main/setting/settings_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:hikup/widget/custom_btn.dart";
-import 'package:hikup/locator.dart';
-import 'package:hikup/service/custom_navigation.dart';
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;
@@ -38,7 +36,6 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
-  final _navigationService = locator<CustomNavigationService>();
   late HikerStats stats;
   String? lastPosition;
   late List<dynamic> _hikers;

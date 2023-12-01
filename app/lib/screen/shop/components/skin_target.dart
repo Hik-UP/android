@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hikup/utils/constant.dart';
 
 class SkinTarget extends StatelessWidget {
   final String skinUrlImage;
