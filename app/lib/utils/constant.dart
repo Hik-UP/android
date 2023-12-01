@@ -68,6 +68,7 @@ const skinUnlockPath = "/skin/unlock";
 const eventCreatePath = "/event/create";
 const eventRetrieve = "/event/retrieve";
 const updateCommentPath = "/trail/comment/update";
+const deleteCommentPath = "/trail/comment/remove";
 
 const pinIcon = "assets/icons/pin.png";
 const idHikeIcon = "assets/icons/information.png";

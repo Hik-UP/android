@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/comment.dart';
 import 'package:hikup/providers/app_state.dart';
@@ -13,6 +12,7 @@ import 'package:hikup/widget/file_upload_cmp.dart';
 import 'package:hikup/widget/thumbail_img.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import "package:gap/gap.dart";
 
 class CommunityView extends StatefulWidget {
   final String trailId;
@@ -76,69 +76,6 @@ class _CommunityViewState extends State<CommunityView> {
         );
       },
     );
-    //     showDialog(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return AlertDialog(
-    //       backgroundColor: BlackPrimary,
-    //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    //       title: const Text('Options', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
-    //       content: SizedBox(
-    //         height: MediaQuery.of(context).size.height / 6,
-    //         child: Column(
-    //           children: [
-    //             ElevatedButton(
-    //               onPressed: () {
-    //               },
-    //               child: Row(
-    //                 children: const [
-    //                   Icon(Icons.edit),
-    //                   Text('Éditer'),
-    //                 ],
-    //               ),
-    //             ),
-    //             ElevatedButton(
-    //               onPressed: () {
-    //               },
-    //               child: Row(
-    //                 children: const [
-    //                   Icon(Icons.delete),
-    //                   Text('Supprimer'),
-    //                 ],
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // );
-    //   showAlertDialog() {
-    //   showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) {
-    //         return AlertDialog(
-    //           title: const Text('Supprimer?'),
-    //           content: const Text('Souhaitez vous supprimer ce commetaire?'),
-    //           actions: [
-    //             ElevatedButton(
-    //                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-    //                 onPressed: () {
-    //                   Navigator.pop(context);
-    //                 },
-    //                 child: const Text('Annuler')),
-    //             ElevatedButton(
-    //                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-    //                 onPressed: () {
-    //                   // suppression
-    //                 },
-    //                 child: const Text(
-    //                   'Confirmer',
-    //                 )),
-    //           ],
-    //         );
-    //       });
-    // }
   }
 
   @override
@@ -147,23 +84,26 @@ class _CommunityViewState extends State<CommunityView> {
 
     return BaseView<CommunityPageViewModel>(
       builder: (context, model, child) => Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
-          toolbarHeight: kTextTabBarHeight,
           title: Text(
-            AppMessages.commentaireLabel,
-            style: titleTextStyleWhite,
+            "Avis",
+            style: GoogleFonts.poppins(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                fontStyle: FontStyle.italic),
           ),
-          iconTheme: const IconThemeData(
-            color: GreenPrimary, // Couleur de la flèche retour
-          ),
-          backgroundColor: BlackPrimary,
           centerTitle: true,
+          iconTheme: const IconThemeData(
+            color: Colors.white, // Couleur de la flèche retour
+          ),
+          backgroundColor: Colors.black,
         ),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Gap(18.0),
               FutureBuilder<List<Comment>>(
                 future: model.retrieveData(
                   appState: appState,
@@ -185,11 +125,19 @@ class _CommunityViewState extends State<CommunityView> {
                       return Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                            right: 16.0,
-                            left: 16.0,
-                            top: 20.0,
+                            right: 10.0,
+                            left: 10.0,
                           ),
-                          child: ListView.builder(
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) => Container(
+                                margin:
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                                width: double.maxFinite,
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                )),
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (BuildContext context, index) {
@@ -210,7 +158,7 @@ class _CommunityViewState extends State<CommunityView> {
                               );
 
                               return Padding(
-                                padding: const EdgeInsets.all(14.0),
+                                padding: const EdgeInsets.all(0.0),
                                 child: CommentCard(
                                   comment: snapshot.data![index],
                                   update: () => setState(() {}),
@@ -251,7 +199,7 @@ class _CommunityViewState extends State<CommunityView> {
                 padding: const EdgeInsets.only(
                   left: 12.0,
                   right: 12.0,
-                  top: 20.0,
+                  top: 5.0,
                   bottom: 20,
                 ),
                 child: Column(
@@ -266,144 +214,92 @@ class _CommunityViewState extends State<CommunityView> {
                         ),
                       ),
                     Container(
-                      width: double.infinity,
+                      width: double.maxFinite,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: BoxDecoration(
                         color: BlackPrimary,
-                        //color: const Color(0xffEDEDED),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      // child: Stack(
-                      //   children: [
-                      //     TextFormField(
-                      //       //keyboardType: TextInputType.text,
-                      //       maxLines: 2,
-                      //       controller: model.textController,
-                      //                       keyboardType: TextInputType.text,
-                      //                 style: TextStyle(
-                      //               color: Colors.white
-                      //               ),
-
-                      //       decoration: const InputDecoration(
-                      //         hintText: 'Écrire un commentaire',
-                      //         border: InputBorder.none,
-                      //         focusedBorder: InputBorder.none,
-                      //         hintStyle: TextStyle(
-                      //           color: Colors.white,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     Positioned(
-                      //       bottom: 0,
-                      //       right: 0,
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         mainAxisSize: MainAxisSize.min,
-                      //         children: [
-                      //           IconButton(
-                      //             color: GreenPrimary,
-                      //             onPressed: () => model.submitMessage(
-                      //               appState: appState,
-                      //               trailId: widget.trailId,
-                      //               update: () {
-                      //                 setState(() {});
-                      //               },
-                      //             ),
-                      //             icon: const Icon(
-                      //               Icons.send_outlined,
-                      //             ),
-                      //           ),
-                      //           IconButton(
-                      //             color: GreenPrimary,
-                      //             onPressed: () {
-                      //               myAlert(
-                      //                 context: context,
-                      //                 getImageGallery: () => model.getImage(
-                      //                   ImageSource.gallery,
-                      //                 ),
-                      //                 getImageCamera: () => model.getImage(
-                      //                   ImageSource.camera,
-                      //                 ),
-                      //               );
-                      //             },
-                      //             icon: const Icon(Icons.camera_alt),
-                      //           ),
-
-                      //         ],
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
                     ),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                        color: BlackPrimary,
-                        //color: const Color(0xffEDEDED),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Stack(
-                        children: [
-                          TextFormField(
+                    Row(children: [
+                      Expanded(
+                        child: Container(
+                          width: double.maxFinite,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            color: BlackPrimary,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: TextFormField(
                             focusNode: model.inputFocus,
                             maxLines: 2,
                             controller: model.textController,
                             keyboardType: TextInputType.text,
-                            style: const TextStyle(color: Colors.white),
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white),
                             decoration: const InputDecoration(
-                              hintText: 'Écrire un commentaire',
+                              hintText: 'Ajouter un avis',
                               border: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               hintStyle: TextStyle(
-                                color: Colors.white,
+                                color: Colors.grey,
                               ),
                             ),
                           ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  color: GreenPrimary,
-                                  onPressed: () => model.submitMessage(
-                                    appState: appState,
-                                    trailId: widget.trailId,
-                                    update: () {
-                                      Future.delayed(
-                                        const Duration(seconds: 3),
-                                        () => setState(() {}),
-                                      );
-                                    },
-                                  ),
-                                  icon: const Icon(
-                                    Icons.send_outlined,
-                                  ),
-                                ),
-                                IconButton(
-                                  color: GreenPrimary,
-                                  onPressed: () {
-                                    FileUploadCmp.myAlert(
-                                      context: context,
-                                      getImageGallery: () => model.getImage(
-                                        ImageSource.gallery,
-                                      ),
-                                      getImageCamera: () => model.getImage(
-                                        ImageSource.camera,
-                                      ),
+                        ),
+                      ),
+                      const Gap(15),
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 20.0,
+                              width: 20.0,
+                              child: IconButton(
+                                padding: const EdgeInsets.all(0.0),
+                                iconSize: 20,
+                                color: Colors.white,
+                                onPressed: () {
+                                  FileUploadCmp.myAlert(
+                                    context: context,
+                                    getImageGallery: () => model.getImage(
+                                      ImageSource.gallery,
+                                    ),
+                                    getImageCamera: () => model.getImage(
+                                      ImageSource.camera,
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.camera_alt),
+                              ),
+                            ),
+                            const Gap(5),
+                            SizedBox(
+                              height: 20.0,
+                              width: 20.0,
+                              child: IconButton(
+                                padding: const EdgeInsets.all(0.0),
+                                iconSize: 20,
+                                color: Colors.white,
+                                onPressed: () => model.submitMessage(
+                                  appState: appState,
+                                  trailId: widget.trailId,
+                                  update: () {
+                                    Future.delayed(
+                                      const Duration(seconds: 3),
+                                      () => setState(() {}),
                                     );
                                   },
-                                  icon: const Icon(Icons.camera_alt),
                                 ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                                icon: const Icon(
+                                  Icons.send_outlined,
+                                ),
+                              ),
+                            )
+                          ])
+                    ])
                   ],
                 ),
               ),

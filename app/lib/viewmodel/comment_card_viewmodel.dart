@@ -21,9 +21,10 @@ class CommentCardViewModel extends BaseModel {
     newCommentCtrl.text = comment.body;
     _customNavigationService.showDialogue(
       content: UpdateCommentDialogue(
-        isLoading: getState == ViewState.busy,
+        isLoadingEdit: getState == ViewState.busy,
+        isLoadingDelete: getState == ViewState.deletion,
         controller: newCommentCtrl,
-        action: () async {
+        editAction: () async {
           setState(ViewState.busy);
           await _dioService.put(
             path: updateCommentPath,
@@ -35,6 +36,24 @@ class CommentCardViewModel extends BaseModel {
               "comment": {
                 "id": comment.id,
                 "body": newCommentCtrl.text,
+              },
+            },
+            token: 'Bearer ${appState.token}',
+          );
+          setState(ViewState.retrieved);
+          _customNavigationService.goBack();
+        },
+        deleteAction: () async {
+          setState(ViewState.deletion);
+          await _dioService.delete(
+            path: deleteCommentPath,
+            body: {
+              "user": {
+                "id": appState.id,
+                "roles": appState.roles,
+              },
+              "comment": {
+                "id": comment.id,
               },
             },
             token: 'Bearer ${appState.token}',
