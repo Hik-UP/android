@@ -12,7 +12,6 @@ class SkinDisplayViewModel extends BaseModel {
       action: action,
       content: DialogContent(
         skin: skin,
-        
       ),
     );
   }

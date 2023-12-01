@@ -12,7 +12,6 @@ import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 import 'package:provider/provider.dart';
 import '../../widget/custom_btn.dart';
 
-
 class RegisterPage extends StatefulWidget {
   static String routeName = "/register";
   const RegisterPage({super.key});
