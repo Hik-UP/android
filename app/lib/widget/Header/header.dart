@@ -43,34 +43,22 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             const Gap(10),
-            GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(
-                //CommunityHistoryScreen.routeName,
-                SettingsScreen.routeName,
-              ),
-              child: Consumer<AppState>(
-                builder: (context, state, child) {
-                  return state.picture.isEmpty
-                      ? Container(
-                          width: 30,
-                          height: 30,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: BlackPrimary,
-                            // image: DecorationImage(
-                            //   fit: BoxFit.fill,
-                            //   image: AssetImage(
-                            //     profilePlaceHoder,
-                            //   ),
-                            // ),
-                          ),
-                        )
-                      : LoadPictureProfil(
-                          size: 35,
-                          appState: state,
-                        );
-                },
-              ),
+            Consumer<AppState>(
+              builder: (context, state, child) {
+                return state.picture.isEmpty
+                    ? Container(
+                        width: 30,
+                        height: 30,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: BlackPrimary,
+                        ),
+                      )
+                    : LoadPictureProfil(
+                        size: 35,
+                        appState: state,
+                      );
+              },
             ),
             const Gap(16.0),
           ],
