@@ -6,7 +6,6 @@ import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:onboarding/onboarding.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static String routeName = "/onBoarding";
