@@ -12,6 +12,72 @@ import "package:hikup/widget/warning_error_img.dart";
 import "package:provider/provider.dart";
 import 'package:intl/intl.dart';
 
+class CommentHeadCard extends StatelessWidget {
+  final String commentAuthorPicture;
+  final String authorUsername;
+  final DateTime commentDate;
+
+  const CommentHeadCard({
+    super.key,
+    required this.commentAuthorPicture,
+    required this.authorUsername,
+    required this.commentDate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Row(
+            children: [
+              commentAuthorPicture.isNotEmpty
+                  ? CachedNetworkImage(
+                      imageUrl: commentAuthorPicture,
+                      imageBuilder: (context, imageProvider) =>
+                          ShowAvatarContainer(
+                        backgroundImage: imageProvider,
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const ShowAvatarContainer(
+                        child: WarmingErrorImg(),
+                      ),
+                      progressIndicatorBuilder: (context, url, progress) =>
+                          const ShowAvatarContainer(
+                        child: CustomLoader(),
+                      ),
+                    )
+                  : const ShowAvatarContainer(
+                      backgroundImage: AssetImage(
+                        profilePlaceHoder,
+                      ),
+                    ),
+              const Gap(10.0),
+              Text(
+                authorUsername,
+                style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic),
+              ),
+            ],
+          ),
+          Text(
+            DateFormat('dd/MM/yyyy hh:mm').format(commentDate).toString(),
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              fontWeight: FontWeight.w300,
+              color: Colors.white,
+            ),
+          ),
+        ]),
+        const Gap(5.0),
+      ],
+    );
+  }
+}
+
 class CommentCard extends StatefulWidget {
   final Comment comment;
   final Function() update;
@@ -45,93 +111,52 @@ class _CommentCardState extends State<CommentCard> {
         child: Card(
           color: Colors.transparent,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          widget.comment.author.picture.isNotEmpty
-                              ? CachedNetworkImage(
-                                  imageUrl: widget.comment.author.picture,
-                                  imageBuilder: (context, imageProvider) =>
-                                      ShowAvatarContainer(
-                                    backgroundImage: imageProvider,
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      const ShowAvatarContainer(
-                                    child: WarmingErrorImg(),
-                                  ),
-                                  progressIndicatorBuilder:
-                                      (context, url, progress) =>
-                                          const ShowAvatarContainer(
-                                    child: CustomLoader(),
-                                  ),
-                                )
-                              : const ShowAvatarContainer(
-                                  backgroundImage: AssetImage(
-                                    profilePlaceHoder,
-                                  ),
-                                ),
-                          const Gap(10.0),
-                          Text(
-                            widget.comment.author.username,
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                                fontStyle: FontStyle.italic),
-                          ),
-                        ],
+                      //head
+                      CommentHeadCard(
+                        commentAuthorPicture: widget.comment.author.picture,
+                        authorUsername: widget.comment.author.username,
+                        commentDate: widget.comment.date,
                       ),
                       Text(
-                        DateFormat('dd/MM/yyyy hh:mm')
-                            .format(widget.comment.date)
-                            .toString(),
+                        widget.comment.body,
+                        textAlign: TextAlign.justify,
                         style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.white,
-                        ),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey),
                       ),
-                    ]),
-                const Gap(5.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.comment.body,
-                      textAlign: TextAlign.justify,
-                      style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey),
-                    ),
-                    if (widget.comment.pictures.isNotEmpty &&
-                        widget.comment.pictures.first.isNotEmpty)
-                      CachedNetworkImage(
-                        imageUrl: widget.comment.pictures[0],
-                        errorWidget: (context, url, error) =>
-                            const ContainerPicture(
-                          child: WarmingErrorImg(),
-                        ),
-                        imageBuilder: (context, imageProvider) =>
-                            ContainerPicture(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
+                      if (widget.comment.pictures.isNotEmpty &&
+                          widget.comment.pictures.first.isNotEmpty)
+                        CachedNetworkImage(
+                          imageUrl: widget.comment.pictures[0],
+                          errorWidget: (context, url, error) =>
+                              const ContainerPicture(
+                            child: WarmingErrorImg(),
                           ),
-                        ),
-                        progressIndicatorBuilder: (context, url, progress) =>
-                            const ContainerPicture(
-                          child: CustomLoader(),
-                        ),
-                      )
-                  ],
+                          imageBuilder: (context, imageProvider) =>
+                              ContainerPicture(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          progressIndicatorBuilder: (context, url, progress) =>
+                              const ContainerPicture(
+                            child: CustomLoader(),
+                          ),
+                        )
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -178,7 +203,7 @@ class ShowAvatarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 20.0,
+      radius: 15.0,
       backgroundColor: Colors.green,
       backgroundImage: backgroundImage,
       child: child,

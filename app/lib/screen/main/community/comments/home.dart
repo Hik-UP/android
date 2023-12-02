@@ -79,14 +79,20 @@ class _CommunityViewState extends State<CommunityView> {
                           ),
                           child: ListView.separated(
                             separatorBuilder: (context, index) => Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(20, 0, 20, 10),
-                                width: double.maxFinite,
-                                decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          color: Colors.grey, width: 1)),
-                                )),
+                              margin: const EdgeInsets.only(
+                                left: 20,
+                                right: 10,
+                              ),
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Colors.grey.withOpacity(0.25),
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                            ),
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (BuildContext context, index) {
