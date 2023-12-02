@@ -19,11 +19,11 @@ class DetailHikeInviteViewModel extends BaseModel {
   late dynamic stats;
   late List<dynamic> hikers;
 
-  joinHike(
-      {required AppState appState,
-      required Hike hike,
-      required Function() onComplete}) async {
-    LocationPermission permission = await Geolocator.checkPermission();
+  Future<bool> getLocation() async {
+    late LocationPermission permission;
+
+    await Geolocator.requestPermission();
+    permission = await Geolocator.checkPermission();
 
     if (permission != LocationPermission.whileInUse &&
             permission != LocationPermission.always ||
@@ -32,10 +32,25 @@ class DetailHikeInviteViewModel extends BaseModel {
         content: 'Localisation inaccessible',
         isError: true,
       );
-      await Geolocator.requestPermission();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  joinHike(
+      {required AppState appState,
+      required Hike hike,
+      required Function() onLoad,
+      required Function() onFail,
+      required Function() onComplete}) async {
+    onLoad();
+    bool permission = await getLocation();
+
+    if (permission == false) {
+      onFail();
       return;
     }
-
     if (joinInProgress == false) {
       setState(ViewState.join);
       joinInProgress = true;
@@ -46,6 +61,7 @@ class DetailHikeInviteViewModel extends BaseModel {
       SocketService().onError((_) {
         joinInProgress = false;
         SocketService().disconnect();
+        onFail();
       });
 
       await SocketService().hike.join(hike.id, (data) {
