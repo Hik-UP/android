@@ -19,9 +19,6 @@ class SkinTarget extends StatelessWidget {
               )
             : Image.network(
                 skinUrlImage,
-                width: 30.0,
-                height: 40.0,
-                fit: BoxFit.fill,
               ),
       ),
     );
