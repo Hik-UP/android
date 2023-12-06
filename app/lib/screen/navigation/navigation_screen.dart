@@ -41,6 +41,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   late List<dynamic> _hikers;
   late Marker marker;
   late Polyline polyline;
+  final List<dynamic> _coins = [];
 
   @override
   void initState() {
@@ -58,6 +59,20 @@ class _NavigationScreenState extends State<NavigationScreen> {
         ),
       ),
     );
+
+    for (var i = 0; i < widget.hike.coins.length; i += 1) {
+      _coins.add({
+        "obj": widget.hike.coins[i],
+        "marker": Marker(
+            width: 35,
+            height: 35,
+            point: LatLng(
+                widget.hike.coins[i].latitude, widget.hike.coins[i].longitude),
+            child: Image.asset(
+              "assets/icons/coin.gif",
+            ))
+      });
+    }
     polyline = Polyline(
       points: json
           .decode(widget.hike.trail.geoJSON)["features"][0]["geometry"]
@@ -223,6 +238,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
         });
       }
     });
+    SocketService().hike.onGetCoin((data) {
+      dynamic entry = json.decode(data);
+
+      setState(() {
+        _coins.removeWhere((item) => item["obj"].id == entry["coin"]["id"]);
+      });
+    });
   }
 
   @override
@@ -379,8 +401,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
               mapController: model.mapController,
               zoom: 17,
               polylines: [polyline],
-              markers:
-                  _hikers.map((entry) => entry["marker"] as Marker).toList(),
+              markers: [
+                _coins.map((entry) => entry["marker"] as Marker).toList(),
+                [marker],
+                _hikers.map((entry) => entry["marker"] as Marker).toList(),
+              ].expand((x) => x).toList(),
               onPositionChange: (Position position) {
                 final newPosition =
                     "${position.latitude},${position.longitude}";
