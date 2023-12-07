@@ -81,7 +81,7 @@ Future<void> main() async {
           create: (_) => AppState()..initialState(),
         ),
         ChangeNotifierProvider(
-          create: (_) => SoundState()..playAudio(soundSource: 'sounds/music.mp3'),
+          create: (_) => SoundState(),
         ),
       ],
       child: const MyApp(),
