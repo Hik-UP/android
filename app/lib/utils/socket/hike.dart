@@ -56,6 +56,17 @@ class HikeSocket {
     }
   }
 
+  void onEnd(Function(dynamic) func) {
+    try {
+      socket?.on('hike:end', func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
   Future<void> join(String hikeId, Function(dynamic) func) async {
     try {
       final Position position = await Geolocator.getCurrentPosition();
@@ -80,7 +91,7 @@ class HikeSocket {
     }
   }
 
-  void move(Position position, HikerStats stats) {
+  void move(Position position, HikerStats stats, Function(dynamic) func) {
     try {
       final data = [
         {
@@ -97,7 +108,7 @@ class HikeSocket {
           },
         }
       ];
-      socket?.emit('hike:hiker:move', data[0]);
+      socket?.emitWithAck('hike:hiker:move', data[0], ack: func);
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,
