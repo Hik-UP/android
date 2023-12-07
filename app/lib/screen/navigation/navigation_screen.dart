@@ -19,6 +19,8 @@ import 'package:hikup/screen/main/setting/settings_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:hikup/widget/custom_btn.dart";
+import 'package:hikup/locator.dart';
+import 'package:hikup/service/custom_navigation.dart';
 
 class NavigationScreen extends StatefulWidget {
   final Hike hike;
@@ -36,11 +38,13 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
+  final _navigator = locator<CustomNavigationService>();
   late HikerStats stats;
   String? lastPosition;
   late List<dynamic> _hikers;
   late Marker marker;
   late Polyline polyline;
+  final List<dynamic> _coins = [];
 
   @override
   void initState() {
@@ -58,6 +62,20 @@ class _NavigationScreenState extends State<NavigationScreen> {
         ),
       ),
     );
+
+    for (var i = 0; i < widget.hike.coins.length; i += 1) {
+      _coins.add({
+        "obj": widget.hike.coins[i],
+        "marker": Marker(
+            width: 35,
+            height: 35,
+            point: LatLng(
+                widget.hike.coins[i].latitude, widget.hike.coins[i].longitude),
+            child: Image.asset(
+              "assets/icons/coin.gif",
+            ))
+      });
+    }
     polyline = Polyline(
       points: json
           .decode(widget.hike.trail.geoJSON)["features"][0]["geometry"]
@@ -223,6 +241,16 @@ class _NavigationScreenState extends State<NavigationScreen> {
         });
       }
     });
+    SocketService().hike.onGetCoin((data) {
+      dynamic entry = json.decode(data);
+
+      onGetCoin(entry["coin"]["id"]);
+    });
+    SocketService().hike.onEnd((data) {
+      dynamic entry = json.decode(data);
+
+      onHikeEnd();
+    });
   }
 
   @override
@@ -249,6 +277,19 @@ class _NavigationScreenState extends State<NavigationScreen> {
             (1 - c((splitLatLng2[1] - splitLatLng1[1]) * p)) /
             2;
     return ((12742 * asin(sqrt(a))) * 1000).round();
+  }
+
+  void onGetCoin(String coinId) {
+    setState(() {
+      _coins.removeWhere((item) => item["obj"].id == coinId);
+    });
+  }
+
+  void onHikeEnd() {
+    _navigator.showSnackBack(
+      content: "Félicitations, vous avez terminé cette randonnée !",
+      isError: false,
+    );
   }
 
   CachedNetworkImage loadHikerPicture(double size, String picture) {
@@ -379,8 +420,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
               mapController: model.mapController,
               zoom: 17,
               polylines: [polyline],
-              markers:
-                  _hikers.map((entry) => entry["marker"] as Marker).toList(),
+              markers: [
+                _coins.map((entry) => entry["marker"] as Marker).toList(),
+                [marker],
+                _hikers.map((entry) => entry["marker"] as Marker).toList(),
+              ].expand((x) => x).toList(),
               onPositionChange: (Position position) {
                 final newPosition =
                     "${position.latitude},${position.longitude}";
@@ -393,7 +437,18 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               lastPosition ?? newPosition, newPosition),
                       completed: stats.completed);
                   lastPosition = newPosition;
-                  SocketService().hike.move(position, newStats);
+                  SocketService().hike.move(position, newStats, (data) {
+                    dynamic jsonData = json.decode(data);
+                    final coin = jsonData["coin"];
+                    final end = jsonData["end"];
+
+                    if (coin != null) {
+                      onGetCoin(coin);
+                    }
+                    if (end == true) {
+                      onHikeEnd();
+                    }
+                  });
                   setState(() {
                     stats = newStats;
                   });

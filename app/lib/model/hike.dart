@@ -1,10 +1,12 @@
 import 'package:hikup/model/guest.dart';
 import 'package:hikup/model/trail.dart';
+import 'package:hikup/model/coin.dart';
 
 class Hike {
   final String id;
   final String name;
   final String description;
+  final List<Coin> coins;
   final String address;
   final List<Guest> guests;
   final String schedule;
@@ -18,6 +20,7 @@ class Hike {
     required this.id,
     required this.name,
     required this.description,
+    required this.coins,
     required this.guests,
     required this.schedule,
     required this.createdAt,
@@ -35,6 +38,11 @@ class Hike {
       id: data["id"],
       name: data["name"],
       description: data["description"],
+      coins: (data["coins"] as List<dynamic>)
+          .map(
+            (element) => Coin.fromMap(data: element),
+          )
+          .toList(),
       address: data["trail"]["address"],
       guests: (data["guests"] as List<dynamic>)
           .map(
