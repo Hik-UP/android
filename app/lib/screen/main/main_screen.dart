@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/providers/sound_state.dart';
 import 'package:hikup/service/local_notification.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/widget/custom_bottom_nav_bar.dart';
@@ -23,6 +24,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     context.read<AppState>().getUserFcmToken();
+    context.read<SoundState>().playAudio(soundSource: 'sounds/music.mp3'); //Un exemple de comment jouer une music
 
     LocalNotification.foregroundNotif();
     LocalNotification.onMessageApp();

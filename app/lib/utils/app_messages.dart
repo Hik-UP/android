@@ -108,4 +108,5 @@ class AppMessages {
   static String infoFillProfile =
       "Les données fournies via ce formulaire seront utilisées pour calculer le nombre de calories brûlé lors d'une randonnée et plus encore.";
   static String updateCommentLabel = "Modifier";
+  static String soundManager = "Gestion du son";
 }
