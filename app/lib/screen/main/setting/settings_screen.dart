@@ -10,6 +10,7 @@ import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/widget/scaffold_with_custom_bg.dart';
+import 'package:hikup/widget/sound_handler.dart';
 
 import 'package:provider/provider.dart';
 
@@ -173,7 +174,14 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               //InVENTORY BUTTON
-
+              const Gap(20),
+              Text(
+                AppMessages.soundManager,
+                style: subTitleTextStyle,
+              ),
+              const Gap(8.0),
+              //S
+              const SoundHandler(),
               const Gap(30.0),
               Text(AppMessages.aboutApp, style: subTitleTextStyle),
               const Gap(10.0),
@@ -234,6 +242,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const Gap(70.0),
             ],
           ),
         ),

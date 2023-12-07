@@ -10,6 +10,7 @@ import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/user.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/providers/sound_state.dart';
 import 'package:hikup/screen/achievement/achievement_view.dart';
 import 'package:hikup/screen/auth/login_page.dart';
 import 'package:hikup/screen/auth/register_page.dart';
@@ -78,7 +79,10 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AppState()..initialState(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SoundState()..playAudio(soundSource: 'sounds/music.mp3'),
+        ),
       ],
       child: const MyApp(),
     ),
