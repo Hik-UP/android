@@ -250,6 +250,34 @@ class _NavigationScreenState extends State<NavigationScreen> {
       if (index >= 0 && entry["hiker"]["skinState"] != null) {
         setState(() {
           _hikers[index]["skinState"] = entry["hiker"]["skinState"];
+          _hikers[index]["marker"] = Marker(
+            width: 56.0,
+            height: 56.0,
+            point: LatLng(double.parse(_hikers[index]["LatLng"].split(',')[0]),
+                double.parse(_hikers[index]["LatLng"].split(',')[1])),
+            child: FittedBox(
+                fit: BoxFit.contain,
+                child: Column(children: <Widget>[
+                  CachedNetworkImage(
+                    imageUrl: _hikers[index]["skin"]
+                        [entry["hiker"]["skinState"]],
+                    errorWidget: (context, url, error) => const Icon(
+                      Icons.warning,
+                      color: Colors.red,
+                    ),
+                  ),
+                  Container(
+                      padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        _hikers[index]["username"],
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ])),
+          );
         });
       }
     });
