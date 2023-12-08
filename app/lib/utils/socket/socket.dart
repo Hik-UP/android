@@ -78,18 +78,4 @@ class SocketService {
       );
     }
   }
-
-  void test() {
-    try {
-      socket
-        ?..disconnect()
-        ..connect();
-      socket?.emit('msg', 'test');
-    } catch (e) {
-      _navigator.showSnackBack(
-        content: AppMessages.anErrorOcur,
-        isError: true,
-      );
-    }
-  }
 }

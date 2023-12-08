@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:pedometer/pedometer.dart';
 
 Future<String> getMapCachePath() async {
   final cacheDirectory = await getTemporaryDirectory();
@@ -24,6 +25,8 @@ class MapBox extends StatefulWidget {
   final List<Polyline>? polylines;
   final List<Marker>? markers;
   final Function(Position)? onPositionChange;
+  final Function(PedestrianStatus)? onPedestrianStatusChange;
+  final Function(int)? onSkinStateChange;
   const MapBox(
       {super.key,
       this.mapController,
@@ -34,7 +37,9 @@ class MapBox extends StatefulWidget {
       this.showSkin,
       this.polylines,
       this.markers,
-      this.onPositionChange});
+      this.onPositionChange,
+      this.onPedestrianStatusChange,
+      this.onSkinStateChange});
 
   @override
   State<MapBox> createState() => _MapBoxState();
@@ -98,7 +103,11 @@ class _MapBoxState extends State<MapBox> {
         ),
         Visibility(
             visible: widget.showSkin ?? true,
-            child: PlayerSkin(onPositionChange: widget.onPositionChange)),
+            child: PlayerSkin(
+              onPositionChange: widget.onPositionChange,
+              onPedestrianStatusChange: widget.onPedestrianStatusChange,
+              onSkinStateChange: widget.onSkinStateChange,
+            )),
         PolylineLayer(
           polylines: widget.polylines ?? [],
         ),

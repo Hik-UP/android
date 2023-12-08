@@ -98,6 +98,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       borderStrokeWidth: 0.1,
     );
     stats = HikerStats(
+        coins: widget.stats["coins"],
         steps: widget.stats["steps"],
         distance: widget.stats["distance"],
         completed: widget.stats["completed"]);
@@ -110,6 +111,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         "username": entry["hiker"]["username"],
         "picture": entry["hiker"]["picture"],
         "skin": entry["hiker"]["skin"],
+        "skinState": entry["hiker"]["skinState"],
         "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
         "marker": Marker(
           width: 56.0,
@@ -119,7 +121,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               fit: BoxFit.contain,
               child: Column(children: <Widget>[
                 CachedNetworkImage(
-                  imageUrl: entry["hiker"]["skin"],
+                  imageUrl: entry["hiker"]["skin"][entry["hiker"]["skinState"]],
                   errorWidget: (context, url, error) => const Icon(
                     Icons.warning,
                     color: Colors.red,
@@ -153,6 +155,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             "username": entry["hiker"]["username"],
             "picture": entry["hiker"]["picture"],
             "skin": entry["hiker"]["skin"],
+            "skinState": entry["hiker"]["skinState"],
             "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
             "marker": Marker(
               width: 56.0,
@@ -162,7 +165,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   fit: BoxFit.contain,
                   child: Column(children: <Widget>[
                     CachedNetworkImage(
-                      imageUrl: entry["hiker"]["skin"],
+                      imageUrl: entry["hiker"]["skin"]
+                          [entry["hiker"]["skinState"]],
                       errorWidget: (context, url, error) => const Icon(
                         Icons.warning,
                         color: Colors.red,
@@ -196,48 +200,56 @@ class _NavigationScreenState extends State<NavigationScreen> {
       dynamic entry = json.decode(data);
       late LatLng hikerLatLng =
           LatLng(entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
-      final newHiker = {
-        "id": entry["hiker"]["id"],
-        "username": entry["hiker"]["username"],
-        "picture": entry["hiker"]["picture"],
-        "skin": entry["hiker"]["skin"],
-        "LatLng": "${hikerLatLng.latitude},${hikerLatLng.longitude}",
-        "marker": Marker(
-          width: 56.0,
-          height: 56.0,
-          point: hikerLatLng,
-          child: FittedBox(
-              fit: BoxFit.contain,
-              child: Column(children: <Widget>[
-                CachedNetworkImage(
-                  imageUrl: entry["hiker"]["skin"],
-                  errorWidget: (context, url, error) => const Icon(
-                    Icons.warning,
-                    color: Colors.red,
-                  ),
-                ),
-                Container(
-                    padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      entry["hiker"]["username"],
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    )),
-              ])),
-        ),
-        "stats": entry["hiker"]["stats"]
-      };
       int index =
           _hikers.indexWhere((item) => item["id"] == entry["hiker"]["id"]);
 
-      if (index >= 0 &&
-          _hikers[index]["LatLng"] != null &&
-          newHiker["LatLng"] != _hikers[index]["LatLng"]) {
+      if (index >= 0 && _hikers[index]["LatLng"] != null) {
         setState(() {
-          _hikers[index] = newHiker;
+          _hikers[index]["LatLng"] =
+              "${hikerLatLng.latitude},${hikerLatLng.longitude}";
+          _hikers[index]["stats"]["steps"] = entry["hiker"]["stats"]["steps"];
+          _hikers[index]["stats"]["distance"] =
+              entry["hiker"]["stats"]["distance"];
+          _hikers[index]["stats"]["completed"] =
+              entry["hiker"]["stats"]["completed"];
+          _hikers[index]["marker"] = Marker(
+            width: 56.0,
+            height: 56.0,
+            point: hikerLatLng,
+            child: FittedBox(
+                fit: BoxFit.contain,
+                child: Column(children: <Widget>[
+                  CachedNetworkImage(
+                    imageUrl: _hikers[index]["skin"]
+                        [_hikers[index]["skinState"]],
+                    errorWidget: (context, url, error) => const Icon(
+                      Icons.warning,
+                      color: Colors.red,
+                    ),
+                  ),
+                  Container(
+                      padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        _hikers[index]["username"],
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ])),
+          );
+        });
+      }
+    });
+    SocketService().hike.onAnimate((data) {
+      dynamic entry = json.decode(data);
+      int index =
+          _hikers.indexWhere((item) => item["id"] == entry["hiker"]["id"]);
+
+      if (index >= 0 && entry["hiker"]["skinState"] != null) {
+        setState(() {
+          _hikers[index]["skinState"] = entry["hiker"]["skinState"];
         });
       }
     });
@@ -431,6 +443,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
                 if (lastPosition == null || lastPosition != newPosition) {
                   final HikerStats newStats = HikerStats(
+                      coins: stats.coins,
                       steps: stats.steps,
                       distance: stats.distance +
                           calcDistance(
@@ -453,6 +466,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     stats = newStats;
                   });
                 }
+              },
+              onSkinStateChange: (int skinState) {
+                SocketService().hike.animate(skinState);
               },
             )),
       );

@@ -45,6 +45,17 @@ class HikeSocket {
     }
   }
 
+  void onAnimate(Function(dynamic) func) {
+    try {
+      socket?.on('hike:hiker:animate', func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
   void onGetCoin(Function(dynamic) func) {
     try {
       socket?.on('hike:coin:get', func);
@@ -109,6 +120,24 @@ class HikeSocket {
         }
       ];
       socket?.emitWithAck('hike:hiker:move', data[0], ack: func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
+  void animate(int skinState) {
+    try {
+      final data = [
+        {
+          "data": {
+            "hiker": {"skinState": skinState},
+          },
+        }
+      ];
+      socket?.emit('hike:hiker:animate', data[0]);
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,
