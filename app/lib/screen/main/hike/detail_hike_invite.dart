@@ -288,7 +288,8 @@ class _DetailHikeInviteState extends State<DetailHikeInvite> {
                                                                   .push(
                                                                       MaterialPageRoute(
                                                                 builder: (context) => NavigationScreen(
-                                                                    hike: hike,
+                                                                    hike: model
+                                                                        .newHike,
                                                                     stats: model
                                                                         .stats,
                                                                     hikers: model

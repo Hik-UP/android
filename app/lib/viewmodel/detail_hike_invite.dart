@@ -6,6 +6,7 @@ import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 import 'package:hikup/utils/socket/socket.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,6 +19,7 @@ class DetailHikeInviteViewModel extends BaseModel {
   bool joinInProgress = false;
   late dynamic stats;
   late List<dynamic> hikers;
+  late Hike newHike;
 
   Future<bool> getLocation() async {
     late LocationPermission permission;
@@ -46,6 +48,8 @@ class DetailHikeInviteViewModel extends BaseModel {
       required Function() onComplete}) async {
     onLoad();
     bool permission = await getLocation();
+    List<Hike> hikesList;
+    int index;
 
     if (permission == false) {
       onFail();
@@ -54,6 +58,13 @@ class DetailHikeInviteViewModel extends BaseModel {
     if (joinInProgress == false) {
       setState(ViewState.join);
       joinInProgress = true;
+      hikesList = await WrapperApi().getAllHike(
+        path: getHikePath,
+        appState: appState,
+        target: ["attendee"],
+      );
+      index = hikesList.indexWhere((item) => item.id == hike.id);
+      newHike = hikesList[index];
       SocketService().connect(
           token: appState.token,
           userId: appState.id,

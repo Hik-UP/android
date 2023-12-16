@@ -18,19 +18,10 @@ import 'package:hikup/model/navigation.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import "package:hikup/widget/custom_btn.dart";
 import 'package:hikup/locator.dart';
 import 'package:hikup/service/custom_navigation.dart';
-
-import "package:flutter/material.dart";
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gap/gap.dart';
-import 'package:hikup/screen/main/hike/hikes_create.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hikup/theme.dart';
-import 'package:hikup/providers/app_state.dart';
-import 'package:provider/provider.dart';
-import 'package:hikup/screen/main/setting/settings_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
   final Function() onLeave;
@@ -175,6 +166,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
           child: FittedBox(
               fit: BoxFit.contain,
               child: Column(children: <Widget>[
+                Text(
+                  entry["hiker"]["username"],
+                  style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      height: 1.2,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic),
+                ),
                 CachedNetworkImage(
                   imageUrl: entry["hiker"]["skin"][entry["hiker"]["skinState"]],
                   errorWidget: (context, url, error) => const Icon(
@@ -184,14 +184,16 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 ),
                 Container(
                     padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      entry["hiker"]["username"],
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    )),
+                    child: Column(children: [
+                      Text(
+                          "${calcDistance(lastPosition ?? "0,0", "${hikerLatLng.latitude},${hikerLatLng.longitude}")} m",
+                          style: GoogleFonts.poppins(
+                              fontSize: 10,
+                              height: 1.2,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic)),
+                    ])),
               ])),
         ),
         "stats": entry["hiker"]["stats"]
@@ -219,6 +221,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
               child: FittedBox(
                   fit: BoxFit.contain,
                   child: Column(children: <Widget>[
+                    Text(
+                      entry["hiker"]["username"],
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          height: 1.2,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          fontStyle: FontStyle.italic),
+                    ),
                     CachedNetworkImage(
                       imageUrl: entry["hiker"]["skin"]
                           [entry["hiker"]["skinState"]],
@@ -229,14 +240,16 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     ),
                     Container(
                         padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          entry["hiker"]["username"],
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        )),
+                        child: Column(children: [
+                          Text(
+                              "${calcDistance(lastPosition ?? "0,0", "${hikerLatLng.latitude},${hikerLatLng.longitude}")} m",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 10,
+                                  height: 1.2,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic)),
+                        ])),
                   ])),
             ),
             "stats": entry["hiker"]["stats"]
@@ -274,6 +287,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
             child: FittedBox(
                 fit: BoxFit.contain,
                 child: Column(children: <Widget>[
+                  Text(
+                    _hikers[index]["username"],
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        height: 1.2,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        fontStyle: FontStyle.italic),
+                  ),
                   CachedNetworkImage(
                     imageUrl: _hikers[index]["skin"]
                         [_hikers[index]["skinState"]],
@@ -284,14 +306,16 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   ),
                   Container(
                       padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        _hikers[index]["username"],
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      )),
+                      child: Column(children: [
+                        Text(
+                            "${calcDistance(lastPosition ?? "0,0", "${hikerLatLng.latitude},${hikerLatLng.longitude}")} m",
+                            style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                height: 1.2,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                                fontStyle: FontStyle.italic)),
+                      ])),
                 ])),
           );
         });
@@ -313,6 +337,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
             child: FittedBox(
                 fit: BoxFit.contain,
                 child: Column(children: <Widget>[
+                  Text(
+                    _hikers[index]["username"],
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        height: 1.2,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        fontStyle: FontStyle.italic),
+                  ),
                   CachedNetworkImage(
                     imageUrl: _hikers[index]["skin"]
                         [entry["hiker"]["skinState"]],
@@ -323,14 +356,16 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   ),
                   Container(
                       padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        _hikers[index]["username"],
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      )),
+                      child: Column(children: [
+                        Text(
+                            "${calcDistance(lastPosition ?? "0,0", "${_hikers[index]["LatLng"]}")} m",
+                            style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                height: 1.2,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                                fontStyle: FontStyle.italic)),
+                      ])),
                 ])),
           );
         });
@@ -339,7 +374,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
     SocketService().hike.onGetCoin((data) {
       dynamic entry = json.decode(data);
 
-      onGetCoin(entry["coin"]["id"]);
+      onGetCoin(entry["coin"]["id"], entry["hiker"]["id"],
+          entry["hiker"]["stats"]["coins"]);
     });
     SocketService().hike.onEnd((data) {
       dynamic entry = json.decode(data);
@@ -374,10 +410,20 @@ class _NavigationScreenState extends State<NavigationScreen> {
     return ((12742 * asin(sqrt(a))) * 1000).round();
   }
 
-  void onGetCoin(String coinId) {
-    setState(() {
-      _coins.removeWhere((item) => item["obj"].id == coinId);
-    });
+  void onGetCoin(String coinId, String userId, int coins) {
+    if (userId != "") {
+      int index = _hikers.indexWhere((item) => item["id"] == userId);
+
+      setState(() {
+        _hikers[index]["stats"]["coins"] = coins;
+        _coins.removeWhere((item) => item["obj"].id == coinId);
+      });
+    } else {
+      setState(() {
+        stats.coins = coins;
+        _coins.removeWhere((item) => item["obj"].id == coinId);
+      });
+    }
   }
 
   void onHikeEnd() {
@@ -471,7 +517,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
                         children: [
                           LoadPictureProfil(appState: state, size: 48),
                           const Gap(10),
-                          Text(state.username, style: subTitleTextStyle),
+                          Text(state.username,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  height: 1.2,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic)),
                         ],
                       ),
                       const Gap(15),
@@ -489,9 +541,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
                       const Gap(15),
                       Row(
                         children: [
-                          const Icon(
-                            Icons.add_circle_outline,
-                            color: Colors.white,
+                          SvgPicture.asset(
+                            "assets/icons/coins.svg",
+                            height: 22,
+                            width: 22,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.srcIn,
+                            ),
+                            semanticsLabel: 'error',
                           ),
                           const Gap(5.0),
                           Text("${stats.coins}", style: subTitleTextStyle),
@@ -508,7 +566,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     ),
                     child: Column(children: <Widget>[
                       const Gap(20),
-                      Text("Randonneurs", style: subTitleTextStyle),
+                      Text("Randonneurs",
+                          style: GoogleFonts.poppins(
+                              fontSize: 20,
+                              height: 1.2,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic)),
                       const Gap(20),
                       Column(
                         children: _hikers.map((entry) {
@@ -525,7 +589,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                           48, entry["picture"].toString()),
                                       const Gap(10),
                                       Text(entry["username"].toString(),
-                                          style: subTitleTextStyle),
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              height: 1.2,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                              fontStyle: FontStyle.italic)),
                                     ],
                                   ),
                                   const Gap(15),
@@ -543,16 +612,21 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                   const Gap(15),
                                   Row(
                                     children: [
-                                      const Icon(
-                                        Icons.add_circle_outline,
-                                        color: Colors.white,
+                                      SvgPicture.asset(
+                                        "assets/icons/coins.svg",
+                                        height: 22,
+                                        width: 22,
+                                        colorFilter: const ColorFilter.mode(
+                                          Colors.white,
+                                          BlendMode.srcIn,
+                                        ),
+                                        semanticsLabel: 'error',
                                       ),
                                       const Gap(5.0),
                                       Text("${entry["stats"]["coins"]}",
                                           style: subTitleTextStyle)
                                     ],
                                   ),
-                                  const Gap(20),
                                 ]),
                           );
                         }).toList(),
@@ -588,7 +662,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     final end = jsonData["end"];
 
                     if (coin != null) {
-                      onGetCoin(coin);
+                      onGetCoin(coin, "", (stats.coins + 1));
                     }
                     if (end == true) {
                       onHikeEnd();
