@@ -67,7 +67,7 @@ class CompleteProfileViewModel extends BaseModel {
       appState.updateSensibleDataState(value: sensibleUserData);
       _navigator.goBack();
       _navigator.showSnackBack(
-        content: AppMessages.success,
+        content: "Votre profil a été sauvegardé.",
       );
     } catch (e) {
       setState(ViewState.retrieved);

@@ -107,7 +107,7 @@ class DetailHikeInviteViewModel extends BaseModel {
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       _navigatorService.showSnackBack(
-        content: AppMessages.success,
+        content: "Vous avez quitté la randonnée.",
       );
       setState(ViewState.retrieved);
       _navigatorService.goBack();
@@ -134,7 +134,7 @@ class DetailHikeInviteViewModel extends BaseModel {
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       _navigatorService.showSnackBack(
-        content: AppMessages.success,
+        content: "La randonnée a été supprimé.",
       );
       setState(ViewState.retrieved);
       _navigatorService.goBack();

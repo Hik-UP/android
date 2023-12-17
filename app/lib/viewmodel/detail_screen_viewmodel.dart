@@ -62,7 +62,7 @@ class DetailScreenViewModel extends BaseModel {
 
       if (result.statusCode == 201 || result.statusCode == 200) {
         _navigationService.goBack();
-        _navigationService.showSnackBack(content: AppMessages.success);
+        _navigationService.showSnackBack(content: "La randonnée a été créé.");
         onLoad();
       }
     } catch (e) {

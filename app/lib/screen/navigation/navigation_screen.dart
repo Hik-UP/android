@@ -204,6 +204,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
       late LatLng hikerLatLng =
           LatLng(entry["hiker"]["latitude"], entry["hiker"]["longitude"]);
 
+      _navigator.showSnackBack(
+        content: "${entry["hiker"]["username"]} a rejoint la randonnée.",
+        isError: false,
+      );
       setState(() {
         _hikers = [
           ..._hikers,
@@ -259,9 +263,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
     });
     SocketService().hike.onLeave((data) {
       dynamic entry = json.decode(data);
+      int index =
+          _hikers.indexWhere((item) => item["id"] == entry["hiker"]["id"]);
 
+      _navigator.showSnackBack(
+        content: "${_hikers[index]["username"]} a quitté la randonnée.",
+        isError: true,
+      );
       setState(() {
-        _hikers.removeWhere((item) => item["id"] == entry["hiker"]["id"]);
+        _hikers.removeAt(index);
       });
     });
     SocketService().hike.onMove((data) {
@@ -381,6 +391,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
       dynamic entry = json.decode(data);
 
       onHikeEnd();
+    });
+    SocketService().onReconnect((data) {
+      print("reconnect");
     });
   }
 
@@ -576,59 +589,71 @@ class _NavigationScreenState extends State<NavigationScreen> {
                       const Gap(20),
                       Column(
                         children: _hikers.map((entry) {
-                          return Container(
-                            margin: const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
-                            padding:
-                                const EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Row(
-                                    children: [
-                                      loadHikerPicture(
-                                          48, entry["picture"].toString()),
-                                      const Gap(10),
-                                      Text(entry["username"].toString(),
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 16,
-                                              height: 1.2,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white,
-                                              fontStyle: FontStyle.italic)),
-                                    ],
-                                  ),
-                                  const Gap(15),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.hiking_rounded,
-                                        color: Colors.white,
+                          return InkWell(
+                              onTap: () => {
+                                    model.mapController.move(
+                                        LatLng(
+                                            double.parse(
+                                                entry["LatLng"].split(',')[0]),
+                                            double.parse(
+                                                entry["LatLng"].split(',')[1])),
+                                        18)
+                                  },
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
+                                padding: const EdgeInsets.fromLTRB(
+                                    15.0, 5.0, 15.0, 5.0),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        children: [
+                                          loadHikerPicture(
+                                              48, entry["picture"].toString()),
+                                          const Gap(10),
+                                          Text(entry["username"].toString(),
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 16,
+                                                  height: 1.2,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white,
+                                                  fontStyle: FontStyle.italic)),
+                                        ],
                                       ),
-                                      const Gap(5.0),
-                                      Text("${entry["stats"]["distance"]} m",
-                                          style: subTitleTextStyle)
-                                    ],
-                                  ),
-                                  const Gap(15),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        "assets/icons/coins.svg",
-                                        height: 22,
-                                        width: 22,
-                                        colorFilter: const ColorFilter.mode(
-                                          Colors.white,
-                                          BlendMode.srcIn,
-                                        ),
-                                        semanticsLabel: 'error',
+                                      const Gap(15),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.hiking_rounded,
+                                            color: Colors.white,
+                                          ),
+                                          const Gap(5.0),
+                                          Text(
+                                              "${entry["stats"]["distance"]} m",
+                                              style: subTitleTextStyle)
+                                        ],
                                       ),
-                                      const Gap(5.0),
-                                      Text("${entry["stats"]["coins"]}",
-                                          style: subTitleTextStyle)
-                                    ],
-                                  ),
-                                ]),
-                          );
+                                      const Gap(15),
+                                      Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                            "assets/icons/coins.svg",
+                                            height: 22,
+                                            width: 22,
+                                            colorFilter: const ColorFilter.mode(
+                                              Colors.white,
+                                              BlendMode.srcIn,
+                                            ),
+                                            semanticsLabel: 'error',
+                                          ),
+                                          const Gap(5.0),
+                                          Text("${entry["stats"]["coins"]}",
+                                              style: subTitleTextStyle)
+                                        ],
+                                      ),
+                                    ]),
+                              ));
                         }).toList(),
                       ),
                     ]),

@@ -68,6 +68,17 @@ class SocketService {
     }
   }
 
+  void onReconnect(Function(dynamic) func) {
+    try {
+      socket?.on('reconnect', func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
   void onError(Function(dynamic) func) {
     try {
       socket?.onError(func);
