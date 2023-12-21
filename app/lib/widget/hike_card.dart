@@ -13,6 +13,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hikup/widget/custom_btn.dart';
+import 'package:intl/intl.dart';
 
 class HikeCard extends StatelessWidget {
   final Hike hike;
@@ -26,10 +27,9 @@ class HikeCard extends StatelessWidget {
   });
 
   String formatDate() {
-    var replaceDate = hike.schedule.replaceAll(RegExp(r'T'), ' ');
-    var splitDate = replaceDate.split(' ');
+    DateTime date = DateTime.parse(hike.schedule);
 
-    return "${splitDate[0]} ${splitDate[1].split(':').sublist(0, 2).join(':')}";
+    return DateFormat('dd/MM/yyyy hh:mm').format(date).toString();
   }
 
   @override

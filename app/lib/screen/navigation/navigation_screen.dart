@@ -387,13 +387,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
       onGetCoin(entry["coin"]["id"], entry["hiker"]["id"],
           entry["hiker"]["stats"]["coins"]);
     });
-    SocketService().hike.onEnd((data) {
-      dynamic entry = json.decode(data);
-
+    SocketService().hike.onEnd((_) {
       onHikeEnd();
-    });
-    SocketService().onReconnect((data) {
-      print("reconnect");
     });
   }
 

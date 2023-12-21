@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hikup/theme.dart';
 
 class CustomSnackBar {
   final String content;

@@ -58,46 +58,43 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   }
 
   Widget bottomNavBarItem(activeIcon, inactiveIcon, label, index) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         widget.onChange(index);
         setState(() {
           _selectedIndex = index;
         });
       },
-      child: SizedBox(
-        height: kBottomNavigationBarHeight,
-        width: MediaQuery.of(context).size.width / _selectedItemIcon.length,
-        child: Padding(
-          padding: const EdgeInsets.all(0.0),
-          child: _selectedIndex == index
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset(
-                      activeIcon,
-                      width: 22,
-                      height: 22,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      label,
-                      style: bottomNavTextStyle,
-                    )
-                  ],
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      inactiveIcon,
-                      width: 22,
-                      height: 22,
-                      color: BlackTertiary,
-                    ),
-                  ],
-                ),
-        ),
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+        padding: const EdgeInsets.all(0.0),
+        child: _selectedIndex == index
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(
+                    activeIcon,
+                    width: 22,
+                    height: 22,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    label,
+                    style: bottomNavTextStyle,
+                  )
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    inactiveIcon,
+                    width: 22,
+                    height: 22,
+                    color: BlackTertiary,
+                  ),
+                ],
+              ),
       ),
     );
   }

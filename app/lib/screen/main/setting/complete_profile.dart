@@ -58,7 +58,7 @@ class CompleteProfile extends StatelessWidget {
             style: titleTextStyleWhite,
           ),
           iconTheme: const IconThemeData(
-            color: GreenPrimary, // Couleur de la flèche retour
+            color: Colors.white, // Couleur de la flèche retour
           ),
           toolbarHeight: kToolbarHeight,
           backgroundColor: BlackSecondary,

@@ -17,6 +17,7 @@ import 'package:hikup/widget/custom_sliver_app_bar.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hikup/widget/custom_btn.dart';
+import 'package:intl/intl.dart';
 
 class DetailHikeInvite extends StatefulWidget {
   static String routeName = "/detail-hike-invite";
@@ -60,10 +61,9 @@ class _DetailHikeInviteState extends State<DetailHikeInvite> {
     bool joinLoading = false;
 
     String formatDate() {
-      var replaceDate = hike.schedule.replaceAll(RegExp(r'T'), ' ');
-      var splitDate = replaceDate.split(' ');
+      DateTime date = DateTime.parse(hike.schedule);
 
-      return "${splitDate[0]} ${splitDate[1].split(':').sublist(0, 2).join(':')}";
+      return DateFormat('dd/MM/yyyy hh:mm').format(date).toString();
     }
 
     return BaseView<DetailHikeInviteViewModel>(
