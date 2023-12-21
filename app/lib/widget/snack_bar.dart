@@ -24,10 +24,7 @@ class CustomSnackBar {
   }) {
     return SnackBar(
       behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height - 120,
-          left: 10,
-          right: 10),
+      margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
       backgroundColor: isError
           ? const Color.fromRGBO(132, 16, 42, 1)
           : const Color.fromRGBO(12, 60, 40, 1),
@@ -42,6 +39,7 @@ class CustomSnackBar {
       ),
       content: Text(
         content,
+        textAlign: TextAlign.start,
       ),
     );
   }

@@ -59,12 +59,6 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                               ? const Color.fromRGBO(87, 252, 255, 0.8)
                               : Colors.transparent;
 
-      Future<void> _launchUrl(String url) async {
-        if (!await launchUrl(Uri.parse(url))) {
-          throw Exception('Could not launch URL');
-        }
-      }
-
       model.mapController.mapEventStream.listen((event) {
         if (model.polylines.isNotEmpty &&
             model.mapController.camera.zoom <= 12) {

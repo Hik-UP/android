@@ -95,9 +95,8 @@ class LoginPageViewModel extends BaseModel {
           appState.updateSkinState(value: skin);
           await appState.storeInHive(user: newUser);
 
-          await FirebaseAnalytics.instance.logEvent(
-            name: "login",
-            parameters: {"email": email},
+          await FirebaseAnalytics.instance.logLogin(
+            parameters: {"id": user.id},
           );
 
           _navigationService.navigateTo(MainScreen.routeName);
