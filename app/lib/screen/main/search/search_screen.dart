@@ -19,6 +19,8 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   String trailsFilter = "";
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +34,14 @@ class _SearchScreenState extends State<SearchScreen> {
       builder: (context, model, child) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (model.trailsList.isEmpty) {
-            model.trails(appState: appState);
+            model.trails(
+                appState: appState,
+                onLoad: () {
+                  isLoading = true;
+                },
+                onRetrieved: () {
+                  isLoading = false;
+                });
           }
         });
 
@@ -77,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     children: [
                       const Gap(5.0),
                       // RECOMMENDED FIELDS
-                      model.filterTrailsList.isNotEmpty
+                      model.filterTrailsList.isNotEmpty && isLoading == false
                           ? ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -87,36 +96,51 @@ class _SearchScreenState extends State<SearchScreen> {
                                 field: model.filterTrailsList[index],
                               ),
                             )
-                          : SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height - 200,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/icons/cat-error.svg",
-                                    height: 64,
-                                    width: 64,
-                                    colorFilter: const ColorFilter.mode(
-                                      Colors.grey,
-                                      BlendMode.srcIn,
-                                    ),
-                                    semanticsLabel: 'error',
+                          : isLoading == true
+                              ? SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height - 200,
+                                  child: const Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      CircularProgressIndicator(),
+                                    ],
+                                  ))
+                              : SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height - 200,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        "assets/icons/cat-error.svg",
+                                        height: 64,
+                                        width: 64,
+                                        colorFilter: const ColorFilter.mode(
+                                          Colors.grey,
+                                          BlendMode.srcIn,
+                                        ),
+                                        semanticsLabel: 'error',
+                                      ),
+                                      const Gap(20),
+                                      Center(
+                                        child: Text(
+                                          "Aucun résultat",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.grey),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  const Gap(20),
-                                  Center(
-                                    child: Text(
-                                      "Aucun résultat",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                ),
                       const Gap(80.0),
                     ],
                   ),

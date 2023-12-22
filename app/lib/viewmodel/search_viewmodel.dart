@@ -24,12 +24,14 @@ class SearchViewModel extends BaseModel {
     notifyListeners();
   }
 
-  trails({
-    required AppState appState,
-  }) async {
+  trails(
+      {required AppState appState,
+      required Function() onLoad,
+      required Function() onRetrieved}) async {
     Response trailList;
     List<TrailFields> result = [];
 
+    onLoad();
     var existingTrail = _hiveService.getData<TrailList>(boxTrails, "trails");
     if (existingTrail != null && existingTrail.trails.isNotEmpty) {
       trailsList = existingTrail.trails;
@@ -52,6 +54,7 @@ class SearchViewModel extends BaseModel {
     }
 
     filterTrailsList = trailsList;
+    onRetrieved();
     notifyListeners();
   }
 

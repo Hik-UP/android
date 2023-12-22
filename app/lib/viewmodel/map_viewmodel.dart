@@ -153,10 +153,11 @@ class MapViewModel extends BaseModel {
                   borderStrokeWidth: 0.1,
                 ));
                 hikesList = await WrapperApi().getAllHike(
-                  path: getHikePath,
-                  appState: appState,
-                  target: ["attendee"],
-                );
+                    path: getHikePath,
+                    appState: appState,
+                    target: ["attendee"],
+                    onLoad: () => null,
+                    onRetrieved: () => null);
                 handleJoin(trailField);
                 showPanel = true;
                 updateScreen();

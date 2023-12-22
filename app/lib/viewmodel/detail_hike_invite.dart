@@ -58,10 +58,11 @@ class DetailHikeInviteViewModel extends BaseModel {
       setState(ViewState.join);
       joinInProgress = true;
       hikesList = await WrapperApi().getAllHike(
-        path: getHikePath,
-        appState: appState,
-        target: ["attendee"],
-      );
+          path: getHikePath,
+          appState: appState,
+          target: ["attendee"],
+          onLoad: () => null,
+          onRetrieved: () => null);
       index = hikesList.indexWhere((item) => item.id == hike.id);
       newHike = hikesList[index];
       SocketService().connect(

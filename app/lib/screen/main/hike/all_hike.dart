@@ -24,6 +24,8 @@ class AllHike extends StatefulWidget {
 }
 
 class _AllHikeState extends State<AllHike> {
+  bool isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     error() {
@@ -55,10 +57,15 @@ class _AllHikeState extends State<AllHike> {
 
     return FutureBuilder<List<Hike>>(
       future: WrapperApi().getAllHike(
-        path: getHikePath,
-        appState: context.read<AppState>(),
-        target: widget.targets,
-      ),
+          path: getHikePath,
+          appState: context.read<AppState>(),
+          target: widget.targets,
+          onLoad: () {
+            isLoading = true;
+          },
+          onRetrieved: () {
+            isLoading = false;
+          }),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
@@ -72,7 +79,7 @@ class _AllHikeState extends State<AllHike> {
             ),
           );
         }
-        if (snapshot.data != null) {
+        if (snapshot.data != null && isLoading == false) {
           if (snapshot.data!.isNotEmpty) {
             return ListView.builder(
               primary: false,
@@ -84,13 +91,8 @@ class _AllHikeState extends State<AllHike> {
                 ),
                 child: HikeCard(
                   hike: snapshot.data![index],
-                  guest: widget.menuIndex == 1,
-                  update: () => Future.delayed(
-                      const Duration(
-                        seconds: 3,
-                      ), () {
-                    setState(() {});
-                  }),
+                  guest: widget.targets[0] == "guest",
+                  update: () => setState(() {}),
                 ),
               ),
             );
@@ -99,12 +101,16 @@ class _AllHikeState extends State<AllHike> {
           }
         }
 
-        return const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircularProgressIndicator(),
-          ],
-        );
+        return SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - 200,
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+              ],
+            ));
       },
     );
   }
