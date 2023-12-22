@@ -45,7 +45,7 @@ class LoginPageViewModel extends BaseModel {
             "password": password,
           }
         },
-      );
+      ).timeout(const Duration(seconds: 10), onTimeout: null);
       setState(ViewState.retrieved);
       Map<String, dynamic> data = result.data as Map<String, dynamic>;
 
@@ -71,11 +71,13 @@ class LoginPageViewModel extends BaseModel {
         //Passer de user JSON à user model
         User user = User.fromMap(data: data["user"]);
 
-        var userProfile = await WrapperApi().getProfile(
-          id: user.id,
-          roles: user.roles,
-          token: user.token,
-        );
+        var userProfile = await WrapperApi()
+            .getProfile(
+              id: user.id,
+              roles: user.roles,
+              token: user.token,
+            )
+            .timeout(const Duration(seconds: 10), onTimeout: null);
 
         if (userProfile.statusCode == 200 || userProfile.statusCode == 201) {
           var profileData = userProfile.data as Map<String, dynamic>;
@@ -111,6 +113,10 @@ class LoginPageViewModel extends BaseModel {
         //Stocker l'utilisateur dans le local storage d'une téléphone et ensuite dans le state de l'application
       }
     } catch (e) {
+      _navigationService.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
       setState(ViewState.retrieved);
     }
   }

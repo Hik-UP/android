@@ -33,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return BaseView<SearchViewModel>(
       builder: (context, model, child) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (model.trailsList.isEmpty) {
+          if (model.trailsList.isEmpty && model.error == false) {
             model.trails(
                 appState: appState,
                 onLoad: () {

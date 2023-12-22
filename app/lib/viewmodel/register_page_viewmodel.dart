@@ -58,13 +58,17 @@ class RegisterPageViewModel extends BaseModel {
           "email": email,
           "password": password,
         }
-      });
+      }).timeout(const Duration(seconds: 10), onTimeout: null);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         await FirebaseAnalytics.instance.logSignUp(
           signUpMethod: 'app',
         );
 
+        _customNavigationService.showSnackBack(
+          content: "Votre compte a été créé",
+          isError: false,
+        );
         _customNavigationService.navigateTo(LoginPage.routeName);
       } else {
         _customNavigationService.showSnackBack(
@@ -74,6 +78,10 @@ class RegisterPageViewModel extends BaseModel {
       }
       setState(ViewState.retrieved);
     } catch (e) {
+      _customNavigationService.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
       setState(ViewState.retrieved);
     }
   }

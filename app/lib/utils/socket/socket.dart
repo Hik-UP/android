@@ -24,6 +24,7 @@ class SocketService {
               .setAuth(
                   {'token': token, 'id': userId, 'roles': userRoles.join(",")})
               .disableAutoConnect()
+              .enableReconnection()
               .build());
       socket?.connect();
     } catch (e) {

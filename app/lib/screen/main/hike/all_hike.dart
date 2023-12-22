@@ -68,16 +68,7 @@ class _AllHikeState extends State<AllHike> {
           }),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              AppMessages.anErrorOcur,
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w400,
-                fontSize: 12.0,
-                color: Colors.white,
-              ),
-            ),
-          );
+          return error();
         }
         if (snapshot.data != null && isLoading == false) {
           if (snapshot.data!.isNotEmpty) {

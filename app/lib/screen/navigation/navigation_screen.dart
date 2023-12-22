@@ -572,86 +572,117 @@ class _NavigationScreenState extends State<NavigationScreen> {
                       color: Colors.black.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Column(children: <Widget>[
-                      const Gap(20),
-                      Text("Randonneurs",
-                          style: GoogleFonts.poppins(
-                              fontSize: 20,
-                              height: 1.2,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                              fontStyle: FontStyle.italic)),
-                      const Gap(20),
-                      Column(
-                        children: _hikers.map((entry) {
-                          return InkWell(
-                              onTap: () => {
-                                    model.mapController.move(
-                                        LatLng(
-                                            double.parse(
-                                                entry["LatLng"].split(',')[0]),
-                                            double.parse(
-                                                entry["LatLng"].split(',')[1])),
-                                        18)
-                                  },
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
-                                padding: const EdgeInsets.fromLTRB(
-                                    15.0, 5.0, 15.0, 5.0),
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Row(
-                                        children: [
-                                          loadHikerPicture(
-                                              48, entry["picture"].toString()),
-                                          const Gap(10),
-                                          Text(entry["username"].toString(),
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 16,
-                                                  height: 1.2,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white,
-                                                  fontStyle: FontStyle.italic)),
-                                        ],
-                                      ),
-                                      const Gap(15),
-                                      Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.hiking_rounded,
-                                            color: Colors.white,
-                                          ),
-                                          const Gap(5.0),
-                                          Text(
-                                              "${entry["stats"]["distance"]} m",
-                                              style: subTitleTextStyle)
-                                        ],
-                                      ),
-                                      const Gap(15),
-                                      Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            "assets/icons/coins.svg",
-                                            height: 22,
-                                            width: 22,
-                                            colorFilter: const ColorFilter.mode(
-                                              Colors.white,
-                                              BlendMode.srcIn,
+                    child: _hikers.isNotEmpty
+                        ? Column(children: <Widget>[
+                            const Gap(20),
+                            Text("Randonneurs",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 20,
+                                    height: 1.2,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                    fontStyle: FontStyle.italic)),
+                            const Gap(20),
+                            Column(
+                              children: _hikers.map((entry) {
+                                return InkWell(
+                                    onTap: () => {
+                                          model.mapController.move(
+                                              LatLng(
+                                                  double.parse(entry["LatLng"]
+                                                      .split(',')[0]),
+                                                  double.parse(entry["LatLng"]
+                                                      .split(',')[1])),
+                                              18)
+                                        },
+                                    child: Container(
+                                      margin: const EdgeInsets.fromLTRB(
+                                          0, 5.0, 0, 5.0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15.0, 5.0, 15.0, 5.0),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Row(
+                                              children: [
+                                                loadHikerPicture(
+                                                    48,
+                                                    entry["picture"]
+                                                        .toString()),
+                                                const Gap(10),
+                                                Text(
+                                                    entry["username"]
+                                                        .toString(),
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 16,
+                                                        height: 1.2,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        color: Colors.white,
+                                                        fontStyle:
+                                                            FontStyle.italic)),
+                                              ],
                                             ),
-                                            semanticsLabel: 'error',
-                                          ),
-                                          const Gap(5.0),
-                                          Text("${entry["stats"]["coins"]}",
-                                              style: subTitleTextStyle)
-                                        ],
-                                      ),
-                                    ]),
-                              ));
-                        }).toList(),
-                      ),
-                    ]),
+                                            const Gap(15),
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.hiking_rounded,
+                                                  color: Colors.white,
+                                                ),
+                                                const Gap(5.0),
+                                                Text(
+                                                    "${entry["stats"]["distance"]} m",
+                                                    style: subTitleTextStyle)
+                                              ],
+                                            ),
+                                            const Gap(15),
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  "assets/icons/coins.svg",
+                                                  height: 22,
+                                                  width: 22,
+                                                  colorFilter:
+                                                      const ColorFilter.mode(
+                                                    Colors.white,
+                                                    BlendMode.srcIn,
+                                                  ),
+                                                  semanticsLabel: 'error',
+                                                ),
+                                                const Gap(5.0),
+                                                Text(
+                                                    "${entry["stats"]["coins"]}",
+                                                    style: subTitleTextStyle)
+                                              ],
+                                            ),
+                                          ]),
+                                    ));
+                              }).toList(),
+                            ),
+                          ])
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                                SvgPicture.asset("assets/icons/cat-error.svg",
+                                    height: 64,
+                                    width: 64,
+                                    colorFilter: const ColorFilter.mode(
+                                        Colors.grey, BlendMode.srcIn),
+                                    semanticsLabel: 'error'),
+                                const Gap(20),
+                                Center(
+                                  child: Text(
+                                    "Aucun participant",
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey),
+                                  ),
+                                ),
+                              ]),
                   )
                 : Container(),
             body: MapBox(

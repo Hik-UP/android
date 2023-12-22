@@ -116,7 +116,7 @@ class WrapperApi {
           },
           "hike": {"target": target},
         },
-      );
+      ).timeout(const Duration(seconds: 10), onTimeout: null);
 
       for (String state in target) {
         List<Hike> subElements = [];
@@ -128,8 +128,11 @@ class WrapperApi {
       onRetrieved();
       return hikes;
     } catch (e) {
-      onRetrieved();
-      throw AppMessages.anErrorOcur;
+      _navigationService.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+      throw "";
     }
   }
 

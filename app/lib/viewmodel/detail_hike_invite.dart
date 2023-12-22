@@ -45,46 +45,50 @@ class DetailHikeInviteViewModel extends BaseModel {
       required Function() onLoad,
       required Function() onFail,
       required Function() onComplete}) async {
-    onLoad();
-    bool permission = await getLocation();
-    List<Hike> hikesList;
-    int index;
+    try {
+      onLoad();
+      bool permission = await getLocation();
+      List<Hike> hikesList;
+      int index;
 
-    if (permission == false) {
-      onFail();
-      return;
-    }
-    if (joinInProgress == false) {
-      setState(ViewState.join);
-      joinInProgress = true;
-      hikesList = await WrapperApi().getAllHike(
-          path: getHikePath,
-          appState: appState,
-          target: ["attendee"],
-          onLoad: () => null,
-          onRetrieved: () => null);
-      index = hikesList.indexWhere((item) => item.id == hike.id);
-      newHike = hikesList[index];
-      SocketService().connect(
-          token: appState.token,
-          userId: appState.id,
-          userRoles: appState.roles);
-      SocketService().onError((_) {
-        joinInProgress = false;
-        SocketService().disconnect();
+      if (permission == false) {
         onFail();
-      });
+        return;
+      }
+      if (joinInProgress == false) {
+        setState(ViewState.join);
+        joinInProgress = true;
+        hikesList = await WrapperApi()
+            .getAllHike(
+                path: getHikePath,
+                appState: appState,
+                target: ["attendee"],
+                onLoad: () => null,
+                onRetrieved: () => null)
+            .timeout(const Duration(seconds: 10), onTimeout: null);
+        index = hikesList.indexWhere((item) => item.id == hike.id);
+        newHike = hikesList[index];
+        SocketService().connect(
+            token: appState.token,
+            userId: appState.id,
+            userRoles: appState.roles);
+        SocketService().onError((_) {
+          joinInProgress = false;
+          SocketService().disconnect();
+          onFail();
+        });
 
-      await SocketService().hike.join(hike.id, (data) {
-        dynamic jsonData = json.decode(data);
-        stats = jsonData["stats"];
-        hikers = jsonData["hikers"];
+        await SocketService().hike.join(hike.id, (data) {
+          dynamic jsonData = json.decode(data);
+          stats = jsonData["stats"];
+          hikers = jsonData["hikers"];
 
-        joinInProgress = false;
-        setState(ViewState.retrieved);
-        onComplete();
-      });
-    }
+          joinInProgress = false;
+          setState(ViewState.retrieved);
+          onComplete();
+        });
+      }
+    } catch (err) {}
   }
 
   leaveHike(

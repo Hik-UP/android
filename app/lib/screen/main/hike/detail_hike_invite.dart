@@ -5,6 +5,7 @@ import "package:hikup/model/guest.dart";
 import "package:hikup/model/hike.dart";
 import "package:hikup/model/trail_fields.dart";
 import "package:hikup/providers/app_state.dart";
+import "package:hikup/utils/app_messages.dart";
 import "package:hikup/utils/constant.dart";
 import "package:hikup/viewmodel/detail_hike_invite.dart";
 import "package:hikup/widget/base_view.dart";
@@ -18,6 +19,8 @@ import 'package:hikup/utils/wrapper_api.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:intl/intl.dart';
+import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/locator.dart';
 
 class DetailHikeInvite extends StatefulWidget {
   static String routeName = "/detail-hike-invite";
@@ -31,6 +34,7 @@ class DetailHikeInvite extends StatefulWidget {
 class _DetailHikeInviteState extends State<DetailHikeInvite> {
   @override
   Widget build(BuildContext context) {
+    final navigationService = locator<CustomNavigationService>();
     final hike = widget.hike;
     AppState appState = context.read<AppState>();
     final trail = TrailFields(
@@ -207,99 +211,124 @@ class _DetailHikeInviteState extends State<DetailHikeInvite> {
                       child: CustomBtn(
                         content: "Rejoindre",
                         onPress: () async {
-                          model.getLocation().then((permission) => permission ==
-                                  true
-                              ? showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                        scrollable: true,
-                                        contentPadding:
-                                            const EdgeInsets.fromLTRB(
-                                                10, 15, 10, 10),
-                                        backgroundColor:
-                                            Colors.black.withOpacity(0.9),
-                                        shape: const RoundedRectangleBorder(
-                                            side:
-                                                BorderSide(color: Colors.grey),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        title: Text('Attention',
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.white,
-                                                fontStyle: FontStyle.italic)),
-                                        content: StatefulBuilder(
-                                          // You need this, notice the parameters below:
-                                          builder: (BuildContext context,
-                                                  StateSetter setState) =>
-                                              Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                Text(
-                                                  "Afin de vous garantir une expérience positive, quelques précautions sont à prendre en considération. Avant toute escapade, une préparation minutieuse s'impose. Informez-vous sur le terrain, anticipez la météo, et assurez-vous d'avoir l'équipement adapté.\n\nSuivez les sentiers balisés pour éviter tout égarement et préservez l'écosystème environnant. Avant le départ, communiquez votre itinéraire à un proche et tenez-le informé de votre progression. Restez conscient des conditions météorologiques, adaptez votre équipement en conséquence, et soyez prêt à rebrousser chemin si le temps se dégrade. La vigilance envers votre alimentation et votre hydratation est cruciale, tout comme le respect des principes de l'éthique en plein air.\n\nHik'UP ne sera tenu responsable en cas d'accident.",
-                                                  textAlign: TextAlign.justify,
+                          try {
+                            model.getLocation().then((permission) =>
+                                permission == true
+                                    ? showDialog<String>(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                              scrollable: true,
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      10, 15, 10, 10),
+                                              backgroundColor:
+                                                  Colors.black.withOpacity(0.9),
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                      side: BorderSide(
+                                                          color: Colors.grey),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10))),
+                                              title: Text('Attention',
+                                                  textAlign: TextAlign.center,
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 12,
+                                                      fontSize: 18,
                                                       fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.grey),
-                                                ),
-                                                const Gap(20),
-                                                CustomBtn(
-                                                    isLoading: joinLoading,
-                                                    content: "C'est compris",
-                                                    onPress: () =>
-                                                        model.joinHike(
-                                                            appState: appState,
-                                                            hike: hike,
-                                                            onLoad: () {
-                                                              setState(() {
-                                                                joinLoading =
-                                                                    true;
-                                                              });
-                                                            },
-                                                            onFail: () {
-                                                              setState(() {
-                                                                joinLoading =
-                                                                    false;
-                                                              });
-                                                              Navigator.pop(
-                                                                  context,
-                                                                  'Cancel');
-                                                            },
-                                                            onComplete: () {
-                                                              setState(() {
-                                                                joinLoading =
-                                                                    false;
-                                                              });
-                                                              Navigator.pop(
-                                                                  context,
-                                                                  'Done');
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .push(
-                                                                      MaterialPageRoute(
-                                                                builder: (context) => NavigationScreen(
-                                                                    hike: model
-                                                                        .newHike,
-                                                                    stats: model
-                                                                        .stats,
-                                                                    hikers: model
-                                                                        .hikers),
-                                                              ));
-                                                            }))
-                                              ]),
-                                        ),
-                                      ))
-                              : null);
+                                                          FontWeight.w700,
+                                                      color: Colors.white,
+                                                      fontStyle:
+                                                          FontStyle.italic)),
+                                              content: StatefulBuilder(
+                                                // You need this, notice the parameters below:
+                                                builder: (BuildContext context,
+                                                        StateSetter setState) =>
+                                                    Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                      Text(
+                                                        "Afin de vous garantir une expérience positive, quelques précautions sont à prendre en considération. Avant toute escapade, une préparation minutieuse s'impose. Informez-vous sur le terrain, anticipez la météo, et assurez-vous d'avoir l'équipement adapté.\n\nSuivez les sentiers balisés pour éviter tout égarement et préservez l'écosystème environnant. Avant le départ, communiquez votre itinéraire à un proche et tenez-le informé de votre progression. Restez conscient des conditions météorologiques, adaptez votre équipement en conséquence, et soyez prêt à rebrousser chemin si le temps se dégrade. La vigilance envers votre alimentation et votre hydratation est cruciale, tout comme le respect des principes de l'éthique en plein air.\n\nHik'UP ne sera tenu responsable en cas d'accident.",
+                                                        textAlign:
+                                                            TextAlign.justify,
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                color: Colors
+                                                                    .grey),
+                                                      ),
+                                                      const Gap(20),
+                                                      CustomBtn(
+                                                          isLoading:
+                                                              joinLoading,
+                                                          content:
+                                                              "C'est compris",
+                                                          onPress: () =>
+                                                              model.joinHike(
+                                                                  appState:
+                                                                      appState,
+                                                                  hike: hike,
+                                                                  onLoad: () {
+                                                                    setState(
+                                                                        () {
+                                                                      joinLoading =
+                                                                          true;
+                                                                    });
+                                                                  },
+                                                                  onFail: () {
+                                                                    setState(
+                                                                        () {
+                                                                      joinLoading =
+                                                                          false;
+                                                                    });
+                                                                    Navigator.pop(
+                                                                        context,
+                                                                        'Cancel');
+                                                                  },
+                                                                  onComplete:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
+                                                                      joinLoading =
+                                                                          false;
+                                                                    });
+                                                                    Navigator.pop(
+                                                                        context,
+                                                                        'Done');
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .push(
+                                                                            MaterialPageRoute(
+                                                                      builder: (context) => NavigationScreen(
+                                                                          hike: model
+                                                                              .newHike,
+                                                                          stats: model
+                                                                              .stats,
+                                                                          hikers:
+                                                                              model.hikers),
+                                                                    ));
+                                                                  }))
+                                                    ]),
+                                              ),
+                                            ))
+                                    : null);
+                          } catch (err) {
+                            navigationService.showSnackBack(
+                              content: AppMessages.anErrorOcur,
+                              isError: true,
+                            );
+                          }
                         },
                       ),
                     ),
