@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,32 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD8--G53wTSkwum4UOMi1MQqwqviyqCUgk',
-    appId: '1:952779681389:web:06c41bbfd3c824e2a55964',
-    messagingSenderId: '952779681389',
-    projectId: 'hikup-app',
-    authDomain: 'hikup-app.firebaseapp.com',
-    storageBucket: 'hikup-app.appspot.com',
-    measurementId: 'G-XLRBYZLERM',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDAO1bFn8K4uRB10jjKdd2-0mQvK0bGgwk',
     appId: '1:952779681389:android:85dcea808a4ea446a55964',
     messagingSenderId: '952779681389',
     projectId: 'hikup-app',
     storageBucket: 'hikup-app.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAM2aPJMOtwqHuQXPe1JpjeaJW9vtLOEb4',
-    appId: '1:952779681389:ios:d02aa7604b350914a55964',
-    messagingSenderId: '952779681389',
-    projectId: 'hikup-app',
-    storageBucket: 'hikup-app.appspot.com',
-    iosClientId:
-        '952779681389-q9d7o4bahn7l8ilcv852s4ae7176ulqi.apps.googleusercontent.com',
-    iosBundleId: 'com.example.app',
   );
 }

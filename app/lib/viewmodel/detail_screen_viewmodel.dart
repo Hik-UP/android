@@ -76,7 +76,7 @@ class DetailScreenViewModel extends BaseModel {
     String minute =
         dateSplit[1].length >= 2 ? dateSplit[1] : "0${dateSplit[1]}";
 
-    return DateFormat("dd/MM/yyyy hh:mm")
+    return DateFormat("dd/MM/yyyy HH:mm")
         .parse("${dateCtrl.text} ${dateSplit[0]}:$minute")
         .millisecondsSinceEpoch;
   }

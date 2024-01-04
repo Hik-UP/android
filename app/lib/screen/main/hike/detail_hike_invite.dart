@@ -67,7 +67,7 @@ class _DetailHikeInviteState extends State<DetailHikeInvite> {
     String formatDate() {
       DateTime date = DateTime.parse(hike.schedule).toLocal();
 
-      return DateFormat('dd/MM/yyyy hh:mm').format(date).toString();
+      return DateFormat('dd/MM/yyyy HH:mm').format(date).toString();
     }
 
     return BaseView<DetailHikeInviteViewModel>(

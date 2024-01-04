@@ -94,7 +94,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
             ),
             model.showPanel == true && model.trailsList.isNotEmpty
                 ? Positioned(
-                    top: 70,
+                    top: 80,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,

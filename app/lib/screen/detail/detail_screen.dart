@@ -133,7 +133,7 @@ class DetailScreen extends StatelessWidget {
             ],
           ),
           bottomNavigationBar: Container(
-              height: 65,
+              height: 75,
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 15),
               decoration: const BoxDecoration(
                 color: Colors.black,
