@@ -65,7 +65,7 @@ class _DetailHikeInviteState extends State<DetailHikeInvite> {
     bool joinLoading = false;
 
     String formatDate() {
-      DateTime date = DateTime.parse(hike.schedule);
+      DateTime date = DateTime.parse(hike.schedule).toLocal();
 
       return DateFormat('dd/MM/yyyy hh:mm').format(date).toString();
     }
@@ -207,131 +207,140 @@ class _DetailHikeInviteState extends State<DetailHikeInvite> {
             ),
             child: isLeaved == false
                 ? Row(children: [
-                    Expanded(
-                      child: CustomBtn(
-                        content: "Rejoindre",
-                        onPress: () async {
-                          try {
-                            model.getLocation().then((permission) =>
-                                permission == true
-                                    ? showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                              scrollable: true,
-                                              contentPadding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 15, 10, 10),
-                                              backgroundColor:
-                                                  Colors.black.withOpacity(0.9),
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                      side: BorderSide(
-                                                          color: Colors.grey),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  10))),
-                                              title: Text('Attention',
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Colors.white,
-                                                      fontStyle:
-                                                          FontStyle.italic)),
-                                              content: StatefulBuilder(
-                                                // You need this, notice the parameters below:
-                                                builder: (BuildContext context,
-                                                        StateSetter setState) =>
-                                                    Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                      Text(
-                                                        "Afin de vous garantir une expérience positive, quelques précautions sont à prendre en considération. Avant toute escapade, une préparation minutieuse s'impose. Informez-vous sur le terrain, anticipez la météo, et assurez-vous d'avoir l'équipement adapté.\n\nSuivez les sentiers balisés pour éviter tout égarement et préservez l'écosystème environnant. Avant le départ, communiquez votre itinéraire à un proche et tenez-le informé de votre progression. Restez conscient des conditions météorologiques, adaptez votre équipement en conséquence, et soyez prêt à rebrousser chemin si le temps se dégrade. La vigilance envers votre alimentation et votre hydratation est cruciale, tout comme le respect des principes de l'éthique en plein air.\n\nHik'UP ne sera tenu responsable en cas d'accident.",
+                    hike.status == 'IN_PROGRESS'
+                        ? Expanded(
+                            child: CustomBtn(
+                              content: "Rejoindre",
+                              onPress: () async {
+                                try {
+                                  model.getLocation().then((permission) =>
+                                      permission == true
+                                          ? showDialog<String>(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                    scrollable: true,
+                                                    contentPadding:
+                                                        const EdgeInsets
+                                                            .fromLTRB(
+                                                            10, 15, 10, 10),
+                                                    backgroundColor: Colors
+                                                        .black
+                                                        .withOpacity(0.9),
+                                                    shape: const RoundedRectangleBorder(
+                                                        side: BorderSide(
+                                                            color: Colors.grey),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10))),
+                                                    title: Text('Attention',
                                                         textAlign:
-                                                            TextAlign.justify,
+                                                            TextAlign.center,
                                                         style:
                                                             GoogleFonts.poppins(
-                                                                fontSize: 12,
+                                                                fontSize: 18,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w400,
+                                                                        .w700,
                                                                 color: Colors
-                                                                    .grey),
-                                                      ),
-                                                      const Gap(20),
-                                                      CustomBtn(
-                                                          isLoading:
-                                                              joinLoading,
-                                                          content:
-                                                              "C'est compris",
-                                                          onPress: () =>
-                                                              model.joinHike(
-                                                                  appState:
-                                                                      appState,
-                                                                  hike: hike,
-                                                                  onLoad: () {
-                                                                    setState(
-                                                                        () {
-                                                                      joinLoading =
-                                                                          true;
-                                                                    });
-                                                                  },
-                                                                  onFail: () {
-                                                                    setState(
-                                                                        () {
-                                                                      joinLoading =
-                                                                          false;
-                                                                    });
-                                                                    Navigator.pop(
-                                                                        context,
-                                                                        'Cancel');
-                                                                  },
-                                                                  onComplete:
-                                                                      () {
-                                                                    setState(
-                                                                        () {
-                                                                      joinLoading =
-                                                                          false;
-                                                                    });
-                                                                    Navigator.pop(
-                                                                        context,
-                                                                        'Done');
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .push(
-                                                                            MaterialPageRoute(
-                                                                      builder: (context) => NavigationScreen(
-                                                                          hike: model
-                                                                              .newHike,
-                                                                          stats: model
-                                                                              .stats,
-                                                                          hikers:
-                                                                              model.hikers),
-                                                                    ));
-                                                                  }))
-                                                    ]),
-                                              ),
-                                            ))
-                                    : null);
-                          } catch (err) {
-                            navigationService.showSnackBack(
-                              content: AppMessages.anErrorOcur,
-                              isError: true,
-                            );
-                          }
-                        },
-                      ),
-                    ),
+                                                                    .white,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .italic)),
+                                                    content: StatefulBuilder(
+                                                      // You need this, notice the parameters below:
+                                                      builder: (BuildContext
+                                                                  context,
+                                                              StateSetter
+                                                                  setState) =>
+                                                          Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                            Text(
+                                                              "Afin de vous garantir une expérience positive, quelques précautions sont à prendre en considération. Avant toute escapade, une préparation minutieuse s'impose. Informez-vous sur le terrain, anticipez la météo, et assurez-vous d'avoir l'équipement adapté.\n\nSuivez les sentiers balisés pour éviter tout égarement et préservez l'écosystème environnant. Avant le départ, communiquez votre itinéraire à un proche et tenez-le informé de votre progression. Restez conscient des conditions météorologiques, adaptez votre équipement en conséquence, et soyez prêt à rebrousser chemin si le temps se dégrade. La vigilance envers votre alimentation et votre hydratation est cruciale, tout comme le respect des principes de l'éthique en plein air.\n\nHik'UP ne sera tenu responsable en cas d'accident.",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .justify,
+                                                              style: GoogleFonts.poppins(
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: Colors
+                                                                      .grey),
+                                                            ),
+                                                            const Gap(20),
+                                                            CustomBtn(
+                                                                isLoading:
+                                                                    joinLoading,
+                                                                content:
+                                                                    "C'est compris",
+                                                                onPress: () => model
+                                                                    .joinHike(
+                                                                        appState:
+                                                                            appState,
+                                                                        hike:
+                                                                            hike,
+                                                                        onLoad:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            joinLoading =
+                                                                                true;
+                                                                          });
+                                                                        },
+                                                                        onFail:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            joinLoading =
+                                                                                false;
+                                                                          });
+                                                                          Navigator.pop(
+                                                                              context,
+                                                                              'Cancel');
+                                                                        },
+                                                                        onComplete:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            joinLoading =
+                                                                                false;
+                                                                          });
+                                                                          Navigator.pop(
+                                                                              context,
+                                                                              'Done');
+                                                                          Navigator.of(context)
+                                                                              .push(MaterialPageRoute(
+                                                                            builder: (context) => NavigationScreen(
+                                                                                hike: model.newHike,
+                                                                                stats: model.stats,
+                                                                                hikers: model.hikers),
+                                                                          ));
+                                                                        }))
+                                                          ]),
+                                                    ),
+                                                  ))
+                                          : null);
+                                } catch (err) {
+                                  navigationService.showSnackBack(
+                                    content: AppMessages.anErrorOcur,
+                                    isError: true,
+                                  );
+                                }
+                              },
+                            ),
+                          )
+                        : Container(),
                     const Gap(5.0),
                     Expanded(
                       child: CustomBtn(

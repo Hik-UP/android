@@ -83,6 +83,7 @@ dependencies:
   pedometer: ^4.0.1
   perfect_volume_control:
   audioplayers:
+  timezone: ^0.9.2
 
 dev_dependencies:
   flutter_test:
