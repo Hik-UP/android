@@ -128,6 +128,7 @@ class MapViewModel extends BaseModel {
                 final List<LatLng> points = [];
 
                 trailsList.clear();
+                polylines.clear();
                 trailsList.add(trailField);
                 geoJSON["features"][0]["geometry"]["coordinates"]
                     .forEach((entry) {
