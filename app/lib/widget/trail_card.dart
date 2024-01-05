@@ -41,27 +41,39 @@ class TrailCard extends StatelessWidget {
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(10)),
                   child: Container(
+                    height: 200,
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
                             color: Colors.white.withOpacity(0.4), width: 1),
                       ),
                     ),
-                    child: CarouselSlider(
-                      options:
-                          CarouselOptions(autoPlay: false, viewportFraction: 1),
-                      items: field.pictures.map((picture) {
-                        return CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          width: 1000.0,
-                          imageUrl: picture,
-                          errorWidget: (context, url, error) => const Icon(
-                            Icons.warning,
-                            color: HOPA,
+                    child: field.pictures.length > 1
+                        ? CarouselSlider(
+                            options: CarouselOptions(
+                                autoPlay: false, viewportFraction: 1),
+                            items: field.pictures.map((picture) {
+                              return CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                width: 1000.0,
+                                imageUrl: picture,
+                                errorWidget: (context, url, error) =>
+                                    const Icon(
+                                  Icons.warning,
+                                  color: HOPA,
+                                ),
+                              );
+                            }).toList(),
+                          )
+                        : CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            width: 1000.0,
+                            imageUrl: field.pictures[0],
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.warning,
+                              color: HOPA,
+                            ),
                           ),
-                        );
-                      }).toList(),
-                    ),
                   )),
               Container(
                 padding: const EdgeInsets.only(
