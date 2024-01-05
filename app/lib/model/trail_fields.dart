@@ -100,7 +100,7 @@ class TrailFields {
                   picture: value["author"]["picture"]),
               body: value["body"],
               pictures: value["pictures"].cast<String>(),
-              date: DateTime.parse(value["date"])))
+              date: DateTime.parse(value["date"]).toLocal()))
           .toList()
           .cast<Comment>(),
       imageAsset: "",

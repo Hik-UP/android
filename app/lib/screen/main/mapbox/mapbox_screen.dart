@@ -10,7 +10,6 @@ import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -95,7 +94,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
             ),
             model.showPanel == true && model.trailsList.isNotEmpty
                 ? Positioned(
-                    top: 70,
+                    top: 80,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,

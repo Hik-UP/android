@@ -52,7 +52,7 @@ class Comment {
           : [],
       date: DateTime.parse(
         data["date"],
-      ),
+      ).toLocal(),
     );
   }
 }

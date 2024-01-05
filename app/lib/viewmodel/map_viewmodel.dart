@@ -21,7 +21,7 @@ class MapViewModel extends BaseModel {
   Position position = Position(
       longitude: 1.7191036,
       latitude: 46.71109,
-      timestamp: DateTime.now(),
+      timestamp: DateTime.now().toLocal(),
       accuracy: 0,
       altitude: 0,
       altitudeAccuracy: 0,
@@ -109,7 +109,7 @@ class MapViewModel extends BaseModel {
                       picture: value["author"]["picture"]),
                   body: value["body"],
                   pictures: value["pictures"].cast<String>(),
-                  date: DateTime.parse(value["date"])))
+                  date: DateTime.parse(value["date"]).toLocal()))
               .toList()
               .cast<Comment>(),
           imageAsset: "",

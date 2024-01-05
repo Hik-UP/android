@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -48,16 +51,6 @@ class DefaultFirebaseOptions {
         );
     }
   }
-
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD8--G53wTSkwum4UOMi1MQqwqviyqCUgk',
-    appId: '1:952779681389:web:06c41bbfd3c824e2a55964',
-    messagingSenderId: '952779681389',
-    projectId: 'hikup-app',
-    authDomain: 'hikup-app.firebaseapp.com',
-    storageBucket: 'hikup-app.appspot.com',
-    measurementId: 'G-XLRBYZLERM',
-  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDAO1bFn8K4uRB10jjKdd2-0mQvK0bGgwk',

@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/model/hike.dart';
 import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/widget/hike_card.dart';

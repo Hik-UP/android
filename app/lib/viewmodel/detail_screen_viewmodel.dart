@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/providers/app_state.dart';
@@ -71,10 +72,12 @@ class DetailScreenViewModel extends BaseModel {
 
   int timeStampOrNull() {
     var dateSplit = timeCtrl.text.split(':');
+
     String minute =
         dateSplit[1].length >= 2 ? dateSplit[1] : "0${dateSplit[1]}";
 
-    return DateTime.parse("${dateCtrl.text} ${dateSplit[0]}:$minute:00")
+    return DateFormat("dd/MM/yyyy HH:mm")
+        .parse("${dateCtrl.text} ${dateSplit[0]}:$minute")
         .millisecondsSinceEpoch;
   }
 }

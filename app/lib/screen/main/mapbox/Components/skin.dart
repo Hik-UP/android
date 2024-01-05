@@ -194,7 +194,10 @@ class _PlayerSkinState extends State<PlayerSkin> {
                 if (direction != null && _status == 'stopped') {
                   if ((direction >= 315 || direction < 45) && skinState != 2) {
                     // UP
-                    widget.onSkinStateChange!(2);
+                    if (widget.onSkinStateChange != null) {
+                      widget.onSkinStateChange!(2);
+                    }
+                    
                     setState(() {
                       skinState = 2;
                       _direction = direction;
