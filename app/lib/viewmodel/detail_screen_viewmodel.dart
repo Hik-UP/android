@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hikup/utils/app_messages.dart';
 import 'package:intl/intl.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/trail_fields.dart';
@@ -32,7 +33,8 @@ class DetailScreenViewModel extends BaseModel {
       required TrailFields trailField,
       required int? timeStamps,
       required List<String> guests,
-      required Function() onLoad}) async {
+      required Function() onLoad,
+      required Function() onError}) async {
     List guestsObject =
         guests.isNotEmpty ? guests.map((e) => {"email": e}).toList() : [];
     Map<String, dynamic> bodyTosend = {
@@ -49,15 +51,22 @@ class DetailScreenViewModel extends BaseModel {
         "guests": guestsObject,
       }
     };
-    if (timeStamps != null) bodyTosend["hike"]["schedule"] = timeStamps / 1000;
+
+    if (timeStamps != null &&
+        DateTime.now()
+            .isBefore(DateTime.fromMillisecondsSinceEpoch(timeStamps))) {
+      bodyTosend["hike"]["schedule"] = timeStamps / 1000;
+    }
 
     try {
       setState(ViewState.busy);
-      var result = await _dioService.post(
-        path: createHikePath,
-        body: bodyTosend,
-        token: "Bearer ${appState.token}",
-      );
+      var result = await _dioService
+          .post(
+            path: createHikePath,
+            body: bodyTosend,
+            token: "Bearer ${appState.token}",
+          )
+          .timeout(const Duration(seconds: 10), onTimeout: null);
       setState(ViewState.retrieved);
 
       if (result.statusCode == 201 || result.statusCode == 200) {
@@ -66,6 +75,11 @@ class DetailScreenViewModel extends BaseModel {
         onLoad();
       }
     } catch (e) {
+      onError();
+      _navigationService.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
       setState(ViewState.retrieved);
     }
   }

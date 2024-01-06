@@ -263,6 +263,14 @@ class DetailScreen extends StatelessWidget {
                                                                 Navigator.pop(
                                                                     context,
                                                                     'Cancel');
+                                                              },
+                                                              onError: () {
+                                                                setState(() =>
+                                                                    hikeLoading =
+                                                                        false);
+                                                                Navigator.pop(
+                                                                    context,
+                                                                    'Cancel');
                                                               });
                                                           setState(() =>
                                                               hikeLoading =
