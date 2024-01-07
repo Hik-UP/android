@@ -12,6 +12,7 @@ class CompleteProfileViewModel extends BaseModel {
   String gender = "";
   bool dropDownIsActive = false;
   bool isGenderError = false;
+  bool isInit = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController genderCtrl = TextEditingController();
   final TextEditingController ageCtrl = TextEditingController();
@@ -49,7 +50,7 @@ class CompleteProfileViewModel extends BaseModel {
   String? requiredField(String? value) {
     if (value != null && value.isNotEmpty) return null;
 
-    return AppMessages.isRequired;
+    return "Ce champ est requis";
   }
 
   completeData({
@@ -81,8 +82,10 @@ class CompleteProfileViewModel extends BaseModel {
         sensibleUserData.weight != 0) {
       ageCtrl.text = appState.sensibleUserData.age.toString();
       weightCtrl.text = appState.sensibleUserData.weight.toString();
-      genderCtrl.text = appState.sensibleUserData.sex;
+      genderCtrl.text =
+          appState.sensibleUserData.sex == 'H' ? 'Homme' : 'Femme';
       tallCtrl.text = appState.sensibleUserData.tall.toString();
     }
+    isInit = true;
   }
 }
