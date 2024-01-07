@@ -53,11 +53,11 @@ class TrailCard extends StatelessWidget {
                             options: CarouselOptions(
                                 autoPlay: false, viewportFraction: 1),
                             items: field.pictures.map((picture) {
-                              return CachedNetworkImage(
+                              return Image.asset(
+                                'trails/$picture',
                                 fit: BoxFit.cover,
                                 width: 1000.0,
-                                imageUrl: picture,
-                                errorWidget: (context, url, error) =>
+                                errorBuilder: (context, url, error) =>
                                     const Icon(
                                   Icons.warning,
                                   color: HOPA,
@@ -65,11 +65,11 @@ class TrailCard extends StatelessWidget {
                               );
                             }).toList(),
                           )
-                        : CachedNetworkImage(
+                        : Image.asset(
+                            'trails/${field.pictures[0]}',
                             fit: BoxFit.cover,
                             width: 1000.0,
-                            imageUrl: field.pictures[0],
-                            errorWidget: (context, url, error) => const Icon(
+                            errorBuilder: (context, url, error) => const Icon(
                               Icons.warning,
                               color: HOPA,
                             ),
