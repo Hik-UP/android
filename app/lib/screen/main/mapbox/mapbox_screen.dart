@@ -9,6 +9,7 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:gap/gap.dart';
@@ -216,7 +217,78 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                             ),
                           )
                         ]))
-                : Container()
+                : Container(),
+                Positioned(
+      // Ajustez la position des boutons comme nécessaire
+      bottom: MediaQuery.of(context).size.height * 0.4,
+      right: MediaQuery.of(context).size.width * 0.03,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          FloatingActionButton(
+      onPressed: () {
+        model.mapController.rotate(0);
+       
+      },
+      backgroundColor: Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
+          foregroundColor: Color.fromARGB(255, 0, 247, 255),
+          splashColor: Color.fromARGB(255, 0, 247, 255).withOpacity(0.5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(color: Color.fromARGB(255, 0, 247, 255)),
+          ),   // Ombre
+          mini: true,
+      child: Icon(Icons.navigation_outlined),
+      
+    ),
+    FloatingActionButton(
+      onPressed: () {
+        double currentZoom = model.mapController.camera.zoom;
+        model.mapController.move((LatLng(model.position.latitude, model.position.longitude)), currentZoom);
+      },
+      backgroundColor: Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
+          foregroundColor: Color.fromARGB(255, 140, 40, 255),
+          splashColor: Color.fromARGB(255, 140, 40, 255).withOpacity(0.3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(color: Color.fromARGB(255, 140, 40, 255)),
+          ), // Ombre
+          mini: true,
+      child: Icon(Icons.gps_fixed),
+    ),
+    FloatingActionButton(
+      onPressed: () {
+        double currentZoom = model.mapController.camera.zoom;
+        model.mapController.move(model.mapController.camera.center, currentZoom + 0.5);
+        
+      },
+      backgroundColor: Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
+          foregroundColor: Color.fromARGB(255, 40, 255, 112),
+          splashColor: Color.fromARGB(255, 40, 255, 112).withOpacity(0.3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(color: Color.fromARGB(255, 40, 255, 112)),
+          ), // Ombre
+          mini: true,
+      child: Icon(Icons.add),
+    ),
+    FloatingActionButton(
+      onPressed: () {
+        double currentZoom = model.mapController.camera.zoom;
+        model.mapController.move(model.mapController.camera.center, currentZoom - 0.5);
+        
+      },
+      backgroundColor: Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
+          foregroundColor: Color.fromARGB(255, 255, 230, 0),
+          splashColor: Color.fromARGB(255, 255, 230, 0).withOpacity(0.3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(color: Color.fromARGB(255, 255, 230, 0)),
+          ),
+          mini: true,
+      child: Icon(Icons.remove),
+    ),
+    ])),
           ],
         ),
       );

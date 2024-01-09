@@ -135,7 +135,7 @@ class MapViewModel extends BaseModel {
                   points.add(LatLng(entry[1], entry[0]));
                 });
 
-                mapController.move(trailLatLng, 18.0);
+                mapController.move(trailLatLng, 13.5);
                 polylines.add(Polyline(
                   points: points,
                   color: entry["difficulty"] == 1
