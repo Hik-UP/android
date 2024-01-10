@@ -197,7 +197,7 @@ class _PlayerSkinState extends State<PlayerSkin> {
                     if (widget.onSkinStateChange != null) {
                       widget.onSkinStateChange!(2);
                     }
-                    
+
                     setState(() {
                       skinState = 2;
                       _direction = direction;

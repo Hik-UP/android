@@ -9,7 +9,6 @@ import 'package:hikup/viewmodel/hike_card_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hikup/widget/custom_btn.dart';

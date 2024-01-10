@@ -4,7 +4,6 @@ import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/hive_service.dart';
-import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 

@@ -685,49 +685,165 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               ]),
                   )
                 : Container(),
-            body: MapBox(
-              mapController: model.mapController,
-              zoom: 17,
-              polylines: [polyline],
-              markers: [
-                _coins.map((entry) => entry["marker"] as Marker).toList(),
-                [marker],
-                _hikers.map((entry) => entry["marker"] as Marker).toList(),
-              ].expand((x) => x).toList(),
-              onPositionChange: (Position position) {
-                final newPosition =
-                    "${position.latitude},${position.longitude}";
+            body: Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.center,
+                children: [
+                  MapBox(
+                    mapController: model.mapController,
+                    zoom: 17,
+                    polylines: [polyline],
+                    markers: [
+                      _coins.map((entry) => entry["marker"] as Marker).toList(),
+                      [marker],
+                      _hikers
+                          .map((entry) => entry["marker"] as Marker)
+                          .toList(),
+                    ].expand((x) => x).toList(),
+                    onPositionChange: (Position position) {
+                      final newPosition =
+                          "${position.latitude},${position.longitude}";
 
-                if (lastPosition == null || lastPosition != newPosition) {
-                  final HikerStats newStats = HikerStats(
-                      coins: stats.coins,
-                      steps: stats.steps,
-                      distance: stats.distance +
-                          calcDistance(
-                              lastPosition ?? newPosition, newPosition),
-                      completed: stats.completed);
-                  lastPosition = newPosition;
-                  SocketService().hike.move(position, newStats, (data) {
-                    dynamic jsonData = json.decode(data);
-                    final coin = jsonData["coin"];
-                    final end = jsonData["end"];
+                      if (lastPosition == null || lastPosition != newPosition) {
+                        final HikerStats newStats = HikerStats(
+                            coins: stats.coins,
+                            steps: stats.steps,
+                            distance: stats.distance +
+                                calcDistance(
+                                    lastPosition ?? newPosition, newPosition),
+                            completed: stats.completed);
+                        lastPosition = newPosition;
+                        SocketService().hike.move(position, newStats, (data) {
+                          dynamic jsonData = json.decode(data);
+                          final coin = jsonData["coin"];
+                          final end = jsonData["end"];
 
-                    if (coin != null) {
-                      onGetCoin(coin, "", (stats.coins + 1));
-                    }
-                    if (end == true) {
-                      onHikeEnd();
-                    }
-                  });
-                  setState(() {
-                    stats = newStats;
-                  });
-                }
-              },
-              onSkinStateChange: (int skinState) {
-                SocketService().hike.animate(skinState);
-              },
-            )),
+                          if (coin != null) {
+                            onGetCoin(coin, "", (stats.coins + 1));
+                          }
+                          if (end == true) {
+                            onHikeEnd();
+                          }
+                        });
+                        setState(() {
+                          stats = newStats;
+                        });
+                      }
+                    },
+                    onSkinStateChange: (int skinState) {
+                      SocketService().hike.animate(skinState);
+                    },
+                  ),
+                  Positioned(
+                      // Ajustez la position des boutons comme nécessaire
+                      bottom: MediaQuery.of(context).size.height * 0.4,
+                      right: MediaQuery.of(context).size.width * 0.03,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            FloatingActionButton(
+                              onPressed: () {
+                                model.mapController.rotate(0);
+                              },
+                              backgroundColor:
+                                  const Color.fromARGB(255, 0, 0, 0)
+                                      .withOpacity(0.7),
+                              foregroundColor:
+                                  const Color.fromARGB(255, 0, 247, 255),
+                              splashColor:
+                                  const Color.fromARGB(255, 0, 247, 255)
+                                      .withOpacity(0.5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                    color: Color.fromARGB(255, 0, 247, 255)),
+                              ), // Ombre
+                              mini: true,
+                              child: const Icon(Icons.navigation_outlined),
+                            ),
+                            const Gap(4),
+                            FloatingActionButton(
+                              onPressed: () {
+                                double currentZoom =
+                                    model.mapController.camera.zoom;
+                                model.mapController.move(
+                                    (lastPosition != null
+                                        ? LatLng(
+                                            double.parse(
+                                                lastPosition!.split(',')[0]),
+                                            double.parse(
+                                                lastPosition!.split(',')[1]))
+                                        : const LatLng(0, 0)),
+                                    currentZoom);
+                              },
+                              backgroundColor:
+                                  const Color.fromARGB(255, 0, 0, 0)
+                                      .withOpacity(0.7),
+                              foregroundColor:
+                                  const Color.fromARGB(255, 140, 40, 255),
+                              splashColor:
+                                  const Color.fromARGB(255, 140, 40, 255)
+                                      .withOpacity(0.3),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                    color: Color.fromARGB(255, 140, 40, 255)),
+                              ), // Ombre
+                              mini: true,
+                              child: const Icon(Icons.gps_fixed),
+                            ),
+                            const Gap(4),
+                            FloatingActionButton(
+                              onPressed: () {
+                                double currentZoom =
+                                    model.mapController.camera.zoom;
+                                model.mapController.move(
+                                    model.mapController.camera.center,
+                                    currentZoom + 0.5);
+                              },
+                              backgroundColor:
+                                  const Color.fromARGB(255, 0, 0, 0)
+                                      .withOpacity(0.7),
+                              foregroundColor:
+                                  const Color.fromARGB(255, 40, 255, 112),
+                              splashColor:
+                                  const Color.fromARGB(255, 40, 255, 112)
+                                      .withOpacity(0.3),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                    color: Color.fromARGB(255, 40, 255, 112)),
+                              ), // Ombre
+                              mini: true,
+                              child: const Icon(Icons.add),
+                            ),
+                            const Gap(4),
+                            FloatingActionButton(
+                              onPressed: () {
+                                double currentZoom =
+                                    model.mapController.camera.zoom;
+                                model.mapController.move(
+                                    model.mapController.camera.center,
+                                    currentZoom - 0.5);
+                              },
+                              backgroundColor:
+                                  const Color.fromARGB(255, 0, 0, 0)
+                                      .withOpacity(0.7),
+                              foregroundColor:
+                                  const Color.fromARGB(255, 255, 230, 0),
+                              splashColor:
+                                  const Color.fromARGB(255, 255, 230, 0)
+                                      .withOpacity(0.3),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                    color: Color.fromARGB(255, 255, 230, 0)),
+                              ),
+                              mini: true,
+                              child: const Icon(Icons.remove),
+                            ),
+                          ]))
+                ])),
       );
     });
   }
