@@ -84,6 +84,7 @@ class CompleteProfileViewModel extends BaseModel {
       genderCtrl.text =
           appState.sensibleUserData.sex == 'H' ? 'Homme' : 'Femme';
       tallCtrl.text = appState.sensibleUserData.tall.toString();
+      gender = appState.sensibleUserData.sex;
     }
     isInit = true;
   }
