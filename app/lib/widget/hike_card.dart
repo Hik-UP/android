@@ -85,7 +85,7 @@ class HikeCard extends StatelessWidget {
                               right: BorderSide(color: trailColor, width: 0),
                               bottom: BorderSide(color: trailColor, width: 4))),
                       child: Image.asset(
-                        'trails/${hike.trail.pictures[0]}',
+                        'assets/trails/${hike.trail.pictures[0]}',
                         fit: BoxFit.cover,
                         width: 1000.0,
                         errorBuilder: (context, url, error) => const Icon(

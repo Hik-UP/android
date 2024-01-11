@@ -53,7 +53,7 @@ class TrailCard extends StatelessWidget {
                                 autoPlay: false, viewportFraction: 1),
                             items: field.pictures.map((picture) {
                               return Image.asset(
-                                'trails/$picture',
+                                'assets/trails/$picture',
                                 fit: BoxFit.cover,
                                 width: 1000.0,
                                 errorBuilder: (context, url, error) =>
@@ -65,7 +65,7 @@ class TrailCard extends StatelessWidget {
                             }).toList(),
                           )
                         : Image.asset(
-                            'trails/${field.pictures[0]}',
+                            'assets/trails/${field.pictures[0]}',
                             fit: BoxFit.cover,
                             width: 1000.0,
                             errorBuilder: (context, url, error) => const Icon(

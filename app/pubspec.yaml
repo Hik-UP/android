@@ -117,7 +117,52 @@ flutter:
     - assets/icons/start/
     - assets/icons/details/
     - assets/sounds/
-    - assets/trails/
+    - assets/trails/ancien_cimetiere_parisien/
+    - assets/trails/balade-parisienne/
+    - assets/trails/castanet-le-chemin-des-moines/
+    - assets/trails/chapelleneuve-3chapelles-16-5km/
+    - assets/trails/etangs_de_meudon_villebon_la_garenne_chalais_et_trivaux/
+    - assets/trails/faculte-de-tolbiac/
+    - assets/trails/foret_de_sapins/
+    - assets/trails/fougeres-villeetforet-18km/
+    - assets/trails/gr75/
+    - assets/trails/grand-turrel-maraval/
+    - assets/trails/l-etoile-long/
+    - assets/trails/la-bretagne-parisienne/
+    - assets/trails/la_montagne_du_rey_depuis_louvie_juzon/
+    - assets/trails/le-bois-de-vincennes/
+    - assets/trails/les-carrieres-de-cochin/
+    - assets/trails/les-coteaux-de-glanes/
+    - assets/trails/limours/
+    - assets/trails/marais-du-pont-de-gau/
+    - assets/trails/mery-duranderie-courte/
+    - assets/trails/mini-tour-du-morvan-e2-saint-brisson-moux-en-morvan/
+    - assets/trails/moncaut-8-5-km/
+    - assets/trails/morning-hike/
+    - assets/trails/nalliers-leshuttes-21-4km/
+    - assets/trails/parc-de-choisy-lac-creteil/
+    - assets/trails/parcours-des-amis-d-harpignies/
+    - assets/trails/parcours-resistantes-c215/
+    - assets/trails/paris-balade-du-11e-au-3e/
+    - assets/trails/paris-charonne-tour-du-bois-de-vincennes/
+    - assets/trails/porte-de-brancion-au-pont-de-sevres/
+    - assets/trails/porte-de-versailles-a-henri-martin/
+    - assets/trails/porte-doree-a-neuilly-plaisance/
+    - assets/trails/praperier-07/
+    - assets/trails/pyrenees-boucle-depuis-bidarray-d-harriandi/
+    - assets/trails/quartier-chinois-paris/
+    - assets/trails/rando-boisbreteau-9-8-km/
+    - assets/trails/rando-sep-40km-2024/
+    - assets/trails/saint-ilpize-lavoute/
+    - assets/trails/standrebohon-marais-10km/
+    - assets/trails/stloupthouet-cebronetthouet-19km/
+    - assets/trails/street-art-dans-le-13eme-arrondissement/
+    - assets/trails/sur-les-pas-de-georges-brassens/
+    - assets/trails/tete-de-pibossan-1620-m/
+    - assets/trails/tour-parmentier/
+    - assets/trails/tour_du_bas_folin_et_du_haut_folin/
+    - assets/trails/un-tour-au-cimetiere-du-pere-lachaise/
+    - assets/trails/variante-mad-et-madine/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
