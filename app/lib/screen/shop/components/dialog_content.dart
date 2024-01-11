@@ -44,7 +44,7 @@ class DialogContent extends StatelessWidget {
                       skin.id != appState.skin.id,
                   child: Expanded(
                     child: CustomBtn(
-                      bgColor: const Color(0xff7F7F7F),
+                      //bgColor: const Color(0xff7F7F7F),
                       content: AppMessages.changeLabel,
                       isLoading: model.getState == ViewState.busy,
                       onPress: () {
