@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import "package:gap/gap.dart";
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hikup/utils/constant.dart';
 
 class CommunityView extends StatefulWidget {
   final String trailId;
@@ -60,16 +61,38 @@ class _CommunityViewState extends State<CommunityView> {
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return Text(
-                      '${snapshot.error}',
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
+                    return Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/icons/cat-error.svg",
+                            height: 64,
+                            width: 64,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.grey,
+                              BlendMode.srcIn,
+                            ),
+                            semanticsLabel: 'error',
+                          ),
+                          const Gap(20),
+                          Center(
+                            child: Text(
+                              "Une erreur est survenue",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey),
+                            ),
+                          ),
+                        ],
                       ),
-                      textAlign: TextAlign.center,
                     );
                   }
 
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData &&
+                      snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data!.isNotEmpty) {
                       return Expanded(
                         child: Padding(
@@ -248,21 +271,25 @@ class _CommunityViewState extends State<CommunityView> {
                             SizedBox(
                               height: 20.0,
                               width: 20.0,
-                              child: IconButton(
-                                padding: const EdgeInsets.all(0.0),
-                                iconSize: 20,
-                                color: Colors.white,
-                                onPressed: () => model.submitMessage(
-                                  appState: appState,
-                                  trailId: widget.trailId,
-                                  update: () {
-                                    () => setState(() {});
-                                  },
-                                ),
-                                icon: const Icon(
-                                  Icons.send_outlined,
-                                ),
-                              ),
+                              child: model.getState == ViewState.create
+                                  ? const CircularProgressIndicator(
+                                      strokeWidth: 2.0,
+                                    )
+                                  : IconButton(
+                                      padding: const EdgeInsets.all(0.0),
+                                      iconSize: 20,
+                                      color: Colors.white,
+                                      onPressed: () => model.submitMessage(
+                                        appState: appState,
+                                        trailId: widget.trailId,
+                                        update: () {
+                                          () => setState(() {});
+                                        },
+                                      ),
+                                      icon: const Icon(
+                                        Icons.send_outlined,
+                                      ),
+                                    ),
                             )
                           ])
                     ])

@@ -135,7 +135,7 @@ class CustomSliverAppBar extends StatelessWidget {
           ),
         ),
         background: MapBox(
-          interactiveFlags: InteractiveFlag.none,
+          interactiveFlags: InteractiveFlag.drag,
           enableScrollWheel: false,
           zoom: 13,
           center: LatLng(field.latitude, field.longitude),

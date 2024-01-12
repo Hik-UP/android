@@ -10,7 +10,7 @@ import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
 import 'package:geolocator/geolocator.dart';
 
-enum ViewState { idle, busy, retrieved, deletion, join }
+enum ViewState { idle, busy, retrieved, deletion, join, create }
 
 enum TypeOfHike { organized, guest, attendee }
 
