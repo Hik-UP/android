@@ -61,7 +61,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
 
       model.mapController.mapEventStream.listen((event) {
         if (model.polylines.isNotEmpty &&
-            model.mapController.camera.zoom <= 12) {
+            model.mapController.camera.zoom <= 10) {
           model.polylines.clear();
           setState(() {
             model.showPanel = false;
