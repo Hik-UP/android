@@ -96,7 +96,7 @@ class LoginPageViewModel extends BaseModel {
           appState.updateSkinState(value: skin);
           await appState.storeInHive(user: newUser);
 
-          MixpanelManager.instance.track('login', properties: {'id': user.id});
+          MixpanelManager.track('login', properties: {'id': user.id});
 
           _navigationService.navigateTo(MainScreen.routeName);
           return;

@@ -226,6 +226,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       FloatingActionButton(
+                        heroTag: "btn1",
                         onPressed: () {
                           model.mapController.rotate(0);
                         },
@@ -244,6 +245,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                       ),
                       const Gap(4),
                       FloatingActionButton(
+                        heroTag: "btn2",
                         onPressed: () {
                           double currentZoom = model.mapController.camera.zoom;
                           model.mapController.move(
@@ -267,6 +269,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                       ),
                       const Gap(4),
                       FloatingActionButton(
+                        heroTag: "btn3",
                         onPressed: () {
                           double currentZoom = model.mapController.camera.zoom;
                           model.mapController.move(
@@ -289,6 +292,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                       ),
                       const Gap(4),
                       FloatingActionButton(
+                        heroTag: "btn4",
                         onPressed: () {
                           double currentZoom = model.mapController.camera.zoom;
                           model.mapController.move(

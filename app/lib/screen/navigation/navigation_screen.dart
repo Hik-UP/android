@@ -742,6 +742,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             FloatingActionButton(
+                              heroTag: "btn5",
                               onPressed: () {
                                 model.mapController.rotate(0);
                               },
@@ -763,6 +764,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                             ),
                             const Gap(4),
                             FloatingActionButton(
+                              heroTag: "btn6",
                               onPressed: () {
                                 double currentZoom =
                                     model.mapController.camera.zoom;
@@ -794,6 +796,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                             ),
                             const Gap(4),
                             FloatingActionButton(
+                              heroTag: "btn7",
                               onPressed: () {
                                 double currentZoom =
                                     model.mapController.camera.zoom;
@@ -819,6 +822,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                             ),
                             const Gap(4),
                             FloatingActionButton(
+                              heroTag: "btn8",
                               onPressed: () {
                                 double currentZoom =
                                     model.mapController.camera.zoom;

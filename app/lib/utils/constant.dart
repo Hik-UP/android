@@ -190,9 +190,13 @@ class MixpanelManager {
   static String projectToken = "86c7188059b53dd82bbc2931cf9dab8e";
   static Future<Mixpanel> initMixpanel() async {
     _instance ??= await Mixpanel.init(projectToken, trackAutomaticEvents: true);
-    _instance!.setLoggingEnabled(false);
 
     return _instance!;
+  }
+
+  static track(String eventName, {Map<String, dynamic>? properties}) {
+    _instance!.track(eventName, properties: properties);
+    _instance!.flush();
   }
 
   static Mixpanel get instance {

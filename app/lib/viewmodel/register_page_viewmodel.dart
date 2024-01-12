@@ -60,7 +60,7 @@ class RegisterPageViewModel extends BaseModel {
       }).timeout(const Duration(seconds: 10), onTimeout: null);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        MixpanelManager.instance.track('signup');
+        MixpanelManager.track('signup');
 
         _customNavigationService.showSnackBack(
           content: "Votre compte a été créé",
