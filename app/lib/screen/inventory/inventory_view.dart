@@ -6,16 +6,20 @@ import "package:hikup/providers/app_state.dart";
 import "package:hikup/screen/inventory/skin_inventory_card.dart";
 import "package:hikup/theme.dart";
 import "package:hikup/utils/app_messages.dart";
-import "package:hikup/utils/wrapper_api.dart";
 import "package:hikup/viewmodel/skin_display_viewmodel.dart";
 import "package:hikup/widget/base_view.dart";
 
 import "package:provider/provider.dart";
 
-class InventoryView extends StatelessWidget {
+class InventoryView extends StatefulWidget {
   static String routeName = "/inventory";
   const InventoryView({super.key});
 
+  @override
+  State<InventoryView> createState() => _InventoryViewState();
+}
+
+class _InventoryViewState extends State<InventoryView> {
   @override
   Widget build(BuildContext context) {
     AppState appState = context.watch<AppState>();
@@ -39,10 +43,7 @@ class InventoryView extends StatelessWidget {
             ),
             const Gap(10.0),
             FutureBuilder<List<SkinWithOwner>>(
-              future: WrapperApi().getAllSkin(
-                appState: context.watch<AppState>(),
-                routeName: "/user/skin/unlocked",
-              ),
+              future: model.getAllSkin(appState: appState),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text(
@@ -77,8 +78,13 @@ class InventoryView extends StatelessWidget {
                     itemCount: 10,
                     itemBuilder: (context, index) => InkWell(
                       onTap: () => model.openDialog(
-                          skin: snapshot.data![index], action: () {}),
+                        skin: snapshot.data![index],
+                        action: () {
+                          setState(() {});
+                        },
+                      ),
                       child: SkinInventoryCard(
+                        isUnLock: snapshot.data![index].isUnLock,
                         img: index <= snapshot.data!.length - 1
                             ? snapshot.data![index].pictures[0]
                             : null,

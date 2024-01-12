@@ -56,6 +56,7 @@ class Skin {
 }
 
 class SkinWithOwner extends Skin {
+  final bool isUnLock;
   final List<OwnerSkin> owners;
   const SkinWithOwner({
     required this.owners,
@@ -65,6 +66,7 @@ class SkinWithOwner extends Skin {
     required super.pictures,
     required super.model,
     required super.price,
+    this.isUnLock = false,
   });
 
   static SkinWithOwner fromMap({
