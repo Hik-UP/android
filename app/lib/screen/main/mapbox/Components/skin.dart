@@ -205,7 +205,9 @@ class _PlayerSkinState extends State<PlayerSkin> {
                   } else if ((direction >= 45 && direction < 135) &&
                       skinState != 3) {
                     // RIGHT
-                    widget.onSkinStateChange!(3);
+                    if (widget.onSkinStateChange != null) {
+                      widget.onSkinStateChange!(3);
+                    }
                     setState(() {
                       skinState = 3;
                       _direction = direction;
@@ -213,7 +215,9 @@ class _PlayerSkinState extends State<PlayerSkin> {
                   } else if ((direction >= 135 && direction < 225) &&
                       skinState != 0) {
                     // DOWN
-                    widget.onSkinStateChange!(0);
+                    if (widget.onSkinStateChange != null) {
+                      widget.onSkinStateChange!(0);
+                    }
                     setState(() {
                       skinState = 0;
                       _direction = direction;
@@ -221,7 +225,9 @@ class _PlayerSkinState extends State<PlayerSkin> {
                   } else if ((direction >= 225 && direction < 315) &&
                       skinState != 1) {
                     // LEFT
-                    widget.onSkinStateChange!(1);
+                    if (widget.onSkinStateChange != null) {
+                      widget.onSkinStateChange!(1);
+                    }
                     setState(() {
                       skinState = 1;
                       _direction = direction;
@@ -230,7 +236,9 @@ class _PlayerSkinState extends State<PlayerSkin> {
                 } else if (direction != null && _status == 'walking') {
                   if ((direction >= 315 || direction < 45) && skinState != 6) {
                     // UP
-                    widget.onSkinStateChange!(6);
+                    if (widget.onSkinStateChange != null) {
+                      widget.onSkinStateChange!(6);
+                    }
                     setState(() {
                       skinState = 6;
                       _direction = direction;
@@ -238,7 +246,9 @@ class _PlayerSkinState extends State<PlayerSkin> {
                   } else if ((direction >= 45 && direction < 135) &&
                       skinState != 7) {
                     // RIGHT
-                    widget.onSkinStateChange!(7);
+                    if (widget.onSkinStateChange != null) {
+                      widget.onSkinStateChange!(7);
+                    }
                     setState(() {
                       skinState = 7;
                       _direction = direction;
@@ -246,7 +256,9 @@ class _PlayerSkinState extends State<PlayerSkin> {
                   } else if ((direction >= 135 && direction < 225) &&
                       skinState != 4) {
                     // DOWN
-                    widget.onSkinStateChange!(4);
+                    if (widget.onSkinStateChange != null) {
+                      widget.onSkinStateChange!(4);
+                    }
                     setState(() {
                       skinState = 4;
                       _direction = direction;
@@ -254,14 +266,18 @@ class _PlayerSkinState extends State<PlayerSkin> {
                   } else if ((direction >= 225 && direction < 315) &&
                       skinState != 5) {
                     // LEFT
-                    widget.onSkinStateChange!(5);
+                    if (widget.onSkinStateChange != null) {
+                      widget.onSkinStateChange!(5);
+                    }
                     setState(() {
                       skinState = 5;
                       _direction = direction;
                     });
                   }
                 } else if (skinState != 0) {
-                  widget.onSkinStateChange!(0);
+                  if (widget.onSkinStateChange != null) {
+                    widget.onSkinStateChange!(0);
+                  }
                   setState(() {
                     skinState = 0;
                   });
