@@ -7,7 +7,6 @@ import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/validation.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'base_model.dart';
 
 class RegisterPageViewModel extends BaseModel {
@@ -61,9 +60,7 @@ class RegisterPageViewModel extends BaseModel {
       }).timeout(const Duration(seconds: 10), onTimeout: null);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        await FirebaseAnalytics.instance.logSignUp(
-          signUpMethod: 'app',
-        );
+        MixpanelManager.instance.track('signup');
 
         _customNavigationService.showSnackBack(
           content: "Votre compte a été créé",

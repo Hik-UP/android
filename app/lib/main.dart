@@ -50,6 +50,8 @@ Future<void> main() async {
     };
   }
 
+  await MixpanelManager.initMixpanel();
+
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(OtherDataAdapter());

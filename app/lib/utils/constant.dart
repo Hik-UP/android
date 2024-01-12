@@ -9,6 +9,7 @@ import '../model/user.dart';
 import '../screen/main/search/search_screen.dart';
 import '../screen/main/mapbox/mapbox_screen.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
 enum ViewState { idle, busy, retrieved, deletion, join, create }
 
@@ -183,3 +184,18 @@ const LocationSettings locationSettings = LocationSettings(
   accuracy: LocationAccuracy.high,
   distanceFilter: 1,
 );
+
+class MixpanelManager {
+  static Mixpanel? _instance;
+  static String projectToken = "86c7188059b53dd82bbc2931cf9dab8e";
+  static Future<Mixpanel> initMixpanel() async {
+    _instance ??= await Mixpanel.init(projectToken, trackAutomaticEvents: true);
+    _instance!.setLoggingEnabled(false);
+
+    return _instance!;
+  }
+
+  static Mixpanel get instance {
+    return _instance!;
+  }
+}

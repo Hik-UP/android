@@ -9,8 +9,6 @@ import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-
 import 'base_model.dart';
 
 class LoginPageViewModel extends BaseModel {
@@ -37,6 +35,7 @@ class LoginPageViewModel extends BaseModel {
   }) async {
     try {
       setState(ViewState.busy);
+
       var result = await _dioService.post(
         path: loginPath,
         body: {
@@ -97,9 +96,7 @@ class LoginPageViewModel extends BaseModel {
           appState.updateSkinState(value: skin);
           await appState.storeInHive(user: newUser);
 
-          await FirebaseAnalytics.instance.logLogin(
-            parameters: {"id": user.id},
-          );
+          MixpanelManager.instance.track('login', properties: {'id': user.id});
 
           _navigationService.navigateTo(MainScreen.routeName);
           return;
