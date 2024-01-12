@@ -469,6 +469,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
               },
               onSkinStateChange: (int skinState) {
                 SocketService().hike.animate(skinState);
+
+                print(skinState);
               },
             )),
       );
