@@ -9,10 +9,10 @@ import 'package:hikup/viewmodel/hike_card_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hikup/widget/custom_btn.dart';
+import 'package:intl/intl.dart';
 
 class HikeCard extends StatelessWidget {
   final Hike hike;
@@ -26,10 +26,9 @@ class HikeCard extends StatelessWidget {
   });
 
   String formatDate() {
-    var replaceDate = hike.schedule.replaceAll(RegExp(r'T'), ' ');
-    var splitDate = replaceDate.split(' ');
+    DateTime date = DateTime.parse(hike.schedule).toLocal();
 
-    return "${splitDate[0]} ${splitDate[1].split(':').sublist(0, 2).join(':')}";
+    return DateFormat('dd/MM/yyyy HH:mm').format(date).toString();
   }
 
   @override
@@ -85,11 +84,11 @@ class HikeCard extends StatelessWidget {
                               top: BorderSide(color: trailColor, width: 0),
                               right: BorderSide(color: trailColor, width: 0),
                               bottom: BorderSide(color: trailColor, width: 4))),
-                      child: CachedNetworkImage(
+                      child: Image.asset(
+                        'assets/trails/${hike.trail.pictures[0]}',
                         fit: BoxFit.cover,
                         width: 1000.0,
-                        imageUrl: hike.trail.pictures[0],
-                        errorWidget: (context, url, error) => const Icon(
+                        errorBuilder: (context, url, error) => const Icon(
                           Icons.warning,
                           color: HOPA,
                         ),

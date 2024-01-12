@@ -9,8 +9,8 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:hikup/widget/display_detail_trails.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -59,12 +59,6 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                               ? const Color.fromRGBO(87, 252, 255, 0.8)
                               : Colors.transparent;
 
-      Future<void> _launchUrl(String url) async {
-        if (!await launchUrl(Uri.parse(url))) {
-          throw Exception('Could not launch URL');
-        }
-      }
-
       model.mapController.mapEventStream.listen((event) {
         if (model.polylines.isNotEmpty &&
             model.mapController.camera.zoom <= 12) {
@@ -101,7 +95,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
             ),
             model.showPanel == true && model.trailsList.isNotEmpty
                 ? Positioned(
-                    top: 70,
+                    top: 80,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -223,7 +217,102 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                             ),
                           )
                         ]))
-                : Container()
+                : Container(),
+            Positioned(
+                // Ajustez la position des boutons comme nécessaire
+                bottom: MediaQuery.of(context).size.height * 0.4,
+                right: MediaQuery.of(context).size.width * 0.03,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      FloatingActionButton(
+                        heroTag: "btn1",
+                        onPressed: () {
+                          model.mapController.rotate(0);
+                        },
+                        backgroundColor:
+                            const Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
+                        foregroundColor: const Color.fromARGB(255, 0, 247, 255),
+                        splashColor: const Color.fromARGB(255, 0, 247, 255)
+                            .withOpacity(0.5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: const BorderSide(
+                              color: Color.fromARGB(255, 0, 247, 255)),
+                        ), // Ombre
+                        mini: true,
+                        child: const Icon(Icons.navigation_outlined),
+                      ),
+                      const Gap(4),
+                      FloatingActionButton(
+                        heroTag: "btn2",
+                        onPressed: () {
+                          double currentZoom = model.mapController.camera.zoom;
+                          model.mapController.move(
+                              (LatLng(model.position.latitude,
+                                  model.position.longitude)),
+                              currentZoom);
+                        },
+                        backgroundColor:
+                            const Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
+                        foregroundColor:
+                            const Color.fromARGB(255, 140, 40, 255),
+                        splashColor: const Color.fromARGB(255, 140, 40, 255)
+                            .withOpacity(0.3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: const BorderSide(
+                              color: Color.fromARGB(255, 140, 40, 255)),
+                        ), // Ombre
+                        mini: true,
+                        child: const Icon(Icons.gps_fixed),
+                      ),
+                      const Gap(4),
+                      FloatingActionButton(
+                        heroTag: "btn3",
+                        onPressed: () {
+                          double currentZoom = model.mapController.camera.zoom;
+                          model.mapController.move(
+                              model.mapController.camera.center,
+                              currentZoom + 0.5);
+                        },
+                        backgroundColor:
+                            const Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
+                        foregroundColor:
+                            const Color.fromARGB(255, 40, 255, 112),
+                        splashColor: const Color.fromARGB(255, 40, 255, 112)
+                            .withOpacity(0.3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: const BorderSide(
+                              color: Color.fromARGB(255, 40, 255, 112)),
+                        ), // Ombre
+                        mini: true,
+                        child: const Icon(Icons.add),
+                      ),
+                      const Gap(4),
+                      FloatingActionButton(
+                        heroTag: "btn4",
+                        onPressed: () {
+                          double currentZoom = model.mapController.camera.zoom;
+                          model.mapController.move(
+                              model.mapController.camera.center,
+                              currentZoom - 0.5);
+                        },
+                        backgroundColor:
+                            const Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
+                        foregroundColor: const Color.fromARGB(255, 255, 230, 0),
+                        splashColor: const Color.fromARGB(255, 255, 230, 0)
+                            .withOpacity(0.3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: const BorderSide(
+                              color: Color.fromARGB(255, 255, 230, 0)),
+                        ),
+                        mini: true,
+                        child: const Icon(Icons.remove),
+                      ),
+                    ])),
           ],
         ),
       );

@@ -50,7 +50,9 @@ class CompleteProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     double maxWidth = MediaQuery.of(context).size.width;
     return BaseView<CompleteProfileViewModel>(builder: (context, model, child) {
-      model.initializeInputForm(appState: context.read<AppState>());
+      if (model.isInit == false) {
+        model.initializeInputForm(appState: context.read<AppState>());
+      }
       return ScaffoldWithCustomBg(
         appBar: AppBar(
           title: Text(
@@ -58,7 +60,7 @@ class CompleteProfile extends StatelessWidget {
             style: titleTextStyleWhite,
           ),
           iconTheme: const IconThemeData(
-            color: GreenPrimary, // Couleur de la flèche retour
+            color: Colors.white, // Couleur de la flèche retour
           ),
           toolbarHeight: kToolbarHeight,
           backgroundColor: BlackSecondary,
@@ -135,7 +137,8 @@ class CompleteProfile extends StatelessWidget {
                   label: AppMessages.gender,
                   child: CustomDropDown(
                     getSelectedGender: (String gender) {
-                      model.setGenderValue(value: gender);
+                      model.setGenderValue(
+                          value: gender == 'Homme' ? 'H' : 'F');
                       model.setDropDownIsActive(value: false);
                     },
                     inputController: model.genderCtrl,
@@ -144,7 +147,7 @@ class CompleteProfile extends StatelessWidget {
                       model.setDropDownIsActive(value: !model.dropDownIsActive);
                     },
                     hintText: AppMessages.selectSex,
-                    content: const ["H", "F"],
+                    content: const ["Homme", "Femme"],
                   ),
                 ),
                 Visibility(

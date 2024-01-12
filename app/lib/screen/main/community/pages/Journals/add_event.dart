@@ -199,11 +199,13 @@ class _AddPageState extends State<AddPage> {
             backgroundColor: Colors.white),
         floatingActionButton: isLoading
             ? FloatingActionButton.extended(
+                heroTag: "btn13",
                 onPressed: () {},
                 tooltip: 'wait',
                 label: const Text("submitting.... please wait"),
               )
             : FloatingActionButton.extended(
+                heroTag: "btn14",
                 backgroundColor: const Color.fromARGB(255, 160, 239, 168),
                 onPressed: () {
                   setState(() {

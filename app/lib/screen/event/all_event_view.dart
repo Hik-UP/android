@@ -79,6 +79,7 @@ class _AllEventViewState extends State<AllEventView> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          heroTag: "btn15",
           onPressed: () => Navigator.of(context)
               .pushNamed(
                 CreateEventView.routeName,

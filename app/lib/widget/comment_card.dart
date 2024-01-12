@@ -64,7 +64,7 @@ class CommentHeadCard extends StatelessWidget {
             ],
           ),
           Text(
-            DateFormat('dd/MM/yyyy hh:mm').format(commentDate).toString(),
+            DateFormat('dd/MM/yyyy HH:mm').format(commentDate).toString(),
             style: GoogleFonts.poppins(
               fontSize: 12,
               fontWeight: FontWeight.w300,

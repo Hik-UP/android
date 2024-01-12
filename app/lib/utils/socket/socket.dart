@@ -24,6 +24,7 @@ class SocketService {
               .setAuth(
                   {'token': token, 'id': userId, 'roles': userRoles.join(",")})
               .disableAutoConnect()
+              .enableReconnection()
               .build());
       socket?.connect();
     } catch (e) {
@@ -60,6 +61,17 @@ class SocketService {
   void onDisconnect(Function(dynamic) func) {
     try {
       socket?.onDisconnect(func);
+    } catch (e) {
+      _navigator.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    }
+  }
+
+  void onReconnect(Function(dynamic) func) {
+    try {
+      socket?.on('reconnect', func);
     } catch (e) {
       _navigator.showSnackBack(
         content: AppMessages.anErrorOcur,

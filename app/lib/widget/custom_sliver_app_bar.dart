@@ -76,12 +76,15 @@ class CustomSliverAppBar extends StatelessWidget {
           ),
           child: Center(
             child: Container(
-                margin: const EdgeInsets.fromLTRB(50.0, 4.0, 0.0, 4.0),
+                margin: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 4.0),
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Flexible(
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      Expanded(
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -132,7 +135,7 @@ class CustomSliverAppBar extends StatelessWidget {
           ),
         ),
         background: MapBox(
-          interactiveFlags: InteractiveFlag.none,
+          interactiveFlags: InteractiveFlag.drag,
           enableScrollWheel: false,
           zoom: 13,
           center: LatLng(field.latitude, field.longitude),

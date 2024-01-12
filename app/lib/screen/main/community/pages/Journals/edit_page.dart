@@ -122,11 +122,13 @@ class _EditPageState extends State<EditPage> {
         ),
         floatingActionButton: isLoading
             ? FloatingActionButton.extended(
+                heroTag: "btn11",
                 onPressed: () {},
                 tooltip: 'wait',
                 label: const Text("submitting.... please wait"),
               )
             : FloatingActionButton.extended(
+                heroTag: "btn12",
                 onPressed: () {
                   setState(() {
                     true;

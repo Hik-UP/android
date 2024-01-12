@@ -112,7 +112,7 @@ class DialogContentSkinViewModel extends BaseModel {
         setState(ViewState.retrieved);
         navigationService.goBack();
         navigationService.showSnackBack(
-          content: AppMessages.successLabel,
+          content: "Achat effectué",
         );
       }).onError((error, stackTrace) {
         throw Exception(error);

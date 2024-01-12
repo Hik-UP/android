@@ -23,7 +23,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -62,16 +65,5 @@ class DefaultFirebaseOptions {
     messagingSenderId: '952779681389',
     projectId: 'hikup-app',
     storageBucket: 'hikup-app.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAM2aPJMOtwqHuQXPe1JpjeaJW9vtLOEb4',
-    appId: '1:952779681389:ios:d02aa7604b350914a55964',
-    messagingSenderId: '952779681389',
-    projectId: 'hikup-app',
-    storageBucket: 'hikup-app.appspot.com',
-    iosClientId:
-        '952779681389-q9d7o4bahn7l8ilcv852s4ae7176ulqi.apps.googleusercontent.com',
-    iosBundleId: 'com.example.app',
   );
 }
