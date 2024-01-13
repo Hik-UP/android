@@ -4,7 +4,6 @@ import 'package:hikup/model/sensible_user_data.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/hive_service.dart';
-import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 
@@ -12,6 +11,7 @@ class CompleteProfileViewModel extends BaseModel {
   String gender = "";
   bool dropDownIsActive = false;
   bool isGenderError = false;
+  bool isInit = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController genderCtrl = TextEditingController();
   final TextEditingController ageCtrl = TextEditingController();
@@ -49,7 +49,7 @@ class CompleteProfileViewModel extends BaseModel {
   String? requiredField(String? value) {
     if (value != null && value.isNotEmpty) return null;
 
-    return AppMessages.isRequired;
+    return "Ce champ est requis";
   }
 
   completeData({
@@ -67,7 +67,7 @@ class CompleteProfileViewModel extends BaseModel {
       appState.updateSensibleDataState(value: sensibleUserData);
       _navigator.goBack();
       _navigator.showSnackBack(
-        content: AppMessages.success,
+        content: "Votre profil a été sauvegardé.",
       );
     } catch (e) {
       setState(ViewState.retrieved);
@@ -81,8 +81,11 @@ class CompleteProfileViewModel extends BaseModel {
         sensibleUserData.weight != 0) {
       ageCtrl.text = appState.sensibleUserData.age.toString();
       weightCtrl.text = appState.sensibleUserData.weight.toString();
-      genderCtrl.text = appState.sensibleUserData.sex;
+      genderCtrl.text =
+          appState.sensibleUserData.sex == 'H' ? 'Homme' : 'Femme';
       tallCtrl.text = appState.sensibleUserData.tall.toString();
+      gender = appState.sensibleUserData.sex;
     }
+    isInit = true;
   }
 }

@@ -23,8 +23,8 @@ class _PlanComponentState extends State<PlanComponent> {
   Future<DateTime?> customShowPicker() async {
     return showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      initialDate: DateTime.now().toLocal(),
+      firstDate: DateTime.now().toLocal(),
       lastDate: DateTime(2030),
       builder: (context, child) => Theme(
         data: Theme.of(context).copyWith(
@@ -81,7 +81,7 @@ class _PlanComponentState extends State<PlanComponent> {
                 DateTime? pickedDate = await customShowPicker();
                 if (pickedDate != null) {
                   String formateDate =
-                      DateFormat('yyyy-MM-dd').format(pickedDate);
+                      DateFormat('dd/MM/yyyy').format(pickedDate);
                   setState(() {
                     widget.dateCtrl.text = formateDate;
                   });
@@ -123,7 +123,7 @@ class _PlanComponentState extends State<PlanComponent> {
                         ));
                 if (pickHours != null) {
                   widget.timeCtrl.text =
-                      "${pickHours.hour}:${pickHours.minute}";
+                      "${pickHours.hour.toString().padLeft(2, '0')}:${pickHours.minute.toString().padLeft(2, '0')}";
                 }
               },
             ),

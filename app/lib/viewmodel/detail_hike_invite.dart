@@ -4,8 +4,8 @@ import "package:hikup/model/hike.dart";
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/service/custom_navigation.dart';
 import 'package:hikup/service/dio_service.dart';
-import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
+import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 import 'package:hikup/utils/socket/socket.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,6 +18,7 @@ class DetailHikeInviteViewModel extends BaseModel {
   bool joinInProgress = false;
   late dynamic stats;
   late List<dynamic> hikers;
+  late Hike newHike;
 
   Future<bool> getLocation() async {
     late LocationPermission permission;
@@ -44,36 +45,50 @@ class DetailHikeInviteViewModel extends BaseModel {
       required Function() onLoad,
       required Function() onFail,
       required Function() onComplete}) async {
-    onLoad();
-    bool permission = await getLocation();
+    try {
+      onLoad();
+      bool permission = await getLocation();
+      List<Hike> hikesList;
+      int index;
 
-    if (permission == false) {
-      onFail();
-      return;
-    }
-    if (joinInProgress == false) {
-      setState(ViewState.join);
-      joinInProgress = true;
-      SocketService().connect(
-          token: appState.token,
-          userId: appState.id,
-          userRoles: appState.roles);
-      SocketService().onError((_) {
-        joinInProgress = false;
-        SocketService().disconnect();
+      if (permission == false) {
         onFail();
-      });
+        return;
+      }
+      if (joinInProgress == false) {
+        setState(ViewState.join);
+        joinInProgress = true;
+        hikesList = await WrapperApi()
+            .getAllHike(
+                path: getHikePath,
+                appState: appState,
+                target: ["attendee"],
+                onLoad: () => null,
+                onRetrieved: () => null)
+            .timeout(const Duration(seconds: 10), onTimeout: null);
+        index = hikesList.indexWhere((item) => item.id == hike.id);
+        newHike = hikesList[index];
+        SocketService().connect(
+            token: appState.token,
+            userId: appState.id,
+            userRoles: appState.roles);
+        SocketService().onError((_) {
+          joinInProgress = false;
+          SocketService().disconnect();
+          onFail();
+        });
 
-      await SocketService().hike.join(hike.id, (data) {
-        dynamic jsonData = json.decode(data);
-        stats = jsonData["stats"];
-        hikers = jsonData["hikers"];
+        await SocketService().hike.join(hike.id, (data) {
+          dynamic jsonData = json.decode(data);
+          stats = jsonData["stats"];
+          hikers = jsonData["hikers"];
 
-        joinInProgress = false;
-        setState(ViewState.retrieved);
-        onComplete();
-      });
-    }
+          joinInProgress = false;
+          setState(ViewState.retrieved);
+          onComplete();
+        });
+      }
+    } catch (err) {}
   }
 
   leaveHike(
@@ -96,7 +111,7 @@ class DetailHikeInviteViewModel extends BaseModel {
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       _navigatorService.showSnackBack(
-        content: AppMessages.success,
+        content: "Vous avez quitté la randonnée.",
       );
       setState(ViewState.retrieved);
       _navigatorService.goBack();
@@ -123,7 +138,7 @@ class DetailHikeInviteViewModel extends BaseModel {
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       _navigatorService.showSnackBack(
-        content: AppMessages.success,
+        content: "La randonnée a été supprimé.",
       );
       setState(ViewState.retrieved);
       _navigatorService.goBack();

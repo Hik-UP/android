@@ -97,13 +97,15 @@ class WrapperApi {
     }
   }
 
-  Future<List<Hike>> getAllHike({
-    required String path,
-    required AppState appState,
-    required List<String> target,
-  }) async {
+  Future<List<Hike>> getAllHike(
+      {required String path,
+      required AppState appState,
+      required List<String> target,
+      required Function() onLoad,
+      required Function() onRetrieved}) async {
     List<Hike> hikes = [];
     try {
+      onLoad();
       var result = await _dioService.post(
         token: "Bearer ${appState.token}",
         path: getHikePath,
@@ -114,7 +116,7 @@ class WrapperApi {
           },
           "hike": {"target": target},
         },
-      );
+      ).timeout(const Duration(seconds: 10), onTimeout: null);
 
       for (String state in target) {
         List<Hike> subElements = [];
@@ -123,9 +125,14 @@ class WrapperApi {
         }
         hikes.addAll(subElements);
       }
+      onRetrieved();
       return hikes;
     } catch (e) {
-      throw AppMessages.anErrorOcur;
+      _navigationService.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+      throw "";
     }
   }
 

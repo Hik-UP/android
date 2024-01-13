@@ -341,6 +341,7 @@ class _FolderPageState extends State<FolderPage> {
                     ));
               }))),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: "btn10",
         backgroundColor: const Color.fromARGB(255, 227, 253, 216),
         onPressed: () {
           addCategoryWidget();

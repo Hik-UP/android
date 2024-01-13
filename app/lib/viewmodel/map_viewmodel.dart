@@ -21,7 +21,7 @@ class MapViewModel extends BaseModel {
   Position position = Position(
       longitude: 1.7191036,
       latitude: 46.71109,
-      timestamp: DateTime.now(),
+      timestamp: DateTime.now().toLocal(),
       accuracy: 0,
       altitude: 0,
       altitudeAccuracy: 0,
@@ -109,7 +109,7 @@ class MapViewModel extends BaseModel {
                       picture: value["author"]["picture"]),
                   body: value["body"],
                   pictures: value["pictures"].cast<String>(),
-                  date: DateTime.parse(value["date"])))
+                  date: DateTime.parse(value["date"]).toLocal()))
               .toList()
               .cast<Comment>(),
           imageAsset: "",
@@ -128,13 +128,14 @@ class MapViewModel extends BaseModel {
                 final List<LatLng> points = [];
 
                 trailsList.clear();
+                polylines.clear();
                 trailsList.add(trailField);
                 geoJSON["features"][0]["geometry"]["coordinates"]
                     .forEach((entry) {
                   points.add(LatLng(entry[1], entry[0]));
                 });
 
-                mapController.move(trailLatLng, 18.0);
+                mapController.move(trailLatLng, 13.5);
                 polylines.add(Polyline(
                   points: points,
                   color: entry["difficulty"] == 1
@@ -153,10 +154,11 @@ class MapViewModel extends BaseModel {
                   borderStrokeWidth: 0.1,
                 ));
                 hikesList = await WrapperApi().getAllHike(
-                  path: getHikePath,
-                  appState: appState,
-                  target: ["attendee"],
-                );
+                    path: getHikePath,
+                    appState: appState,
+                    target: ["attendee"],
+                    onLoad: () => null,
+                    onRetrieved: () => null);
                 handleJoin(trailField);
                 showPanel = true;
                 updateScreen();

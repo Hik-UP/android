@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hikup/providers/sound_state.dart';
+import 'package:provider/provider.dart';
 
 import '../model/trail_fields.dart';
 import '../screen/detail/detail_screen.dart';
@@ -23,6 +24,9 @@ class TrailCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () {
+          context
+              .read<SoundState>()
+              .playAudio(soundSource: 'sounds/OpenTrailInfo.mp3');
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return DetailScreen(
               field: field,
@@ -41,27 +45,39 @@ class TrailCard extends StatelessWidget {
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(10)),
                   child: Container(
+                    height: 200,
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
                             color: Colors.white.withOpacity(0.4), width: 1),
                       ),
                     ),
-                    child: CarouselSlider(
-                      options:
-                          CarouselOptions(autoPlay: false, viewportFraction: 1),
-                      items: field.pictures.map((picture) {
-                        return CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          width: 1000.0,
-                          imageUrl: picture,
-                          errorWidget: (context, url, error) => const Icon(
-                            Icons.warning,
-                            color: HOPA,
+                    child: field.pictures.length > 1
+                        ? CarouselSlider(
+                            options: CarouselOptions(
+                                autoPlay: false, viewportFraction: 1),
+                            items: field.pictures.map((picture) {
+                              return Image.asset(
+                                'assets/trails/$picture',
+                                fit: BoxFit.cover,
+                                width: 1000.0,
+                                errorBuilder: (context, url, error) =>
+                                    const Icon(
+                                  Icons.warning,
+                                  color: HOPA,
+                                ),
+                              );
+                            }).toList(),
+                          )
+                        : Image.asset(
+                            'assets/trails/${field.pictures[0]}',
+                            fit: BoxFit.cover,
+                            width: 1000.0,
+                            errorBuilder: (context, url, error) => const Icon(
+                              Icons.warning,
+                              color: HOPA,
+                            ),
                           ),
-                        );
-                      }).toList(),
-                    ),
                   )),
               Container(
                 padding: const EdgeInsets.only(

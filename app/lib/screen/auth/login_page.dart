@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/providers/sound_state.dart';
 import 'package:hikup/screen/auth/register_page.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
@@ -68,6 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                               content: AppMessages.login,
                               isLoading: model.getState == ViewState.busy,
                               onPress: () {
+                                context.read<SoundState>().playAudio(
+                                    soundSource: 'sounds/NormalClick.mp3');
                                 if (model.loginFormKey.currentState!
                                     .validate()) {
                                   model.login(

@@ -43,11 +43,13 @@ class CommunityPageViewModel extends BaseModel {
         "roles": appState.roles,
       },
     };
-    var response = await dioService.post(
-      path: getTrailsPath,
-      body: body,
-      token: "Bearer ${appState.token}",
-    );
+    var response = await dioService
+        .post(
+          path: getTrailsPath,
+          body: body,
+          token: "Bearer ${appState.token}",
+        )
+        .timeout(const Duration(seconds: 10), onTimeout: null);
     if (!(response.statusCode == 200)) {
       return [];
     }
@@ -83,6 +85,7 @@ class CommunityPageViewModel extends BaseModel {
       return;
     }
     try {
+      setState(ViewState.create);
       if (image != null) {
         String urlImage = await firebaseStorage.uploadProfile(
           file: File(image!.path),
@@ -91,12 +94,16 @@ class CommunityPageViewModel extends BaseModel {
         body["trail"]["comment"]["pictures"] = [urlImage];
       }
 
-      await dioService.post(
-        path: createCommentPath,
-        body: body,
-        token: "Bearer ${appState.token}",
-      );
+      await dioService
+          .post(
+            path: createCommentPath,
+            body: body,
+            token: "Bearer ${appState.token}",
+          )
+          .timeout(const Duration(seconds: 10), onTimeout: null);
+      setState(ViewState.retrieved);
     } catch (e) {
+      setState(ViewState.retrieved);
       custonNavigationService.showSnackBack(
         content: AppMessages.anErrorOcur,
         isError: true,

@@ -63,54 +63,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             const Gap(16.0),
           ],
         ),
-        // Row(
-        //   children: [
-        //     // GestureDetector(
-        //     //   // onTap: () => Navigator.of(context).pushNamed(
-        //     //   //   HikesCreate.routeName,
-        //     //   // ),
-        //     //   child: const Icon(
-        //     //     FontAwesomeIcons.book,
-        //     //   ),
-        //     // ),
-        //     const Gap(20.0),
-        //     GestureDetector(
-        //       onTap: () => Navigator.of(context).pushNamed(
-        //         CommunityHistoryScreen.routeName,
-        //         //NotificationView.routeName,
-        //       ),
-        //       child: Stack(
-        //         clipBehavior: Clip.none,
-        //         children: [
-        //           const Icon(
-        //             FontAwesomeIcons.book,
-        //             size: 23,
-        //           ),
-        //           Positioned(
-        //             right: 0,
-        //             top: -5,
-        //             child: Container(
-        //               padding: const EdgeInsets.all(3.0),
-        //               decoration: const BoxDecoration(
-        //                 color: Color.fromARGB(255, 23, 255, 119),
-        //                 shape: BoxShape.circle,
-        //               ),
-        //               child: const Text(
-        //                 "3",
-        //                 style: TextStyle(
-        //                   color: Colors.white,
-        //                   fontWeight: FontWeight.bold,
-        //                   fontSize: 8.0,
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     const Gap(16.0)
-        //   ],
-        // )
       ],
     );
   }
