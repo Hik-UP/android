@@ -389,44 +389,48 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 color: BlackPrimary,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Column(children: <Widget>[
-                const Gap(20),
-                Text("Randonneurs", style: subTitleTextStyle),
-                const Gap(20),
-                Column(
-                  children: _hikers.map((entry) {
-                    int index =
-                        _hikers.indexWhere((item) => item["id"] == entry["id"]);
+              child: Column(
+                children: <Widget>[
+                  const Gap(20),
+                  Text("Randonneurs", style: subTitleTextStyle),
+                  const Gap(20),
+                  Column(
+                    children: _hikers.map((entry) {
+                      int index = _hikers
+                          .indexWhere((item) => item["id"] == entry["id"]);
 
-                    return Container(
-                      margin: const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
-                      padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                      decoration: BoxDecoration(
-                        color: index % 2 == 0
-                            ? Colors.white.withOpacity(0.16)
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            loadHikerPicture(48, entry["picture"].toString()),
-                            const Gap(10),
-                            Text(entry["username"].toString(),
-                                style: subTitleTextStyle),
-                            const Gap(20),
-                            const Icon(
-                              Icons.hiking_rounded,
-                              color: Colors.white,
-                            ),
-                            const Gap(5.0),
-                            Text("${entry["stats"]["distance"]} m",
-                                style: subTitleTextStyle)
-                          ]),
-                    );
-                  }).toList(),
-                ),
-              ]),
+                      return Container(
+                        margin: const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
+                        padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                        decoration: BoxDecoration(
+                          color: index % 2 == 0
+                              ? Colors.white.withOpacity(0.16)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              loadHikerPicture(48, entry["picture"].toString()),
+                              const Gap(10),
+                              Text(entry["username"].toString(),
+                                  style: subTitleTextStyle),
+                              const Gap(20),
+                              const Icon(
+                                Icons.hiking_rounded,
+                                color: Colors.white,
+                              ),
+                              const Gap(5.0),
+                              Text("${entry["stats"]["distance"]} m",
+                                  style: subTitleTextStyle)
+                            ]),
+                      );
+                    }).toList(),
+                  ),
+                  const Spacer(),
+                  const Gap(20.0),
+                ],
+              ),
             ),
             body: MapBox(
               mapController: model.mapController,
