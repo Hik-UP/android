@@ -4,6 +4,7 @@ import 'package:hikup/locator.dart';
 import 'package:hikup/model/event.dart';
 import 'package:hikup/model/other_data.dart';
 import 'package:hikup/model/sensible_user_data.dart';
+import 'package:hikup/model/settings.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/user.dart';
@@ -16,6 +17,7 @@ final Box<User> boxUser = Hive.box("userBox");
 final Box<Skin> skinUserBox = Hive.box("skinBox");
 final Box<SensibleUserData> sensibleUserDataBox =
     Hive.box("sensibleUserDataBox");
+final Box<Settings> settingsBox = Hive.box("settings");
 final Box<String> boxtrailId = Hive.box('trailId');
 final Box<TrailList> boxTrails = Hive.box("trails");
 
@@ -35,6 +37,7 @@ class AppState extends ChangeNotifier {
   List<dynamic> roles = [];
   Skin skin = emptySkin;
   SensibleUserData sensibleUserData = emptySensibleUserData;
+  Settings settings = emptySettings;
   List<EventModel> events = [];
 
   void addNewEvent(EventModel event) {
@@ -121,6 +124,11 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateSettingsState({required Settings value}) {
+    settings = value;
+    notifyListeners();
+  }
+
   storeInHive({required User user}) async {
     await _hiveService.addOnBoxViaKey<User>(boxUser, "user", user);
     updateAllState(user: user);
@@ -141,10 +149,12 @@ class AppState extends ChangeNotifier {
     var skin = skinUserBox.get("skin") ?? emptySkin;
     var sensibleUserData =
         sensibleUserDataBox.get("sensibleUserData") ?? emptySensibleUserData;
+    var settings = settingsBox.get("settings") ?? emptySettings;
     setIsFirstDownload(value: otherData.isFirstDownload);
     updateAllState(user: user);
     updateSkinState(value: skin);
     updateSensibleDataState(value: sensibleUserData);
+    updateSettingsState(value: settings);
   }
 
   void getUserFcmToken() async {

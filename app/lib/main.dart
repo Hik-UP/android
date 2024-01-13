@@ -6,6 +6,7 @@ import 'package:hikup/locator.dart';
 import 'package:hikup/model/comment.dart';
 import 'package:hikup/model/other_data.dart';
 import 'package:hikup/model/sensible_user_data.dart';
+import 'package:hikup/model/settings.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:hikup/model/trail_fields.dart';
 import 'package:hikup/model/user.dart';
@@ -61,6 +62,7 @@ Future<void> main() async {
   Hive.registerAdapter(TrailListAdapter());
   Hive.registerAdapter(CommentAdapter());
   Hive.registerAdapter(AuthorAdapter());
+  Hive.registerAdapter(SettingsAdapter());
 
   await Hive.openBox<User>("userBox");
   await Hive.openBox<OtherData>("otherData");
@@ -68,6 +70,7 @@ Future<void> main() async {
   await Hive.openBox<String>("trailId");
   await Hive.openBox<TrailList>("trails");
   await Hive.openBox<Skin>("skinBox");
+  await Hive.openBox<Settings>("settings");
 
   await LocalNotification().init();
 
@@ -96,6 +99,9 @@ class MyApp extends StatelessWidget {
 
   String getTheRightInitialRoute({required BuildContext context}) {
     String userToken = context.read<AppState>().token;
+    context
+        .read<SoundState>()
+        .setVolume(volume: context.read<AppState>().settings.volume ?? 1);
 
     if (context.read<AppState>().isFirstDownload) {
       return OnboardingScreen.routeName;

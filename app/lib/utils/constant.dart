@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:hikup/model/achievement.dart';
 import 'package:hikup/model/sensible_user_data.dart';
+import 'package:hikup/model/settings.dart';
 import 'package:hikup/model/skin.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
@@ -149,6 +150,8 @@ SensibleUserData emptySensibleUserData = SensibleUserData(
   weight: 0,
   tall: 0,
 );
+
+Settings emptySettings = Settings(volume: 1.0);
 
 dynamic loginButtonColor = const LinearGradient(colors: [
   GreenPrimary,

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hikup/model/settings.dart';
+import 'package:hikup/providers/sound_state.dart';
 import 'package:hikup/screen/inventory/inventory_view.dart';
 import 'package:hikup/screen/main/setting/complete_profile.dart';
 import 'package:hikup/screen/main/setting/update_profile.dart';
@@ -10,8 +12,8 @@ import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/widget/scaffold_with_custom_bg.dart';
-import 'package:hikup/widget/sound_handler.dart';
-
+import 'package:hikup/service/hive_service.dart';
+import 'package:hikup/locator.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/app_state.dart';
@@ -68,15 +70,32 @@ class LoadPictureProfil extends StatelessWidget {
   }
 }
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   static String routeName = "/settings";
-  const SettingsScreen({super.key});
+  const SettingsScreen({
+    super.key,
+  });
 
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
   get floatingActionButton => null;
+  final _hiveService = locator<HiveService>();
+  bool isInit = false;
+  double soundValue = 100;
 
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
+
+    if (isInit == false && appState.settings.volume != null) {
+      setState(() {
+        soundValue = appState.settings.volume! * 100;
+        isInit = true;
+      });
+    }
 
     return ScaffoldWithCustomBg(
       child: SingleChildScrollView(
@@ -181,7 +200,29 @@ class SettingsScreen extends StatelessWidget {
               ),
               const Gap(8.0),
               //S
-              const SoundHandler(),
+              Slider(
+                value: soundValue,
+                min: 0,
+                max: 100,
+                divisions: 100,
+                label: "${soundValue.round().toString()}%",
+                onChangeEnd: (double value) async {
+                  var volume = value / 100;
+
+                  await context.read<SoundState>().setVolume(volume: volume);
+                  await _hiveService.addOnBoxViaKey<Settings>(
+                    settingsBox,
+                    "settings",
+                    Settings(volume: volume),
+                  );
+                  appState.updateSettingsState(value: Settings(volume: volume));
+                },
+                onChanged: (double value) async {
+                  setState(() {
+                    soundValue = value;
+                  });
+                },
+              ),
               const Gap(30.0),
               Text(AppMessages.aboutApp, style: subTitleTextStyle),
               const Gap(10.0),
@@ -193,7 +234,7 @@ class SettingsScreen extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  "Version Beta",
+                  "Version Pre-Release",
                   style: textLinkProfileStyle,
                 ),
               ),
