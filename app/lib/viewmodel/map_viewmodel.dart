@@ -63,7 +63,7 @@ class MapViewModel extends BaseModel {
         hike.isNotEmpty &&
         calculateDistance(position.latitude, position.longitude,
                 trailsList[0].latitude, trailsList[0].longitude) <
-            1000.100) {
+            0.100) {
       showJoin = true;
     } else {
       showJoin = false;
