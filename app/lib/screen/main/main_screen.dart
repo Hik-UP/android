@@ -25,6 +25,10 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     context.read<AppState>().getUserFcmToken();
+     context.read<SoundState>().playAudio(
+        soundSource:
+             'sounds/music.mp3'); //Un exemple de comment jouer une music
+
 
     audioPlayer.play(AssetSource('sounds/BackgroundMusic1.mp3'));
     audioPlayer.setVolume(0.5);
