@@ -31,7 +31,7 @@ class CustomBtn extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isLoading ? null : onPress,
         style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+            padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),            
             backgroundColor: bgColor,
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(
