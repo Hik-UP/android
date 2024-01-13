@@ -199,29 +199,39 @@ class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
                 style: subTitleTextStyle,
               ),
               const Gap(8.0),
-              //S
-              Slider(
-                value: soundValue,
-                min: 0,
-                max: 100,
-                divisions: 100,
-                label: "${soundValue.round().toString()}%",
-                onChangeEnd: (double value) async {
-                  var volume = value / 100;
+              Row(
+                children: [
+                  const Icon(Icons.volume_off, color: Colors.white),
+                  Expanded(
+                    child: Slider(
+                      value: soundValue,
+                      min: 0,
+                      max: 100,
+                      divisions: 100,
+                      label: "${soundValue.round().toString()}%",
+                      onChangeEnd: (double value) async {
+                        var volume = value / 100;
 
-                  await context.read<SoundState>().setVolume(volume: volume);
-                  await _hiveService.addOnBoxViaKey<Settings>(
-                    settingsBox,
-                    "settings",
-                    Settings(volume: volume),
-                  );
-                  appState.updateSettingsState(value: Settings(volume: volume));
-                },
-                onChanged: (double value) async {
-                  setState(() {
-                    soundValue = value;
-                  });
-                },
+                        await context
+                            .read<SoundState>()
+                            .setVolume(volume: volume);
+                        await _hiveService.addOnBoxViaKey<Settings>(
+                          settingsBox,
+                          "settings",
+                          Settings(volume: volume),
+                        );
+                        appState.updateSettingsState(
+                            value: Settings(volume: volume));
+                      },
+                      onChanged: (double value) async {
+                        setState(() {
+                          soundValue = value;
+                        });
+                      },
+                    ),
+                  ),
+                  const Icon(Icons.volume_up, color: Colors.white),
+                ],
               ),
               const Gap(30.0),
               Text(AppMessages.aboutApp, style: subTitleTextStyle),

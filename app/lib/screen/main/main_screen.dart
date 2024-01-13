@@ -2,7 +2,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/providers/sound_state.dart';
 import 'package:hikup/service/local_notification.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/widget/custom_bottom_nav_bar.dart';
@@ -20,7 +19,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
-  final AudioPlayer audioPlayer = AudioPlayer();
 
   @override
   void initState() {
