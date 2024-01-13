@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hikup/providers/sound_state.dart';
+import 'package:provider/provider.dart';
 
 import '../model/trail_fields.dart';
 import '../screen/detail/detail_screen.dart';
@@ -22,6 +24,9 @@ class TrailCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () {
+          context
+              .read<SoundState>()
+              .playAudio(soundSource: 'sounds/OpenTrailInfo.mp3');
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return DetailScreen(
               field: field,

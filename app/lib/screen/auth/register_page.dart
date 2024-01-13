@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/providers/sound_state.dart';
 import 'package:hikup/screen/auth/custom_text_btn.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
@@ -10,6 +11,7 @@ import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 import 'package:provider/provider.dart';
+
 import '../../widget/custom_btn.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -83,6 +85,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderColor:
                                   const Color.fromRGBO(255, 174, 49, 1),
                               onPress: () {
+                                context.read<SoundState>().playAudio(
+                                    soundSource: 'sounds/NormalClick.mp3');
                                 if (model.loginFormKey.currentState!
                                     .validate()) {
                                   model.register(
