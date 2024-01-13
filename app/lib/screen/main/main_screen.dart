@@ -26,13 +26,13 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     context.read<AppState>().getUserFcmToken();
-    context.read<SoundState>().playAudio(
-        soundSource:
-            'sounds/music.mp3'); //Un exemple de comment jouer une music
+    // context.read<SoundState>().playAudio(
+    //     soundSource:
+    //         'sounds/music.mp3'); //Un exemple de comment jouer une music
 
-    audioPlayer.play(AssetSource('sounds/BackgroundMusic1.mp3'));
-    audioPlayer.setVolume(0.5);
-    audioPlayer.setReleaseMode(ReleaseMode.loop);
+    // audioPlayer.play(AssetSource('sounds/BackgroundMusic1.mp3'));
+    // audioPlayer.setVolume(0.5);
+    // audioPlayer.setReleaseMode(ReleaseMode.loop);
     LocalNotification.foregroundNotif();
     LocalNotification.onMessageApp();
     LocalNotification.getInitialMessage();
