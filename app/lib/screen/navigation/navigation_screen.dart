@@ -1,27 +1,29 @@
-import 'package:flutter/material.dart';
-import 'dart:math' show cos, sqrt, asin;
 import 'dart:convert';
-import 'package:hikup/screen/main/mapbox/Components/map.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:hikup/theme.dart';
+import 'dart:math' show cos, sqrt, asin;
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gap/gap.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hikup/locator.dart';
+import "package:hikup/model/hike.dart";
+import 'package:hikup/model/navigation.dart';
 import 'package:hikup/providers/app_state.dart';
+import 'package:hikup/providers/sound_state.dart';
+import 'package:hikup/screen/main/mapbox/Components/map.dart';
+import 'package:hikup/screen/main/setting/settings_screen.dart';
+import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/theme.dart';
+import 'package:hikup/utils/socket/socket.dart';
 import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import 'package:gap/gap.dart';
-import 'package:hikup/utils/socket/socket.dart';
-import "package:hikup/model/hike.dart";
-import 'package:geolocator/geolocator.dart';
-import 'package:hikup/model/navigation.dart';
-import 'package:hikup/screen/main/setting/settings_screen.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hikup/locator.dart';
-import 'package:hikup/service/custom_navigation.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
   final Function() onLeave;
@@ -435,6 +437,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
   }
 
   void onHikeEnd() {
+    context
+        .read<SoundState>()
+        .playAudio(soundSource: 'sounds/EndTrailSuccess.mp3');
     _navigator.showSnackBack(
       content: "Félicitations, vous avez terminé cette randonnée !",
       isError: false,

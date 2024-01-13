@@ -1,26 +1,27 @@
 import "package:flutter/material.dart";
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import "package:gap/gap.dart";
 import "package:google_fonts/google_fonts.dart";
+import 'package:hikup/locator.dart';
 import "package:hikup/model/guest.dart";
 import "package:hikup/model/hike.dart";
 import "package:hikup/model/trail_fields.dart";
 import "package:hikup/providers/app_state.dart";
+import "package:hikup/providers/sound_state.dart";
+import 'package:hikup/screen/navigation/navigation_screen.dart';
+import 'package:hikup/service/custom_navigation.dart';
 import "package:hikup/utils/app_messages.dart";
 import "package:hikup/utils/constant.dart";
+import 'package:hikup/utils/wrapper_api.dart';
 import "package:hikup/viewmodel/detail_hike_invite.dart";
 import "package:hikup/widget/base_view.dart";
+import 'package:hikup/widget/custom_btn.dart';
+import 'package:hikup/widget/custom_sliver_app_bar.dart';
 import "package:hikup/widget/display_detail_trails.dart";
 import "package:hikup/widget/guest_cmp.dart";
-import "package:provider/provider.dart";
-import 'package:hikup/screen/navigation/navigation_screen.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:hikup/widget/custom_sliver_app_bar.dart';
-import 'package:hikup/utils/wrapper_api.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hikup/widget/custom_btn.dart';
 import 'package:intl/intl.dart';
-import 'package:hikup/service/custom_navigation.dart';
-import 'package:hikup/locator.dart';
+import "package:provider/provider.dart";
 
 class DetailHikeInvite extends StatefulWidget {
   static String routeName = "/detail-hike-invite";
@@ -212,6 +213,8 @@ class _DetailHikeInviteState extends State<DetailHikeInvite> {
                             child: CustomBtn(
                               content: "Rejoindre",
                               onPress: () async {
+                                context.read<SoundState>().playAudio(
+                                    soundSource: 'sounds/EndTrailSuccess.mp3');
                                 try {
                                   model.getLocation().then((permission) =>
                                       permission == true
