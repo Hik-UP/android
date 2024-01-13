@@ -2,11 +2,13 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/providers/app_state.dart';
-import 'package:hikup/providers/sound_state.dart';
+
+import 'package:hikup/service/geolocation.dart';
 import 'package:hikup/service/local_notification.dart';
 import 'package:hikup/theme.dart';
 import 'package:hikup/widget/custom_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
+
 
 import '../../utils/constant.dart';
 
@@ -25,6 +27,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    Geolocation.getMyPosition();
     context.read<AppState>().getUserFcmToken();
     // context.read<SoundState>().playAudio(
     //     soundSource:
