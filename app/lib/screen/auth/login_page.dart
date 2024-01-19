@@ -52,14 +52,14 @@ class _LoginPageState extends State<LoginPage> {
                             CustomTextField(
                               controller: model.emailController,
                               hintText: AppMessages.email,
-                              validator: Validation.validEmail,
+                              validator: model.validateEmail,
                             ),
                             const Gap(20),
                             CustomTextField(
                               controller: model.passwordController,
                               hintText: AppMessages.password,
                               typeInput: TypeInput.password,
-                              validator: model.validPassword,
+                              validator: model.validatePassword,
                               typeOfInput: TypeOfInput.password,
                               maxLine: 1,
                             ),

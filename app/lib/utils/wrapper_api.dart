@@ -50,6 +50,7 @@ class WrapperApi {
   }
 
   Future<void> logout({required bool isLogout}) async {
+    _dioService.reset();
     //Simply, when user want to logout we delete his information stored on his storage
     await _hiveService.deleteBoxField(
       boxUser,
@@ -116,7 +117,7 @@ class WrapperApi {
           },
           "hike": {"target": target},
         },
-      ).timeout(const Duration(seconds: 10), onTimeout: null);
+      );
 
       for (String state in target) {
         List<Hike> subElements = [];

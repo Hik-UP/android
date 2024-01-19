@@ -58,8 +58,6 @@ class EventModel {
       },
       token: 'Bearer $token',
     );
-
-    print(response.data["events"]);
   }
 
   static EventModel fromMap(Map<String, dynamic> data) {
@@ -85,22 +83,18 @@ class EventModel {
   }) async {
     DioService dioService = locator<DioService>();
 
-    try {
-      await dioService.post(
-        path: path,
-        body: {
-          "user": {
-            "id": id,
-            "roles": roles,
-          },
-          "event": {
-            "id": eventId,
-          }
+    await dioService.post(
+      path: path,
+      body: {
+        "user": {
+          "id": id,
+          "roles": roles,
         },
-        token: 'Bearer $token',
-      );
-    } catch (e) {
-      print(e);
-    }
+        "event": {
+          "id": eventId,
+        }
+      },
+      token: 'Bearer $token',
+    );
   }
 }

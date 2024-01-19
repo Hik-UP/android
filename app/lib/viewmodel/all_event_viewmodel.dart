@@ -24,7 +24,6 @@ class AllEventViewModel extends BaseModel {
           .map<EventModel>((e) => EventModel.fromMap(e))
           .toList();
 
-      print(result.length);
       return result;
     } catch (e) {
       return [];

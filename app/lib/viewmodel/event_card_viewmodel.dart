@@ -9,7 +9,6 @@ class EventCardViewModel extends BaseModel {
       required String eventId,
       required String path,
       required Function update}) async {
-    print("Event id, $eventId");
     setState(ViewState.busy);
     await EventModel.participateUnparticipate(
       token: appState.token,

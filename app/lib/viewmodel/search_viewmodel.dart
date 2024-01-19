@@ -39,13 +39,11 @@ class SearchViewModel extends BaseModel {
       if (existingTrail != null && existingTrail.trails.isNotEmpty) {
         trailsList = existingTrail.trails;
       } else {
-        trailList = await WrapperApi()
-            .getTrail(
-              id: appState.id,
-              roles: appState.roles,
-              token: appState.token,
-            )
-            .timeout(const Duration(seconds: 10), onTimeout: null);
+        trailList = await WrapperApi().getTrail(
+          id: appState.id,
+          roles: appState.roles,
+          token: appState.token,
+        );
 
         if (trailList.statusCode == 200 || trailList.statusCode == 201) {
           trailList.data["trails"].forEach((entry) {

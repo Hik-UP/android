@@ -6,9 +6,8 @@ class AppMessages {
   static String requiredField = "Email obligatoire";
   static String wrongEmail = "Email invalide";
   static String passwordRequired = "Le mot de passe est obligatoire";
-  static String usernameRequired = "Le nom d'utilisateur est obligatoire";
-  static String atLeastHeightChar =
-      "Le mot de passe requiert au moins 8 characters.";
+  static String usernameRequired = "Nom d'utilisateur obligatoire";
+  static String atLeastHeightChar = "Doit avoir entre 8 et 128 caractères";
   static String registerButtonText = "Créer un compte";
   static String usernameHintText = "Nom utilisateur";
   static String loginError = "Email ou mot de passe incorrect";

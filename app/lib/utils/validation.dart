@@ -8,7 +8,7 @@ class Validation {
   }
 
   static bool passwordValidator(String password) {
-    if (password.length < 8) {
+    if (password.length < 8 || password.length > 128) {
       return (false);
     }
     return (true);
@@ -38,8 +38,9 @@ class Validation {
   static String? validateUsername(String? username) {
     if (username == null || username.isEmpty) {
       return AppMessages.usernameRequired;
+    } else if (username.length < 8 || username.length > 24) {
+      return "Doit avoir entre 8 et 24 caractères";
     }
-
     return null;
   }
 }

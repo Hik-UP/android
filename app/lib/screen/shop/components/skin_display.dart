@@ -24,7 +24,6 @@ class SkinDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(skin);
     return BaseView<SkinDisplayViewModel>(
       builder: (context, model, child) => SizedBox(
         child: InkWell(

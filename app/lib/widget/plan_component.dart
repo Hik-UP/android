@@ -26,6 +26,7 @@ class _PlanComponentState extends State<PlanComponent> {
       initialDate: DateTime.now().toLocal(),
       firstDate: DateTime.now().toLocal(),
       lastDate: DateTime(2030),
+      locale: const Locale('fr'),
       builder: (context, child) => Theme(
         data: Theme.of(context).copyWith(
           colorScheme: const ColorScheme.light(

@@ -10,8 +10,8 @@ class DioService {
     BaseOptions(
       baseUrl: baseUrl,
       receiveDataWhenStatusError: true,
-      connectTimeout: const Duration(seconds: 60),
-      receiveTimeout: const Duration(seconds: 60),
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 30),
     ),
   );
 
@@ -19,6 +19,10 @@ class DioService {
 
   addInterceptors() {
     _dio.interceptors.add(AppInterceptors());
+  }
+
+  reset() {
+    _dio.interceptors.clear();
   }
 
   Future<Response> post({
@@ -39,8 +43,7 @@ class DioService {
       );
 
       return result;
-    } on DioError catch (e) {
-      print(e);
+    } on DioException catch (e) {
       if (e.response == null) {
         _navigator.showSnackBack(
           content: AppMessages.anErrorOcur,
@@ -69,7 +72,7 @@ class DioService {
       );
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response == null) {
         _navigator.showSnackBack(
           content: AppMessages.anErrorOcur,
@@ -100,8 +103,7 @@ class DioService {
       );
 
       return result;
-    } on DioError catch (e) {
-      print(e);
+    } on DioException catch (e) {
       return e.response!;
     }
   }
@@ -112,7 +114,7 @@ class DioService {
       var result = await _dio.get("$baseUrl$path");
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return e.response!;
     }
   }

@@ -43,13 +43,11 @@ class CommunityPageViewModel extends BaseModel {
         "roles": appState.roles,
       },
     };
-    var response = await dioService
-        .post(
-          path: getTrailsPath,
-          body: body,
-          token: "Bearer ${appState.token}",
-        )
-        .timeout(const Duration(seconds: 10), onTimeout: null);
+    var response = await dioService.post(
+      path: getTrailsPath,
+      body: body,
+      token: "Bearer ${appState.token}",
+    );
     if (!(response.statusCode == 200)) {
       return [];
     }
@@ -94,13 +92,11 @@ class CommunityPageViewModel extends BaseModel {
         body["trail"]["comment"]["pictures"] = [urlImage];
       }
 
-      await dioService
-          .post(
-            path: createCommentPath,
-            body: body,
-            token: "Bearer ${appState.token}",
-          )
-          .timeout(const Duration(seconds: 10), onTimeout: null);
+      await dioService.post(
+        path: createCommentPath,
+        body: body,
+        token: "Bearer ${appState.token}",
+      );
       setState(ViewState.retrieved);
     } catch (e) {
       setState(ViewState.retrieved);

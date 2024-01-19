@@ -9,6 +9,7 @@ import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
+import 'package:hikup/utils/validation.dart';
 import 'base_model.dart';
 
 class LoginPageViewModel extends BaseModel {
@@ -18,14 +19,24 @@ class LoginPageViewModel extends BaseModel {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  String? validPassword(String? password) {
-    if (password != null && password.length > 7) {
-      return null;
+  String? validateEmail(String? email) {
+    if (email == null || email.isEmpty) {
+      return "Email obligatoire";
+    } else if (email.length > 256) {
+      return "Ne peut avoir plus de 256 caractères";
+    } else if (!Validation.emailValidator(email)) {
+      return AppMessages.wrongEmail;
     }
+    return null;
+  }
+
+  String? validatePassword(String? password) {
     if (password == null || password.isEmpty) {
-      return AppMessages.passwordRequired;
+      return "Mot de passe obligatoire";
+    } else if (!Validation.passwordValidator(password)) {
+      return AppMessages.atLeastHeightChar;
     }
-    return AppMessages.atLeastHeightChar;
+    return null;
   }
 
   login({
@@ -44,7 +55,7 @@ class LoginPageViewModel extends BaseModel {
             "password": password,
           }
         },
-      ).timeout(const Duration(seconds: 10), onTimeout: null);
+      );
       setState(ViewState.retrieved);
       Map<String, dynamic> data = result.data as Map<String, dynamic>;
 
@@ -70,13 +81,11 @@ class LoginPageViewModel extends BaseModel {
         //Passer de user JSON à user model
         User user = User.fromMap(data: data["user"]);
 
-        var userProfile = await WrapperApi()
-            .getProfile(
-              id: user.id,
-              roles: user.roles,
-              token: user.token,
-            )
-            .timeout(const Duration(seconds: 10), onTimeout: null);
+        var userProfile = await WrapperApi().getProfile(
+          id: user.id,
+          roles: user.roles,
+          token: user.token,
+        );
 
         if (userProfile.statusCode == 200 || userProfile.statusCode == 201) {
           var profileData = userProfile.data as Map<String, dynamic>;

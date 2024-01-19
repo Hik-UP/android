@@ -19,20 +19,20 @@ class RegisterPageViewModel extends BaseModel {
   final _dioService = locator<DioService>();
 
   String? validateEmail(String? email) {
-    if (email == null) {
-      return AppMessages.requiredField;
-    }
-    if (!Validation.emailValidator(email)) {
+    if (email == null || email.isEmpty) {
+      return "Email obligatoire";
+    } else if (email.length > 256) {
+      return "Ne peut avoir plus de 256 caractères";
+    } else if (!Validation.emailValidator(email)) {
       return AppMessages.wrongEmail;
     }
     return null;
   }
 
   String? validatePassword(String? password) {
-    if (password == null) {
-      return AppMessages.requiredField;
-    }
-    if (!Validation.passwordValidator(password)) {
+    if (password == null || password.isEmpty) {
+      return "Mot de passe obligatoire";
+    } else if (!Validation.passwordValidator(password)) {
       return AppMessages.atLeastHeightChar;
     }
     return null;
@@ -57,7 +57,7 @@ class RegisterPageViewModel extends BaseModel {
           "email": email,
           "password": password,
         }
-      }).timeout(const Duration(seconds: 10), onTimeout: null);
+      });
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         MixpanelManager.track('signup');

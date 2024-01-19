@@ -60,13 +60,11 @@ class DetailScreenViewModel extends BaseModel {
 
     try {
       setState(ViewState.busy);
-      var result = await _dioService
-          .post(
-            path: createHikePath,
-            body: bodyTosend,
-            token: "Bearer ${appState.token}",
-          )
-          .timeout(const Duration(seconds: 10), onTimeout: null);
+      var result = await _dioService.post(
+        path: createHikePath,
+        body: bodyTosend,
+        token: "Bearer ${appState.token}",
+      );
       setState(ViewState.retrieved);
 
       if (result.statusCode == 201 || result.statusCode == 200) {

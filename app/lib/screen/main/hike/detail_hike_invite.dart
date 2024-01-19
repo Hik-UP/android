@@ -213,8 +213,6 @@ class _DetailHikeInviteState extends State<DetailHikeInvite> {
                             child: CustomBtn(
                               content: "Rejoindre",
                               onPress: () async {
-                                context.read<SoundState>().playAudio(
-                                    soundSource: 'sounds/EndTrailSuccess.mp3');
                                 try {
                                   model.getLocation().then((permission) =>
                                       permission == true
@@ -314,6 +312,9 @@ class _DetailHikeInviteState extends State<DetailHikeInvite> {
                                                                         },
                                                                         onComplete:
                                                                             () {
+                                                                          context
+                                                                              .read<SoundState>()
+                                                                              .playAudio(soundSource: 'sounds/EndTrailSuccess.mp3');
                                                                           setState(
                                                                               () {
                                                                             joinLoading =

@@ -80,7 +80,6 @@ class DialogContentSkinViewModel extends BaseModel {
         data: body,
       );
 
-      print(response.data);
       return response.data;
     } catch (e) {
       throw Exception(e.toString());
