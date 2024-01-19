@@ -74,7 +74,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: model.passwordControllerConfirm,
                               hintText: AppMessages.confirmPassword,
                               typeInput: TypeInput.password,
-                              validator: model.validatePassword,
+                              validator: model.validatePasswordConfirm,
                               typeOfInput: TypeOfInput.password,
                             ),
                             const Gap(20.0),

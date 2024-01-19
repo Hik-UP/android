@@ -120,7 +120,7 @@ class LoginPageViewModel extends BaseModel {
       }
     } catch (e) {
       _navigationService.showSnackBack(
-        content: AppMessages.anErrorOcur,
+        content: AppMessages.loginError,
         isError: true,
       );
       setState(ViewState.retrieved);

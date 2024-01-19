@@ -16,6 +16,7 @@ class AppInterceptors extends Interceptor {
 
       await WrapperApi().logout(isLogout: false);
     }
-    return err;
+
+    handler.next(err);
   }
 }

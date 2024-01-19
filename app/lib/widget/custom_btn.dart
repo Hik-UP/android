@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 class CustomBtn extends StatelessWidget {
   final String content;
   final Function()? onPress;
+  final bool disabled;
   final Gradient? gradient;
   final bool isLoading;
   final double height;
@@ -13,6 +14,7 @@ class CustomBtn extends StatelessWidget {
     super.key,
     required this.content,
     required this.onPress,
+    this.disabled = false,
     this.gradient,
     this.isLoading = false,
     this.height = 45,
@@ -29,9 +31,12 @@ class CustomBtn extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: ElevatedButton(
-        onPressed: isLoading ? null : onPress,
+        onPressed: isLoading || disabled ? null : onPress,
         style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),            
+            padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),
+            disabledBackgroundColor: isLoading
+                ? bgColor
+                : const Color.fromRGBO(204, 204, 204, 1).withOpacity(0.3),
             backgroundColor: bgColor,
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(
@@ -39,7 +44,9 @@ class CustomBtn extends StatelessWidget {
             ),
             side: BorderSide(
               width: 1.0,
-              color: borderColor,
+              color: disabled
+                  ? const Color.fromRGBO(153, 153, 153, 1)
+                  : borderColor,
             )),
         child: Center(
           child: isLoading

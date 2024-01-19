@@ -35,6 +35,7 @@ import 'screen/main/setting/update_profile.dart';
 import 'screen/main/setting/settings_screen.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hikup/service/dio_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,6 +80,8 @@ Future<void> main() async {
     Stripe.publishableKey = stripePublic;
   }
   setupLocator();
+
+  locator<DioService>().addInterceptors();
 
   runApp(
     MultiProvider(

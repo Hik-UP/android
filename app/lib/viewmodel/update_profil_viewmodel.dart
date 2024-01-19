@@ -11,6 +11,7 @@ import 'package:hikup/utils/constant.dart';
 import 'package:hikup/utils/wrapper_api.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:hikup/utils/validation.dart';
 
 class UpdateProfilModel extends BaseModel {
   XFile? userImage;
@@ -20,6 +21,17 @@ class UpdateProfilModel extends BaseModel {
   final TextEditingController usernameCtrl = TextEditingController();
   final TextEditingController emailCtrl = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
+  String? validateEmail(String? email) {
+    if (email == null || email.isEmpty) {
+      return "Email obligatoire";
+    } else if (email.length > 256) {
+      return "Ne peut avoir plus de 256 caractères";
+    } else if (!Validation.emailValidator(email)) {
+      return AppMessages.wrongEmail;
+    }
+    return null;
+  }
 
   setUserImage({XFile? value}) {
     userImage = value;

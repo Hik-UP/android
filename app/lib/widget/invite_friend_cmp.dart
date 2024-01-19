@@ -5,6 +5,7 @@ import 'package:hikup/utils/constant.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:hikup/widget/email_invite_card.dart';
+import 'package:hikup/utils/validation.dart';
 
 class InviteFriendCmp extends StatefulWidget {
   final Function(String data) value;
@@ -22,14 +23,39 @@ class InviteFriendCmp extends StatefulWidget {
 
 class _InviteFriendCmpState extends State<InviteFriendCmp> {
   final TextEditingController _controller = TextEditingController();
+  GlobalKey<FormState> inviteFormKey = GlobalKey<FormState>();
+  bool isDisabled = true;
+
+  String? validateEmail(String? email) {
+    if (email == null || email.isEmpty) {
+      return null;
+    } else if (email.length > 256) {
+      return "Ne peut avoir plus de 256 caractères";
+    } else if (!Validation.emailValidator(email)) {
+      return AppMessages.wrongEmail;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomTextField(
-          controller: _controller,
-          hintText: "Email",
+        Form(
+          key: inviteFormKey,
+          child: CustomTextField(
+            controller: _controller,
+            hintText: "Email",
+            validator: validateEmail,
+            onChange: (value) {
+              if (_controller.text.isEmpty) {
+                inviteFormKey.currentState!.validate();
+              }
+              setState(() {
+                isDisabled = _controller.text.isEmpty;
+              });
+            },
+          ),
         ),
         Visibility(
           visible: widget.guestList.isNotEmpty,
@@ -58,9 +84,15 @@ class _InviteFriendCmpState extends State<InviteFriendCmp> {
         const Gap(5),
         CustomBtn(
           content: AppMessages.invitMsg,
+          disabled: isDisabled,
           onPress: () {
-            widget.value(_controller.text);
-            _controller.text = "";
+            if (inviteFormKey.currentState!.validate()) {
+              widget.value(_controller.text);
+              _controller.text = "";
+              setState(() {
+                isDisabled = _controller.text.isEmpty;
+              });
+            }
           },
           gradient: loginButtonColor,
         ),

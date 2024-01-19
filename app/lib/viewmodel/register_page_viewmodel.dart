@@ -34,6 +34,19 @@ class RegisterPageViewModel extends BaseModel {
       return "Mot de passe obligatoire";
     } else if (!Validation.passwordValidator(password)) {
       return AppMessages.atLeastHeightChar;
+    } else if (passwordControllerConfirm.text.isNotEmpty &&
+        password != passwordControllerConfirm.text) {
+      return "Doivent être identiques";
+    }
+    return null;
+  }
+
+  String? validatePasswordConfirm(String? password) {
+    if (password == null || password.isEmpty) {
+      return "Confirmation obligatoire";
+    } else if (passwordController.text.isNotEmpty &&
+        password != passwordController.text) {
+      return "Doivent être identiques";
     }
     return null;
   }
@@ -45,11 +58,6 @@ class RegisterPageViewModel extends BaseModel {
     required AppState appState,
   }) async {
     try {
-      if (passwordController.text != passwordControllerConfirm.text) {
-        _customNavigationService.showSnackBack(
-            content: "Mots de passe non conforme", isError: true);
-        return;
-      }
       setState(ViewState.busy);
       var response = await _dioService.post(path: '/auth/signup', body: {
         "user": {
@@ -76,7 +84,7 @@ class RegisterPageViewModel extends BaseModel {
       setState(ViewState.retrieved);
     } catch (e) {
       _customNavigationService.showSnackBack(
-        content: AppMessages.anErrorOcur,
+        content: "Cet utilisateur existe déjà",
         isError: true,
       );
       setState(ViewState.retrieved);

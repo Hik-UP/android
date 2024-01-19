@@ -75,7 +75,9 @@ class DetailScreenViewModel extends BaseModel {
     } catch (e) {
       onError();
       _navigationService.showSnackBack(
-        content: AppMessages.anErrorOcur,
+        content: guests.isNotEmpty
+            ? "Un(e) invité(e) n'existe pas"
+            : AppMessages.anErrorOcur,
         isError: true,
       );
       setState(ViewState.retrieved);

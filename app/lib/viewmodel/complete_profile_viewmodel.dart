@@ -8,7 +8,7 @@ import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/base_model.dart';
 
 class CompleteProfileViewModel extends BaseModel {
-  String gender = "";
+  String? gender;
   bool dropDownIsActive = false;
   bool isGenderError = false;
   bool isInit = false;
@@ -46,10 +46,42 @@ class CompleteProfileViewModel extends BaseModel {
     return true;
   }
 
-  String? requiredField(String? value) {
-    if (value != null && value.isNotEmpty) return null;
+  String? ageValidator(String? age) {
+    if (age == null || age.isEmpty) {
+      return "Age obligatoire";
+    } else if (double.tryParse(age) == null) {
+      return "Age incorrect";
+    } else if (double.tryParse(age)! < 16 || double.tryParse(age)! > 90) {
+      return "Entre 16 et 90 ans";
+    }
 
-    return "Ce champ est requis";
+    return null;
+  }
+
+  String? weightValidator(String? weight) {
+    if (weight == null || weight.isEmpty) {
+      return "Poids obligatoire";
+    } else if (double.tryParse(weight) == null) {
+      return "Poids incorrect";
+    } else if (double.tryParse(weight)! < 40 ||
+        double.tryParse(weight)! > 220) {
+      return "Entre 40 et 220 kg";
+    }
+
+    return null;
+  }
+
+  String? heightValidator(String? height) {
+    if (height == null || height.isEmpty) {
+      return "Taille obligatoire";
+    } else if (double.tryParse(height) == null) {
+      return "Taille incorrecte";
+    } else if (double.tryParse(height)! < 140 ||
+        double.tryParse(height)! > 260) {
+      return "Entre 140 et 260 cm";
+    }
+
+    return null;
   }
 
   completeData({

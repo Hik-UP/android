@@ -38,8 +38,8 @@ class Validation {
   static String? validateUsername(String? username) {
     if (username == null || username.isEmpty) {
       return AppMessages.usernameRequired;
-    } else if (username.length < 8 || username.length > 24) {
-      return "Doit avoir entre 8 et 24 caractères";
+    } else if (username.length < 6 || username.length > 24) {
+      return "Doit avoir entre 6 et 24 caractères";
     }
     return null;
   }

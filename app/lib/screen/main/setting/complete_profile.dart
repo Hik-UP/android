@@ -106,7 +106,7 @@ class CompleteProfile extends StatelessWidget {
                           controller: model.ageCtrl,
                           keyBoardType: TextInputType.number,
                           hintText: "Age",
-                          validator: model.requiredField,
+                          validator: model.ageValidator,
                           inputsFormatter: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(2)
@@ -122,7 +122,7 @@ class CompleteProfile extends StatelessWidget {
                           controller: model.weightCtrl,
                           keyBoardType: TextInputType.number,
                           hintText: AppMessages.weight,
-                          validator: model.requiredField,
+                          validator: model.weightValidator,
                           inputsFormatter: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(3)
@@ -134,22 +134,47 @@ class CompleteProfile extends StatelessWidget {
                 ),
                 const Gap(20.0),
                 HeadPlaceHolder(
-                  label: AppMessages.gender,
-                  child: CustomDropDown(
-                    getSelectedGender: (String gender) {
-                      model.setGenderValue(
-                          value: gender == 'Homme' ? 'H' : 'F');
-                      model.setDropDownIsActive(value: false);
-                    },
-                    inputController: model.genderCtrl,
-                    isVisible: model.dropDownIsActive,
-                    onTap: () {
-                      model.setDropDownIsActive(value: !model.dropDownIsActive);
-                    },
-                    hintText: AppMessages.selectSex,
-                    content: const ["Homme", "Femme"],
-                  ),
-                ),
+                    label: AppMessages.gender,
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: DropdownButtonHideUnderline(
+                          child: ButtonTheme(
+                            alignedDropdown: true,
+                            child: DropdownButton(
+                              isExpanded: true,
+                              hint: const Text(
+                                "Genre",
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 14),
+                              ),
+                              value: model.gender,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: const [
+                                DropdownMenuItem(
+                                    value: "M",
+                                    child: Text(
+                                      "Homme",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    )),
+                                DropdownMenuItem(
+                                  value: "F",
+                                  child: Text("Femme",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14)),
+                                )
+                              ],
+                              onChanged: (String? gender) {
+                                if (gender != null) {
+                                  model.setGenderValue(value: gender);
+                                }
+                              },
+                            ),
+                          ),
+                        ))),
                 Visibility(
                   visible: model.isGenderError,
                   child: Column(
@@ -157,11 +182,11 @@ class CompleteProfile extends StatelessWidget {
                     children: [
                       const Gap(6.0),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                        padding: const EdgeInsets.only(left: 20.0, top: 3.0),
                         child: Text(
                           AppMessages.selectSex,
                           style: const TextStyle(
-                            color: Color.fromARGB(255, 255, 0, 0),
+                            color: Color.fromRGBO(194, 63, 56, 1),
                             fontSize: 12.0,
                           ),
                         ),
@@ -176,7 +201,7 @@ class CompleteProfile extends StatelessWidget {
                     controller: model.tallCtrl,
                     keyBoardType: TextInputType.number,
                     hintText: AppMessages.addHeight,
-                    validator: model.requiredField,
+                    validator: model.heightValidator,
                     inputsFormatter: [
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(3)
@@ -190,11 +215,12 @@ class CompleteProfile extends StatelessWidget {
                   isLoading: model.getState == ViewState.busy,
                   onPress: () {
                     model.genderNotNull();
-                    if (model.formKey.currentState!.validate()) {
+                    if (model.formKey.currentState!.validate() &&
+                        model.isGenderError == false) {
                       model.completeData(
                         sensibleUserData: SensibleUserData(
                           age: int.parse(model.ageCtrl.text),
-                          sex: model.gender,
+                          sex: model.gender ?? '',
                           weight: int.parse(model.weightCtrl.text),
                           tall: int.parse(model.tallCtrl.text),
                         ),

@@ -102,11 +102,9 @@ class UpdateProfile extends StatelessWidget {
                   const Gap(50.0),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Container(
-                      child: Text(
-                        "Nom d'utilisateur",
-                        style: subTitleTextStyle,
-                      ),
+                    child: Text(
+                      "Nom d'utilisateur",
+                      style: subTitleTextStyle,
                     ),
                   ),
                   const Gap(5.0),
@@ -118,18 +116,16 @@ class UpdateProfile extends StatelessWidget {
                   const Gap(20.0),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Container(
-                      child: Text(
-                        "Email",
-                        style: subTitleTextStyle,
-                      ),
+                    child: Text(
+                      "Email",
+                      style: subTitleTextStyle,
                     ),
                   ),
                   const Gap(5.0),
                   CustomTextField(
                     controller: model.emailCtrl,
                     hintText: "Email",
-                    validator: Validation.validEmail,
+                    validator: model.validateEmail,
                   ),
                   const Gap(20.0),
                   CustomBtn(
@@ -190,10 +186,6 @@ class UpdateProfile extends StatelessWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(12.0),
-                          // child: Icon(
-                          //   FontAwesomeIcons.deleteLeft,
-                          //   color: darkBlue300,
-                          // ),
                         ),
                         //const Gap(4.0),
                         // Text(
