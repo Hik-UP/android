@@ -184,18 +184,20 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     color: Colors.red,
                   ),
                 ),
-                Container(
-                    padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                    child: Column(children: [
-                      Text(
-                          "${calcDistance(lastPosition ?? "0,0", "${hikerLatLng.latitude},${hikerLatLng.longitude}")} m",
-                          style: GoogleFonts.poppins(
-                              fontSize: 10,
-                              height: 1.2,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
-                              fontStyle: FontStyle.italic)),
-                    ])),
+                lastPosition != null
+                    ? Container(
+                        padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                        child: Column(children: [
+                          Text(
+                              "${calcDistance(lastPosition ?? "0,0", "${hikerLatLng.latitude},${hikerLatLng.longitude}")} m",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 10,
+                                  height: 1.2,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic)),
+                        ]))
+                    : Container(),
               ])),
         ),
         "stats": entry["hiker"]["stats"]
@@ -244,18 +246,21 @@ class _NavigationScreenState extends State<NavigationScreen> {
                         color: Colors.red,
                       ),
                     ),
-                    Container(
-                        padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                        child: Column(children: [
-                          Text(
-                              "${calcDistance(lastPosition ?? "0,0", "${hikerLatLng.latitude},${hikerLatLng.longitude}")} m",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 10,
-                                  height: 1.2,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white,
-                                  fontStyle: FontStyle.italic)),
-                        ])),
+                    lastPosition != null
+                        ? Container(
+                            padding:
+                                const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                            child: Column(children: [
+                              Text(
+                                  "${calcDistance(lastPosition ?? "0,0", "${hikerLatLng.latitude},${hikerLatLng.longitude}")} m",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 10,
+                                      height: 1.2,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white,
+                                      fontStyle: FontStyle.italic)),
+                            ]))
+                        : Container(),
                   ])),
             ),
             "stats": entry["hiker"]["stats"]
@@ -316,18 +321,21 @@ class _NavigationScreenState extends State<NavigationScreen> {
                       color: Colors.red,
                     ),
                   ),
-                  Container(
-                      padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                      child: Column(children: [
-                        Text(
-                            "${calcDistance(lastPosition ?? "0,0", "${hikerLatLng.latitude},${hikerLatLng.longitude}")} m",
-                            style: GoogleFonts.poppins(
-                                fontSize: 10,
-                                height: 1.2,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                                fontStyle: FontStyle.italic)),
-                      ])),
+                  lastPosition != null
+                      ? Container(
+                          padding:
+                              const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                          child: Column(children: [
+                            Text(
+                                "${calcDistance(lastPosition ?? "0,0", "${hikerLatLng.latitude},${hikerLatLng.longitude}")} m",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 10,
+                                    height: 1.2,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                    fontStyle: FontStyle.italic)),
+                          ]))
+                      : Container(),
                 ])),
           );
         });
@@ -366,18 +374,21 @@ class _NavigationScreenState extends State<NavigationScreen> {
                       color: Colors.red,
                     ),
                   ),
-                  Container(
-                      padding: const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                      child: Column(children: [
-                        Text(
-                            "${calcDistance(lastPosition ?? "0,0", "${_hikers[index]["LatLng"]}")} m",
-                            style: GoogleFonts.poppins(
-                                fontSize: 10,
-                                height: 1.2,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                                fontStyle: FontStyle.italic)),
-                      ])),
+                  lastPosition != null
+                      ? Container(
+                          padding:
+                              const EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                          child: Column(children: [
+                            Text(
+                                "${calcDistance(lastPosition ?? "0,0", "${_hikers[index]["LatLng"]}")} m",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 10,
+                                    height: 1.2,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                    fontStyle: FontStyle.italic)),
+                          ]))
+                      : Container(),
                 ])),
           );
         });

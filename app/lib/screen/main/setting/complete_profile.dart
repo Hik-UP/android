@@ -11,7 +11,6 @@ import 'package:hikup/utils/constant.dart';
 import 'package:hikup/viewmodel/complete_profile_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_btn.dart';
-import 'package:hikup/widget/custom_drop_down.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 import 'package:provider/provider.dart';
