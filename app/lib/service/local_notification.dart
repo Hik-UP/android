@@ -1,8 +1,8 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hikup/locator.dart';
-import 'package:hikup/screen/main/search/notification.dart';
 import 'package:hikup/service/custom_navigation.dart';
+import 'package:hikup/screen/main/hike/hikes_create.dart';
 
 class LocalNotification {
   static final LocalNotification _localNotification =
@@ -38,9 +38,8 @@ class LocalNotification {
       initializationSettings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) {
-        locator<CustomNavigationService>().navigateTo(
-          NotificationView.routeName,
-        );
+        locator<CustomNavigationService>()
+            .navigateTo(HikesCreate.routeName, arguments: {'goToInvite': true});
       },
     );
   }
@@ -78,9 +77,8 @@ class LocalNotification {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage? message) {
       if (message!.notification != null &&
           message.notification!.android != null) {
-        locator<CustomNavigationService>().navigateTo(
-          NotificationView.routeName,
-        );
+        locator<CustomNavigationService>()
+            .navigateTo(HikesCreate.routeName, arguments: {'goToInvite': true});
       }
     });
   }
@@ -90,9 +88,8 @@ class LocalNotification {
         await FirebaseMessaging.instance.getInitialMessage();
 
     if (remoteMessage != null) {
-      locator<CustomNavigationService>().navigateTo(
-        NotificationView.routeName,
-      );
+      locator<CustomNavigationService>()
+          .navigateTo(HikesCreate.routeName, arguments: {'goToInvite': true});
     }
   }
 }

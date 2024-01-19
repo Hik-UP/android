@@ -10,11 +10,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class AllHike extends StatefulWidget {
-  final int menuIndex;
   final List<String> targets;
   const AllHike({
     super.key,
-    required this.menuIndex,
     required this.targets,
   });
 

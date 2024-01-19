@@ -6,14 +6,29 @@ import 'package:hikup/viewmodel/hikes_create_viewmodel.dart';
 import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/utils/app_messages.dart';
 
-class HikesCreate extends StatelessWidget {
+class HikesCreate extends StatefulWidget {
   static String routeName = "/hikes-create";
   const HikesCreate({super.key});
 
   @override
+  State<HikesCreate> createState() => _HikesCreateState();
+}
+
+class _HikesCreateState extends State<HikesCreate> {
+  bool isInit = false;
+
+  @override
   Widget build(BuildContext context) {
-    return BaseView<HikeCreateViewModel>(
-      builder: (context, model, child) => Scaffold(
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+
+    return BaseView<HikeCreateViewModel>(builder: (context, model, child) {
+      if (isInit == false && arguments['goToInvite'] == true) {
+        model.currentIndex = 1;
+        isInit = true;
+      }
+
+      return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
           title: Text(
@@ -35,6 +50,7 @@ class HikesCreate extends StatelessWidget {
           child: Column(
             children: [
               DefaultTabController(
+                initialIndex: arguments['goToInvite'] == true ? 1 : 0,
                 length: model.tabs.length,
                 child: Builder(builder: (context) {
                   final TabController tabController =
@@ -59,7 +75,6 @@ class HikesCreate extends StatelessWidget {
                       ),
                       const Gap(10.0),
                       AllHike(
-                        menuIndex: model.currentIndex,
                         targets: model.targets[model.currentIndex],
                       ),
                     ],
@@ -69,7 +84,7 @@ class HikesCreate extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

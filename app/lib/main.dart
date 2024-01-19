@@ -144,7 +144,7 @@ class MyApp extends StatelessWidget {
         UpdateProfile.routeName: (_) => const UpdateProfile(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         CompleteProfile.routeName: (_) => const CompleteProfile(),
-        HikesCreate.routeName: (_) => const HikesCreate(),
+        HikesCreate.routeName: (_) => HikesCreate(),
         CommunityHistoryScreen.routeName: (_) => const CommunityHistoryScreen(),
         AllEventView.routeName: (_) => const AllEventView(),
         CreateEventView.routeName: (_) => const CreateEventView(),
