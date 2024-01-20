@@ -69,11 +69,17 @@ class _AllHikeState extends State<AllHike> {
         }
         if (snapshot.data != null && isLoading == false) {
           if (snapshot.data!.isNotEmpty) {
-            snapshot.data!.sort((a, b) {
-              var adate = a.schedule;
-              var bdate = b.schedule;
-              return adate.compareTo(bdate);
-            });
+            widget.targets.contains("leaved")
+                ? snapshot.data!.sort((a, b) {
+                    var adate = a.schedule;
+                    var bdate = b.schedule;
+                    return bdate.compareTo(adate);
+                  })
+                : snapshot.data!.sort((a, b) {
+                    var adate = a.schedule;
+                    var bdate = b.schedule;
+                    return adate.compareTo(bdate);
+                  });
             return ListView.builder(
               primary: false,
               shrinkWrap: true,
