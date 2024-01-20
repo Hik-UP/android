@@ -13,6 +13,7 @@ class DetailScreenViewModel extends BaseModel {
   final TextEditingController dateCtrl = TextEditingController();
   final TextEditingController timeCtrl = TextEditingController();
   final _navigationService = locator<CustomNavigationService>();
+  GlobalKey<FormState> planFormKey = GlobalKey<FormState>();
   final _dioService = locator<DioService>();
   List<String> emailFriends = [];
 

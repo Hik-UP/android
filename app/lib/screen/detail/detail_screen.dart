@@ -221,6 +221,7 @@ class DetailScreen extends StatelessWidget {
                                                           FontStyle.italic)),
                                               const Gap(5),
                                               PlanComponent(
+                                                formKey: model.planFormKey,
                                                 dateCtrl: model.dateCtrl,
                                                 timeCtrl: model.timeCtrl,
                                               ),
@@ -254,43 +255,48 @@ class DetailScreen extends StatelessWidget {
                                                                 .playAudio(
                                                                     soundSource:
                                                                         'sounds/ListSelector.mp3');
-                                                            model.createAHike(
-                                                                appState:
-                                                                    appState,
-                                                                trailField:
-                                                                    field,
-                                                                timeStamps: model
-                                                                            .dateCtrl
-                                                                            .text
-                                                                            .isNotEmpty &&
-                                                                        model
-                                                                            .timeCtrl
-                                                                            .text
-                                                                            .isNotEmpty
-                                                                    ? model
-                                                                        .timeStampOrNull()
-                                                                    : null,
-                                                                guests: model
-                                                                    .emailFriends,
-                                                                onLoad: () {
-                                                                  setState(() =>
-                                                                      hikeLoading =
-                                                                          false);
-                                                                  Navigator.pop(
-                                                                      context,
-                                                                      'Cancel');
-                                                                },
-                                                                onError: () {
-                                                                  setState(() =>
-                                                                      hikeLoading =
-                                                                          false);
-                                                                  Navigator.pop(
-                                                                      context,
-                                                                      'Cancel');
-                                                                });
-                                                            setState(() =>
-                                                                hikeLoading =
-                                                                    true);
+                                                            if (model
+                                                                .planFormKey
+                                                                .currentState!
+                                                                .validate()) {
+                                                              model.createAHike(
+                                                                  appState:
+                                                                      appState,
+                                                                  trailField:
+                                                                      field,
+                                                                  timeStamps: model
+                                                                              .dateCtrl
+                                                                              .text
+                                                                              .isNotEmpty &&
+                                                                          model
+                                                                              .timeCtrl
+                                                                              .text
+                                                                              .isNotEmpty
+                                                                      ? model
+                                                                          .timeStampOrNull()
+                                                                      : null,
+                                                                  guests: model
+                                                                      .emailFriends,
+                                                                  onLoad: () {
+                                                                    setState(() =>
+                                                                        hikeLoading =
+                                                                            false);
+                                                                    Navigator.pop(
+                                                                        context,
+                                                                        'Cancel');
+                                                                  },
+                                                                  onError: () {
+                                                                    setState(() =>
+                                                                        hikeLoading =
+                                                                            false);
+                                                                    Navigator.pop(
+                                                                        context,
+                                                                        'Cancel');
+                                                                  });
+                                                              setState(() =>
+                                                                  hikeLoading =
+                                                                      true);
+                                                            }
                                                           })),
                                                   const Gap(5),
                                                   Expanded(
