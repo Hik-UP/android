@@ -56,14 +56,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
       cursorColor: const Color.fromRGBO(0, 0, 0, 1),
       obscureText: widget.typeOfInput == TypeOfInput.text ? false : obsureText,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+        contentPadding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
         hintText: widget.hintText,
         hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
+        errorStyle: const TextStyle(fontSize: 12, height: 0.5),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
         fillColor: Colors.white,
         filled: true,
+        prefix: widget.prefixIcon == null
+            ? const Padding(padding: EdgeInsets.only(left: 15.0))
+            : null,
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.typeOfInput == TypeOfInput.text
             ? widget.suffixIcon
