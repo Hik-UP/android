@@ -72,7 +72,7 @@ class _AllHikeState extends State<AllHike> {
             snapshot.data!.sort((a, b) {
               var adate = a.schedule;
               var bdate = b.schedule;
-              return bdate.compareTo(adate);
+              return adate.compareTo(bdate);
             });
             return ListView.builder(
               primary: false,
