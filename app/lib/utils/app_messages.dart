@@ -18,7 +18,7 @@ class AppMessages {
   static String deleteaccount = "Delete account";
   static String logout = "Déconnexion";
   static String needAPicture = "Veuillez séléctionner une image";
-  static String tokenExpiredMessage = "Votre token est expiré";
+  static String tokenExpiredMessage = "Votre session a expiré";
   static String succesfulLogout = "Déconnexion";
   static String inexistantUser = "Oops, cet utilisateur n'existe pas.";
   static String infoMessage = "Informations";

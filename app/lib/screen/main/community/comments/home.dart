@@ -94,6 +94,11 @@ class _CommunityViewState extends State<CommunityView> {
                   if (snapshot.hasData &&
                       snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data!.isNotEmpty) {
+                      snapshot.data!.sort((a, b) {
+                        var adate = a.date;
+                        var bdate = b.date;
+                        return bdate.compareTo(adate);
+                      });
                       return Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
