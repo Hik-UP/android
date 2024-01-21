@@ -210,12 +210,26 @@ class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
                 children: [
                   const Icon(Icons.volume_off, color: Colors.white),
                   Expanded(
+                      child: SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                        valueIndicatorColor: Colors.white,
+                        valueIndicatorTextStyle: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black)),
                     child: Slider(
                       value: soundValue,
                       min: 0,
                       max: 100,
                       divisions: 100,
                       label: "${soundValue.round().toString()}%",
+                      activeColor: Colors.white,
+                      inactiveColor: Colors.grey.withOpacity(0.3),
+                      thumbColor: Colors.white,
+                      overlayColor: MaterialStateColor.resolveWith((states) =>
+                          states.contains(MaterialState.dragged)
+                              ? Colors.grey.withOpacity(0.3)
+                              : Colors.transparent),
                       onChangeEnd: (double value) async {
                         var volume = value / 100;
 
@@ -236,7 +250,7 @@ class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
                         });
                       },
                     ),
-                  ),
+                  )),
                   const Icon(Icons.volume_up, color: Colors.white),
                 ],
               ),

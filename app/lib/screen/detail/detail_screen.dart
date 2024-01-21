@@ -238,9 +238,14 @@ class DetailScreen extends StatelessWidget {
                                                           .currentState!
                                                           .validate();
                                                     },
-                                                    child: const Text(
-                                                      "Réinitialiser",
-                                                    ),
+                                                    child: Text("Réinitialiser",
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.white,
+                                                        )),
                                                   ),
                                                 ],
                                               ),
