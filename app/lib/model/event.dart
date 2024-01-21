@@ -39,7 +39,7 @@ class EventModel {
   }) async {
     DioService dioService = locator<DioService>();
 
-    var response = await dioService.post(
+    await dioService.post(
       path: eventCreatePath,
       body: {
         "user": {

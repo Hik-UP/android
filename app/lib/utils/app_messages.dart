@@ -26,7 +26,7 @@ class AppMessages {
   static String aboutApp = "À propos d'Hik'UP";
   static String settingTxt = "Réglages";
   static String modifprofilTxt = "Profil";
-  static String askIfUserWantToLogout = "Souhaitez-vous vous déconnectez ?";
+  static String askIfUserWantToLogout = "Souhaitez-vous vous déconnecter ?";
   static String askUserWantToDelete = "Do you want to delete your account ?";
   static String cancel = "Annuler";
   static String logOut = "Confirmer";
@@ -108,5 +108,5 @@ class AppMessages {
   static String infoFillProfile =
       "Les données fournies via ce formulaire seront utilisées pour calculer le nombre de calories brûlé lors d'une randonnée et plus encore.";
   static String updateCommentLabel = "Modifier";
-  static String soundManager = "Gestion du son";
+  static String soundManager = "Effets sonores";
 }

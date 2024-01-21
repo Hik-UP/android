@@ -59,7 +59,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         contentPadding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
         hintText: widget.hintText,
         hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
-        errorStyle: const TextStyle(fontSize: 12, height: 0.5),
+        errorStyle: const TextStyle(fontSize: 12, height: 1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),

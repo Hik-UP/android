@@ -27,6 +27,7 @@ class _PlanComponentState extends State<PlanComponent> {
       initialDate: DateTime.now().toLocal(),
       firstDate: DateTime.now().toLocal(),
       lastDate: DateTime(2030),
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       locale: const Locale('fr'),
       builder: (context, child) => Theme(
         data: Theme.of(context).copyWith(
@@ -107,7 +108,7 @@ class _PlanComponentState extends State<PlanComponent> {
                   }
                 },
               ),
-              const Gap(5),
+              const Gap(10),
               CustomTextField(
                 hintText: 'Heure',
                 controller: widget.timeCtrl,
@@ -124,14 +125,33 @@ class _PlanComponentState extends State<PlanComponent> {
                 onTap: () async {
                   var pickHours = await showTimePicker(
                       context: context,
+                      initialEntryMode: TimePickerEntryMode.dialOnly,
                       initialTime: TimeOfDay.now(),
                       builder: (context, child) => Theme(
                             data: Theme.of(context).copyWith(
-                              colorScheme: const ColorScheme.light(
-                                primary: Colors.black, // <-- SEE HERE
+                              timePickerTheme: TimePickerThemeData(
+                                backgroundColor: Colors.white,
+                                hourMinuteShape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8)),
+                                  side:
+                                      BorderSide(color: Colors.black, width: 2),
+                                ),
+                                hourMinuteColor: MaterialStateColor.resolveWith(
+                                    (states) =>
+                                        states.contains(MaterialState.selected)
+                                            ? Colors.grey.withOpacity(0.3)
+                                            : Colors.white),
+                                hourMinuteTextColor: Colors.black,
+                                dialHandColor: Colors.black,
+                                dialBackgroundColor:
+                                    Colors.grey.withOpacity(0.3),
+                              ),
+                              /*colorScheme: const ColorScheme.light(
+                                primary: Colors.grey, // <-- SEE HERE
                                 onPrimary: Colors.black, // <-- SEE HERE
                                 onSurface: Colors.black, // <-- SEE HERE
-                              ),
+                              ),*/
                               textButtonTheme: TextButtonThemeData(
                                 style: TextButton.styleFrom(
                                   foregroundColor: Colors.black,

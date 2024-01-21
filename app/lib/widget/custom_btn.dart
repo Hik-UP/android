@@ -60,7 +60,9 @@ class CustomBtn extends StatelessWidget {
               : Text(
                   content,
                   style: TextStyle(
-                    color: textColor,
+                    color: disabled
+                        ? const Color.fromRGBO(200, 200, 200, 1)
+                        : textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),

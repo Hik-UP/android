@@ -225,6 +225,7 @@ class DetailScreen extends StatelessWidget {
                                                 dateCtrl: model.dateCtrl,
                                                 timeCtrl: model.timeCtrl,
                                               ),
+                                              const Gap(5),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.end,
@@ -233,6 +234,9 @@ class DetailScreen extends StatelessWidget {
                                                     onPressed: () {
                                                       model.dateCtrl.text = "";
                                                       model.timeCtrl.text = "";
+                                                      model.planFormKey
+                                                          .currentState!
+                                                          .validate();
                                                     },
                                                     child: const Text(
                                                       "Réinitialiser",

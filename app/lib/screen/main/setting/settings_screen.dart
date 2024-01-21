@@ -152,11 +152,19 @@ class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
                               Container(
                                 width: MediaQuery.of(context).size.width * .6,
                                 padding: const EdgeInsets.all(2),
-                                child: Text(
-                                  appState.email,
-                                  style: descTextStyleWhite,
-                                  maxLines: 1,
-                                ),
+                                child: Row(children: [
+                                  Text(
+                                    appState.email,
+                                    style: descTextStyleWhite,
+                                    maxLines: 1,
+                                  ),
+                                  const Gap(5.0),
+                                  const Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                    size: 20.0,
+                                  )
+                                ]),
                               ),
                               const Gap(6.0),
                             ],
@@ -192,7 +200,6 @@ class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
                   ],
                 ),
               ),
-              //InVENTORY BUTTON
               const Gap(20),
               Text(
                 AppMessages.soundManager,
@@ -233,30 +240,9 @@ class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
                   const Icon(Icons.volume_up, color: Colors.white),
                 ],
               ),
-              const Gap(30.0),
-              Text(AppMessages.aboutApp, style: subTitleTextStyle),
+              const Gap(15.0),
+              Text("Application", style: subTitleTextStyle),
               const Gap(10.0),
-              InkWell(
-                onTap: () {
-                  _showSnackBar(
-                    context,
-                    AppMessages.newestVersion,
-                  );
-                },
-                child: Text(
-                  "Version Pre-Release",
-                  style: textLinkProfileStyle,
-                ),
-              ),
-              const Gap(8.0),
-              InkWell(
-                onTap: () => {},
-                child: Text(
-                  githubName,
-                  style: textLinkProfileStyle,
-                ),
-              ),
-              const Gap(8.0),
               InkWell(
                 onTap: () => {
                   showDialog(
@@ -265,7 +251,10 @@ class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
                       return AlertDialog(
                         backgroundColor: BlackPrimary,
                         title: Text(AppMessages.askIfUserWantToLogout,
-                            style: subTitleTextStyle),
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white)),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(false),

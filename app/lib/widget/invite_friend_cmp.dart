@@ -81,7 +81,7 @@ class _InviteFriendCmpState extends State<InviteFriendCmp> {
             ])
           ]),
         ),
-        const Gap(5),
+        const Gap(10),
         CustomBtn(
           content: AppMessages.invitMsg,
           disabled: isDisabled,
