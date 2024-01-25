@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/skin.dart';
@@ -18,6 +19,7 @@ class LoginPageViewModel extends BaseModel {
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final verifyController = TextEditingController();
 
   String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
@@ -39,9 +41,19 @@ class LoginPageViewModel extends BaseModel {
     return null;
   }
 
+  String? validateToken(String? token) {
+    if (token == null || token.isEmpty) {
+      return "Code obligatoire";
+    } else if (!Validation.tokenValidator(token)) {
+      return "6 caractères alphanumériques";
+    }
+    return null;
+  }
+
   login({
     required String email,
     required password,
+    required Function() onVerify,
     required AppState appState,
   }) async {
     try {
@@ -119,8 +131,107 @@ class LoginPageViewModel extends BaseModel {
         //Stocker l'utilisateur dans le local storage d'une téléphone et ensuite dans le state de l'application
       }
     } catch (e) {
+      if (e is DioException && e.response!.statusCode == 403) {
+        onVerify();
+        _navigationService.showSnackBack(
+          content: "Veuillez vérifier votre adresse Email",
+          isError: false,
+        );
+        setState(ViewState.retrieved);
+      } else {
+        _navigationService.showSnackBack(
+          content: AppMessages.loginError,
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      }
+    }
+  }
+
+  verify({
+    required String email,
+    required password,
+    required String token,
+    required AppState appState,
+  }) async {
+    try {
+      setState(ViewState.busy);
+
+      var result = await _dioService.post(
+        path: loginPath,
+        body: {
+          "user": {
+            "email": email,
+            "password": password,
+          },
+          "verify": {"token": token}
+        },
+      );
+      setState(ViewState.retrieved);
+      Map<String, dynamic> data = result.data as Map<String, dynamic>;
+
+      if (result.statusCode == 400) {
+        _navigationService.showSnackBack(
+          content: AppMessages.inexistantUser,
+          isError: true,
+        );
+        return;
+      }
+
+      if (result.statusCode == 401 &&
+          data.keys.contains("error") &&
+          data["error"] == "Unauthorized") {
+        _navigationService.showSnackBack(
+          content: AppMessages.loginError,
+          isError: true,
+        );
+        return;
+      }
+
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        //Passer de user JSON à user model
+        User user = User.fromMap(data: data["user"]);
+
+        var userProfile = await WrapperApi().getProfile(
+          id: user.id,
+          roles: user.roles,
+          token: user.token,
+        );
+
+        if (userProfile.statusCode == 200 || userProfile.statusCode == 201) {
+          var profileData = userProfile.data as Map<String, dynamic>;
+
+          appState.setToken(value: user.token);
+          User newUser = User(
+            id: user.id,
+            name: profileData["user"]["username"],
+            email: profileData["user"]["email"],
+            accountType: "",
+            imageProfile: profileData["user"]["picture"] ?? "",
+            roles: user.roles,
+            token: user.token,
+          );
+          Skin skin = Skin.fromMap(data: profileData["user"]["skin"]);
+          Skin.addSkinOnHive(skin: skin, skinBox: skinUserBox);
+          appState.updateSkinState(value: skin);
+          await appState.storeInHive(user: newUser);
+
+          MixpanelManager.track('login', properties: {'id': user.id});
+
+          _navigationService.navigateTo(MainScreen.routeName);
+          return;
+        } else {
+          _navigationService.showSnackBack(
+            content: AppMessages.anErrorOcur,
+            isError: true,
+          );
+          return;
+        }
+        //Stocker l'utilisateur dans le local storage d'une téléphone et ensuite dans le state de l'application
+      }
+    } catch (e) {
       _navigationService.showSnackBack(
-        content: AppMessages.loginError,
+        content: "Code de vérification incorrect",
         isError: true,
       );
       setState(ViewState.retrieved);

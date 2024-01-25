@@ -14,6 +14,13 @@ class Validation {
     return (true);
   }
 
+  static bool tokenValidator(String token) {
+    if (token.length < 6 || token.length > 6) {
+      return (false);
+    }
+    return (RegExp(r'^[a-zA-Z0-9]+$').hasMatch(token));
+  }
+
   static dynamic usernameValidator(String username) {
     return (RegExp(
             r"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")

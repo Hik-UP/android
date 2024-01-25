@@ -23,6 +23,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool loginButtonError = false;
+  bool verifyEmail = false;
   String loginButtonText = "Login";
 
   @override
@@ -63,6 +64,17 @@ class _LoginPageState extends State<LoginPage> {
                               maxLine: 1,
                             ),
                             const Gap(20),
+                            verifyEmail == true
+                                ? CustomTextField(
+                                    controller: model.verifyController,
+                                    hintText: "Code de vérification",
+                                    typeInput: TypeInput.password,
+                                    validator: model.validateToken,
+                                    typeOfInput: TypeOfInput.password,
+                                    maxLine: 1,
+                                  )
+                                : Container(),
+                            verifyEmail ? const Gap(20) : Container(),
                             CustomBtn(
                               textColor: Colors.white,
                               content: AppMessages.login,
@@ -72,11 +84,25 @@ class _LoginPageState extends State<LoginPage> {
                                     soundSource: 'sounds/NormalClick.mp3');
                                 if (model.loginFormKey.currentState!
                                     .validate()) {
-                                  model.login(
-                                    email: model.emailController.text,
-                                    password: model.passwordController.text,
-                                    appState: context.read<AppState>(),
-                                  );
+                                  if (verifyEmail == true) {
+                                    model.verify(
+                                      email: model.emailController.text,
+                                      password: model.passwordController.text,
+                                      token: model.verifyController.text,
+                                      appState: context.read<AppState>(),
+                                    );
+                                  } else {
+                                    model.login(
+                                      email: model.emailController.text,
+                                      password: model.passwordController.text,
+                                      onVerify: () {
+                                        setState(() {
+                                          verifyEmail = true;
+                                        });
+                                      },
+                                      appState: context.read<AppState>(),
+                                    );
+                                  }
                                 }
                               },
                             ),
