@@ -15,6 +15,7 @@ class DialogContentSkinViewModel extends BaseModel {
   final dioService = locator<DioService>();
   final navigationService = locator<CustomNavigationService>();
   final hiveService = locator<HiveService>();
+  bool isLoading = false;
   dynamic paymentIntent;
 
   Future<void> changeSkin({
@@ -55,6 +56,12 @@ class DialogContentSkinViewModel extends BaseModel {
         isError: true,
       );
     }
+  }
+
+  void setIsLoading(bool value) {
+    isLoading = value;
+
+    notifyListeners();
   }
 
   createPaymentIntent({
@@ -129,6 +136,7 @@ class DialogContentSkinViewModel extends BaseModel {
     required SkinWithOwner skin,
   }) async {
     try {
+      setIsLoading(true);
       paymentIntent = await createPaymentIntent(
         amount: (skin.price.toInt() * 100).toString(),
         currency: 'USD',
@@ -142,13 +150,15 @@ class DialogContentSkinViewModel extends BaseModel {
         ),
       );
 
-      displayPaymentSheet(
+      await displayPaymentSheet(
         appState: appState,
         skinId: skin.id,
       );
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       navigationService.showSnackBack(
-        content: AppMessages.anErrorOcur,
+        content: AppMessages.paymentCancel,
         isError: true,
       );
     }
