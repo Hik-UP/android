@@ -153,10 +153,16 @@ class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
                                 width: MediaQuery.of(context).size.width * .6,
                                 padding: const EdgeInsets.all(2),
                                 child: Row(children: [
-                                  Text(
-                                    appState.email,
-                                    style: descTextStyleWhite,
-                                    maxLines: 1,
+                                  Flexible(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        appState.email,
+                                        style: descTextStyleWhite,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
                                   ),
                                   const Gap(5.0),
                                   const Icon(

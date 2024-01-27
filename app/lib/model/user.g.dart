@@ -25,13 +25,14 @@ class UserAdapter extends TypeAdapter<User> {
       roles: (fields[5] as List).cast<dynamic>(),
       token: fields[6] as String,
       fcmToken: fields[7] as String?,
+      verifyEmail: fields[8] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(6)
       ..write(obj.token)
       ..writeByte(7)
-      ..write(obj.fcmToken);
+      ..write(obj.fcmToken)
+      ..writeByte(8)
+      ..write(obj.verifyEmail);
   }
 
   @override

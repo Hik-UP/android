@@ -793,6 +793,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                                 lastPosition!.split(',')[1]))
                                         : const LatLng(0, 0)),
                                     currentZoom);
+                                model.mapController.rotate(0);
                               },
                               backgroundColor:
                                   const Color.fromARGB(255, 0, 0, 0)

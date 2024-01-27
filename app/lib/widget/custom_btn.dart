@@ -36,7 +36,9 @@ class CustomBtn extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),
             disabledBackgroundColor: isLoading
                 ? bgColor
-                : const Color.fromRGBO(204, 204, 204, 1).withOpacity(0.3),
+                : bgColor != Colors.transparent
+                    ? const Color.fromRGBO(204, 204, 204, 1).withOpacity(0.3)
+                    : Colors.transparent,
             backgroundColor: bgColor,
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(
@@ -45,7 +47,9 @@ class CustomBtn extends StatelessWidget {
             side: BorderSide(
               width: 1.0,
               color: disabled
-                  ? const Color.fromRGBO(153, 153, 153, 1)
+                  ? borderColor != Colors.transparent
+                      ? const Color.fromRGBO(153, 153, 153, 1)
+                      : Colors.transparent
                   : borderColor,
             )),
         child: Center(

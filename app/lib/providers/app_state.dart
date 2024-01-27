@@ -34,6 +34,7 @@ class AppState extends ChangeNotifier {
   String email = "";
   String picture = "";
   String fcmUserToken = "";
+  String verifyEmail = "";
   List<dynamic> roles = [];
   Skin skin = emptySkin;
   SensibleUserData sensibleUserData = emptySensibleUserData;
@@ -99,6 +100,11 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setVerifyEmail({required String? value}) {
+    verifyEmail = value ?? '';
+    notifyListeners();
+  }
+
   void updateSkinState({required Skin value}) {
     skin = value;
     notifyListeners();
@@ -141,6 +147,7 @@ class AppState extends ChangeNotifier {
     setPicture(value: user.imageProfile);
     setRoles(value: user.roles);
     setToken(value: user.token);
+    setVerifyEmail(value: user.verifyEmail);
   }
 
   initialState() {

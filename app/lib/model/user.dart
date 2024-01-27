@@ -27,30 +27,33 @@ class User {
   @HiveField(7)
   final String? fcmToken;
 
-  User({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.accountType,
-    required this.imageProfile,
-    required this.roles,
-    required this.token,
-    this.fcmToken,
-  });
+  @HiveField(8)
+  final String? verifyEmail;
+
+  User(
+      {required this.id,
+      required this.name,
+      required this.email,
+      required this.accountType,
+      required this.imageProfile,
+      required this.roles,
+      required this.token,
+      this.fcmToken,
+      this.verifyEmail});
 
   static User fromMap({
     required Map<String, dynamic> data,
   }) {
     return User(
-      id: data["id"] ?? "",
-      name: data["username"] ?? "",
-      email: data["email"] ?? "",
-      token: data["token"] ?? "",
-      roles: data["roles"] ?? [],
-      accountType: "",
-      imageProfile: data["picture"] ?? "",
-      fcmToken: data["fcmToken"],
-    );
+        id: data["id"] ?? "",
+        name: data["username"] ?? "",
+        email: data["email"] ?? "",
+        token: data["token"] ?? "",
+        roles: data["roles"] ?? [],
+        accountType: "",
+        imageProfile: data["picture"] ?? "",
+        fcmToken: data["fcmToken"],
+        verifyEmail: data["verifyEmail"]);
   }
 
   static printUser({required User user}) {
@@ -59,14 +62,14 @@ class User {
 
   static User copy({required User user}) {
     return User(
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      accountType: user.accountType,
-      imageProfile: user.imageProfile,
-      roles: user.roles,
-      token: user.token,
-      fcmToken: user.fcmToken,
-    );
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        accountType: user.accountType,
+        imageProfile: user.imageProfile,
+        roles: user.roles,
+        token: user.token,
+        fcmToken: user.fcmToken,
+        verifyEmail: user.verifyEmail);
   }
 }

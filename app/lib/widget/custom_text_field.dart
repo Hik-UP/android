@@ -5,6 +5,7 @@ import 'package:hikup/utils/constant.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
+  final GlobalKey? formKey;
   final String hintText;
   final String? Function(String?)? validator;
   final TypeInput typeInput;
@@ -22,6 +23,7 @@ class CustomTextField extends StatefulWidget {
     this.hintText = "",
     this.validator,
     this.controller,
+    this.formKey,
     this.typeInput = TypeInput.text,
     this.inputsFormatter,
     this.keyBoardType,
@@ -44,6 +46,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: widget.formKey,
       style: const TextStyle(color: Colors.black, fontSize: 14),
       maxLines: widget.maxLine,
       onChanged: widget.onChange,

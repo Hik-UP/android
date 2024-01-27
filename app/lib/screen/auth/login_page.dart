@@ -53,6 +53,14 @@ class _LoginPageState extends State<LoginPage> {
                               controller: model.emailController,
                               hintText: AppMessages.email,
                               validator: model.validateEmail,
+                              onChange: (value) {
+                                model.verifyController.text = '';
+                                if (verifyEmail == true) {
+                                  setState(() {
+                                    verifyEmail = false;
+                                  });
+                                }
+                              },
                             ),
                             const Gap(20),
                             CustomTextField(
@@ -62,15 +70,21 @@ class _LoginPageState extends State<LoginPage> {
                               validator: model.validatePassword,
                               typeOfInput: TypeOfInput.password,
                               maxLine: 1,
+                              onChange: (value) {
+                                model.verifyController.text = '';
+                                if (verifyEmail == true) {
+                                  setState(() {
+                                    verifyEmail = false;
+                                  });
+                                }
+                              },
                             ),
                             const Gap(20),
                             verifyEmail == true
                                 ? CustomTextField(
                                     controller: model.verifyController,
                                     hintText: "Code de vérification",
-                                    typeInput: TypeInput.password,
                                     validator: model.validateToken,
-                                    typeOfInput: TypeOfInput.password,
                                     maxLine: 1,
                                   )
                                 : Container(),

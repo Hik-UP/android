@@ -252,6 +252,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> with RouteAware {
                               (LatLng(model.position.latitude,
                                   model.position.longitude)),
                               currentZoom);
+                          model.mapController.rotate(0);
                         },
                         backgroundColor:
                             const Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),

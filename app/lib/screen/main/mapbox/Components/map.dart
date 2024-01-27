@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hikup/utils/constant.dart';
 import 'skin.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:flutter_map_cache/flutter_map_cache.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:uuid/uuid.dart';
 import 'package:pedometer/pedometer.dart';
 
 Future<String> getMapCachePath() async {
@@ -51,8 +49,6 @@ class _MapBoxState extends State<MapBox> {
     super.initState();
   }
 
-  final _mapCachePath = MemCacheStore();
-
   /*static Future<String> getMapCachePath() async {
     late String mapCachePath;
 
@@ -76,6 +72,7 @@ class _MapBoxState extends State<MapBox> {
         initialZoom: widget.zoom ?? 18,
         initialCenter: widget.center ?? const LatLng(0, 0),
         maxZoom: 18,
+        minZoom: 5,
         cameraConstraint: CameraConstraint.contain(
           bounds: LatLngBounds(
               const LatLng(-90, -180.0), const LatLng(90.0, 180.0)),
@@ -87,19 +84,12 @@ class _MapBoxState extends State<MapBox> {
           userAgentPackageName: 'hikup.flutter.com',
           retinaMode: true,
           maxZoom: 18,
+          minZoom: 5,
           additionalOptions: const {
             'accessToken': accessTokenMapBox,
             'id': mapIdDay
           },
-          tileProvider: CachedTileProvider(
-              keyBuilder: (request) {
-                return const Uuid().v5(
-                  Uuid.NAMESPACE_URL,
-                  request.uri.replace(queryParameters: {}).toString(),
-                );
-              },
-              maxStale: const Duration(days: 30),
-              store: _mapCachePath),
+          tileProvider: CancellableNetworkTileProvider(),
         ),
         Visibility(
             visible: widget.showSkin ?? true,

@@ -12,7 +12,7 @@ import '../screen/main/mapbox/mapbox_screen.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
-enum ViewState { idle, busy, retrieved, deletion, join, create }
+enum ViewState { idle, busy, retrieved, deletion, join, create, update }
 
 enum TypeOfHike { organized, guest, attendee }
 

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/user.dart';
@@ -20,7 +21,11 @@ class UpdateProfilModel extends BaseModel {
   final _navigationService = locator<CustomNavigationService>();
   final TextEditingController usernameCtrl = TextEditingController();
   final TextEditingController emailCtrl = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  final verifyController = TextEditingController();
+  final nameFormKey = GlobalKey<FormFieldState>();
+  final mailFormKey = GlobalKey<FormFieldState>();
+  final tokenFormKey = GlobalKey<FormFieldState>();
+  String verifyEmail = '';
 
   String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
@@ -33,92 +38,274 @@ class UpdateProfilModel extends BaseModel {
     return null;
   }
 
+  String? validateToken(String? token) {
+    if (token == null || token.isEmpty) {
+      return "Code obligatoire";
+    } else if (!Validation.tokenValidator(token)) {
+      return "6 caractères alphanumériques";
+    }
+    return null;
+  }
+
   setUserImage({XFile? value}) {
     userImage = value;
     notifyListeners();
+  }
+
+  cancelEmailVerify(
+      {required AppState appState, required Function() onSuccess}) async {
+    try {
+      Map<String, dynamic> user = {
+        "id": appState.id,
+        "roles": appState.roles,
+      };
+
+      user["email"] = appState.email;
+      setState(ViewState.deletion);
+      var result = await _dioService.put(
+        path: updateProfilePath,
+        token: "Bearer ${appState.token}",
+        body: {
+          "user": user,
+        },
+      );
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        var userNewProfile = await WrapperApi().getProfile(
+          id: appState.id,
+          roles: appState.roles,
+          token: appState.token,
+        );
+        setState(ViewState.retrieved);
+        if (userNewProfile.statusCode == 200 ||
+            userNewProfile.statusCode == 201) {
+          Map<String, dynamic> userData =
+              userNewProfile.data as Map<String, dynamic>;
+          User user = User.fromMap(data: userData["user"]);
+          appState.storeInHive(
+              user: User(
+            id: appState.id,
+            name: user.name,
+            email: user.email,
+            verifyEmail: null,
+            accountType: user.accountType,
+            imageProfile: user.imageProfile,
+            roles: appState.roles,
+            token: appState.token,
+          ));
+          _navigationService.showSnackBack(
+            content: "Modification d'adresse email annulée",
+            isError: false,
+          );
+          onSuccess();
+          return;
+        }
+      }
+    } catch (e) {
+      _navigationService.showSnackBack(
+        content: "Une erreur est survenue",
+        isError: false,
+      );
+      setState(ViewState.retrieved);
+    }
   }
 
   updateProfile({
     required AppState appState,
     required String username,
     required String email,
+    required Function() onVerify,
   }) async {
-    String urlImage = "";
-    Map<String, dynamic> user = {
-      "id": appState.id,
-      "roles": appState.roles,
-    };
+    try {
+      String urlImage = "";
+      Map<String, dynamic> user = {
+        "id": appState.id,
+        "roles": appState.roles,
+      };
 
-    //Check if userImage is not null
-    //Then user want to update his profile
-    if (userImage != null) {
-      setState(ViewState.busy);
-      urlImage = await _firebaseStorage.uploadProfile(
-        file: File(userImage!.path),
-        userId: appState.id,
-      );
-      if (urlImage is bool) {
+      //Check if userImage is not null
+      //Then user want to update his profile
+      if (userImage != null) {
+        setState(ViewState.busy);
+        urlImage = await _firebaseStorage.uploadProfile(
+          file: File(userImage!.path),
+          userId: appState.id,
+        );
+        if (urlImage is bool) {
+          setState(ViewState.retrieved);
+          return;
+        }
+        user["picture"] = urlImage;
+      }
+      //Update the username only if the new username
+      //Is different from the past username
+      //Same for the email
+      if (userImage == null &&
+          username == appState.username &&
+          email == appState.email) {
         setState(ViewState.retrieved);
+        _navigationService.showSnackBack(
+          content: AppMessages.nothingChange,
+        );
         return;
       }
-      user["picture"] = urlImage;
-    }
-    //Update the username only if the new username
-    //Is different from the past username
-    //Same for the email
-    if (userImage == null &&
-        username == appState.username &&
-        email == appState.email) {
-      setState(ViewState.retrieved);
-      _navigationService.showSnackBack(
-        content: AppMessages.nothingChange,
+      if (email != appState.email) {
+        user["email"] = email;
+      }
+      if (username != appState.username) {
+        user["username"] = username;
+      }
+      setState(ViewState.busy);
+      var result = await _dioService.put(
+        path: updateProfilePath,
+        token: "Bearer ${appState.token}",
+        body: {
+          "user": user,
+        },
       );
-      return;
-    }
-    if (email != appState.email) {
-      user["email"] = email;
-    }
-    if (username != appState.username) {
-      user["username"] = username;
-    }
-    setState(ViewState.busy);
-    var result = await _dioService.put(
-      path: updateProfilePath,
-      token: "Bearer ${appState.token}",
-      body: {
-        "user": user,
-      },
-    );
-    if (result.statusCode == 200 || result.statusCode == 201) {
-      var userNewProfile = await WrapperApi().getProfile(
-        id: appState.id,
-        roles: appState.roles,
-        token: appState.token,
-      );
-      setState(ViewState.retrieved);
-      if (userNewProfile.statusCode == 200 ||
-          userNewProfile.statusCode == 201) {
-        Map<String, dynamic> userData =
-            userNewProfile.data as Map<String, dynamic>;
-        User user = User.fromMap(data: userData["user"]);
-        appState.storeInHive(
-            user: User(
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        var userNewProfile = await WrapperApi().getProfile(
           id: appState.id,
-          name: user.name,
-          email: user.email,
-          accountType: user.accountType,
-          imageProfile: user.imageProfile,
           roles: appState.roles,
           token: appState.token,
-        ));
-        _navigationService.goBack();
-        return;
+        );
+        setState(ViewState.retrieved);
+        if (userNewProfile.statusCode == 200 ||
+            userNewProfile.statusCode == 201) {
+          Map<String, dynamic> userData =
+              userNewProfile.data as Map<String, dynamic>;
+          User user = User.fromMap(data: userData["user"]);
+          appState.storeInHive(
+              user: User(
+            id: appState.id,
+            name: user.name,
+            email: user.email,
+            verifyEmail: appState.verifyEmail,
+            accountType: user.accountType,
+            imageProfile: user.imageProfile,
+            roles: appState.roles,
+            token: appState.token,
+          ));
+          _navigationService.goBack();
+          return;
+        }
+      }
+      setState(ViewState.retrieved);
+      _navigationService.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+    } catch (e) {
+      if (e is DioException && e.response!.statusCode == 403) {
+        var userNewProfile = await WrapperApi().getProfile(
+          id: appState.id,
+          roles: appState.roles,
+          token: appState.token,
+        );
+        if (userNewProfile.statusCode == 200 ||
+            userNewProfile.statusCode == 201) {
+          Map<String, dynamic> userData =
+              userNewProfile.data as Map<String, dynamic>;
+          User user = User.fromMap(data: userData["user"]);
+          appState.storeInHive(
+              user: User(
+            id: appState.id,
+            name: user.name,
+            email: user.email,
+            accountType: user.accountType,
+            imageProfile: user.imageProfile,
+            verifyEmail: verifyEmail,
+            roles: appState.roles,
+            token: appState.token,
+          ));
+          onVerify();
+          _navigationService.showSnackBack(
+            content: "Veuillez vérifier votre adresse Email",
+            isError: false,
+          );
+          setState(ViewState.retrieved);
+        } else {
+          _navigationService.showSnackBack(
+            content: "Une erreur est survenue",
+            isError: false,
+          );
+          setState(ViewState.retrieved);
+        }
+      } else {
+        _navigationService.showSnackBack(
+          content: "Une erreur est survenue",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
       }
     }
-    setState(ViewState.retrieved);
-    _navigationService.showSnackBack(
-      content: AppMessages.anErrorOcur,
-      isError: true,
-    );
+  }
+
+  updateProfileVerify(
+      {required AppState appState,
+      required String email,
+      required String token,
+      required Function() onSuccess}) async {
+    try {
+      Map<String, dynamic> user = {
+        "id": appState.id,
+        "roles": appState.roles,
+      };
+
+      if (email != appState.email) {
+        user["email"] = email;
+      }
+      setState(ViewState.update);
+      var result = await _dioService.put(
+        path: updateProfilePath,
+        token: "Bearer ${appState.token}",
+        body: {
+          "user": user,
+          "verify": {"token": token}
+        },
+      );
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        var userNewProfile = await WrapperApi().getProfile(
+          id: appState.id,
+          roles: appState.roles,
+          token: appState.token,
+        );
+        setState(ViewState.retrieved);
+        if (userNewProfile.statusCode == 200 ||
+            userNewProfile.statusCode == 201) {
+          Map<String, dynamic> userData =
+              userNewProfile.data as Map<String, dynamic>;
+          User user = User.fromMap(data: userData["user"]);
+          appState.storeInHive(
+              user: User(
+            id: appState.id,
+            name: user.name,
+            email: user.email,
+            verifyEmail: null,
+            accountType: user.accountType,
+            imageProfile: user.imageProfile,
+            roles: appState.roles,
+            token: appState.token,
+          ));
+          verifyEmail = '';
+          _navigationService.showSnackBack(
+            content: "Votre adresse email a été changée",
+            isError: false,
+          );
+          onSuccess();
+          return;
+        }
+      }
+      _navigationService.showSnackBack(
+        content: AppMessages.anErrorOcur,
+        isError: true,
+      );
+      setState(ViewState.retrieved);
+    } catch (e) {
+      _navigationService.showSnackBack(
+        content: "Code de vérification incorrect",
+        isError: true,
+      );
+      setState(ViewState.retrieved);
+    }
   }
 }
