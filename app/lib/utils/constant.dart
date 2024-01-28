@@ -51,6 +51,7 @@ const loginPath = "/auth/login";
 const getTrailsPath = "/trail/retrieve";
 const getProfilePath = "/user/profile";
 const updateProfilePath = "/user/profile/update";
+const resetPasswordPath = "/auth/reset";
 const getDetailsPath = "/trail/details";
 const createHikePath = "/user/hike/create";
 const getHikePath = "/user/hike/retrieve";

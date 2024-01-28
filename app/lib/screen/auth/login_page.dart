@@ -12,6 +12,7 @@ import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:hikup/widget/scaffold_with_custom_bg.dart';
 import 'package:provider/provider.dart';
+import 'package:hikup/screen/auth/reset_page.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = "/login";
@@ -79,7 +80,27 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               },
                             ),
-                            const Gap(20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SizedBox(
+                                    width: 160,
+                                    child: CustomBtn(
+                                        bgColor: Colors.transparent,
+                                        borderColor: Colors.transparent,
+                                        textColor: Colors.white,
+                                        isLoading:
+                                            model.getState == ViewState.update,
+                                        disabled: model.getState ==
+                                            ViewState.deletion,
+                                        onPress: () =>
+                                            Navigator.of(context).pushNamed(
+                                              ResetPage.routeName,
+                                            ),
+                                        content: "Mot de passe oublié")),
+                              ],
+                            ),
+                            const Gap(5),
                             verifyEmail == true
                                 ? CustomTextField(
                                     controller: model.verifyController,

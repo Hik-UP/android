@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:google_fonts/google_fonts.dart';
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
@@ -17,7 +16,6 @@ import 'package:hikup/widget/upload_picture.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
-import 'package:hikup/model/user.dart';
 
 import '../../../theme.dart';
 import '../../../utils/constant.dart';

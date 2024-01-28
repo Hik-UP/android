@@ -18,6 +18,7 @@ import 'package:hikup/viewmodel/map_viewmodel.dart';
 import 'package:hikup/viewmodel/notif_viewmodel.dart';
 import 'package:hikup/viewmodel/notification_viewmodel.dart';
 import 'package:hikup/viewmodel/register_page_viewmodel.dart';
+import 'package:hikup/viewmodel/reset_page_viewmodel.dart';
 import 'package:hikup/viewmodel/shop_viewmodel.dart';
 import 'package:hikup/viewmodel/skin_display_viewmodel.dart';
 import 'package:hikup/viewmodel/update_profil_viewmodel.dart';
@@ -37,6 +38,7 @@ void setupLocator() {
   //  locator.registerFactory(() => null) //Pour enregistrer un ViewModel
   locator.registerFactory(() => NotificationViewModel());
   locator.registerFactory(() => LoginPageViewModel());
+  locator.registerFactory(() => ResetPageModel());
   locator.registerFactory(() => RegisterPageViewModel());
   locator.registerFactory(() => UpdateProfilModel());
   locator.registerFactory(() => MapViewModel());

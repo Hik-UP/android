@@ -36,6 +36,7 @@ import 'screen/main/setting/settings_screen.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hikup/service/dio_service.dart';
+import 'package:hikup/screen/auth/reset_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -137,6 +138,7 @@ class MyApp extends StatelessWidget {
       initialRoute: getTheRightInitialRoute(context: context),
       routes: {
         LoginPage.routeName: (_) => const LoginPage(),
+        ResetPage.routeName: (_) => const ResetPage(),
         NotificationView.routeName: (_) => const NotificationView(),
         RegisterPage.routeName: (_) => const RegisterPage(),
         OnboardingScreen.routeName: (_) => const OnboardingScreen(),
