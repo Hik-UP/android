@@ -140,11 +140,22 @@ class _SettingsScreenState extends State<SettingsScreen> with RouteAware {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                appState.username.isNotEmpty
-                                    ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
-                                    : "",
-                                style: subTitleTextStyle,
+                              Container(
+                                width: MediaQuery.of(context).size.width * .6,
+                                padding: const EdgeInsets.all(2),
+                                child: Row(children: [
+                                  Flexible(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        appState.username.isNotEmpty
+                                            ? "${appState.username[0].toUpperCase()}${appState.username.substring(1)}"
+                                            : "",
+                                        style: subTitleTextStyle,
+                                      ),
+                                    ),
+                                  ),
+                                ]),
                               ),
                               const SizedBox(
                                 height: 8,

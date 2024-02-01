@@ -80,27 +80,30 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               },
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                    width: 160,
-                                    child: CustomBtn(
-                                        bgColor: Colors.transparent,
-                                        borderColor: Colors.transparent,
-                                        textColor: Colors.white,
-                                        isLoading:
-                                            model.getState == ViewState.update,
-                                        disabled: model.getState ==
-                                            ViewState.deletion,
-                                        onPress: () =>
-                                            Navigator.of(context).pushNamed(
-                                              ResetPage.routeName,
-                                            ),
-                                        content: "Mot de passe oublié")),
-                              ],
-                            ),
-                            const Gap(5),
+                            verifyEmail == false
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      SizedBox(
+                                          width: 160,
+                                          child: CustomBtn(
+                                              bgColor: Colors.transparent,
+                                              borderColor: Colors.transparent,
+                                              textColor: Colors.white,
+                                              isLoading: model.getState ==
+                                                  ViewState.update,
+                                              disabled: model.getState ==
+                                                  ViewState.deletion,
+                                              onPress: () =>
+                                                  Navigator.of(context)
+                                                      .pushNamed(
+                                                    ResetPage.routeName,
+                                                  ),
+                                              content: "Mot de passe oublié")),
+                                    ],
+                                  )
+                                : Container(),
+                            verifyEmail == false ? const Gap(5) : const Gap(20),
                             verifyEmail == true
                                 ? CustomTextField(
                                     controller: model.verifyController,

@@ -16,6 +16,7 @@ import 'package:hikup/widget/upload_picture.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
+import 'package:hikup/screen/auth/reset_page.dart';
 
 import '../../../theme.dart';
 import '../../../utils/constant.dart';
@@ -233,6 +234,17 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       ])
                     : Container(),
                 verifyEmail ? const Gap(20) : Container(),
+                CustomBtn(
+                  bgColor:
+                      const Color.fromRGBO(253, 210, 59, 0.8).withOpacity(0.2),
+                  borderColor: const Color.fromRGBO(253, 210, 59, 0.8),
+                  content: "Modifier mon mot de passe",
+                  disabled: model.getState == ViewState.busy,
+                  onPress: () => Navigator.of(context).pushNamed(
+                      ResetPage.routeName,
+                      arguments: {'isReset': false}),
+                ),
+                const Gap(20),
                 CustomBtn(
                   content: AppMessages.updateTxt,
                   isLoading: model.getState == ViewState.busy,

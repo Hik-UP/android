@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:dio/dio.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/screen/auth/login_page.dart';
@@ -83,11 +84,29 @@ class RegisterPageViewModel extends BaseModel {
       }
       setState(ViewState.retrieved);
     } catch (e) {
-      _customNavigationService.showSnackBack(
-        content: "Cet utilisateur existe déjà",
-        isError: true,
-      );
-      setState(ViewState.retrieved);
+      if (e is DioException &&
+          e.response!.statusCode == 409 &&
+          e.response!.data['error'] == 'Email') {
+        _customNavigationService.showSnackBack(
+          content: "Cette adresse email a déjà été utilisée",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      } else if (e is DioException &&
+          e.response!.statusCode == 409 &&
+          e.response!.data['error'] == 'Username') {
+        _customNavigationService.showSnackBack(
+          content: "Ce nom d'utilisateur a déjà été utilisé",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      } else {
+        _customNavigationService.showSnackBack(
+          content: "Une erreur est survenue",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      }
     }
   }
 }

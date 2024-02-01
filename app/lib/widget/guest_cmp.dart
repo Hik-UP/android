@@ -22,46 +22,54 @@ class GuestCmp extends StatelessWidget {
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        picture.isNotEmpty
-            ? CachedNetworkImage(
-                imageUrl: picture,
-                errorWidget: (context, url, target) => const CircleAvatar(
-                  radius: 24.0,
-                  child: Center(
-                    child: Icon(
-                      FontAwesomeIcons.triangleExclamation,
+    return Container(
+        padding: const EdgeInsets.all(2),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            picture.isNotEmpty
+                ? CachedNetworkImage(
+                    imageUrl: picture,
+                    errorWidget: (context, url, target) => const CircleAvatar(
+                      radius: 24.0,
+                      child: Center(
+                        child: Icon(
+                          FontAwesomeIcons.triangleExclamation,
+                        ),
+                      ),
                     ),
+                    progressIndicatorBuilder: (context, url, progress) =>
+                        const CircleAvatar(
+                      radius: 24.0,
+                      child: Center(
+                        child: CustomLoader(),
+                      ),
+                    ),
+                    imageBuilder: (context, imageProvider) => CircleAvatar(
+                      radius: 24.0,
+                      backgroundImage: imageProvider,
+                    ),
+                  )
+                : const CircleAvatar(
+                    radius: 24.0,
+                    backgroundImage: AssetImage(profilePlaceHoder),
                   ),
+            const Gap(4.0),
+            Flexible(
+                child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 90),
+              child: Text(
+                appState.username != username ? username : AppMessages.me,
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.0,
+                  color: Colors.white,
                 ),
-                progressIndicatorBuilder: (context, url, progress) =>
-                    const CircleAvatar(
-                  radius: 24.0,
-                  child: Center(
-                    child: CustomLoader(),
-                  ),
-                ),
-                imageBuilder: (context, imageProvider) => CircleAvatar(
-                  radius: 24.0,
-                  backgroundImage: imageProvider,
-                ),
-              )
-            : const CircleAvatar(
-                radius: 24.0,
-                backgroundImage: AssetImage(profilePlaceHoder),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
               ),
-        const Gap(4.0),
-        Text(
-          appState.username != username ? username : AppMessages.me,
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w400,
-            fontSize: 12.0,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    );
+            ))
+          ],
+        ));
   }
 }

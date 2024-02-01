@@ -29,39 +29,54 @@ class CommentHeadCard extends StatelessWidget {
     return Column(
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Row(
-            children: [
-              commentAuthorPicture.isNotEmpty
-                  ? CachedNetworkImage(
-                      imageUrl: commentAuthorPicture,
-                      imageBuilder: (context, imageProvider) =>
-                          ShowAvatarContainer(
-                        backgroundImage: imageProvider,
+          Container(
+            width: MediaQuery.of(context).size.width * .5,
+            padding: const EdgeInsets.all(2),
+            child: Row(
+              children: [
+                commentAuthorPicture.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: commentAuthorPicture,
+                        imageBuilder: (context, imageProvider) =>
+                            ShowAvatarContainer(
+                          backgroundImage: imageProvider,
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const ShowAvatarContainer(
+                          child: WarmingErrorImg(),
+                        ),
+                        progressIndicatorBuilder: (context, url, progress) =>
+                            const ShowAvatarContainer(
+                          child: SizedBox(
+                            height: 15.0,
+                            width: 15.0,
+                            child: Center(
+                                child: CircularProgressIndicator(
+                              strokeWidth: 1.5,
+                            )),
+                          ),
+                        ),
+                      )
+                    : const ShowAvatarContainer(
+                        backgroundImage: AssetImage(
+                          profilePlaceHoder,
+                        ),
                       ),
-                      errorWidget: (context, url, error) =>
-                          const ShowAvatarContainer(
-                        child: WarmingErrorImg(),
-                      ),
-                      progressIndicatorBuilder: (context, url, progress) =>
-                          const ShowAvatarContainer(
-                        child: CustomLoader(),
-                      ),
-                    )
-                  : const ShowAvatarContainer(
-                      backgroundImage: AssetImage(
-                        profilePlaceHoder,
-                      ),
-                    ),
-              const Gap(10.0),
-              Text(
-                authorUsername,
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                    fontStyle: FontStyle.italic),
-              ),
-            ],
+                const Gap(10.0),
+                Flexible(
+                    child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    authorUsername,
+                    style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        fontStyle: FontStyle.italic),
+                  ),
+                )),
+              ],
+            ),
           ),
           Text(
             DateFormat('dd/MM/yyyy HH:mm').format(commentDate).toString(),

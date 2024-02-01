@@ -230,6 +230,22 @@ class UpdateProfilModel extends BaseModel {
           );
           setState(ViewState.retrieved);
         }
+      } else if (e is DioException &&
+          e.response!.statusCode == 409 &&
+          e.response!.data['error'] == 'Email') {
+        _navigationService.showSnackBack(
+          content: "Cette adresse email a déjà été utilisée",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      } else if (e is DioException &&
+          e.response!.statusCode == 409 &&
+          e.response!.data['error'] == 'Username') {
+        _navigationService.showSnackBack(
+          content: "Ce nom d'utilisateur a déjà été utilisé",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
       } else {
         _navigationService.showSnackBack(
           content: "Une erreur est survenue",

@@ -537,18 +537,25 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Row(
-                        children: [
-                          LoadPictureProfil(appState: state, size: 48),
-                          const Gap(10),
-                          Text(state.username,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  height: 1.2,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                  fontStyle: FontStyle.italic)),
-                        ],
+                      Container(
+                        width: MediaQuery.of(context).size.width * .5,
+                        padding: const EdgeInsets.all(2),
+                        child: Row(
+                          children: [
+                            LoadPictureProfil(appState: state, size: 48),
+                            const Gap(10),
+                            Flexible(
+                                child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(state.username,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            height: 1.2,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            fontStyle: FontStyle.italic)))),
+                          ],
+                        ),
                       ),
                       const Gap(15),
                       Row(
@@ -620,25 +627,41 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: <Widget>[
-                                            Row(
-                                              children: [
-                                                loadHikerPicture(
-                                                    48,
-                                                    entry["picture"]
-                                                        .toString()),
-                                                const Gap(10),
-                                                Text(
-                                                    entry["username"]
-                                                        .toString(),
-                                                    style: GoogleFonts.poppins(
-                                                        fontSize: 16,
-                                                        height: 1.2,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.white,
-                                                        fontStyle:
-                                                            FontStyle.italic)),
-                                              ],
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .5,
+                                              padding: const EdgeInsets.all(2),
+                                              child: Row(
+                                                children: [
+                                                  loadHikerPicture(
+                                                      48,
+                                                      entry["picture"]
+                                                          .toString()),
+                                                  const Gap(10),
+                                                  Flexible(
+                                                    child: FittedBox(
+                                                      fit: BoxFit.scaleDown,
+                                                      child: Text(
+                                                          entry["username"]
+                                                              .toString(),
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                                  fontSize: 16,
+                                                                  height: 1.2,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic)),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                             const Gap(15),
                                             Row(
