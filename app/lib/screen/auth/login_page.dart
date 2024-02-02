@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hikup/providers/app_state.dart';
 import 'package:hikup/providers/sound_state.dart';
@@ -29,8 +30,27 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<LoginPageViewModel>(
-      builder: (context, model, child) => ScaffoldWithCustomBg(
+    return BaseView<LoginPageViewModel>(builder: (context, model, child) {
+      void startTimer(int start) {
+        model.delay = start;
+        const oneSec = Duration(seconds: 1);
+        model.timer = Timer.periodic(
+          oneSec,
+          (Timer timer) {
+            if (model.delay == 0) {
+              setState(() {
+                timer.cancel();
+              });
+            } else {
+              setState(() {
+                model.delay = model.delay - 1;
+              });
+            }
+          },
+        );
+      }
+
+      return ScaffoldWithCustomBg(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -55,6 +75,10 @@ class _LoginPageState extends State<LoginPage> {
                               hintText: AppMessages.email,
                               validator: model.validateEmail,
                               onChange: (value) {
+                                if (model.timer != null) {
+                                  model.timer?.cancel();
+                                  model.delay = 0;
+                                }
                                 model.verifyController.text = '';
                                 if (verifyEmail == true) {
                                   setState(() {
@@ -85,7 +109,6 @@ class _LoginPageState extends State<LoginPage> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       SizedBox(
-                                          width: 160,
                                           child: CustomBtn(
                                               bgColor: Colors.transparent,
                                               borderColor: Colors.transparent,
@@ -112,7 +135,33 @@ class _LoginPageState extends State<LoginPage> {
                                     maxLine: 1,
                                   )
                                 : Container(),
-                            verifyEmail ? const Gap(20) : Container(),
+                            verifyEmail == true
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      SizedBox(
+                                          child: CustomBtn(
+                                              bgColor: Colors.transparent,
+                                              borderColor: Colors.transparent,
+                                              textColor: Colors.white,
+                                              isLoading: model.getState ==
+                                                  ViewState.resend,
+                                              disabled: model.getState ==
+                                                      ViewState.busy ||
+                                                  model.delay != 0,
+                                              onPress: () => model.resend(
+                                                  email: model
+                                                      .emailController.text,
+                                                  onDelay: (delay) {
+                                                    startTimer(delay);
+                                                  }),
+                                              content: model.delay == 0
+                                                  ? "Renvoyer un code"
+                                                  : "Renvoyer un code (${model.delay})")),
+                                    ],
+                                  )
+                                : Container(),
+                            verifyEmail ? const Gap(5) : Container(),
                             CustomBtn(
                               textColor: Colors.white,
                               content: AppMessages.login,
@@ -177,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

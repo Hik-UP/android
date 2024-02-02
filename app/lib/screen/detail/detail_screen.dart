@@ -17,24 +17,30 @@ import 'package:hikup/widget/plan_component.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final TrailFields field;
-  const DetailScreen({required this.field, super.key});
+  const DetailScreen({super.key, required this.field});
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  bool isScheduled = false;
 
   @override
   Widget build(BuildContext context) {
     AppState appState = context.read<AppState>();
     bool hikeLoading = false;
-
-    Color trailColor = field.difficulty == 1
+    Color trailColor = widget.field.difficulty == 1
         ? const Color.fromRGBO(87, 252, 255, 0.8)
-        : field.difficulty == 2
+        : widget.field.difficulty == 2
             ? const Color.fromRGBO(72, 255, 201, 0.8)
-            : field.difficulty == 3
+            : widget.field.difficulty == 3
                 ? const Color.fromRGBO(194, 283, 255, 0.8)
-                : field.difficulty == 4
+                : widget.field.difficulty == 4
                     ? const Color.fromRGBO(253, 210, 59, 0.8)
-                    : field.difficulty == 5
+                    : widget.field.difficulty == 5
                         ? const Color.fromRGBO(87, 252, 255, 0.8)
                         : Colors.transparent;
 
@@ -49,7 +55,7 @@ class DetailScreen extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               CustomSliverAppBar(
-                field: field,
+                field: widget.field,
               ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 40),
@@ -66,7 +72,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                       const Gap(5.0),
                       Text(
-                        field.description.toString(),
+                        widget.field.description.toString(),
                         textAlign: TextAlign.justify,
                         style: GoogleFonts.poppins(
                             fontSize: 12,
@@ -84,7 +90,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                       const Gap(5.0),
                       RatingBarIndicator(
-                        rating: field.difficulty.toDouble(),
+                        rating: widget.field.difficulty.toDouble(),
                         itemBuilder: (context, index) => SvgPicture.asset(
                             "assets/icons/details/lightning.svg",
                             colorFilter: const ColorFilter.mode(
@@ -106,7 +112,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                       const Gap(5.0),
                       WrapperApi().showTools(
-                        toolsBack: field.tools,
+                        toolsBack: widget.field.tools,
                       ),
                       const Gap(15.0),
                       Text(
@@ -120,12 +126,12 @@ class DetailScreen extends StatelessWidget {
                       const Gap(5.0),
                       DisplayDetailTrails(
                         fontSize: 12,
-                        trailId: field.id,
-                        duration: field.duration,
-                        distance: field.distance,
-                        upHill: field.uphill,
-                        downHill: field.downhill,
-                        difficulty: field.difficulty,
+                        trailId: widget.field.id,
+                        duration: widget.field.duration,
+                        distance: widget.field.distance,
+                        upHill: widget.field.uphill,
+                        downHill: widget.field.downhill,
+                        difficulty: widget.field.difficulty,
                       ),
                     ],
                   ),
@@ -224,6 +230,40 @@ class DetailScreen extends StatelessWidget {
                                                 formKey: model.planFormKey,
                                                 dateCtrl: model.dateCtrl,
                                                 timeCtrl: model.timeCtrl,
+                                                onDateChange: (value) {
+                                                  if (value.isNotEmpty &&
+                                                      model.timeCtrl.text
+                                                          .isNotEmpty) {
+                                                    setState(
+                                                      () {
+                                                        isScheduled = true;
+                                                      },
+                                                    );
+                                                  } else if (value.isEmpty) {
+                                                    setState(
+                                                      () {
+                                                        isScheduled = false;
+                                                      },
+                                                    );
+                                                  }
+                                                },
+                                                onTimeChange: (value) {
+                                                  if (value.isNotEmpty &&
+                                                      model.dateCtrl.text
+                                                          .isNotEmpty) {
+                                                    setState(
+                                                      () {
+                                                        isScheduled = true;
+                                                      },
+                                                    );
+                                                  } else if (value.isEmpty) {
+                                                    setState(
+                                                      () {
+                                                        isScheduled = false;
+                                                      },
+                                                    );
+                                                  }
+                                                },
                                               ),
                                               const Gap(5),
                                               Row(
@@ -237,6 +277,11 @@ class DetailScreen extends StatelessWidget {
                                                       model.planFormKey
                                                           .currentState!
                                                           .validate();
+                                                      setState(
+                                                        () {
+                                                          isScheduled = false;
+                                                        },
+                                                      );
                                                     },
                                                     child: Text("Réinitialiser",
                                                         style:
@@ -254,7 +299,11 @@ class DetailScreen extends StatelessWidget {
                                                 children: [
                                                   Expanded(
                                                       child: CustomBtn(
-                                                          content: "Commencer",
+                                                          content:
+                                                              isScheduled ==
+                                                                      false
+                                                                  ? "Commencer"
+                                                                  : "Planifier",
                                                           isLoading:
                                                               hikeLoading,
                                                           onPress: () {
@@ -271,8 +320,8 @@ class DetailScreen extends StatelessWidget {
                                                               model.createAHike(
                                                                   appState:
                                                                       appState,
-                                                                  trailField:
-                                                                      field,
+                                                                  trailField: widget
+                                                                      .field,
                                                                   timeStamps: model
                                                                               .dateCtrl
                                                                               .text
@@ -335,7 +384,7 @@ class DetailScreen extends StatelessWidget {
                       bgColor: trailColor.withOpacity(0.2),
                       borderColor: trailColor,
                       onPress: () => openURL(
-                          "https://maps.google.com/?q=${field.latitude},${field.longitude}")),
+                          "https://maps.google.com/?q=${widget.field.latitude},${widget.field.longitude}")),
                 ),
               ]))),
     );

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/model/skin.dart';
@@ -20,6 +21,8 @@ class LoginPageViewModel extends BaseModel {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final verifyController = TextEditingController();
+  Timer? timer;
+  int delay = 0;
 
   String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
@@ -148,6 +151,43 @@ class LoginPageViewModel extends BaseModel {
     }
   }
 
+  resend({required String email, required Function(int delay) onDelay}) async {
+    try {
+      setState(ViewState.resend);
+
+      final response = await _dioService.post(
+        path: resendTokenPath,
+        body: {
+          "user": {"email": email},
+          "token": {"type": 0}
+        },
+      );
+
+      onDelay(response.data['delay']);
+      _navigationService.showSnackBack(
+        content: "Un nouveau code vous a été envoyé par email",
+        isError: false,
+      );
+      setState(ViewState.retrieved);
+    } catch (e) {
+      if (e is DioException && e.response!.statusCode == 403) {
+        onDelay(e.response!.data['delay'].round());
+        _navigationService.showSnackBack(
+          content:
+              "Veuillez patienter ${e.response!.data['delay'].round()} secondes",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      } else {
+        _navigationService.showSnackBack(
+          content: "Une erreur est survenue",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      }
+    }
+  }
+
   verify({
     required String email,
     required password,
@@ -215,6 +255,11 @@ class LoginPageViewModel extends BaseModel {
           Skin.addSkinOnHive(skin: skin, skinBox: skinUserBox);
           appState.updateSkinState(value: skin);
           await appState.storeInHive(user: newUser);
+
+          if (timer != null) {
+            timer?.cancel();
+            delay = 0;
+          }
 
           MixpanelManager.track('login', properties: {'id': user.id});
 

@@ -9,11 +9,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 class PlanComponent extends StatefulWidget {
   final TextEditingController dateCtrl;
   final TextEditingController timeCtrl;
+  final Function(String value) onDateChange;
+  final Function(String value) onTimeChange;
   final Key? formKey;
   const PlanComponent(
       {super.key,
       required this.dateCtrl,
       required this.timeCtrl,
+      required this.onDateChange,
+      required this.onTimeChange,
       this.formKey});
 
   @override
@@ -102,9 +106,8 @@ class _PlanComponentState extends State<PlanComponent> {
                   if (pickedDate != null) {
                     String formateDate =
                         DateFormat('dd/MM/yyyy').format(pickedDate);
-                    setState(() {
-                      widget.dateCtrl.text = formateDate;
-                    });
+                    widget.dateCtrl.text = formateDate;
+                    widget.onDateChange(widget.dateCtrl.text);
                   }
                 },
               ),
@@ -113,6 +116,7 @@ class _PlanComponentState extends State<PlanComponent> {
                 hintText: 'Heure',
                 controller: widget.timeCtrl,
                 validator: validateTime,
+                onChange: (value) => widget.onTimeChange(value),
                 prefixIcon: SvgPicture.asset(
                   stopWatchIcon,
                   width: 14.0,
@@ -164,6 +168,7 @@ class _PlanComponentState extends State<PlanComponent> {
                   if (pickHours != null) {
                     widget.timeCtrl.text =
                         "${pickHours.hour.toString().padLeft(2, '0')}:${pickHours.minute.toString().padLeft(2, '0')}";
+                    widget.onTimeChange(widget.timeCtrl.text);
                   }
                 },
               ),

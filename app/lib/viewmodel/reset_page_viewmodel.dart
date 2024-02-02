@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hikup/locator.dart';
 import 'package:hikup/providers/app_state.dart';
@@ -20,6 +21,8 @@ class ResetPageModel extends BaseModel {
   final tokenFormKey = GlobalKey<FormFieldState>();
   final passwordFormKey = GlobalKey<FormFieldState>();
   final passwordConfirmFormKey = GlobalKey<FormFieldState>();
+  Timer? timer;
+  int delay = 0;
 
   String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
@@ -95,6 +98,43 @@ class ResetPageModel extends BaseModel {
     }
   }
 
+  resend({required String email, required Function(int delay) onDelay}) async {
+    try {
+      setState(ViewState.resend);
+
+      final response = await _dioService.post(
+        path: resendTokenPath,
+        body: {
+          "user": {"email": email},
+          "token": {"type": 2}
+        },
+      );
+
+      onDelay(response.data['delay']);
+      _navigationService.showSnackBack(
+        content: "Un nouveau code vous a été envoyé par email",
+        isError: false,
+      );
+      setState(ViewState.retrieved);
+    } catch (e) {
+      if (e is DioException && e.response!.statusCode == 403) {
+        onDelay(e.response!.data['delay'].round());
+        _navigationService.showSnackBack(
+          content:
+              "Veuillez patienter ${e.response!.data['delay'].round()} secondes",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      } else {
+        _navigationService.showSnackBack(
+          content: "Une erreur est survenue",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      }
+    }
+  }
+
   verify(
       {required AppState appState,
       required String email,
@@ -113,6 +153,10 @@ class ResetPageModel extends BaseModel {
       setState(ViewState.retrieved);
     } catch (e) {
       if (e is DioException && e.response!.statusCode == 403) {
+        if (timer != null) {
+          timer?.cancel();
+          delay = 0;
+        }
         onVerify();
         _navigationService.showSnackBack(
           content: "Veuillez changer votre mot de passe",

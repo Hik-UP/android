@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hikup/locator.dart';
@@ -26,6 +27,8 @@ class UpdateProfilModel extends BaseModel {
   final mailFormKey = GlobalKey<FormFieldState>();
   final tokenFormKey = GlobalKey<FormFieldState>();
   String verifyEmail = '';
+  Timer? timer;
+  int delay = 0;
 
   String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
@@ -92,6 +95,10 @@ class UpdateProfilModel extends BaseModel {
             roles: appState.roles,
             token: appState.token,
           ));
+          if (timer != null) {
+            timer?.cancel();
+            delay = 0;
+          }
           _navigationService.showSnackBack(
             content: "Modification d'adresse email annulée",
             isError: false,
@@ -106,6 +113,43 @@ class UpdateProfilModel extends BaseModel {
         isError: false,
       );
       setState(ViewState.retrieved);
+    }
+  }
+
+  resend({required String email, required Function(int delay) onDelay}) async {
+    try {
+      setState(ViewState.resend);
+
+      final response = await _dioService.post(
+        path: resendTokenPath,
+        body: {
+          "user": {"email": email},
+          "token": {"type": 1}
+        },
+      );
+
+      onDelay(response.data['delay']);
+      _navigationService.showSnackBack(
+        content: "Un nouveau code vous a été envoyé par email",
+        isError: false,
+      );
+      setState(ViewState.retrieved);
+    } catch (e) {
+      if (e is DioException && e.response!.statusCode == 403) {
+        onDelay(e.response!.data['delay'].round());
+        _navigationService.showSnackBack(
+          content:
+              "Veuillez patienter ${e.response!.data['delay'].round()} secondes",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      } else {
+        _navigationService.showSnackBack(
+          content: "Une erreur est survenue",
+          isError: true,
+        );
+        setState(ViewState.retrieved);
+      }
     }
   }
 
@@ -302,6 +346,10 @@ class UpdateProfilModel extends BaseModel {
             roles: appState.roles,
             token: appState.token,
           ));
+          if (timer != null) {
+            timer?.cancel();
+            delay = 0;
+          }
           verifyEmail = '';
           _navigationService.showSnackBack(
             content: "Votre adresse email a été changée",
