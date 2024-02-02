@@ -90,7 +90,7 @@ class _ResetPageState extends State<ResetPage> {
             appBar: AppBar(
               toolbarHeight: kTextTabBarHeight,
               title: Text(
-                "Réinitialisation",
+                isReset == true ? "Réinitialisation" : "Mot de passe",
                 style: titleTextStyleWhite,
               ),
               iconTheme: const IconThemeData(
