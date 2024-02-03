@@ -22,7 +22,7 @@ class DetailScreenViewModel extends BaseModel {
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(value)) {
       if (emailFriends.contains(value) == false) {
-        emailFriends.add(value);
+        emailFriends.add(value.toLowerCase());
       }
     }
   }
