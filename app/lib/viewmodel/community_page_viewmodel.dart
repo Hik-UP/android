@@ -21,11 +21,11 @@ class CommunityPageViewModel extends BaseModel {
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
-  void getImage(ImageSource media) async {
+  void getImage(ImageSource media, Function(XFile?) onSelect) async {
     var img = await picker.pickImage(source: media);
 
-    image = img;
-    notifyListeners();
+    onSelect(img);
+    //image = img;
   }
 
   void closeThumbmail() {
