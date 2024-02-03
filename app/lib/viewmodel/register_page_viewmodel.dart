@@ -45,6 +45,8 @@ class RegisterPageViewModel extends BaseModel {
   String? validatePasswordConfirm(String? password) {
     if (password == null || password.isEmpty) {
       return "Confirmation obligatoire";
+    } else if (!Validation.passwordValidator(password)) {
+      return AppMessages.atLeastHeightChar;
     } else if (passwordController.text.isNotEmpty &&
         password != passwordController.text) {
       return "Doivent être identiques";
