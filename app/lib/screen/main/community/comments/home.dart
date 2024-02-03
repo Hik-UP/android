@@ -129,22 +129,12 @@ class _CommunityViewState extends State<CommunityView> {
                                 onPressed: () {
                                   FileUploadCmp.myAlert(
                                     context: context,
-                                    getImageGallery: () => model
-                                        .getImage(ImageSource.gallery, (img) {
-                                      if (img != null) {
-                                        setState(() {
-                                          model.image = img;
-                                        });
-                                      }
-                                    }),
-                                    getImageCamera: () => model
-                                        .getImage(ImageSource.camera, (img) {
-                                      if (img != null) {
-                                        setState(() {
-                                          model.image = img;
-                                        });
-                                      }
-                                    }),
+                                    getImageGallery: () => model.getImage(
+                                      ImageSource.gallery,
+                                    ),
+                                    getImageCamera: () => model.getImage(
+                                      ImageSource.camera,
+                                    ),
                                   );
                                 },
                                 icon: const Icon(Icons.menu),
@@ -271,22 +261,12 @@ class _CommunityViewState extends State<CommunityView> {
                                 onPressed: () {
                                   FileUploadCmp.myAlert(
                                     context: context,
-                                    getImageGallery: () => model
-                                        .getImage(ImageSource.gallery, (img) {
-                                      if (img != null) {
-                                        setState(() {
-                                          model.image = img;
-                                        });
-                                      }
-                                    }),
-                                    getImageCamera: () => model
-                                        .getImage(ImageSource.camera, (img) {
-                                      if (img != null) {
-                                        setState(() {
-                                          model.image = img;
-                                        });
-                                      }
-                                    }),
+                                    getImageGallery: () => model.getImage(
+                                      ImageSource.gallery,
+                                    ),
+                                    getImageCamera: () => model.getImage(
+                                      ImageSource.camera,
+                                    ),
                                   );
                                 },
                                 icon: const Icon(Icons.camera_alt),
