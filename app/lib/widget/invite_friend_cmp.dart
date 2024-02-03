@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:gap/gap.dart';
-import 'package:dio/dio.dart';
 import 'package:hikup/utils/app_messages.dart';
 import 'package:hikup/utils/constant.dart';
 import 'package:hikup/widget/custom_btn.dart';
@@ -11,7 +10,6 @@ import 'package:hikup/providers/app_state.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/service/dio_service.dart';
 import 'package:hikup/locator.dart';
-import 'package:hikup/service/custom_navigation.dart';
 
 class InviteFriendCmp extends StatefulWidget {
   final Function(String data) value;
@@ -33,7 +31,6 @@ class _InviteFriendCmpState extends State<InviteFriendCmp> {
   bool isDisabled = true;
   bool isUserExist = true;
   final _dioService = locator<DioService>();
-  final _navigationService = locator<CustomNavigationService>();
   bool addLoading = false;
 
   @override
@@ -52,7 +49,7 @@ class _InviteFriendCmpState extends State<InviteFriendCmp> {
           token: "Bearer ${appState.token}",
           body: {
             "user": user,
-            "other": {"email": email}
+            "other": {"email": email.toLowerCase()}
           },
         );
         if (result.statusCode == 200) {
