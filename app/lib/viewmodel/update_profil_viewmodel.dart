@@ -110,7 +110,7 @@ class UpdateProfilModel extends BaseModel {
     } catch (e) {
       _navigationService.showSnackBack(
         content: "Une erreur est survenue",
-        isError: false,
+        isError: true,
       );
       setState(ViewState.retrieved);
     }
@@ -123,7 +123,7 @@ class UpdateProfilModel extends BaseModel {
       final response = await _dioService.post(
         path: resendTokenPath,
         body: {
-          "user": {"email": email},
+          "user": {"email": email.toLowerCase()},
           "token": {"type": 1}
         },
       );
@@ -185,15 +185,15 @@ class UpdateProfilModel extends BaseModel {
       //Same for the email
       if (userImage == null &&
           username == appState.username &&
-          email == appState.email) {
+          email.toLowerCase() == appState.email) {
         setState(ViewState.retrieved);
         _navigationService.showSnackBack(
           content: AppMessages.nothingChange,
         );
         return;
       }
-      if (email != appState.email) {
-        user["email"] = email;
+      if (email.toLowerCase() != appState.email) {
+        user["email"] = email.toLowerCase();
       }
       if (username != appState.username) {
         user["username"] = username;
@@ -270,7 +270,7 @@ class UpdateProfilModel extends BaseModel {
         } else {
           _navigationService.showSnackBack(
             content: "Une erreur est survenue",
-            isError: false,
+            isError: true,
           );
           setState(ViewState.retrieved);
         }
@@ -311,8 +311,8 @@ class UpdateProfilModel extends BaseModel {
         "roles": appState.roles,
       };
 
-      if (email != appState.email) {
-        user["email"] = email;
+      if (email.toLowerCase() != appState.email) {
+        user["email"] = email.toLowerCase();
       }
       setState(ViewState.update);
       var result = await _dioService.put(

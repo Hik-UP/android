@@ -76,7 +76,7 @@ class ResetPageModel extends BaseModel {
       await _dioService.put(
         path: resetPasswordPath,
         body: {
-          "user": {"email": email},
+          "user": {"email": email.toLowerCase()},
         },
       );
       setState(ViewState.retrieved);
@@ -105,7 +105,7 @@ class ResetPageModel extends BaseModel {
       final response = await _dioService.post(
         path: resendTokenPath,
         body: {
-          "user": {"email": email},
+          "user": {"email": email.toLowerCase()},
           "token": {"type": 2}
         },
       );
@@ -146,7 +146,7 @@ class ResetPageModel extends BaseModel {
       await _dioService.put(
         path: resetPasswordPath,
         body: {
-          "user": {"email": email},
+          "user": {"email": email.toLowerCase()},
           "verify": {"token": token}
         },
       );
@@ -185,7 +185,7 @@ class ResetPageModel extends BaseModel {
       await _dioService.put(
         path: resetPasswordPath,
         body: {
-          "user": {"email": email, "password": password},
+          "user": {"email": email.toLowerCase(), "password": password},
           "verify": {"token": token}
         },
       );

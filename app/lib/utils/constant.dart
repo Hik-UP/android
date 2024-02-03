@@ -12,7 +12,17 @@ import '../screen/main/mapbox/mapbox_screen.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
-enum ViewState { idle, busy, retrieved, deletion, join, create, update, resend }
+enum ViewState {
+  idle,
+  busy,
+  retrieved,
+  deletion,
+  join,
+  create,
+  update,
+  resend,
+  check
+}
 
 enum TypeOfHike { organized, guest, attendee }
 
@@ -51,6 +61,7 @@ const loginPath = "/auth/login";
 const getTrailsPath = "/trail/retrieve";
 const getProfilePath = "/user/profile";
 const updateProfilePath = "/user/profile/update";
+const checkUserPath = '/user/check';
 const resetPasswordPath = "/auth/reset";
 const resendTokenPath = "/auth/resend";
 const getDetailsPath = "/trail/details";

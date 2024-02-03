@@ -327,7 +327,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             verifyEmail = true;
                           });
                         } else if (verifyEmail == false) {
-                          model.verifyEmail = model.emailCtrl.text;
+                          model.verifyEmail =
+                              model.emailCtrl.text.toLowerCase();
                           model.updateProfile(
                               appState: appState,
                               username: model.usernameCtrl.text,

@@ -63,7 +63,7 @@ class RegisterPageViewModel extends BaseModel {
       var response = await _dioService.post(path: '/auth/signup', body: {
         "user": {
           "username": username,
-          "email": email,
+          "email": email.toLowerCase(),
           "password": password,
         }
       });

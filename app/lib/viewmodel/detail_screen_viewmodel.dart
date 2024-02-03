@@ -21,7 +21,9 @@ class DetailScreenViewModel extends BaseModel {
     if (RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(value)) {
-      emailFriends.add(value);
+      if (emailFriends.contains(value) == false) {
+        emailFriends.add(value);
+      }
     }
   }
 

@@ -66,7 +66,7 @@ class LoginPageViewModel extends BaseModel {
         path: loginPath,
         body: {
           "user": {
-            "email": email,
+            "email": email.toLowerCase(),
             "password": password,
           }
         },
@@ -158,7 +158,7 @@ class LoginPageViewModel extends BaseModel {
       final response = await _dioService.post(
         path: resendTokenPath,
         body: {
-          "user": {"email": email},
+          "user": {"email": email.toLowerCase()},
           "token": {"type": 0}
         },
       );
@@ -201,7 +201,7 @@ class LoginPageViewModel extends BaseModel {
         path: loginPath,
         body: {
           "user": {
-            "email": email,
+            "email": email.toLowerCase(),
             "password": password,
           },
           "verify": {"token": token}
