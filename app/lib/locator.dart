@@ -5,6 +5,7 @@ import 'package:hikup/service/firebase_storage.dart';
 import 'package:hikup/service/hive_service.dart';
 import 'package:hikup/viewmodel/all_event_viewmodel.dart';
 import 'package:hikup/viewmodel/comment_card_viewmodel.dart';
+import 'package:hikup/viewmodel/comment_bar_viewmodel.dart';
 import 'package:hikup/viewmodel/community_page_viewmodel.dart';
 import 'package:hikup/viewmodel/complete_profile_viewmodel.dart';
 import 'package:hikup/viewmodel/create_event_viewmodel.dart';
@@ -57,4 +58,5 @@ void setupLocator() {
   locator.registerFactory(() => EventCardViewModel());
   locator.registerFactory(() => NotifyViewModel());
   locator.registerFactory(() => CommentCardViewModel());
+  locator.registerFactory(() => CommentBarViewModel());
 }
