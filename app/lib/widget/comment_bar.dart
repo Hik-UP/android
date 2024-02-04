@@ -57,15 +57,11 @@ class _CommentBarState extends State<CommentBar> {
                         children: [
                           Row(children: [
                             Expanded(
-                              child: Container(
+                              child: SizedBox(
                                 width: double.maxFinite,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: BlackPrimary,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
                                 child: TextFormField(
+                                  key: model.commentFormKey,
+                                  validator: model.validateComment,
                                   focusNode: model.inputFocus,
                                   maxLines: 2,
                                   controller: model.textController,
@@ -74,11 +70,21 @@ class _CommentBarState extends State<CommentBar> {
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
                                       color: Colors.white),
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     hintText: 'Ajouter un avis',
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    hintStyle: TextStyle(
+                                    prefix: const Padding(
+                                        padding: EdgeInsets.only(left: 15.0)),
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        0, 15, 15, 15),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    fillColor: BlackPrimary,
+                                    hintStyle: const TextStyle(
                                       color: Colors.grey,
                                     ),
                                   ),
@@ -122,12 +128,17 @@ class _CommentBarState extends State<CommentBar> {
                                             padding: const EdgeInsets.all(0.0),
                                             iconSize: 20,
                                             color: Colors.white,
-                                            onPressed: () =>
+                                            onPressed: () {
+                                              if (model
+                                                  .commentFormKey.currentState!
+                                                  .validate()) {
                                                 model.submitMessage(
-                                              appState: appState,
-                                              trailId: widget.trailId,
-                                              update: () => widget.update(),
-                                            ),
+                                                  appState: appState,
+                                                  trailId: widget.trailId,
+                                                  update: () => widget.update(),
+                                                );
+                                              }
+                                            },
                                             icon: const Icon(
                                               Icons.send_outlined,
                                             ),

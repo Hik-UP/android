@@ -28,9 +28,19 @@ class UpdateCommentDialogue extends StatefulWidget {
 
 class _UpdateCommentDialogueState extends State<UpdateCommentDialogue> {
   final _customNavigationService = locator<CustomNavigationService>();
+  final commentFormKey = GlobalKey<FormFieldState>();
   final _dioService = DioService();
   bool editLoading = false;
   bool deleteLoading = false;
+
+  String? validateComment(String? comment) {
+    if (comment == null || comment.isEmpty) {
+      return "Vous devez écrire un avis";
+    } else if (comment.length > 2048) {
+      return "Ne peut avoir plus de 2048 caractères";
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +61,9 @@ class _UpdateCommentDialogueState extends State<UpdateCommentDialogue> {
           ),
           const Gap(20.0),
           CustomTextField(
+            formKey: commentFormKey,
             controller: widget.controller,
+            validator: validateComment,
           ),
           const Gap(15.0),
           Row(
@@ -62,36 +74,39 @@ class _UpdateCommentDialogueState extends State<UpdateCommentDialogue> {
                 content: AppMessages.updateCommentLabel,
                 onPress: () async {
                   try {
-                    setState(() {
-                      editLoading = true;
-                    });
-                    await _dioService.put(
-                      path: updateCommentPath,
-                      body: {
-                        "user": {
-                          "id": appState.id,
-                          "roles": appState.roles,
+                    if (commentFormKey.currentState!.validate()) {
+                      setState(() {
+                        editLoading = true;
+                      });
+                      await _dioService.put(
+                        path: updateCommentPath,
+                        body: {
+                          "user": {
+                            "id": appState.id,
+                            "roles": appState.roles,
+                          },
+                          "comment": {
+                            "id": widget.commentId,
+                            "body": widget.controller.text,
+                          },
                         },
-                        "comment": {
-                          "id": widget.commentId,
-                          "body": widget.controller.text,
-                        },
-                      },
-                      token: 'Bearer ${appState.token}',
-                    );
-                    setState(() {
-                      editLoading = false;
-                    });
-                    _customNavigationService.showSnackBack(
-                      content: "Votre commentaire a été édité",
-                      isError: false,
-                    );
-                    widget.update();
+                        token: 'Bearer ${appState.token}',
+                      );
+                      setState(() {
+                        editLoading = false;
+                      });
+                      _customNavigationService.showSnackBack(
+                        content: "Votre commentaire a été édité",
+                        isError: false,
+                      );
+                      widget.update();
+                    }
                   } catch (e) {
                     _customNavigationService.showSnackBack(
                       content: "Une erreur est survenue",
                       isError: true,
                     );
+                    widget.update();
                   }
                 },
               )),
@@ -133,6 +148,7 @@ class _UpdateCommentDialogueState extends State<UpdateCommentDialogue> {
                         content: "Une erreur est survenue",
                         isError: true,
                       );
+                      widget.update();
                     }
                   },
                 ),

@@ -12,12 +12,22 @@ import 'package:image_picker/image_picker.dart';
 
 class CommentBarViewModel extends BaseModel {
   final dioService = locator<DioService>();
+  final commentFormKey = GlobalKey<FormFieldState>();
   final custonNavigationService = locator<CustomNavigationService>();
   final TextEditingController textController = TextEditingController();
   final firebaseStorage = locator<FirebaseStorageService>();
   FocusNode inputFocus = FocusNode();
   XFile? image;
   final ImagePicker picker = ImagePicker();
+
+  String? validateComment(String? comment) {
+    if (comment == null || comment.isEmpty) {
+      return "Vous devez écrire un avis";
+    } else if (comment.length > 2048) {
+      return "Ne peut avoir plus de 2048 caractères";
+    }
+    return null;
+  }
 
   void getImage(ImageSource media) async {
     var img = await picker.pickImage(source: media);
