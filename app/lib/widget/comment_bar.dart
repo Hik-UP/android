@@ -40,7 +40,9 @@ class _CommentBarState extends State<CommentBar> {
                       padding: const EdgeInsets.only(left: 12.0, bottom: 10.0),
                       child: ThumbailImg(
                         file: File(model.image!.path),
-                        action: () => model.closeThumbmail(),
+                        action: () => setState(() {
+                          model.image = null;
+                        }),
                       ),
                     ),
                   Container(
@@ -106,11 +108,17 @@ class _CommentBarState extends State<CommentBar> {
                                         FileUploadCmp.myAlert(
                                           context: context,
                                           getImageGallery: () => model.getImage(
-                                            ImageSource.gallery,
-                                          ),
+                                              ImageSource.gallery, (image) {
+                                            setState(() {
+                                              model.image = image;
+                                            });
+                                          }),
                                           getImageCamera: () => model.getImage(
-                                            ImageSource.camera,
-                                          ),
+                                              ImageSource.camera, (image) {
+                                            setState(() {
+                                              model.image = image;
+                                            });
+                                          }),
                                         );
                                       },
                                       icon: const Icon(Icons.camera_alt),
@@ -135,7 +143,12 @@ class _CommentBarState extends State<CommentBar> {
                                                 model.submitMessage(
                                                   appState: appState,
                                                   trailId: widget.trailId,
-                                                  update: () => widget.update(),
+                                                  update: () {
+                                                    setState(() {
+                                                      model.image = null;
+                                                    });
+                                                    widget.update();
+                                                  },
                                                 );
                                               }
                                             },

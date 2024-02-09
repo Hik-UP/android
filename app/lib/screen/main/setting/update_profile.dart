@@ -13,11 +13,11 @@ import 'package:hikup/widget/base_view.dart';
 import 'package:hikup/widget/custom_btn.dart';
 import 'package:hikup/widget/custom_text_field.dart';
 import 'package:hikup/widget/scaffold_with_custom_bg.dart';
-import 'package:hikup/widget/upload_picture.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:hikup/screen/main/setting/settings_screen.dart';
 import 'package:hikup/screen/auth/reset_page.dart';
+import 'package:hikup/widget/file_upload_cmp.dart';
 
 import '../../../theme.dart';
 import '../../../utils/constant.dart';
@@ -125,11 +125,17 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             bottom: -12,
                             child: GestureDetector(
                               onTap: () async {
-                                var result = await showModalBottomSheet(
+                                FileUploadCmp.myAlert(
                                   context: context,
-                                  builder: (context) => const UplaodPicture(),
-                                ) as XFile?;
-                                model.setUserImage(value: result);
+                                  getImageGallery: () => model
+                                      .getImage(ImageSource.gallery, (image) {
+                                    model.setUserImage(value: image);
+                                  }),
+                                  getImageCamera: () => model
+                                      .getImage(ImageSource.camera, (image) {
+                                    model.setUserImage(value: image);
+                                  }),
+                                );
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(5),

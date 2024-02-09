@@ -26,6 +26,7 @@ class UpdateProfilModel extends BaseModel {
   final nameFormKey = GlobalKey<FormFieldState>();
   final mailFormKey = GlobalKey<FormFieldState>();
   final tokenFormKey = GlobalKey<FormFieldState>();
+  final ImagePicker picker = ImagePicker();
   String verifyEmail = '';
   Timer? timer;
   int delay = 0;
@@ -48,6 +49,12 @@ class UpdateProfilModel extends BaseModel {
       return "6 caractères alphanumériques";
     }
     return null;
+  }
+
+  void getImage(ImageSource media, Function(XFile? img) onSelect) async {
+    var img = await picker.pickImage(source: media);
+
+    onSelect(img);
   }
 
   setUserImage({XFile? value}) {

@@ -29,16 +29,10 @@ class CommentBarViewModel extends BaseModel {
     return null;
   }
 
-  void getImage(ImageSource media) async {
+  void getImage(ImageSource media, Function(XFile? img) onSelect) async {
     var img = await picker.pickImage(source: media);
 
-    image = img;
-    notifyListeners();
-  }
-
-  void closeThumbmail() {
-    image = null;
-    notifyListeners();
+    onSelect(img);
   }
 
   void submitMessage({
@@ -94,6 +88,5 @@ class CommentBarViewModel extends BaseModel {
     inputFocus.unfocus();
 
     update();
-    closeThumbmail();
   }
 }
